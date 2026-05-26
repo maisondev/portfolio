@@ -1,0 +1,27 @@
+---
+import Button from '@/components/ui/Button.astro';
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<section id={id} class="py-20 space-y-8">
+  <div class="space-y-4">
+    <h2 class="text-3xl sm:text-4xl font-bold text-[#fafafa]">Contato</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      Tem interesse em trabalhar comigo ou quer conversar sobre tecnologia? Fico feliz em conversar!
+    </p>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-4">
+    <Button href="mailto:maisongalvao@outlook.com" variant="primary">
+      Enviar Email
+    </Button>
+    <Button href="https://linkedin.com/in/maisongalvao" variant="secondary" target="_blank">
+      LinkedIn
+    </Button>
+  </div>
+</section>

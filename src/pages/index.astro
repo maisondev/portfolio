@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import About from '@/components/sections/About.astro';
+import Projects from '@/components/sections/Projects.astro';
+import Contact from '@/components/sections/Contact.astro';
+---
+
+<BaseLayout
+  title="Maison Galvão - Software Developer"
+  description="Portfolio de Maison Galvão - Software Developer com foco em JavaScript, TypeScript e Web Development"
+>
+  <Hero
+    name="Maison Galvão"
+    title="Software Developer"
+    description="Desenvolvedor focado em criar soluções modernas e escaláveis com JavaScript, TypeScript e tecnologias web. Apaixonado por código limpo, boas práticas e aprendizado contínuo."
+  />
+
+  <About id="about" />
+  <Projects id="projects" />
+  <Contact id="contact" />
+</BaseLayout>

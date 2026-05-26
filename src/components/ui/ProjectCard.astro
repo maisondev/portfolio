@@ -1,0 +1,49 @@
+---
+import Badge from './Badge.astro';
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  github?: string;
+  demo?: string;
+  image?: string;
+}
+
+const { title, description, tags, github, demo, image } = Astro.props;
+---
+
+<div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 hover:border-accent-500/50 transition-all duration-300 space-y-4">
+  {image && (
+    <img
+      src={image}
+      alt={title}
+      class="w-full h-48 object-cover rounded-md"
+    />
+  )}
+
+  <div class="space-y-2">
+    <h3 class="text-xl font-bold text-[#fafafa]">{title}</h3>
+    <p class="text-[#d4d4d8]">{description}</p>
+  </div>
+
+  <div class="flex flex-wrap gap-2">
+    {tags.map((tag) => (
+      <Badge text={tag} variant="secondary" />
+    ))}
+  </div>
+
+  <div class="flex gap-3 pt-2">
+    {demo && (
+      <Button href={demo} variant="primary" target="_blank">
+        Visitar
+      </Button>
+    )}
+    {github && (
+      <Button href={github} variant="secondary" target="_blank">
+        Código
+      </Button>
+    )}
+  </div>
+</div>

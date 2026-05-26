@@ -1,0 +1,51 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const skills = [
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Vue.js',
+  'Tailwind CSS',
+  'Node.js',
+  'PostgreSQL',
+  'Git',
+];
+---
+
+<section id={id} class="py-20 space-y-12">
+  <div class="space-y-4">
+    <h2 class="text-3xl sm:text-4xl font-bold text-[#fafafa]">Sobre</h2>
+    <p class="text-[#d4d4d8] text-lg leading-relaxed max-w-3xl">
+      Sou um desenvolvedor full-stack com experiência em criar aplicações web modernas e de alto desempenho.
+      Tenho paixão por escrever código limpo, escalável e bem testado. Estou sempre aprendendo novas tecnologias
+      e buscando a melhor forma de resolver problemas.
+    </p>
+  </div>
+
+  <div class="space-y-4">
+    <h3 class="text-xl font-semibold text-[#fafafa]">Stack Técnico</h3>
+    <div class="flex flex-wrap gap-2">
+      {skills.map((skill) => (
+        <Badge text={skill} variant="primary" />
+      ))}
+    </div>
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-8">
+    <div class="space-y-2">
+      <h3 class="text-lg font-semibold text-accent-500">📍 Localização</h3>
+      <p class="text-[#d4d4d8]">Brasil</p>
+    </div>
+    <div class="space-y-2">
+      <h3 class="text-lg font-semibold text-accent-500">💼 Experiência</h3>
+      <p class="text-[#d4d4d8]">+2 anos desenvolvendo soluções web</p>
+    </div>
+  </div>
+</section>

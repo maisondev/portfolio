@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(git *)",
+      "PowerShell(npm create *)",
+      "Bash(Get-Content -Path \"C:\\\\Users\\\\maiso\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-maiso-WebstormProjects-untitled\\\\2ede51a2-b837-41c9-a486-60385eadcfe8\\\\tasks\\\\bhx49vxv4.output\" -Wait)",
+      "Bash(Select-Object -Last 1)",
+      "Bash(npm create *)",
+      "PowerShell(Remove-Item *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}

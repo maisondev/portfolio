@@ -1,0 +1,45 @@
+---
+import Button from '@/components/ui/Button.astro';
+
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+}
+
+const { name, title, description } = Astro.props;
+---
+
+<section class="min-h-[60vh] flex flex-col justify-center gap-8 py-20">
+  <div class="space-y-4">
+    <h1 class="text-4xl sm:text-6xl font-bold text-[#fafafa]">
+      {name}
+    </h1>
+    <h2 class="text-xl sm:text-2xl text-accent-500 font-semibold">
+      {title}
+    </h2>
+    <p class="text-[#d4d4d8] text-lg max-w-2xl leading-relaxed">
+      {description}
+    </p>
+  </div>
+
+  <div class="flex flex-wrap gap-4 pt-4">
+    <Button
+      href="https://github.com/maisongalvao"
+      variant="primary"
+      target="_blank"
+    >
+      GitHub
+    </Button>
+    <Button
+      href="https://linkedin.com/in/maisongalvao"
+      variant="secondary"
+      target="_blank"
+    >
+      LinkedIn
+    </Button>
+    <Button href="mailto:maisongalvao@outlook.com" variant="secondary">
+      Contato
+    </Button>
+  </div>
+</section>
