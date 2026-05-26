@@ -3,7 +3,8 @@ import { getLanguageFromUrl, languages, changeLanguageUrl } from '@/i18n/utils';
 
 const lang = getLanguageFromUrl(Astro.url);
 const otherLang = lang === 'pt' ? 'en' : 'pt';
-const newUrl = changeLanguageUrl(Astro.url, otherLang);
+const ptUrl = changeLanguageUrl(Astro.url, 'pt');
+const enUrl = changeLanguageUrl(Astro.url, 'en');
 ---
 
 <div class="flex items-center gap-2">
@@ -35,7 +36,7 @@ const newUrl = changeLanguageUrl(Astro.url, otherLang);
       class="absolute right-0 mt-2 w-40 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
     >
       <a
-        href="/pt{Astro.url.pathname === '/' || Astro.url.pathname.startsWith('/pt') ? Astro.url.pathname.replace(/^\/pt/, '') || '/' : Astro.url.pathname}"
+        href={ptUrl}
         class={`block px-4 py-2 text-sm rounded-t-lg transition-colors ${
           lang === 'pt'
             ? 'bg-accent-500/20 text-accent-400'
@@ -45,7 +46,7 @@ const newUrl = changeLanguageUrl(Astro.url, otherLang);
         🇧🇷 Português
       </a>
       <a
-        href="/en{Astro.url.pathname === '/' || Astro.url.pathname.startsWith('/pt') ? Astro.url.pathname.replace(/^\/pt/, '') || '/' : Astro.url.pathname}"
+        href={enUrl}
         class={`block px-4 py-2 text-sm rounded-b-lg transition-colors ${
           lang === 'en'
             ? 'bg-accent-500/20 text-accent-400'
