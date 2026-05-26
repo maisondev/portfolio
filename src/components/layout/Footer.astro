@@ -1,30 +1,105 @@
 ---
+import SocialLinks from '@/components/ui/SocialLinks.astro';
+
 const year = new Date().getFullYear();
+
+const links = [
+  { label: 'Home', href: '/' },
+  { label: 'Projetos', href: '/projects' },
+  { label: 'Experiência', href: '/experience' },
+  { label: 'Educação', href: '/education' },
+  { label: 'Blog', href: '/blog' },
+];
 ---
 
 <footer class="bg-[#0a0a0a] border-t border-[#2a2a2a] mt-20">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="text-[#d4d4d8] text-sm">
-        © {year} Maison Galvão. Todos os direitos reservados.
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <!-- Links Section -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 mb-12">
+      <div>
+        <h3 class="text-[#fafafa] font-semibold mb-4">Navegação</h3>
+        <ul class="space-y-2">
+          {links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-[#d4d4d8] hover:text-accent-500 transition-colors text-sm"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div class="flex gap-4">
-        <a
-          href="https://github.com/maisongalvao"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-[#d4d4d8] hover:text-[#fafafa] transition-colors"
-        >
-          GitHub
-        </a>
-        <a
-          href="https://linkedin.com/in/maisongalvao"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-[#d4d4d8] hover:text-[#fafafa] transition-colors"
-        >
-          LinkedIn
-        </a>
+
+      <div>
+        <h3 class="text-[#fafafa] font-semibold mb-4">Contato</h3>
+        <ul class="space-y-2">
+          <li>
+            <a
+              href="mailto:maisongalvao@outlook.com"
+              class="text-[#d4d4d8] hover:text-accent-500 transition-colors text-sm"
+            >
+              Email
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://wa.me/5592986255936"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[#d4d4d8] hover:text-accent-500 transition-colors text-sm"
+            >
+              WhatsApp
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://linkedin.com/in/maisongalvao"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[#d4d4d8] hover:text-accent-500 transition-colors text-sm"
+            >
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-[#fafafa] font-semibold mb-4">Redes</h3>
+        <ul class="space-y-2">
+          <li>
+            <a
+              href="https://github.com/maisondev"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[#d4d4d8] hover:text-accent-500 transition-colors text-sm"
+            >
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://instagram.com/maisongalvao"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[#d4d4d8] hover:text-accent-500 transition-colors text-sm"
+            >
+              Instagram
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-[#2a2a2a] pt-8">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+        <p class="text-[#a1a1a1] text-sm">
+          © {year} Maison Galvão. Todos os direitos reservados.
+        </p>
+        <SocialLinks size="md" />
       </div>
     </div>
   </div>
