@@ -1,11 +1,13 @@
 ---
 import Badge from '@/components/ui/Badge.astro';
+import { type Language } from '@/i18n/utils';
 
 interface Props {
   id?: string;
+  lang?: Language;
 }
 
-const { id } = Astro.props;
+const { id, lang = 'pt' } = Astro.props;
 
 const frontendSkills = [
   'Vue.js',

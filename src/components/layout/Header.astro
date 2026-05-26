@@ -1,19 +1,28 @@
 ---
 import SocialLinks from '@/components/ui/SocialLinks.astro';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher.astro';
+import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
+
+const lang = getLanguageFromUrl(Astro.url) as Language;
+const t = (key: string) => getTranslation(lang, key);
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
 
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projetos' },
-  { href: '/experience', label: 'Experiência' },
-  { href: '/education', label: 'Formação' },
-  { href: '/contests', label: 'Concursos' },
-  { href: '/blog', label: 'Blog' },
+  { href: getLocalizedPath('/'), label: t('nav.home') },
+  { href: getLocalizedPath('/projects'), label: t('nav.projects') },
+  { href: getLocalizedPath('/experience'), label: t('nav.experience') },
+  { href: getLocalizedPath('/education'), label: t('nav.education') },
+  { href: getLocalizedPath('/contests'), label: t('nav.contests') },
+  { href: getLocalizedPath('/blog'), label: t('nav.blog') },
 ];
 ---
 
 <header class="bg-[#0a0a0a] border-b border-[#2a2a2a] sticky top-0 z-50 backdrop-blur-sm bg-[#0a0a0a]/95">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-    <a href="/" class="text-2xl font-black text-[#fafafa] hover:text-accent-500 transition-colors tracking-wider">
+    <a href={getLocalizedPath('/')} class="text-2xl font-black text-[#fafafa] hover:text-accent-500 transition-colors tracking-wider">
       MG
     </a>
 
@@ -32,11 +41,12 @@ const links = [
 
     <div class="flex gap-4 items-center">
       <SocialLinks size="md" />
+      <LanguageSwitcher />
       <a
         href="mailto:maisongalvao@outlook.com"
         class="hidden sm:block px-4 py-2 bg-accent-500 text-[#0a0a0a] rounded-lg font-semibold hover:bg-accent-400 transition-colors text-sm"
       >
-        Contato
+        {t('nav.language') === 'Idioma' ? 'Contato' : 'Contact'}
       </a>
     </div>
   </nav>

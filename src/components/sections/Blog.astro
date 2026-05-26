@@ -1,11 +1,13 @@
 ---
 import BlogCard from '@/components/ui/BlogCard.astro';
+import { type Language } from '@/i18n/utils';
 
 interface Props {
   id?: string;
+  lang?: Language;
 }
 
-const { id } = Astro.props;
+const { id, lang = 'pt' } = Astro.props;
 
 const posts = [
   {

@@ -1,0 +1,180 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+
+interface Props {
+  id?: string;
+  lang?: 'pt' | 'en';
+}
+
+const { id, lang = 'pt' } = Astro.props;
+
+const translations = {
+  pt: {
+    title: 'Estudos de Caso',
+    subtitle: 'Projetos em produção que escalei para milhões de usuários. Documentados sem exposição de dados sensíveis ou propriedade intelectual da empresa.',
+    challenge: 'Desafio',
+    results: 'Resultados Alcançados',
+    technologies: 'Tecnologias & Conceitos',
+    learnings: 'Aprendizados Principais',
+    users: 'Usuários',
+    uptime: 'Uptime',
+    latencyReduction: 'Redução Latência',
+  },
+  en: {
+    title: 'Case Studies',
+    subtitle: 'Production projects I\'ve scaled to millions of users. Documented without exposing sensitive data or company intellectual property.',
+    challenge: 'Challenge',
+    results: 'Results Achieved',
+    technologies: 'Technologies & Concepts',
+    learnings: 'Key Learnings',
+    users: 'Users',
+    uptime: 'Uptime',
+    latencyReduction: 'Latency Reduction',
+  },
+};
+
+const t = translations[lang];
+
+const caseStudies = [
+  {
+    title: lang === 'pt'
+      ? 'Plataforma de Matrículas - Governo do Amazonas'
+      : 'Enrollment Platform - State of Amazonas Government',
+    client: lang === 'pt'
+      ? 'Secretarias de Educação (SEMED/SEDUC)'
+      : 'Education Secretariats (SEMED/SEDUC)',
+    scope: lang === 'pt'
+      ? 'Arquitetura Distribuída & Otimização de Performance'
+      : 'Distributed Architecture & Performance Optimization',
+    period: '2020 - Present',
+    challenge: lang === 'pt'
+      ? 'Sistema legado em Natural/ADABAS atendendo 10k usuários simultâneos. Período de matrículas (dezembro) causava crashes com acessos concentrados. Necessidade de escalar 5x mantendo uptime crítico.'
+      : 'Legacy system in Natural/ADABAS handling 10k simultaneous users. Enrollment period (December) caused crashes due to concentrated traffic. Need to scale 5x while maintaining critical uptime.',
+    results: lang === 'pt'
+      ? [
+          '50k+ usuários simultâneos em horários de pico',
+          '99.98% de uptime durante pico de matrículas',
+          'Latência reduzida de 2000ms para 150ms (p99)',
+          'Zero-downtime deployments com Blue-Green',
+          'Processamento de 2M+ requisições diárias',
+        ]
+      : [
+          '50k+ simultaneous users during peak hours',
+          '99.98% uptime during enrollment peaks',
+          'Latency reduced from 2000ms to 150ms (p99)',
+          'Zero-downtime deployments with Blue-Green',
+          '2M+ requests processing daily',
+        ],
+    technologies: ['TypeScript', 'Node.js', 'Vue.js', 'PostgreSQL', 'Redis', 'Docker', 'Kubernetes', 'AWS'],
+    keyLearnings: lang === 'pt'
+      ? [
+          'Migração de monolito Natural/ADABAS para arquitetura de microserviços cloud-native',
+          'Load testing e capacity planning para picos de demanda previsíveis (.gov)',
+          'Compliance e requisitos de acessibilidade em plataformas estaduais',
+          'Estratégias de caching distribuído em sistemas de alta concorrência',
+          'Orquestração de containers em ambientes heterogêneos',
+        ]
+      : [
+          'Migration from Natural/ADABAS monolith to cloud-native microservices architecture',
+          'Load testing and capacity planning for predictable demand peaks (.gov)',
+          'Compliance and accessibility requirements in state platforms',
+          'Distributed caching strategies in high-concurrency systems',
+          'Container orchestration in heterogeneous environments',
+        ],
+    impact: {
+      users: '500k+',
+      uptime: '99.98%',
+      reduction: '90%',
+    },
+  },
+];
+---
+
+<section id={id} class="py-20 space-y-12">
+  <div class="space-y-4">
+    <h2 class="text-4xl font-bold text-[#fafafa]">{t.title}</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      {t.subtitle}
+    </p>
+  </div>
+
+  <div class="space-y-8">
+    {caseStudies.map((study) => (
+      <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-8 space-y-6 hover:border-accent-500/30 transition-colors">
+        {/* Header */}
+        <div class="space-y-3">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+            <div class="space-y-1">
+              <p class="text-accent-500 text-sm font-semibold uppercase tracking-wider">{study.client}</p>
+              <h3 class="text-2xl sm:text-3xl font-bold text-[#fafafa]">{study.title}</h3>
+              <p class="text-[#d4d4d8]">{study.scope}</p>
+            </div>
+            <span class="text-sm text-[#a1a1a1] whitespace-nowrap pt-1">{study.period}</span>
+          </div>
+        </div>
+
+        {/* Challenge */}
+        <div class="bg-[#0a0a0a] border border-[#2a2a2a] rounded-lg p-4">
+          <h4 class="text-sm font-semibold text-accent-500 uppercase mb-2">{t.challenge}</h4>
+          <p class="text-[#d4d4d8]">{study.challenge}</p>
+        </div>
+
+        {/* Results */}
+        <div class="space-y-4">
+          <h4 class="text-lg font-semibold text-[#fafafa]">{t.results}</h4>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {study.results.map((result) => (
+              <div class="flex gap-3 items-start">
+                <svg class="w-5 h-5 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-[#d4d4d8]">{result}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Impact Metrics */}
+        <div class="grid grid-cols-3 gap-4 bg-accent-500/5 border border-accent-500/20 rounded-lg p-4">
+          <div class="space-y-1">
+            <p class="text-accent-500 font-bold text-xl">{study.impact.users}</p>
+            <p class="text-[#a1a1a1] text-xs uppercase">{t.users}</p>
+          </div>
+          <div class="space-y-1">
+            <p class="text-accent-500 font-bold text-xl">{study.impact.uptime}</p>
+            <p class="text-[#a1a1a1] text-xs uppercase">{t.uptime}</p>
+          </div>
+          <div class="space-y-1">
+            <p class="text-accent-500 font-bold text-xl">{study.impact.reduction}</p>
+            <p class="text-[#a1a1a1] text-xs uppercase">{t.latencyReduction}</p>
+          </div>
+        </div>
+
+        {/* Technologies */}
+        <div class="space-y-3">
+          <h4 class="text-sm font-semibold text-[#fafafa] uppercase">{t.technologies}</h4>
+          <div class="flex flex-wrap gap-2">
+            {study.technologies.map((tech) => (
+              <span class="px-3 py-1 bg-[#2a2a2a] text-[#d4d4d8] rounded-full text-sm border border-[#3a3a3a] hover:border-accent-500/50 transition-colors">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Key Learnings */}
+        <div class="space-y-3">
+          <h4 class="text-sm font-semibold text-[#fafafa] uppercase">{t.learnings}</h4>
+          <ul class="space-y-2">
+            {study.keyLearnings.map((learning) => (
+              <li class="flex gap-2 text-[#d4d4d8] text-sm">
+                <span class="text-accent-500 flex-shrink-0">→</span>
+                <span>{learning}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HeroWithProfile from '@/components/sections/HeroWithProfile.astro';
+import CaseStudies from '@/components/sections/CaseStudies.astro';
+import Button from '@/components/ui/Button.astro';
+import { getLanguageFromUrl, getTranslation, isValidLanguage, type Language } from '@/i18n/utils';
+import { getStaticPaths } from '@/i18n/routes';
+
+export { getStaticPaths };
+
+const lang = getLanguageFromUrl(Astro.url) as Language;
+const t = (key: string) => getTranslation(lang, key);
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
+---
+
+<BaseLayout
+  title={`Maison Galvão - ${t('hero.title')}`}
+  description={t('pages.experience.description')}
+>
+  <HeroWithProfile
+    name="Maison Galvão"
+    title={t('hero.title')}
+    description={t('hero.description')}
+    lang={lang}
+  />
+
+  <CaseStudies lang={lang} />
+
+  <!-- Quick CTA Section -->
+  <section class="py-20 space-y-8">
+    <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-8 sm:p-12 space-y-6">
+      <div class="space-y-2">
+        <h2 class="text-3xl font-bold text-[#fafafa]">{t('cta.explore')}</h2>
+        <p class="text-[#d4d4d8] text-lg">{t('cta.exploreDesc')}</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3">
+        <Button href={getLocalizedPath('/experience')} variant="secondary">
+          {t('cta.experience')}
+        </Button>
+        <Button href={getLocalizedPath('/education')} variant="secondary">
+          {t('cta.education')}
+        </Button>
+        <Button href={getLocalizedPath('/blog')} variant="secondary">
+          {t('cta.articles')}
+        </Button>
+        <Button href="mailto:maisongalvao@outlook.com" variant="secondary">
+          {t('cta.message')}
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

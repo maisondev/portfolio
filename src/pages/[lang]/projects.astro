@@ -1,0 +1,25 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Projects from '@/components/sections/Projects.astro';
+import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
+import { getStaticPaths } from '@/i18n/routes';
+
+export { getStaticPaths };
+
+const lang = getLanguageFromUrl(Astro.url) as Language;
+const t = (key: string) => getTranslation(lang, key);
+---
+
+<BaseLayout
+  title={`${t('pages.projects.title')} - Maison Galvão`}
+  description={t('pages.projects.description')}
+>
+  <div class="py-12 space-y-4">
+    <h1 class="text-5xl sm:text-6xl font-bold text-[#fafafa] tracking-tight">{t('pages.projects.title')}</h1>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      {t('pages.projects.description')}
+    </p>
+  </div>
+
+  <Projects id="projects" lang={lang} />
+</BaseLayout>

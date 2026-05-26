@@ -15,7 +15,13 @@
       "Bash(git branch *)",
       "Bash(git push *)",
       "WebFetch(domain:vercel.com)",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\untitled\" -Depth 1 | Where-Object { $_.Name -notmatch \"node_modules|^\\\\.\" } | Select-Object Name, PSIsContainer)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\untitled\" -Recurse -Depth 2 -Exclude \"node_modules\")",
+      "Bash(Select-Object -First 30)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\untitled\" -Recurse -Depth 2 -Exclude \"node_modules\" | Where-Object { -not $_.PSIsContainer -or $_.GetFiles\\(\\).Count -gt 0 } | Select-Object -First 50 | Format-Table FullName)",
+      "PowerShell(New-Item *)",
+      "Bash(npm run *)"
     ]
   }
 }

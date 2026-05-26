@@ -1,0 +1,59 @@
+---
+import { getLanguageFromUrl, languages, changeLanguageUrl } from '@/i18n/utils';
+
+const lang = getLanguageFromUrl(Astro.url);
+const otherLang = lang === 'pt' ? 'en' : 'pt';
+const newUrl = changeLanguageUrl(Astro.url, otherLang);
+---
+
+<div class="flex items-center gap-2">
+  <div class="relative group">
+    <button
+      class="px-3 py-2 text-sm text-[#d4d4d8] hover:text-accent-500 hover:bg-[#1a1a1a] rounded-md transition-all duration-300 flex items-center gap-2"
+      title={`Switch to ${languages[otherLang]}`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-4 h-4"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+        ></path>
+        <path d="M2 12h20"></path>
+      </svg>
+      <span>{lang.toUpperCase()}</span>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div
+      class="absolute right-0 mt-2 w-40 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+    >
+      <a
+        href="/pt{Astro.url.pathname === '/' || Astro.url.pathname.startsWith('/pt') ? Astro.url.pathname.replace(/^\/pt/, '') || '/' : Astro.url.pathname}"
+        class={`block px-4 py-2 text-sm rounded-t-lg transition-colors ${
+          lang === 'pt'
+            ? 'bg-accent-500/20 text-accent-400'
+            : 'text-[#d4d4d8] hover:bg-[#2a2a2a]'
+        }`}
+      >
+        🇧🇷 Português
+      </a>
+      <a
+        href="/en{Astro.url.pathname === '/' || Astro.url.pathname.startsWith('/pt') ? Astro.url.pathname.replace(/^\/pt/, '') || '/' : Astro.url.pathname}"
+        class={`block px-4 py-2 text-sm rounded-b-lg transition-colors ${
+          lang === 'en'
+            ? 'bg-accent-500/20 text-accent-400'
+            : 'text-[#d4d4d8] hover:bg-[#2a2a2a]'
+        }`}
+      >
+        🇺🇸 English
+      </a>
+    </div>
+  </div>
+</div>

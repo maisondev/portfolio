@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "education": "Education",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contests": "Public Contests",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Software Engineer",
+    "description": "13+ years of experience developing scalable systems in the public sector. A unique combination of deep technical expertise and strategic leadership. Specialized in systems architecture, TypeScript/Node.js."
+  },
+  "cta": {
+    "explore": "Explore More",
+    "exploreDesc": "Learn about my experience, education, and contributions to the community.",
+    "experience": "Professional Experience",
+    "education": "Education & Public Contests",
+    "articles": "Articles & Writing",
+    "message": "Send Message"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Interested in working together or want to chat about technology? I'd love to connect!",
+    "email": "Send Email",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn"
+  },
+  "footer": {
+    "rights": "© 2026 Maison Galvão. All rights reserved.",
+    "made": "Made with ❤️ and lots of code"
+  },
+  "pages": {
+    "experience": {
+      "title": "Professional Experience",
+      "description": "13+ years developing solutions in the public sector, combining technical expertise with strategic leadership of teams and infrastructure."
+    },
+    "education": {
+      "title": "Education",
+      "description": "Complete education in technology with multiple certifications. Continuous commitment to learning and professional development."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Featured projects developed throughout my career."
+    },
+    "contests": {
+      "title": "Public Contests",
+      "description": "Approved in multiple public contests. History of approvals and publications in official journals."
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Articles and insights about technology, development, and leadership."
+    }
+  },
+  "status": {
+    "approved": "Approved"
+  },
+  "links": {
+    "officialDiary": "Official Journal",
+    "github": "GitHub",
+    "schedule": "Schedule a Chat"
+  },
+  "caseStudies": {
+    "title": "Case Studies",
+    "subtitle": "Production projects I've scaled to millions of users. Documented without exposing sensitive data or company intellectual property."
+  }
+}

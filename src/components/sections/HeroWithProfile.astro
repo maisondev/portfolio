@@ -1,25 +1,26 @@
 ---
 import Button from '@/components/ui/Button.astro';
 import ProfileImage from '@/components/ui/ProfileImage.astro';
+import { type Language } from '@/i18n/utils';
 
 interface Props {
   name: string;
   title: string;
   description: string;
+  lang?: Language;
 }
 
-const { name, title, description } = Astro.props;
+const { name, title, description, lang = 'pt' } = Astro.props;
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
 ---
 
 <section class="min-h-screen flex flex-col justify-center gap-8 py-12 sm:py-20">
   <div class="grid md:grid-cols-3 gap-8 items-center">
-    <!-- Coluna Esquerda: Foto -->
-    <div class="flex justify-center md:justify-end">
-      <ProfileImage size="xl" showBorder={true} />
-    </div>
-
-    <!-- Coluna Direita: Texto -->
-    <div class="md:col-span-2 space-y-6">
+    <!-- Coluna Esquerda: Texto -->
+    <div class="md:col-span-2 space-y-6 md:order-1">
       <div class="space-y-2">
         <h1 class="text-5xl sm:text-7xl font-bold text-[#fafafa] tracking-tight leading-[1.1]">
           {name}
@@ -50,10 +51,15 @@ const { name, title, description } = Astro.props;
         >
           LinkedIn
         </Button>
-        <Button href="#contact" variant="secondary">
-          Agendar Conversa
+        <Button href={getLocalizedPath('/#contact')} variant="secondary">
+          {lang === 'pt' ? 'Agendar Conversa' : 'Schedule a Chat'}
         </Button>
       </div>
+    </div>
+
+    <!-- Coluna Direita: Foto -->
+    <div class="flex justify-center md:justify-start md:order-2">
+      <ProfileImage size="xl" showBorder={true} />
     </div>
   </div>
 </section>

@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Início",
+    "experience": "Experiência",
+    "education": "Formação",
+    "projects": "Projetos",
+    "blog": "Blog",
+    "contests": "Concursos",
+    "language": "Idioma"
+  },
+  "hero": {
+    "title": "Software Engineer",
+    "description": "13+ anos de experiência desenvolvendo sistemas escaláveis no setor público. Combinação única de expertise técnica profunda e liderança estratégica. Especializado em arquitetura de sistemas, TypeScript/Node.js."
+  },
+  "cta": {
+    "explore": "Explorar Mais",
+    "exploreDesc": "Conheça minha experiência, formação e contribuições à comunidade.",
+    "experience": "Experiência Profissional",
+    "education": "Formação & Concursos",
+    "articles": "Artigos & Writing",
+    "message": "Enviar Mensagem"
+  },
+  "contact": {
+    "title": "Contato",
+    "description": "Tem interesse em trabalhar comigo ou quer conversar sobre tecnologia? Fico feliz em conversar!",
+    "email": "Enviar Email",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn"
+  },
+  "footer": {
+    "rights": "© 2026 Maison Galvão. Todos os direitos reservados.",
+    "made": "Feito com ❤️ e muito código"
+  },
+  "pages": {
+    "experience": {
+      "title": "Experiência Profissional",
+      "description": "13+ anos desenvolvendo soluções na esfera pública, combinando expertise técnica com liderança estratégica de equipes e infraestrutura."
+    },
+    "education": {
+      "title": "Educação",
+      "description": "Formação completa em tecnologia com múltiplas certificações. Compromisso contínuo com aprendizado e desenvolvimento profissional."
+    },
+    "projects": {
+      "title": "Projetos",
+      "description": "Projetos de destaque desenvolvidos ao longo da minha carreira."
+    },
+    "contests": {
+      "title": "Concursos Públicos",
+      "description": "Aprovado em múltiplos concursos públicos. Histórico de aprovações e publicações em diário oficial."
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Artigos e insights sobre tecnologia, desenvolvimento e liderança."
+    }
+  },
+  "status": {
+    "approved": "Aprovado"
+  },
+  "links": {
+    "officialDiary": "Diário Oficial",
+    "github": "GitHub",
+    "schedule": "Agendar Conversa"
+  },
+  "caseStudies": {
+    "title": "Estudos de Caso",
+    "subtitle": "Projetos em produção que escalei para milhões de usuários. Documentados sem exposição de dados sensíveis ou propriedade intelectual da empresa."
+  }
+}

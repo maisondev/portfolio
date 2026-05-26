@@ -1,11 +1,14 @@
 ---
+import { type Language } from '@/i18n/utils';
+
 interface Props {
   id?: string;
+  lang?: Language;
 }
 
-const { id } = Astro.props;
+const { id, lang = 'pt' } = Astro.props;
 
-const contests = [
+const contests = lang === 'pt' ? [
   {
     position: 'Desenvolvedor de Software',
     organization: 'PRODAM-AM (Empresa de Processamento de Dados do Amazonas)',
@@ -22,14 +25,63 @@ const contests = [
     banca: 'CESGRANRIO',
     officialDiary: '#',
   },
+  {
+    position: 'Aprovado em Concurso Público',
+    organization: 'SEMA-AM (Secretaria de Estado do Meio Ambiente)',
+    year: '2026',
+    status: 'Aprovado',
+    banca: 'FCC',
+    officialDiary: 'https://diario.imprensaoficial.am.gov.br/portal/visualizacoes/pdf/18078#/p:29/e:18078?find=Maison%20Marcel%20Madri',
+  },
+  {
+    position: 'Aprovado em Concurso Público',
+    organization: 'CGM-MANAUS (Controladoria Geral do Município)',
+    year: '2026',
+    status: 'Aprovado',
+    banca: 'FCC',
+    officialDiary: '/documents/dom-6300-28042026.pdf',
+  },
+] : [
+  {
+    position: 'Software Developer',
+    organization: 'PRODAM-AM (Amazonas Data Processing Company)',
+    year: '2018',
+    status: 'Approved',
+    banca: 'CESGRANRIO/IBFC',
+    officialDiary: '#',
+  },
+  {
+    position: 'IT Manager',
+    organization: 'City of Manaus - SEMTRAD',
+    year: '2013',
+    status: 'Approved',
+    banca: 'CESGRANRIO',
+    officialDiary: '#',
+  },
+  {
+    position: 'Approved in Public Contest',
+    organization: 'SEMA-AM (State Department of Environment)',
+    year: '2026',
+    status: 'Approved',
+    banca: 'FCC',
+    officialDiary: 'https://diario.imprensaoficial.am.gov.br/portal/visualizacoes/pdf/18078#/p:29/e:18078?find=Maison%20Marcel%20Madri',
+  },
+  {
+    position: 'Approved in Public Contest',
+    organization: 'CGM-MANAUS (General Controller of the Municipality)',
+    year: '2026',
+    status: 'Approved',
+    banca: 'FCC',
+    officialDiary: '/documents/dom-6300-28042026.pdf',
+  },
 ];
 ---
 
 <section id={id} class="py-20 space-y-12">
   <div class="space-y-4">
-    <h2 class="text-4xl font-bold text-[#fafafa]">Concursos Públicos</h2>
+    <h2 class="text-4xl font-bold text-[#fafafa]">{lang === 'pt' ? 'Concursos Públicos' : 'Public Contests'}</h2>
     <p class="text-[#d4d4d8] text-lg max-w-3xl">
-      Aprovado em múltiplos concursos públicos. Histórico de aprovações e publicações em diário oficial.
+      {lang === 'pt' ? 'Aprovado em múltiplos concursos públicos. Histórico de aprovações e publicações em diário oficial.' : 'Approved in multiple public contests. History of approvals and publications in official journals.'}
     </p>
   </div>
 
@@ -74,10 +126,9 @@ const contests = [
   </div>
 
   <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
-    <h3 class="text-lg font-semibold text-accent-400 mb-2">💼 Adicionar Novos Concursos</h3>
+    <h3 class="text-lg font-semibold text-accent-400 mb-2">{lang === 'pt' ? '💼 Adicionar Novos Concursos' : '💼 Add New Contests'}</h3>
     <p class="text-[#d4d4d8] text-sm">
-      Para adicionar novos concursos aprovados, preencha os dados acima incluindo o link do diário oficial.
-      Isso demonstra credibilidade profissional e transparência perante a administração pública.
+      {lang === 'pt' ? 'Para adicionar novos concursos aprovados, preencha os dados acima incluindo o link do diário oficial. Isso demonstra credibilidade profissional e transparência perante a administração pública.' : 'To add new approved contests, fill in the information above including the official journal link. This demonstrates professional credibility and transparency with public administration.'}
     </p>
   </div>
 </section>
