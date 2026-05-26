@@ -1,14 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
-import About from '@/components/sections/About.astro';
-import Experience from '@/components/sections/Experience.astro';
-import Projects from '@/components/sections/Projects.astro';
-import Blog from '@/components/sections/Blog.astro';
-import OpenSource from '@/components/sections/OpenSource.astro';
-import Testimonials from '@/components/sections/Testimonials.astro';
-import Education from '@/components/sections/Education.astro';
-import Contact from '@/components/sections/Contact.astro';
+import Button from '@/components/ui/Button.astro';
 ---
 
 <BaseLayout
@@ -21,13 +14,65 @@ import Contact from '@/components/sections/Contact.astro';
     description="13+ anos de experiência desenvolvendo sistemas escaláveis no setor público. Combinação única de expertise técnica profunda e liderança estratégica. Especializado em arquitetura de sistemas, TypeScript/Node.js e mentoria de equipes."
   />
 
-  <About id="about" />
-  <Experience id="experience" />
-  <Projects id="projects" />
-  <Blog id="blog" />
-  <Education id="education" />
-  <OpenSource id="opensource" />
-  <Testimonials id="testimonials" />
-  <Contact id="contact" />
+  <!-- Featured Projects Section -->
+  <section class="py-20 space-y-12">
+    <div class="space-y-4">
+      <h2 class="text-4xl font-bold text-[#fafafa]">Projetos Destacados</h2>
+      <p class="text-[#d4d4d8] text-lg max-w-3xl">
+        Explore meus principais projetos e contribuições. Cada projeto representa uma solução criativa
+        para problemas reais, combinando tecnologia moderna com boas práticas de engenharia.
+      </p>
+    </div>
+
+    <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 space-y-4 hover:border-accent-500/30 transition-all">
+      <div>
+        <h3 class="text-2xl font-bold text-[#fafafa]">Sinapses - IA Roadmap Generator</h3>
+        <p class="text-accent-500 font-semibold">Seu projeto principal</p>
+      </div>
+      <p class="text-[#d4d4d8] text-lg leading-relaxed">
+        Plataforma que gera roadmaps de aprendizado personalizados usando IA (Google Gemini).
+        Os usuários descrevem seu objetivo e a IA cria um plano estruturado passo a passo.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-accent-500/10 text-accent-400 border border-accent-500/30 rounded-full text-sm font-semibold">Vue.js</span>
+        <span class="px-3 py-1 bg-accent-500/10 text-accent-400 border border-accent-500/30 rounded-full text-sm font-semibold">Node.js</span>
+        <span class="px-3 py-1 bg-accent-500/10 text-accent-400 border border-accent-500/30 rounded-full text-sm font-semibold">PostgreSQL</span>
+        <span class="px-3 py-1 bg-accent-500/10 text-accent-400 border border-accent-500/30 rounded-full text-sm font-semibold">Google Gemini API</span>
+      </div>
+      <div class="flex gap-3 pt-4">
+        <Button href="https://www.sinapses.site/" variant="primary" target="_blank">
+          Ver Demo
+        </Button>
+        <Button href="/projects" variant="secondary">
+          Ver Todos os Projetos
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick CTA Section -->
+  <section class="py-20 space-y-8">
+    <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-8 sm:p-12 space-y-6">
+      <div class="space-y-2">
+        <h2 class="text-3xl font-bold text-[#fafafa]">Explorar Mais</h2>
+        <p class="text-[#d4d4d8] text-lg">Conheça minha experiência, formação e contribuições à comunidade.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3">
+        <Button href="/experience" variant="secondary">
+          Experiência Profissional
+        </Button>
+        <Button href="/education" variant="secondary">
+          Formação & Concursos
+        </Button>
+        <Button href="/blog" variant="secondary">
+          Artigos & Writing
+        </Button>
+        <Button href="mailto:maisongalvao@outlook.com" variant="secondary">
+          Enviar Mensagem
+        </Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 

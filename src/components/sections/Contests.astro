@@ -1,0 +1,78 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const contests = [
+  {
+    position: 'Desenvolvedor de Software',
+    organization: 'PRODAM-AM (Empresa de Processamento de Dados do Amazonas)',
+    year: '2018',
+    status: 'Aprovado',
+    banca: 'CESGRANRIO/IBFC',
+    officialDiary: '#',
+  },
+  {
+    position: 'Gerente de Informática',
+    organization: 'Prefeitura de Manaus - SEMTRAD',
+    year: '2013',
+    status: 'Aprovado',
+    banca: 'CESGRANRIO',
+    officialDiary: '#',
+  },
+];
+---
+
+<section id={id} class="py-20 space-y-12">
+  <div class="space-y-4">
+    <h2 class="text-4xl font-bold text-[#fafafa]">Concursos Públicos</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      Aprovado em múltiplos concursos públicos. Histórico de aprovações e publicações em diário oficial.
+    </p>
+  </div>
+
+  <div class="space-y-4">
+    {contests.map((contest) => (
+      <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 hover:border-accent-500/30 transition-all duration-300 space-y-4">
+        <div class="space-y-2">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-bold text-[#fafafa]">{contest.position}</h3>
+              <p class="text-accent-500 font-semibold text-sm sm:text-base">{contest.organization}</p>
+            </div>
+            <div class="flex gap-2 items-center">
+              <span class="bg-accent-500/20 text-accent-400 px-3 py-1 rounded-full text-xs font-semibold">
+                {contest.status}
+              </span>
+              <span class="text-[#a1a1a1] text-sm">{contest.year}</span>
+            </div>
+          </div>
+          <p class="text-[#d4d4d8] text-sm">Banca: {contest.banca}</p>
+        </div>
+
+        {contest.officialDiary !== '#' && (
+          <div class="pt-2">
+            <a
+              href={contest.officialDiary}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block text-accent-500 hover:text-accent-400 font-semibold text-sm transition-colors"
+            >
+              📜 Ver Diário Oficial →
+            </a>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
+    <h3 class="text-lg font-semibold text-accent-400 mb-2">📋 Adicionar Seus Concursos</h3>
+    <p class="text-[#d4d4d8] text-sm">
+      Compartilhe seus concursos aprovados com links para diários oficiais. Isso demonstra
+      credibilidade profissional, especialmente no setor público.
+    </p>
+  </div>
+</section>

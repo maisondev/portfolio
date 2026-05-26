@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Education from '@/components/sections/Education.astro';
+import Contests from '@/components/sections/Contests.astro';
+import Contact from '@/components/sections/Contact.astro';
+---
+
+<BaseLayout
+  title="Formação & Concursos - Maison Galvão"
+  description="Formação acadêmica: Engenharia de Software, Pós-graduação Full Stack, Especialista em IA. Aprovado em múltiplos concursos públicos."
+>
+  <div class="py-12 space-y-4">
+    <h1 class="text-5xl sm:text-6xl font-bold text-[#fafafa] tracking-tight">Formação & Concursos</h1>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      Formação completa em tecnologia com múltiplas certificações e aprovações em concursos públicos.
+      Compromisso contínuo com aprendizado e desenvolvimento profissional.
+    </p>
+  </div>
+
+  <Education id="education" />
+  <Contests id="contests" />
+  <Contact id="contact" />
+</BaseLayout>

@@ -1,20 +1,22 @@
 ---
+import SocialLinks from '@/components/ui/SocialLinks.astro';
+
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/#experience', label: 'Experiência' },
-  { href: '/#projects', label: 'Projetos' },
-  { href: '/#blog', label: 'Artigos' },
-  { href: '/#about', label: 'Sobre' },
-  { href: '/#contact', label: 'Contato' },
+  { href: '/projects', label: 'Projetos' },
+  { href: '/experience', label: 'Experiência' },
+  { href: '/education', label: 'Formação' },
+  { href: '/blog', label: 'Blog' },
 ];
 ---
 
 <header class="bg-[#0a0a0a] border-b border-[#2a2a2a] sticky top-0 z-50 backdrop-blur-sm bg-[#0a0a0a]/95">
-  <nav class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
     <a href="/" class="text-xl font-bold text-[#fafafa] hover:text-accent-500 transition-colors">
-      mg
+      mg.dev
     </a>
-    <ul class="hidden sm:flex gap-1 items-center">
+
+    <ul class="hidden lg:flex gap-1 items-center">
       {links.map((link) => (
         <li>
           <a
@@ -26,9 +28,17 @@ const links = [
         </li>
       ))}
     </ul>
-    <a href="mailto:maisongalvao@outlook.com" class="hidden sm:block px-4 py-2 bg-accent-500 text-[#0a0a0a] rounded-lg font-semibold hover:bg-accent-400 transition-colors text-sm">
-      Contato
-    </a>
+
+    <div class="flex gap-4 items-center">
+      <SocialLinks size="md" />
+      <a
+        href="mailto:maisongalvao@outlook.com"
+        class="hidden sm:block px-4 py-2 bg-accent-500 text-[#0a0a0a] rounded-lg font-semibold hover:bg-accent-400 transition-colors text-sm"
+      >
+        Contato
+      </a>
+    </div>
   </nav>
 </header>
+
 
