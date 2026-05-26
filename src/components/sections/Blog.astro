@@ -1,0 +1,67 @@
+---
+import BlogCard from '@/components/ui/BlogCard.astro';
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const posts = [
+  {
+    title: 'Building Scalable Systems in the Public Sector',
+    excerpt: 'Lessons learned from 13+ years developing systems for government institutions with millions of users.',
+    date: 'Mar 2024',
+    readTime: '8 min',
+    tags: ['Architecture', 'Leadership', 'Public Sector'],
+    slug: '/blog/scalable-systems-public-sector',
+  },
+  {
+    title: 'TypeScript in Production: Real-World Patterns',
+    excerpt: 'Best practices and patterns I use daily at Prodam to maintain code quality in large-scale applications.',
+    date: 'Feb 2024',
+    readTime: '6 min',
+    tags: ['TypeScript', 'Best Practices', 'Production'],
+    slug: '/blog/typescript-production-patterns',
+  },
+  {
+    title: 'From Manager to Senior Dev: A Career Pivot',
+    excerpt: 'How I transitioned from management back to hands-on development and what I learned in the process.',
+    date: 'Jan 2024',
+    readTime: '10 min',
+    tags: ['Career', 'Leadership', 'Development'],
+    slug: '/blog/manager-to-senior-dev',
+  },
+];
+---
+
+<section id={id} class="py-20 space-y-12">
+  <div class="space-y-4">
+    <h2 class="text-4xl font-bold text-[#fafafa]">Artigos & Escrita</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      Compartilhando conhecimento e experiências sobre desenvolvimento, arquitetura e liderança técnica.
+    </p>
+  </div>
+
+  <div class="grid gap-6">
+    {posts.map((post) => (
+      <BlogCard
+        title={post.title}
+        excerpt={post.excerpt}
+        date={post.date}
+        readTime={post.readTime}
+        tags={post.tags}
+        slug={post.slug}
+      />
+    ))}
+  </div>
+
+  <div class="text-center pt-6">
+    <a
+      href="/blog"
+      class="inline-block px-6 py-3 text-accent-500 font-semibold hover:text-accent-400 transition-colors"
+    >
+      Ver todos os artigos →
+    </a>
+  </div>
+</section>

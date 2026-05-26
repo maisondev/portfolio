@@ -1,0 +1,64 @@
+---
+import Button from '@/components/ui/Button.astro';
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const contributions = [
+  {
+    title: 'Contribuições em Projetos Open Source',
+    description: 'Participação ativa em desenvolvimento de software livre, contribuindo code reviews, features e bug fixes.',
+    highlights: [
+      'Contribuidor em projetos da comunidade',
+      'Revisão de pull requests',
+      'Mentoria de desenvolvedores junior',
+    ],
+  },
+];
+---
+
+<section id={id} class="py-20 space-y-12">
+  <div class="space-y-4">
+    <h2 class="text-4xl font-bold text-[#fafafa]">Open Source & Comunidade</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      Crença forte em compartilhar conhecimento e contribuir para a comunidade de desenvolvedores.
+    </p>
+  </div>
+
+  <div class="space-y-6">
+    {contributions.map((contrib) => (
+      <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 space-y-6">
+        <div class="space-y-2">
+          <h3 class="text-2xl font-bold text-[#fafafa]">{contrib.title}</h3>
+          <p class="text-[#d4d4d8] text-lg">{contrib.description}</p>
+        </div>
+
+        <ul class="space-y-3">
+          {contrib.highlights.map((highlight) => (
+            <li class="flex gap-3 text-[#d4d4d8]">
+              <span class="text-accent-500 font-bold text-xl">✓</span>
+              <span>{highlight}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="pt-4">
+          <Button href="https://github.com/maisongalvao" variant="secondary" target="_blank">
+            Ver no GitHub
+          </Button>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
+    <h3 class="text-lg font-semibold text-accent-400 mb-2">💡 Sua história com Open Source</h3>
+    <p class="text-[#d4d4d8]">
+      Adicione seus repositórios principais, contribuições a projetos conhecidos, ou iniciativas que você lidera.
+      Isso diferencia profissionais sênior no mercado.
+    </p>
+  </div>
+</section>

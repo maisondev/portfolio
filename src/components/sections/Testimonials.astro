@@ -1,0 +1,58 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const testimonials = [
+  {
+    text: 'Adicione testimonials de colegas, clientes ou líderes aqui. 2-3 bem colocados aumentam significativamente sua credibilidade.',
+    author: 'Seu Nome',
+    title: 'Seu Cargo',
+    company: 'Sua Empresa',
+    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=1',
+  },
+];
+---
+
+<section id={id} class="py-20 space-y-12">
+  <div class="space-y-4">
+    <h2 class="text-4xl font-bold text-[#fafafa]">Recomendações</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      O que colegas, clientes e líderes dizem sobre trabalhar comigo.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    {testimonials.map((testimonial) => (
+      <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 space-y-4">
+        <div class="space-y-2">
+          <p class="text-[#d4d4d8] italic text-lg leading-relaxed">
+            "{testimonial.text}"
+          </p>
+          <div class="flex items-center gap-3 pt-4">
+            <img
+              src={testimonial.image}
+              alt={testimonial.author}
+              class="w-12 h-12 rounded-full"
+            />
+            <div>
+              <p class="font-semibold text-[#fafafa]">{testimonial.author}</p>
+              <p class="text-sm text-accent-500">{testimonial.title}</p>
+              <p class="text-xs text-[#a1a1a1]">{testimonial.company}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
+    <h3 class="text-lg font-semibold text-accent-400 mb-2">💬 Adicione Testimonials Reais</h3>
+    <p class="text-[#d4d4d8]">
+      Peça para colegas, clientes ou gerentes deixarem uma recomendação no LinkedIn ou enviem um email.
+      Demonstra prova social real e aumenta muito a credibilidade.
+    </p>
+  </div>
+</section>

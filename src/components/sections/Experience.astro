@@ -1,0 +1,58 @@
+---
+import ExperienceCard from '@/components/ui/ExperienceCard.astro';
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+
+const experiences = [
+  {
+    role: 'Desenvolvedor Pleno',
+    company: 'Prodam (Empresa de Processamento de Dados do Estado do Amazonas)',
+    period: 'Atual',
+    description: 'Desenvolvimento e manutenção de sistemas de informação para a administração pública estadual.',
+    highlights: [
+      'Desenvolvimento de aplicações web em produção',
+      'Arquitetura de sistemas escaláveis',
+      'Mentoria de desenvolvedores junior',
+    ],
+    technologies: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Docker'],
+  },
+  {
+    role: 'Gerente de Setor de Informática',
+    company: 'Prefeitura de Manaus',
+    period: '2015 - 2022',
+    description: 'Liderança de equipe de TI responsável pela infraestrutura e desenvolvimento de sistemas municipais.',
+    highlights: [
+      'Gerenciamento de equipe de 8+ desenvolvedores',
+      'Arquitetura e implementação de infraestrutura em nuvem',
+      'Redução de 40% nos custos operacionais através de otimização de recursos',
+    ],
+    technologies: ['Leadership', 'Infrastructure', 'Process Automation', 'Cloud Computing'],
+  },
+];
+---
+
+<section id={id} class="py-20 space-y-12">
+  <div class="space-y-4">
+    <h2 class="text-4xl font-bold text-[#fafafa]">Experiência</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      13+ anos trabalhando com tecnologia na esfera pública, combinando desenvolvimento técnico com liderança estratégica.
+    </p>
+  </div>
+
+  <div class="space-y-6">
+    {experiences.map((exp) => (
+      <ExperienceCard
+        role={exp.role}
+        company={exp.company}
+        period={exp.period}
+        description={exp.description}
+        highlights={exp.highlights}
+        technologies={exp.technologies}
+      />
+    ))}
+  </div>
+</section>

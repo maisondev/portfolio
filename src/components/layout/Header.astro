@@ -1,28 +1,34 @@
 ---
 const links = [
   { href: '/', label: 'Home' },
+  { href: '/#experience', label: 'Experiência' },
   { href: '/#projects', label: 'Projetos' },
+  { href: '/#blog', label: 'Artigos' },
   { href: '/#about', label: 'Sobre' },
   { href: '/#contact', label: 'Contato' },
 ];
 ---
 
-<header class="bg-[#0a0a0a] border-b border-[#2a2a2a] sticky top-0 z-50">
+<header class="bg-[#0a0a0a] border-b border-[#2a2a2a] sticky top-0 z-50 backdrop-blur-sm bg-[#0a0a0a]/95">
   <nav class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-bold text-[#fafafa] hover:text-accent-500">
+    <a href="/" class="text-xl font-bold text-[#fafafa] hover:text-accent-500 transition-colors">
       mg
     </a>
-    <ul class="flex gap-6 items-center">
+    <ul class="hidden sm:flex gap-1 items-center">
       {links.map((link) => (
         <li>
           <a
             href={link.href}
-            class="text-[#d4d4d8] hover:text-[#fafafa] transition-colors"
+            class="px-3 py-2 text-sm text-[#d4d4d8] hover:text-accent-500 hover:bg-[#1a1a1a] rounded-md transition-all duration-300"
           >
             {link.label}
           </a>
         </li>
       ))}
     </ul>
+    <a href="mailto:maisongalvao@outlook.com" class="hidden sm:block px-4 py-2 bg-accent-500 text-[#0a0a0a] rounded-lg font-semibold hover:bg-accent-400 transition-colors text-sm">
+      Contato
+    </a>
   </nav>
 </header>
+

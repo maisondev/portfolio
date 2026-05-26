@@ -7,45 +7,94 @@ interface Props {
 
 const { id } = Astro.props;
 
-const skills = [
-  'JavaScript',
+const frontendSkills = [
   'TypeScript',
   'React',
   'Vue.js',
   'Tailwind CSS',
+  'HTML/CSS',
+  'Next.js',
+];
+
+const backendSkills = [
   'Node.js',
   'PostgreSQL',
+  'REST APIs',
+  'GraphQL',
+  'Docker',
+  'AWS',
+];
+
+const devTools = [
   'Git',
+  'GitHub',
+  'Docker',
+  'Linux',
+  'CI/CD',
+  'Nginx',
 ];
 ---
 
-<section id={id} class="py-20 space-y-12">
-  <div class="space-y-4">
-    <h2 class="text-3xl sm:text-4xl font-bold text-[#fafafa]">Sobre</h2>
-    <p class="text-[#d4d4d8] text-lg leading-relaxed max-w-3xl">
-      Sou um desenvolvedor full-stack com experiência em criar aplicações web modernas e de alto desempenho.
-      Tenho paixão por escrever código limpo, escalável e bem testado. Estou sempre aprendendo novas tecnologias
-      e buscando a melhor forma de resolver problemas.
-    </p>
-  </div>
-
-  <div class="space-y-4">
-    <h3 class="text-xl font-semibold text-[#fafafa]">Stack Técnico</h3>
-    <div class="flex flex-wrap gap-2">
-      {skills.map((skill) => (
-        <Badge text={skill} variant="primary" />
-      ))}
+<section id={id} class="py-20 space-y-16">
+  <div class="space-y-6">
+    <h2 class="text-4xl font-bold text-[#fafafa]">Sobre</h2>
+    <div class="space-y-4">
+      <p class="text-[#d4d4d8] text-lg leading-relaxed max-w-3xl">
+        Desenvolvedor Pleno na Prodam com 13+ anos de experiência em tecnologia. Minha jornada inclui arquitetura de sistemas complexos,
+        liderança de equipes e desenvolvimento de soluções escaláveis para a administração pública.
+      </p>
+      <p class="text-[#d4d4d8] text-lg leading-relaxed max-w-3xl">
+        Sou apaixonado por code quality, boas práticas de engenharia e mentoria. Acredito que tecnologia deve resolver problemas reais
+        e que código limpo é um investimento no futuro.
+      </p>
     </div>
   </div>
 
-  <div class="grid sm:grid-cols-2 gap-8">
-    <div class="space-y-2">
-      <h3 class="text-lg font-semibold text-accent-500">📍 Localização</h3>
-      <p class="text-[#d4d4d8]">Brasil</p>
+  <div class="space-y-8">
+    <h3 class="text-2xl font-bold text-[#fafafa]">Stack Técnico</h3>
+
+    <div class="grid sm:grid-cols-3 gap-8">
+      <div class="space-y-4">
+        <h4 class="text-lg font-semibold text-accent-500">Frontend</h4>
+        <div class="flex flex-wrap gap-2">
+          {frontendSkills.map((skill) => (
+            <Badge text={skill} variant="primary" />
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="text-lg font-semibold text-accent-500">Backend</h4>
+        <div class="flex flex-wrap gap-2">
+          {backendSkills.map((skill) => (
+            <Badge text={skill} variant="primary" />
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="text-lg font-semibold text-accent-500">DevTools</h4>
+        <div class="flex flex-wrap gap-2">
+          {devTools.map((skill) => (
+            <Badge text={skill} variant="primary" />
+          ))}
+        </div>
+      </div>
     </div>
-    <div class="space-y-2">
-      <h3 class="text-lg font-semibold text-accent-500">💼 Experiência</h3>
-      <p class="text-[#d4d4d8]">+2 anos desenvolvendo soluções web</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 space-y-2">
+      <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">📍 Localização</h4>
+      <p class="text-[#fafafa] text-lg font-semibold">Manaus, Brasil</p>
+    </div>
+    <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 space-y-2">
+      <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">💼 Experiência</h4>
+      <p class="text-[#fafafa] text-lg font-semibold">13+ anos em Tecnologia</p>
+    </div>
+    <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 space-y-2">
+      <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">🎯 Atualmente</h4>
+      <p class="text-[#fafafa] text-lg font-semibold">Desenvolvedor Pleno @ Prodam</p>
     </div>
   </div>
 </section>

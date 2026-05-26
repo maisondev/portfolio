@@ -2,21 +2,32 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
 import About from '@/components/sections/About.astro';
+import Experience from '@/components/sections/Experience.astro';
 import Projects from '@/components/sections/Projects.astro';
+import Blog from '@/components/sections/Blog.astro';
+import OpenSource from '@/components/sections/OpenSource.astro';
+import Testimonials from '@/components/sections/Testimonials.astro';
+import Education from '@/components/sections/Education.astro';
 import Contact from '@/components/sections/Contact.astro';
 ---
 
 <BaseLayout
-  title="Maison Galvão - Software Developer"
-  description="Portfolio de Maison Galvão - Software Developer com foco em JavaScript, TypeScript e Web Development"
+  title="Maison Galvão - Senior Developer & Tech Lead"
+  description="Portfolio profissional de Maison Galvão - 13+ anos em tecnologia, Desenvolvedor Pleno na Prodam, expertise em arquitetura de sistemas e liderança técnica."
 >
   <Hero
     name="Maison Galvão"
-    title="Software Developer"
-    description="Desenvolvedor focado em criar soluções modernas e escaláveis com JavaScript, TypeScript e tecnologias web. Apaixonado por código limpo, boas práticas e aprendizado contínuo."
+    title="Senior Developer & Tech Lead"
+    description="13+ anos de experiência desenvolvendo sistemas escaláveis no setor público. Combinação única de expertise técnica profunda e liderança estratégica. Especializado em arquitetura de sistemas, TypeScript/Node.js e mentoria de equipes."
   />
 
   <About id="about" />
+  <Experience id="experience" />
   <Projects id="projects" />
+  <Blog id="blog" />
+  <Education id="education" />
+  <OpenSource id="opensource" />
+  <Testimonials id="testimonials" />
   <Contact id="contact" />
 </BaseLayout>
+

@@ -11,7 +11,9 @@
   --bg-secondary: #1a1a1a;
   --text-primary: #fafafa;
   --text-secondary: #d4d4d8;
-  --accent: #3b82f6;
+  --text-tertiary: #a1a1a1;
+  --accent: #84cc16;
+  --accent-dark: #65a30d;
 }
 
 html {
@@ -19,7 +21,27 @@ html {
 }
 
 body {
-  @apply bg-[#0a0a0a] text-[#fafafa] font-sans;
+  @apply bg-[#0a0a0a] text-[#fafafa] font-sans antialiased;
+}
+
+h1 {
+  @apply text-5xl sm:text-6xl font-bold tracking-tight;
+}
+
+h2 {
+  @apply text-3xl sm:text-4xl font-bold tracking-tight;
+}
+
+h3 {
+  @apply text-2xl font-semibold tracking-tight;
+}
+
+h4 {
+  @apply text-lg font-semibold tracking-wide;
+}
+
+p {
+  @apply leading-relaxed;
 }
 
 a {
@@ -27,5 +49,5 @@ a {
 }
 
 a:hover {
-  @apply text-accent-500;
+  @apply text-accent-400;
 }

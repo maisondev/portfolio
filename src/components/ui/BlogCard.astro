@@ -1,0 +1,42 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  slug: string;
+}
+
+const { title, excerpt, date, readTime, tags, slug } = Astro.props;
+---
+
+<a href={slug} class="group block">
+  <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 hover:border-accent-500/50 hover:bg-[#242424] transition-all duration-300 space-y-4">
+    <div class="space-y-2">
+      <h3 class="text-xl sm:text-2xl font-bold text-[#fafafa] group-hover:text-accent-500 transition-colors">
+        {title}
+      </h3>
+      <p class="text-[#d4d4d8] text-base leading-relaxed">{excerpt}</p>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <Badge text={tag} variant="secondary" />
+      ))}
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 pt-2 border-t border-[#2a2a2a]">
+      <div class="flex gap-4 text-sm text-[#a1a1a1]">
+        <span>{date}</span>
+        <span>•</span>
+        <span>{readTime}</span>
+      </div>
+      <span class="text-accent-500 font-semibold group-hover:translate-x-1 transition-transform">
+        Ler →
+      </span>
+    </div>
+  </div>
+</a>
