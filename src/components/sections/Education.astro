@@ -12,7 +12,6 @@ const education = [
     year: 'Out 2024 – Out 2028',
     description: 'Formação em Engenharia de Software com foco em arquitetura e desenvolvimento de sistemas de larga escala.',
     type: 'graduacao',
-    icon: '🎓',
   },
   {
     degree: 'Pós-Graduação Lato Sensu - Desenvolvimento Full Stack e Cloud Computing',
@@ -20,7 +19,6 @@ const education = [
     year: 'Mai 2024 – Nov 2025',
     description: 'Especialização em desenvolvimento full stack com foco em tecnologias cloud e arquitetura moderna.',
     type: 'pos-graduacao',
-    icon: '📚',
   },
   {
     degree: 'Especialista em Inteligência Artificial e Tecnologia na Gestão Pública',
@@ -28,7 +26,6 @@ const education = [
     year: 'Mai 2024 – Nov 2024',
     description: 'Especialização em aplicações de IA no contexto da administração pública.',
     type: 'pos-graduacao',
-    icon: '📚',
   },
   {
     degree: 'Tecnologia em Análise e Desenvolvimento de Sistemas',
@@ -36,7 +33,6 @@ const education = [
     year: '2018 – 2023',
     description: 'Formação técnica em análise e desenvolvimento de sistemas, com foco em desenvolvimento de software.',
     type: 'tecnico',
-    icon: '⚙️',
   },
   {
     degree: 'Ensino Técnico em Informática',
@@ -44,9 +40,15 @@ const education = [
     year: 'Jan 2006 – Dez 2008',
     description: 'Formação técnica fundamental em informática e princípios de desenvolvimento.',
     type: 'tecnico',
-    icon: '⚙️',
   },
 ];
+
+const icons = {
+  graduacao: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6m0 0l-8.97 4.97a2 2 0 01-2.06 0L2 16m20-6l-8.5-4.5a2 2 0 00-2 0L2 10m0 6v-6m0 0l8.97-4.97a2 2 0 012.06 0L22 10"/></svg>`,
+  pos_graduacao: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h8M8 15h8"/></svg>`,
+  tecnico: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/></svg>`,
+  certificacao: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+};
 
 const certifications = [
   {
@@ -73,8 +75,8 @@ const certifications = [
           {education.map((edu) => (
             <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 space-y-2 hover:border-accent-500/30 transition-colors">
               <div class="flex gap-3">
-                <div class="flex items-start pt-1">
-                  <span class="text-2xl">{edu.icon}</span>
+                <div class="w-6 h-6 flex-shrink-0 text-accent-500 mt-1">
+                  <Fragment set:html={icons[edu.type as keyof typeof icons]} />
                 </div>
                 <div class="flex-1">
                   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
@@ -96,9 +98,11 @@ const certifications = [
         <h3 class="text-2xl font-bold text-[#fafafa]">Certificações</h3>
         <div class="grid sm:grid-cols-2 gap-4">
           {certifications.map((cert) => (
-            <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-4 space-y-1">
+            <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-4 space-y-1 hover:border-accent-500/30 transition-colors">
               <div class="flex items-start gap-2">
-                <span class="text-accent-500 text-xl mt-1">✓</span>
+                <div class="w-5 h-5 flex-shrink-0 text-accent-500 mt-0.5">
+                  <Fragment set:html={icons.certificacao} />
+                </div>
                 <div class="flex-1">
                   <h4 class="font-semibold text-[#fafafa]">{cert.name}</h4>
                   <p class="text-[#a1a1a1] text-sm">{cert.issuer}</p>
