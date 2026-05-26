@@ -9,7 +9,8 @@
       "PowerShell(Remove-Item *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:www.linkedin.com)"
     ]
   }
 }
