@@ -13,7 +13,9 @@
       "WebFetch(domain:www.linkedin.com)",
       "Bash(git remote *)",
       "Bash(git branch *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "WebFetch(domain:vercel.com)",
+      "Bash(git config *)"
     ]
   }
 }
