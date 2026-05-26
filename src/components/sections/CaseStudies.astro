@@ -4,9 +4,10 @@ import Badge from '@/components/ui/Badge.astro';
 interface Props {
   id?: string;
   lang?: 'pt' | 'en';
+  showAll?: boolean;
 }
 
-const { id, lang = 'pt' } = Astro.props;
+const { id, lang = 'pt', showAll = false } = Astro.props;
 
 const translations = {
   pt: {
@@ -87,7 +88,64 @@ const caseStudies = [
       reduction: '90%',
     },
   },
+  {
+    title: lang === 'pt'
+      ? 'SIGEAM 2.0 - Sistema Integrado de Gestão de Educação'
+      : 'SIGEAM 2.0 - Integrated Education Management System',
+    client: lang === 'pt'
+      ? 'Secretaria de Estado de Educação (SEDUC) & Prefeitura de Manaus'
+      : 'State Education Secretariat (SEDUC) & Manaus City Hall',
+    scope: lang === 'pt'
+      ? 'Migração Legacy → Web | AI-Powered Rule Extraction | Full-Stack Architecture'
+      : 'Legacy Migration → Web | AI-Powered Rule Extraction | Full-Stack Architecture',
+    period: '2023 - Present',
+    challenge: lang === 'pt'
+      ? 'Sistema Natural/ADABAS monolítico que integra todos os serviços de educação (estadual + municipal). Utilizado em 1000+ escolas com centenas de milhares de usuários. Necessário migrar para arquitetura web moderna mantendo todas as 500+ regras de negócio complexas e garantindo zero downtime.'
+      : 'Monolithic Natural/ADABAS system integrating all education services (state + municipal). Used across 1000+ schools with hundreds of thousands of users. Required migration to modern web architecture while maintaining 500+ complex business rules and ensuring zero downtime.',
+    results: lang === 'pt'
+      ? [
+          '1000+ escolas estaduais e municipais integradas',
+          'Migração de 500+ regras de negócio complexas com IA (Claude)',
+          'Backend: PHP 8.2 + Symfony 6 (RESTful API)',
+          'Frontend: Vue.js 3 + TypeScript (responsive design)',
+          'Zero perda de funcionalidade durante transição',
+          'Redução de tempo de onboarding de escolas em 60%',
+        ]
+      : [
+          '1000+ state and municipal schools integrated',
+          'Migration of 500+ complex business rules using AI (Claude)',
+          'Backend: PHP 8.2 + Symfony 6 (RESTful API)',
+          'Frontend: Vue.js 3 + TypeScript (responsive design)',
+          'Zero functionality loss during transition',
+          '60% reduction in school onboarding time',
+        ],
+    technologies: ['PHP 8.2', 'Symfony 6', 'Vue.js 3', 'TypeScript', 'PostgreSQL', 'Docker', 'AWS', 'Claude API', 'REST APIs'],
+    keyLearnings: lang === 'pt'
+      ? [
+          'Extracting complex business rules from legacy Natural/ADABAS using Claude AI - automating reverse-engineering',
+          'Full-stack web architecture for enterprise education systems serving 1000+ institutions',
+          'Managing scope in large-scale .gov projects with competing requirements (SEDUC vs Prefeitura)',
+          'Database schema normalization from hierarchical (ADABAS) to relational (PostgreSQL)',
+          'Progressive rollout strategy to 1000+ schools with minimal disruption',
+          'Integration patterns between modern REST APIs and legacy system dependencies',
+        ]
+      : [
+          'Extracting complex business rules from legacy Natural/ADABAS using Claude AI - automating reverse-engineering',
+          'Full-stack web architecture for enterprise education systems serving 1000+ institutions',
+          'Managing scope in large-scale .gov projects with competing requirements (state vs municipal)',
+          'Database schema normalization from hierarchical (ADABAS) to relational (PostgreSQL)',
+          'Progressive rollout strategy to 1000+ schools with minimal disruption',
+          'Integration patterns between modern REST APIs and legacy system dependencies',
+        ],
+    impact: {
+      users: '1000+ escolas',
+      uptime: '99.9%',
+      reduction: '60%',
+    },
+  },
 ];
+
+const displayedStudies = showAll ? caseStudies : [caseStudies[0]];
 ---
 
 <section id={id} class="py-20 space-y-12">
@@ -99,7 +157,7 @@ const caseStudies = [
   </div>
 
   <div class="space-y-8">
-    {caseStudies.map((study) => (
+    {displayedStudies.map((study) => (
       <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-8 space-y-6 hover:border-accent-500/30 transition-colors">
         {/* Header */}
         <div class="space-y-3">

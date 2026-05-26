@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CaseStudies from '@/components/sections/CaseStudies.astro';
+import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
+
+const lang = getLanguageFromUrl(Astro.url) as Language;
+const t = (key: string) => getTranslation(lang, key);
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
+---
+
+<BaseLayout
+  title={lang === 'pt' ? 'Estudos de Caso - Maison Galvão' : 'Case Studies - Maison Galvão'}
+  description={lang === 'pt'
+    ? 'Estudos de caso de projetos em produção que escalei para centenas de milhares de usuários. Migrações de legacy, arquitetura distribuída e otimização de performance.'
+    : 'Case studies of production projects I\'ve scaled to hundreds of thousands of users. Legacy migrations, distributed architecture, and performance optimization.'}
+>
+  <div class="py-12 space-y-4">
+    <h1 class="text-5xl sm:text-6xl font-bold text-[#fafafa] tracking-tight">
+      {lang === 'pt' ? 'Estudos de Caso' : 'Case Studies'}
+    </h1>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      {lang === 'pt'
+        ? 'Documentação técnica de projetos em produção que arquitetei e escalei. Estes projetos servem centenas de milhares de usuários brasileiros e demonstram expertise em arquitetura de sistemas, migração de legado e otimização de performance.'
+        : 'Technical documentation of production projects I\'ve architected and scaled. These projects serve hundreds of thousands of Brazilian users and demonstrate expertise in systems architecture, legacy migration, and performance optimization.'}
+    </p>
+  </div>
+
+  <CaseStudies lang={lang} showAll={true} />
+</BaseLayout>
