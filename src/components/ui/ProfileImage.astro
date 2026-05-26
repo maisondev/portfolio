@@ -1,0 +1,25 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  showBorder?: boolean;
+}
+
+const { size = 'md', showBorder = true } = Astro.props;
+
+const sizeClasses = {
+  sm: 'w-16 h-16',
+  md: 'w-24 h-24',
+  lg: 'w-48 h-48',
+  xl: 'w-64 h-64',
+};
+
+const borderClass = showBorder ? 'border-2 border-accent-500' : '';
+---
+
+<div class={`${sizeClasses[size]} ${borderClass} rounded-full overflow-hidden flex-shrink-0 bg-[#1a1a1a]`}>
+  <img
+    src="/profile.jpg"
+    alt="Maison Galvão"
+    class="w-full h-full object-cover"
+  />
+</div>

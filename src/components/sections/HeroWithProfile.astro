@@ -1,0 +1,59 @@
+---
+import Button from '@/components/ui/Button.astro';
+import ProfileImage from '@/components/ui/ProfileImage.astro';
+
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+}
+
+const { name, title, description } = Astro.props;
+---
+
+<section class="min-h-screen flex flex-col justify-center gap-8 py-12 sm:py-20">
+  <div class="grid md:grid-cols-3 gap-8 items-center">
+    <!-- Coluna Esquerda: Foto -->
+    <div class="flex justify-center md:justify-end">
+      <ProfileImage size="xl" showBorder={true} />
+    </div>
+
+    <!-- Coluna Direita: Texto -->
+    <div class="md:col-span-2 space-y-6">
+      <div class="space-y-2">
+        <h1 class="text-5xl sm:text-7xl font-bold text-[#fafafa] tracking-tight leading-[1.1]">
+          {name}
+        </h1>
+        <div class="h-1 w-20 bg-accent-500 rounded-full"></div>
+      </div>
+
+      <h2 class="text-2xl sm:text-4xl text-accent-500 font-bold tracking-tight">
+        {title}
+      </h2>
+
+      <p class="text-lg sm:text-xl text-[#d4d4d8] max-w-3xl leading-relaxed font-light">
+        {description}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-8">
+        <Button
+          href="https://github.com/maisondev"
+          variant="primary"
+          target="_blank"
+        >
+          GitHub
+        </Button>
+        <Button
+          href="https://www.linkedin.com/in/maisongalvao"
+          variant="secondary"
+          target="_blank"
+        >
+          LinkedIn
+        </Button>
+        <Button href="#contact" variant="secondary">
+          Agendar Conversa
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
