@@ -15,6 +15,7 @@ const projects = [
     tags: ['Vue.js', 'Node.js', 'PostgreSQL', 'Google Gemini API', 'Cloud'],
     github: 'https://github.com/maisongalvao',
     demo: 'https://www.sinapses.site/',
+    image: '/projects/sinapses-preview.jpg',
   },
   {
     title: 'Portfolio Profissional',
@@ -22,6 +23,7 @@ const projects = [
     tags: ['Astro', 'TypeScript', 'Tailwind CSS'],
     github: 'https://github.com/maisongalvao/portfolio',
     demo: 'https://maisongalvao.dev',
+    image: '/projects/portfolio-preview.jpg',
   },
 ];
 ---
@@ -42,6 +44,7 @@ const projects = [
         tags={project.tags}
         github={project.github}
         demo={project.demo}
+        image={project.image}
       />
     ))}
   </div>
