@@ -1,6 +1,8 @@
 ---
-import { courses, allTechnologies } from '@/config/courses';
+import { courses, getAllTechnologies } from '@/config/courses';
 import CourseCard from './CourseCard.astro';
+
+const allTechnologies = getAllTechnologies();
 
 interface Props {
   lang?: string;
@@ -126,10 +128,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     let selectedTech = params.get('tech') || '';
     let selectedInst = params.get('inst') || '';
 
-    console.log('Filter initialized:', { selectedTech, selectedInst, techButtons: techButtons?.length, instButtons: instButtons?.length });
-
     const updateUI = () => {
-      console.log('updateUI called with:', { selectedTech, selectedInst });
       // Update button states
       techButtons?.forEach((btn) => {
         const tech = btn.getAttribute('data-filter-tech');
@@ -166,8 +165,6 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const instMatch = !selectedInst ||
           platform.toLowerCase() === selectedInst.toLowerCase();
 
-        if (idx === 0) console.log('First course:', { platform, selectedInst, match: instMatch });
-
         if (techMatch && instMatch) {
           card.classList.remove('hidden');
           visibleCount++;
@@ -175,7 +172,6 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           card.classList.add('hidden');
         }
       });
-      console.log('Visible courses:', visibleCount);
 
       // Update summary
       const filters = [];
