@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProfileServices from '@/components/ui/ProfileServices.astro';
+---
+
+<BaseLayout title="Serviços e Perfis" description="Confira todos os meus perfis e serviços em um único lugar.">
+  <div class="space-y-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-white mb-4">Meus Serviços e Perfis</h1>
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+        Encontre todos os meus perfis profissionais, projetos e serviços que uso. Clique em qualquer card para visitar.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="max-w-6xl mx-auto">
+      <ProfileServices showCategories={true} columns="auto" />
+    </div>
+
+    <!-- Footer Info -->
+    <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+      <p class="text-sm">
+        Última atualização: {new Date().toLocaleDateString('pt-BR')}
+      </p>
+    </div>
+  </div>
+</BaseLayout>

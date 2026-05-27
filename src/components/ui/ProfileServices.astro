@@ -1,0 +1,59 @@
+---
+import { services, categories } from '@/config/services';
+import ServiceCard from './ServiceCard.astro';
+
+interface Props {
+  showCategories?: boolean;
+  columns?: 'auto' | '2' | '3' | '4';
+}
+
+const { showCategories = true, columns = 'auto' } = Astro.props;
+
+const groupedServices = showCategories
+  ? services.reduce(
+      (acc, service) => {
+        if (!acc[service.category]) {
+          acc[service.category] = [];
+        }
+        acc[service.category].push(service);
+        return acc;
+      },
+      {} as Record<string, typeof services>
+    )
+  : { all: services };
+
+const colClasses = {
+  auto: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+  '2': 'grid-cols-1 sm:grid-cols-2',
+  '3': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+  '4': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+};
+---
+
+<div class="w-full">
+  {
+    showCategories ? (
+      Object.entries(groupedServices).map(([categoryKey, categoryServices]) => (
+        <div class="mb-12">
+          <div class="flex items-center gap-2 mb-6">
+            <span class="text-2xl">{categories[categoryKey as keyof typeof categories].icon}</span>
+            <h3 class="text-xl font-bold text-gray-100">
+              {categories[categoryKey as keyof typeof categories].title}
+            </h3>
+          </div>
+          <div class={`grid ${colClasses[columns]} gap-4`}>
+            {categoryServices.map((service) => (
+              <ServiceCard service={service} />
+            ))}
+          </div>
+        </div>
+      ))
+    ) : (
+      <div class={`grid ${colClasses[columns]} gap-4`}>
+        {services.map((service) => (
+          <ServiceCard service={service} />
+        ))}
+      </div>
+    )
+  }
+</div>

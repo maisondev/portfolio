@@ -1,11 +1,12 @@
 {
   "nav": {
     "home": "Início",
+    "projects": "Projetos",
     "experience": "Experiência",
     "education": "Formação",
-    "projects": "Projetos",
-    "blog": "Blog",
     "contests": "Concursos",
+    "services": "Serviços",
+    "blog": "Blog",
     "language": "Idioma"
   },
   "hero": {
