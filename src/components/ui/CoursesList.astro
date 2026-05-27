@@ -3,12 +3,10 @@ import { courses, allTechnologies } from '@/config/courses';
 import CourseCard from './CourseCard.astro';
 
 interface Props {
-  selectedTech?: string;
-  selectedInstitution?: string;
   lang?: string;
 }
 
-const { selectedTech = '', selectedInstitution = '', lang = 'pt' } = Astro.props;
+const { lang = 'pt' } = Astro.props;
 
 const getLocalizedPath = (path: string) => {
   return lang === 'pt' ? `/pt${path}` : `/en${path}`;
@@ -19,19 +17,6 @@ const allInstitutions = Array.from(
   new Set(courses.map((course) => course.platform))
 ).sort();
 
-// Filter courses based on selected filters
-const filteredCourses = courses.filter((course) => {
-  const techMatch = !selectedTech ||
-    course.technologies.some(
-      (tech) => tech.toLowerCase() === selectedTech.toLowerCase()
-    );
-
-  const institutionMatch = !selectedInstitution ||
-    course.platform.toLowerCase() === selectedInstitution.toLowerCase();
-
-  return techMatch && institutionMatch;
-});
-
 // Build full URL with localization
 const buildFilterUrl = (tech?: string, inst?: string) => {
   const parts = [];
@@ -40,19 +25,9 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   const query = parts.length > 0 ? `?${parts.join('&')}` : '';
   return `${getLocalizedPath('/courses')}${query}`;
 };
-
-const filterSummary = () => {
-  const filters = [];
-  if (selectedTech) filters.push(`"${selectedTech}"`);
-  if (selectedInstitution) filters.push(`"${selectedInstitution}"`);
-
-  if (filters.length === 0) return `Total: ${filteredCourses.length} cursos`;
-  if (filters.length === 1) return `Mostrando ${filteredCourses.length} curso(s) de ${filters[0]}`;
-  return `Mostrando ${filteredCourses.length} curso(s) de ${filters.join(' + ')}`;
-};
 ---
 
-<div class="space-y-8">
+<div class="space-y-8" data-courses-filter>
   <!-- Filters Section -->
   <div class="space-y-6">
     <!-- Filter by Technology -->
@@ -60,40 +35,27 @@ const filterSummary = () => {
       <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
         Filtrar por tecnologia
       </h3>
-      <div class="flex flex-wrap gap-2">
-        <a
-          href={buildFilterUrl('', selectedInstitution)}
-          class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-            !selectedTech
-              ? 'bg-accent-500 text-[#0a0a0a]'
-              : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
-          }`}
+      <div class="flex flex-wrap gap-2" data-tech-filters>
+        <button
+          data-filter-tech=""
+          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-accent-500 text-[#0a0a0a]"
         >
-          Todas
-        </a>
+          Todas ({courses.length})
+        </button>
         {allTechnologies.map((tech) => {
-          const count = courses.filter((course) => {
-            const techMatch = course.technologies.some(
+          const count = courses.filter((course) =>
+            course.technologies.some(
               (t) => t.toLowerCase() === tech.toLowerCase()
-            );
-            const instMatch = !selectedInstitution ||
-              course.platform.toLowerCase() === selectedInstitution.toLowerCase();
-            return techMatch && instMatch;
-          }).length;
-
-          const isSelected = selectedTech?.toLowerCase() === tech.toLowerCase();
+            )
+          ).length;
 
           return (
-            <a
-              href={buildFilterUrl(tech, selectedInstitution)}
-              class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                isSelected
-                  ? 'bg-accent-500 text-[#0a0a0a]'
-                  : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
-              }`}
+            <button
+              data-filter-tech={tech}
+              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50"
             >
               {tech} ({count})
-            </a>
+            </button>
           );
         })}
       </div>
@@ -104,40 +66,25 @@ const filterSummary = () => {
       <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
         Filtrar por instituição
       </h3>
-      <div class="flex flex-wrap gap-2">
-        <a
-          href={buildFilterUrl(selectedTech, '')}
-          class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-            !selectedInstitution
-              ? 'bg-accent-500 text-[#0a0a0a]'
-              : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
-          }`}
+      <div class="flex flex-wrap gap-2" data-inst-filters>
+        <button
+          data-filter-inst=""
+          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-accent-500 text-[#0a0a0a]"
         >
           Todas
-        </a>
+        </button>
         {allInstitutions.map((institution) => {
-          const count = courses.filter((course) => {
-            const instMatch = course.platform.toLowerCase() === institution.toLowerCase();
-            const techMatch = !selectedTech ||
-              course.technologies.some(
-                (t) => t.toLowerCase() === selectedTech.toLowerCase()
-              );
-            return instMatch && techMatch;
-          }).length;
-
-          const isSelected = selectedInstitution?.toLowerCase() === institution.toLowerCase();
+          const count = courses.filter((course) =>
+            course.platform.toLowerCase() === institution.toLowerCase()
+          ).length;
 
           return (
-            <a
-              href={buildFilterUrl(selectedTech, institution)}
-              class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                isSelected
-                  ? 'bg-accent-500 text-[#0a0a0a]'
-                  : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
-              }`}
+            <button
+              data-filter-inst={institution}
+              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50"
             >
               {institution} ({count})
-            </a>
+            </button>
           );
         })}
       </div>
@@ -146,22 +93,135 @@ const filterSummary = () => {
 
   <!-- Courses Grid -->
   <div>
-    <p class="text-sm text-[#d4d4d8] mb-4">
-      {filterSummary()}
+    <p class="text-sm text-[#d4d4d8] mb-4" data-filter-summary>
+      Total: {courses.length} cursos
     </p>
 
-    {filteredCourses.length > 0 ? (
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredCourses.map((course) => (
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-courses-grid>
+      {courses.map((course) => (
+        <div data-course={JSON.stringify({ technologies: course.technologies, platform: course.platform })}>
           <CourseCard course={course} />
-        ))}
-      </div>
-    ) : (
-      <div class="text-center py-12 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a]/50">
-        <p class="text-[#d4d4d8]">
-          Nenhum curso encontrado com os filtros selecionados
-        </p>
-      </div>
-    )}
+        </div>
+      ))}
+    </div>
+
+    <div class="hidden text-center py-12 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a]/50" data-no-results>
+      <p class="text-[#d4d4d8]">
+        Nenhum curso encontrado com os filtros selecionados
+      </p>
+    </div>
   </div>
 </div>
+
+<script>
+  const filterContainer = document.querySelector('[data-courses-filter]');
+  const coursesGrid = filterContainer?.querySelector('[data-courses-grid]');
+  const noResults = filterContainer?.querySelector('[data-no-results]');
+  const filterSummary = filterContainer?.querySelector('[data-filter-summary]');
+  const techButtons = filterContainer?.querySelectorAll('[data-filter-tech]');
+  const instButtons = filterContainer?.querySelectorAll('[data-filter-inst]');
+
+  if (filterContainer) {
+    const params = new URLSearchParams(window.location.search);
+    const selectedTech = params.get('tech') || '';
+    const selectedInst = params.get('inst') || '';
+
+    const updateUI = () => {
+      // Update button states
+      techButtons?.forEach((btn) => {
+        const tech = btn.getAttribute('data-filter-tech');
+        if (tech === selectedTech) {
+          btn.classList.add('bg-accent-500', 'text-[#0a0a0a]');
+          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+        } else {
+          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]');
+          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+        }
+      });
+
+      instButtons?.forEach((btn) => {
+        const inst = btn.getAttribute('data-filter-inst');
+        if (inst === selectedInst) {
+          btn.classList.add('bg-accent-500', 'text-[#0a0a0a]');
+          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+        } else {
+          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]');
+          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+        }
+      });
+
+      // Filter courses
+      let visibleCount = 0;
+      coursesGrid?.querySelectorAll('[data-course]').forEach((card) => {
+        const data = JSON.parse(card.getAttribute('data-course') || '{}');
+        const technologies = data.technologies || [];
+        const platform = data.platform || '';
+
+        const techMatch = !selectedTech ||
+          technologies.some((t: string) => t.toLowerCase() === selectedTech.toLowerCase());
+
+        const instMatch = !selectedInst ||
+          platform.toLowerCase() === selectedInst.toLowerCase();
+
+        if (techMatch && instMatch) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Update summary
+      const filters = [];
+      if (selectedTech) filters.push(`"${selectedTech}"`);
+      if (selectedInst) filters.push(`"${selectedInst}"`);
+
+      if (filterSummary) {
+        if (filters.length === 0) {
+          filterSummary.textContent = `Total: ${visibleCount} cursos`;
+        } else if (filters.length === 1) {
+          filterSummary.textContent = `Mostrando ${visibleCount} curso(s) de ${filters[0]}`;
+        } else {
+          filterSummary.textContent = `Mostrando ${visibleCount} curso(s) de ${filters.join(' + ')}`;
+        }
+      }
+
+      // Show/hide no results
+      if (noResults) {
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      }
+    };
+
+    // Add click handlers to buttons
+    techButtons?.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tech = btn.getAttribute('data-filter-tech');
+        const newParams = new URLSearchParams();
+        if (tech) newParams.set('tech', tech);
+        if (selectedInst) newParams.set('inst', selectedInst);
+        const query = newParams.toString();
+        window.history.pushState({}, '', query ? `?${query}` : '');
+        updateUI();
+      });
+    });
+
+    instButtons?.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const inst = btn.getAttribute('data-filter-inst');
+        const newParams = new URLSearchParams();
+        if (selectedTech) newParams.set('tech', selectedTech);
+        if (inst) newParams.set('inst', inst);
+        const query = newParams.toString();
+        window.history.pushState({}, '', query ? `?${query}` : '');
+        updateUI();
+      });
+    });
+
+    // Initial update
+    updateUI();
+  }
+</script>

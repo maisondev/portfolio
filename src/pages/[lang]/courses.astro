@@ -7,8 +7,6 @@ import { getStaticPaths } from '@/i18n/routes';
 export { getStaticPaths };
 
 const lang = getLanguageFromUrl(Astro.url) as Language;
-const tech = Astro.url.searchParams.get('tech') || '';
-const institution = Astro.url.searchParams.get('inst') || '';
 
 const titles = {
   pt: 'Meus Cursos',
@@ -38,6 +36,6 @@ const descriptions = {
     </div>
 
     <!-- Courses List with Filters -->
-    <CoursesList selectedTech={tech} selectedInstitution={institution} lang={lang} />
+    <CoursesList lang={lang} />
   </div>
 </BaseLayout>
