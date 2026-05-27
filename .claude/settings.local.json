@@ -21,7 +21,9 @@
       "Bash(Select-Object -First 30)",
       "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\untitled\" -Recurse -Depth 2 -Exclude \"node_modules\" | Where-Object { -not $_.PSIsContainer -or $_.GetFiles\\(\\).Count -gt 0 } | Select-Object -First 50 | Format-Table FullName)",
       "PowerShell(New-Item *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "PowerShell(Get-Content \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\untitled\\\\src\\\\components\\\\ui\\\\LanguageSwitcher.astro\" -Encoding UTF8 | ForEach-Object { Write-Output $_ } | Select-Object -First 60)",
+      "Bash(start *)"
     ]
   }
 }
