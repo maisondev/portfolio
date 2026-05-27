@@ -12,15 +12,20 @@ e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Language Switcher component
 - Multi-language support (PT/EN) com roteamento dinâmico
 - Nova estrutura de páginas com suporte a i18n
+- CHANGELOG.md para rastreamento de mudanças
 
 ### Changed
 - Reorganização de projetos (agora em página separada)
-- Atualização do Footer com links corretos
+- Atualização do Footer com links corretos (removido "Concursos" da navegação principal)
+- Remover SocialLinks do Header para melhor UX
 - Migração para Astro 5.18.2
+- Remoção de emojis nas categorias de serviços/social
+- Labels de navegação: "Serviços" → "Social"
 
 ### Fixed
 - Ícone de Pós-Graduação na seção Education
 - Links de navegação desatualizados no Footer
+- Emojis nas categorias de social removidos
 
 ## [1.0.0] - 2026-05-26
 
