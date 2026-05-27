@@ -126,7 +126,10 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     const selectedTech = params.get('tech') || '';
     const selectedInst = params.get('inst') || '';
 
+    console.log('Filter initialized:', { selectedTech, selectedInst, techButtons: techButtons?.length, instButtons: instButtons?.length });
+
     const updateUI = () => {
+      console.log('updateUI called with:', { selectedTech, selectedInst });
       // Update button states
       techButtons?.forEach((btn) => {
         const tech = btn.getAttribute('data-filter-tech');
@@ -152,7 +155,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
       // Filter courses
       let visibleCount = 0;
-      coursesGrid?.querySelectorAll('[data-course]').forEach((card) => {
+      coursesGrid?.querySelectorAll('[data-course]').forEach((card, idx) => {
         const data = JSON.parse(card.getAttribute('data-course') || '{}');
         const technologies = data.technologies || [];
         const platform = data.platform || '';
@@ -163,6 +166,8 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const instMatch = !selectedInst ||
           platform.toLowerCase() === selectedInst.toLowerCase();
 
+        if (idx === 0) console.log('First course:', { platform, selectedInst, match: instMatch });
+
         if (techMatch && instMatch) {
           card.classList.remove('hidden');
           visibleCount++;
@@ -170,6 +175,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           card.classList.add('hidden');
         }
       });
+      console.log('Visible courses:', visibleCount);
 
       // Update summary
       const filters = [];
