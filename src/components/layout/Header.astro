@@ -1,5 +1,4 @@
 ---
-import SocialLinks from '@/components/ui/SocialLinks.astro';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher.astro';
 import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
 
@@ -41,7 +40,6 @@ const links = [
     </ul>
 
     <div class="flex gap-4 items-center">
-      <SocialLinks size="md" />
       <LanguageSwitcher />
       <a
         href="mailto:maisongalvao@outlook.com"

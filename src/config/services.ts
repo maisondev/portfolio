@@ -66,18 +66,18 @@ export const services: Service[] = [
 export const categories = {
   dev: {
     title: 'Desenvolvimento',
-    icon: '💻',
+    icon: null,
   },
   social: {
     title: 'Redes Sociais',
-    icon: '📱',
+    icon: null,
   },
   music: {
     title: 'Música',
-    icon: '🎵',
+    icon: null,
   },
   other: {
     title: 'Outros',
-    icon: '✨',
+    icon: null,
   },
 };
