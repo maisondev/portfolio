@@ -73,7 +73,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           data-filter-inst=""
           class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-accent-500 text-[#0a0a0a]"
         >
-          Todas
+          Todas ({allInstitutions.length})
         </button>
         {allInstitutions.map((institution) => {
           const count = courses.filter((course) =>
