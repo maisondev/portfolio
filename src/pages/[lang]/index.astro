@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import HeroWithProfile from '@/components/sections/HeroWithProfile.astro';
 import TechStack from '@/components/sections/TechStack.astro';
-import CaseStudies from '@/components/sections/CaseStudies.astro';
 import Button from '@/components/ui/Button.astro';
 import { getLanguageFromUrl, getTranslation, isValidLanguage, type Language } from '@/i18n/utils';
 import { getStaticPaths } from '@/i18n/routes';
@@ -27,8 +26,6 @@ const getLocalizedPath = (path: string) => {
     description={t('hero.description')}
     lang={lang}
   />
-
-  <CaseStudies lang={lang} />
 
   <TechStack />
 

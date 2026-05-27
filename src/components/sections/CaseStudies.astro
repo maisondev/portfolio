@@ -177,21 +177,6 @@ const displayedStudies = showAll ? caseStudies : [caseStudies[0]];
           <p class="text-[#d4d4d8]">{study.challenge}</p>
         </div>
 
-        {/* Results */}
-        <div class="space-y-4">
-          <h4 class="text-lg font-semibold text-[#fafafa]">{t.results}</h4>
-          <div class="grid sm:grid-cols-2 gap-4">
-            {study.results.map((result) => (
-              <div class="flex gap-3 items-start">
-                <svg class="w-5 h-5 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                <span class="text-[#d4d4d8]">{result}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Impact Metrics */}
         <div class="grid grid-cols-3 gap-4 bg-accent-500/5 border border-accent-500/20 rounded-lg p-4">
           <div class="space-y-1">
