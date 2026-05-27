@@ -29,11 +29,10 @@ const filteredCourses = courses.filter((course) => {
 
 // Build query string for links
 const buildQueryString = (tech?: string, inst?: string) => {
-  const params = new URLSearchParams();
-  if (tech) params.append('tech', tech);
-  if (inst) params.append('inst', inst);
-  const query = params.toString();
-  return query ? `?${query}` : '';
+  const parts = [];
+  if (tech) parts.push(`tech=${encodeURIComponent(tech)}`);
+  if (inst) parts.push(`inst=${encodeURIComponent(inst)}`);
+  return parts.length > 0 ? `?${parts.join('&')}` : '';
 };
 
 const filterSummary = () => {

@@ -24,7 +24,9 @@
       "Bash(npm run *)",
       "PowerShell(Get-Content \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\untitled\\\\src\\\\components\\\\ui\\\\LanguageSwitcher.astro\" -Encoding UTF8 | ForEach-Object { Write-Output $_ } | Select-Object -First 60)",
       "Bash(start *)",
-      "WebFetch(domain:icons.getbootstrap.com)"
+      "WebFetch(domain:icons.getbootstrap.com)",
+      "Bash(tasklist)",
+      "Bash(findstr astro *)"
     ]
   }
 }
