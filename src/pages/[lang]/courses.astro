@@ -8,6 +8,7 @@ export { getStaticPaths };
 
 const lang = getLanguageFromUrl(Astro.url) as Language;
 const tech = Astro.url.searchParams.get('tech') || '';
+const institution = Astro.url.searchParams.get('inst') || '';
 
 const titles = {
   pt: 'Meus Cursos',
@@ -15,8 +16,8 @@ const titles = {
 };
 
 const descriptions = {
-  pt: 'Explore meus cursos e certificações em diversas tecnologias. Clique em qualquer tag para filtrar por tecnologia.',
-  en: 'Explore my courses and certifications in various technologies. Click any tag to filter by technology.',
+  pt: 'Explore meus cursos e certificações. Filtre por tecnologia ou instituição para encontrar cursos específicos.',
+  en: 'Explore my courses and certifications. Filter by technology or institution to find specific courses.',
 };
 ---
 
@@ -36,7 +37,7 @@ const descriptions = {
       </p>
     </div>
 
-    <!-- Courses List with Filter -->
-    <CoursesList selectedTech={tech} />
+    <!-- Courses List with Filters -->
+    <CoursesList selectedTech={tech} selectedInstitution={institution} />
   </div>
 </BaseLayout>

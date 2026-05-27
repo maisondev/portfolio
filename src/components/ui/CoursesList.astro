@@ -4,66 +4,145 @@ import CourseCard from './CourseCard.astro';
 
 interface Props {
   selectedTech?: string;
+  selectedInstitution?: string;
 }
 
-const { selectedTech = '' } = Astro.props;
+const { selectedTech = '', selectedInstitution = '' } = Astro.props;
 
-const filteredCourses = selectedTech
-  ? courses.filter((course) =>
-      course.technologies.some(
-        (tech) => tech.toLowerCase() === selectedTech.toLowerCase()
-      )
-    )
-  : courses;
+// Extract unique institutions
+const allInstitutions = Array.from(
+  new Set(courses.map((course) => course.platform))
+).sort();
+
+// Filter courses based on selected filters
+const filteredCourses = courses.filter((course) => {
+  const techMatch = !selectedTech ||
+    course.technologies.some(
+      (tech) => tech.toLowerCase() === selectedTech.toLowerCase()
+    );
+
+  const institutionMatch = !selectedInstitution ||
+    course.platform.toLowerCase() === selectedInstitution.toLowerCase();
+
+  return techMatch && institutionMatch;
+});
+
+// Build query string for links
+const buildQueryString = (tech?: string, inst?: string) => {
+  const params = new URLSearchParams();
+  if (tech) params.append('tech', tech);
+  if (inst) params.append('inst', inst);
+  const query = params.toString();
+  return query ? `?${query}` : '';
+};
+
+const filterSummary = () => {
+  const filters = [];
+  if (selectedTech) filters.push(`"${selectedTech}"`);
+  if (selectedInstitution) filters.push(`"${selectedInstitution}"`);
+
+  if (filters.length === 0) return `Total: ${filteredCourses.length} cursos`;
+  if (filters.length === 1) return `Mostrando ${filteredCourses.length} curso(s) de ${filters[0]}`;
+  return `Mostrando ${filteredCourses.length} curso(s) de ${filters.join(' + ')}`;
+};
 ---
 
 <div class="space-y-8">
-  <!-- Filter Buttons -->
-  <div class="space-y-3">
-    <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
-      Filtrar por tecnologia
-    </h3>
-    <div class="flex flex-wrap gap-2">
-      <a
-        href="/courses"
-        class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-          !selectedTech
-            ? 'bg-accent-500 text-[#0a0a0a]'
-            : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
-        }`}
-      >
-        Todos ({courses.length})
-      </a>
-      {allTechnologies.map((tech) => {
-        const count = courses.filter((course) =>
-          course.technologies.some(
-            (t) => t.toLowerCase() === tech.toLowerCase()
-          )
-        ).length;
-        const isSelected = selectedTech?.toLowerCase() === tech.toLowerCase();
+  <!-- Filters Section -->
+  <div class="space-y-6">
+    <!-- Filter by Technology -->
+    <div class="space-y-3">
+      <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
+        Filtrar por tecnologia
+      </h3>
+      <div class="flex flex-wrap gap-2">
+        <a
+          href={`/courses${buildQueryString('', selectedInstitution)}`}
+          class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+            !selectedTech
+              ? 'bg-accent-500 text-[#0a0a0a]'
+              : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
+          }`}
+        >
+          Todas
+        </a>
+        {allTechnologies.map((tech) => {
+          const count = courses.filter((course) => {
+            const techMatch = course.technologies.some(
+              (t) => t.toLowerCase() === tech.toLowerCase()
+            );
+            const instMatch = !selectedInstitution ||
+              course.platform.toLowerCase() === selectedInstitution.toLowerCase();
+            return techMatch && instMatch;
+          }).length;
 
-        return (
-          <a
-            href={`/courses?tech=${encodeURIComponent(tech)}`}
-            class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-              isSelected
-                ? 'bg-accent-500 text-[#0a0a0a]'
-                : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
-            }`}
-          >
-            {tech} ({count})
-          </a>
-        );
-      })}
+          const isSelected = selectedTech?.toLowerCase() === tech.toLowerCase();
+
+          return (
+            <a
+              href={`/courses${buildQueryString(tech, selectedInstitution)}`}
+              class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                isSelected
+                  ? 'bg-accent-500 text-[#0a0a0a]'
+                  : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
+              }`}
+            >
+              {tech} ({count})
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Filter by Institution -->
+    <div class="space-y-3">
+      <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
+        Filtrar por instituição
+      </h3>
+      <div class="flex flex-wrap gap-2">
+        <a
+          href={`/courses${buildQueryString(selectedTech, '')}`}
+          class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+            !selectedInstitution
+              ? 'bg-accent-500 text-[#0a0a0a]'
+              : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
+          }`}
+        >
+          Todas
+        </a>
+        {allInstitutions.map((institution) => {
+          const count = courses.filter((course) => {
+            const instMatch = course.platform.toLowerCase() === institution.toLowerCase();
+            const techMatch = !selectedTech ||
+              course.technologies.some(
+                (t) => t.toLowerCase() === selectedTech.toLowerCase()
+              );
+            return instMatch && techMatch;
+          }).length;
+
+          const isSelected = selectedInstitution?.toLowerCase() === institution.toLowerCase();
+
+          return (
+            <a
+              href={`/courses${buildQueryString(selectedTech, institution)}`}
+              class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                isSelected
+                  ? 'bg-accent-500 text-[#0a0a0a]'
+                  : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
+              }`}
+            >
+              {institution} ({count})
+            </a>
+          );
+        })}
+      </div>
     </div>
   </div>
 
   <!-- Courses Grid -->
   <div>
     <p class="text-sm text-[#d4d4d8] mb-4">
-      {selectedTech && `Mostrando ${filteredCourses.length} curso(s) de `}
-      {selectedTech && <span class="font-semibold text-accent-500">{selectedTech}</span>}
-      {!selectedTech && `Total: ${filteredCourses.length} cursos`}
+      {filterSummary()}
     </p>
 
     {filteredCourses.length > 0 ? (
@@ -74,7 +153,9 @@ const filteredCourses = selectedTech
       </div>
     ) : (
       <div class="text-center py-12 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a]/50">
-        <p class="text-[#d4d4d8]">Nenhum curso encontrado para "{selectedTech}"</p>
+        <p class="text-[#d4d4d8]">
+          Nenhum curso encontrado com os filtros selecionados
+        </p>
       </div>
     )}
   </div>

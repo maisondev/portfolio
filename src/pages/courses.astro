@@ -3,11 +3,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CoursesList from '@/components/ui/CoursesList.astro';
 
 const tech = Astro.url.searchParams.get('tech') || '';
+const institution = Astro.url.searchParams.get('inst') || '';
 ---
 
 <BaseLayout
   title="Meus Cursos"
-  description="Explore meus cursos e certificações em diversas tecnologias. Filtre por tecnologia para ver conteúdo específico."
+  description="Explore meus cursos e certificações em diversas tecnologias e instituições. Filtre por tecnologia ou instituição."
 >
   <div class="space-y-12">
     <!-- Header -->
@@ -17,11 +18,11 @@ const tech = Astro.url.searchParams.get('tech') || '';
         <div class="h-1 w-20 bg-accent-500 rounded-full"></div>
       </div>
       <p class="text-lg text-[#d4d4d8] max-w-2xl">
-        Explore meus cursos e certificações em diversas tecnologias. Clique em qualquer tag para filtrar por tecnologia.
+        Explore meus cursos e certificações. Filtre por tecnologia ou instituição para encontrar cursos específicos.
       </p>
     </div>
 
-    <!-- Courses List with Filter -->
-    <CoursesList selectedTech={tech} />
+    <!-- Courses List with Filters -->
+    <CoursesList selectedTech={tech} selectedInstitution={institution} />
   </div>
 </BaseLayout>
