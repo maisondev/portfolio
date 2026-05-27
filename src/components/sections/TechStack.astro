@@ -1,7 +1,7 @@
 ---
 interface Tech {
   name: string;
-  category: 'frontend' | 'backend' | 'tools' | 'cloud';
+  category: 'frontend' | 'backend' | 'ai' | 'tools' | 'cloud';
   icon?: string;
 }
 
@@ -22,25 +22,39 @@ const techs: Tech[] = [
   // Backend
   { name: 'Node.js', category: 'backend' },
   { name: 'PostgreSQL', category: 'backend' },
-  { name: 'PHP', category: 'backend' },
+  { name: 'PHP 8.2', category: 'backend' },
   { name: 'API REST', category: 'backend' },
   { name: 'GraphQL', category: 'backend' },
+  { name: 'Python', category: 'backend' },
+
+  // AI & Machine Learning
+  { name: 'Claude AI', category: 'ai' },
+  { name: 'Anthropic API', category: 'ai' },
+  { name: 'Machine Learning', category: 'ai' },
+  { name: 'Data Science', category: 'ai' },
+  { name: 'Deep Learning', category: 'ai' },
+  { name: 'NLP', category: 'ai' },
 
   // Tools
   { name: 'Git', category: 'tools' },
   { name: 'Docker', category: 'tools' },
   { name: 'Figma', category: 'tools' },
+  { name: 'Cybersecurity', category: 'tools' },
+  { name: 'Project Management', category: 'tools' },
 
   // Cloud
   { name: 'Google Cloud', category: 'cloud' },
+  { name: 'AWS', category: 'cloud' },
   { name: 'Vercel', category: 'cloud' },
+  { name: 'Kubernetes', category: 'cloud' },
 ];
 
 const categoryLabels = {
   frontend: 'Frontend',
   backend: 'Backend',
+  ai: 'AI & Machine Learning',
   tools: 'Ferramentas',
-  cloud: 'Cloud',
+  cloud: 'Cloud & DevOps',
 };
 
 const { title = 'Tech Stack', showCategories = true } = Astro.props;
@@ -48,6 +62,7 @@ const { title = 'Tech Stack', showCategories = true } = Astro.props;
 const techsByCategory = {
   frontend: techs.filter((t) => t.category === 'frontend'),
   backend: techs.filter((t) => t.category === 'backend'),
+  ai: techs.filter((t) => t.category === 'ai'),
   tools: techs.filter((t) => t.category === 'tools'),
   cloud: techs.filter((t) => t.category === 'cloud'),
 };

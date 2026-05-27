@@ -1,0 +1,110 @@
+---
+interface Props {
+  links: Array<{ href: string; label: string }>;
+}
+
+const { links } = Astro.props;
+const linksJson = JSON.stringify(links);
+---
+
+<div class="lg:hidden">
+  <button
+    id="hamburger"
+    type="button"
+    class="relative w-10 h-10 flex flex-col justify-center items-center gap-1.5"
+  >
+    <span id="line1" class="h-0.5 w-6 bg-white block transition-all duration-300"></span>
+    <span id="line2" class="h-0.5 w-6 bg-white block transition-all duration-300"></span>
+    <span id="line3" class="h-0.5 w-6 bg-white block transition-all duration-300"></span>
+  </button>
+</div>
+
+<script define:vars={{ linksJson }}>
+  const links = JSON.parse(linksJson);
+
+  // Criar overlay diretamente no body
+  const overlay = document.createElement('div');
+  overlay.id = 'mobile-nav-overlay';
+  overlay.setAttribute('style', [
+    'position: fixed',
+    'top: 73px',
+    'left: 0',
+    'right: 0',
+    'bottom: 0',
+    'background: linear-gradient(135deg, #0a0a0a 0%, #0f1a05 50%, #0a0a0a 100%)',
+    'border-top: 1px solid #84cc16',
+    'z-index: 9999',
+    'display: none',
+    'overflow-y: auto',
+  ].join('; '));
+
+  const nav = document.createElement('nav');
+  nav.setAttribute('style', 'padding: 24px 16px;');
+
+  links.forEach(link => {
+    const a = document.createElement('a');
+    a.href = link.href;
+    a.textContent = link.label;
+    a.setAttribute('style', [
+      'display: block',
+      'padding: 12px 16px',
+      'color: #d4d4d8',
+      'font-size: 1.125rem',
+      'font-weight: 500',
+      'border-radius: 8px',
+      'margin-bottom: 4px',
+      'border-left: 2px solid transparent',
+      'text-decoration: none',
+    ].join('; '));
+
+    a.addEventListener('mouseenter', () => {
+      a.style.color = '#84cc16';
+      a.style.backgroundColor = '#2a2a2a';
+      a.style.borderLeftColor = '#84cc16';
+    });
+    a.addEventListener('mouseleave', () => {
+      a.style.color = '#d4d4d8';
+      a.style.backgroundColor = 'transparent';
+      a.style.borderLeftColor = 'transparent';
+    });
+    a.addEventListener('click', closeMenu);
+    nav.appendChild(a);
+  });
+
+  overlay.appendChild(nav);
+  document.body.appendChild(overlay);
+
+  const hamburger = document.getElementById('hamburger');
+  const line1 = document.getElementById('line1');
+  const line2 = document.getElementById('line2');
+  const line3 = document.getElementById('line3');
+
+  let isOpen = false;
+
+  function openMenu() {
+    isOpen = true;
+    overlay.style.display = 'block';
+    line1.style.transform = 'rotate(45deg) translateY(6px)';
+    line2.style.opacity = '0';
+    line3.style.transform = 'rotate(-45deg) translateY(-6px)';
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    overlay.style.display = 'none';
+    line1.style.transform = '';
+    line2.style.opacity = '1';
+    line3.style.transform = '';
+  }
+
+  hamburger?.addEventListener('click', () => {
+    if (isOpen) closeMenu();
+    else openMenu();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (isOpen && !hamburger.contains(e.target) && !overlay.contains(e.target)) {
+      closeMenu();
+    }
+  });
+</script>
