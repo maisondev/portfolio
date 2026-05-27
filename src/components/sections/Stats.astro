@@ -1,0 +1,57 @@
+---
+interface Stat {
+  label: string;
+  value: string;
+  description?: string;
+}
+
+interface Props {
+  stats?: Stat[];
+}
+
+const defaultStats: Stat[] = [
+  {
+    label: 'Projetos em Produção',
+    value: '5+',
+    description: 'Apps e plataformas ativas',
+  },
+  {
+    label: 'Usuários Impactados',
+    value: '10K+',
+    description: 'Pessoas usando meus produtos',
+  },
+  {
+    label: 'Código Escrito',
+    value: '100K+',
+    description: 'Linhas de código profissional',
+  },
+  {
+    label: 'Performance',
+    value: '98+',
+    description: 'Score Lighthouse',
+  },
+];
+
+const { stats = defaultStats } = Astro.props;
+---
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 py-8 md:py-12">
+  {stats.map((stat) => (
+    <div class="group relative p-4 md:p-6 rounded-lg border border-[#2a2a2a] hover:border-accent-500/50 transition-all duration-300 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:from-[#1a1a1a] hover:to-[#151515]">
+      <div class="space-y-2">
+        <div class="text-3xl md:text-4xl font-bold text-accent-500 group-hover:text-accent-400 transition-colors">
+          {stat.value}
+        </div>
+        <h3 class="text-sm md:text-base font-semibold text-[#fafafa] leading-snug">
+          {stat.label}
+        </h3>
+        {stat.description && (
+          <p class="text-xs md:text-sm text-[#a1a1a1] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {stat.description}
+          </p>
+        )}
+      </div>
+      <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-accent-500/0 via-accent-500/0 to-accent-500/0 group-hover:from-accent-500/10 group-hover:via-accent-500/5 group-hover:to-accent-500/0 transition-all duration-300 pointer-events-none"></div>
+    </div>
+  ))}
+</div>

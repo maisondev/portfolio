@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import HeroWithProfile from '@/components/sections/HeroWithProfile.astro';
+import Stats from '@/components/sections/Stats.astro';
+import TechStack from '@/components/sections/TechStack.astro';
+import Quality from '@/components/sections/Quality.astro';
 import CaseStudies from '@/components/sections/CaseStudies.astro';
 import Button from '@/components/ui/Button.astro';
 import { getLanguageFromUrl, getTranslation, isValidLanguage, type Language } from '@/i18n/utils';
@@ -27,7 +30,13 @@ const getLocalizedPath = (path: string) => {
     lang={lang}
   />
 
+  <Stats />
+
   <CaseStudies lang={lang} />
+
+  <TechStack />
+
+  <Quality />
 
   <!-- Quick CTA Section -->
   <section class="py-20 space-y-8">

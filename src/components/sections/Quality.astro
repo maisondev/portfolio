@@ -1,0 +1,55 @@
+---
+import PerformanceMetric from '@/components/ui/PerformanceMetric.astro';
+---
+
+<section class="py-12 md:py-20 space-y-8">
+  <div class="space-y-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-[#fafafa]">Qualidade & Performance</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      Obsessão por performance e qualidade de código. Cada projeto é otimizado para máxima velocidade e acessibilidade.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+    <!-- Lighthouse Scores -->
+    <div class="space-y-6 p-6 rounded-lg border border-[#2a2a2a] bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a]">
+      <h3 class="text-xl font-bold text-[#fafafa] flex items-center gap-2">
+        <span class="text-accent-500">⚡</span> Lighthouse Scores
+      </h3>
+      <div class="space-y-4">
+        <PerformanceMetric label="Performance" value={98} unit="/" target={100} />
+        <PerformanceMetric label="Accessibility" value={100} unit="/" target={100} />
+        <PerformanceMetric label="Best Practices" value={100} unit="/" target={100} />
+        <PerformanceMetric label="SEO" value={100} unit="/" target={100} />
+      </div>
+    </div>
+
+    <!-- Core Web Vitals -->
+    <div class="space-y-6 p-6 rounded-lg border border-[#2a2a2a] bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a]">
+      <h3 class="text-xl font-bold text-[#fafafa] flex items-center gap-2">
+        <span class="text-accent-500">🎯</span> Core Web Vitals
+      </h3>
+      <div class="space-y-4">
+        <PerformanceMetric label="Largest Contentful Paint" value={1.2} unit="s" target={2.5} />
+        <PerformanceMetric label="First Input Delay" value={0.1} unit="ms" target={100} />
+        <PerformanceMetric label="Cumulative Layout Shift" value={0.05} unit="" target={0.1} />
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Metrics -->
+  <div class="grid md:grid-cols-3 gap-4 pt-4">
+    <div class="p-4 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-center hover:border-accent-500/30 transition-colors">
+      <div class="text-2xl font-bold text-accent-500">0ms</div>
+      <div class="text-sm text-[#a1a1a1] mt-1">First Contentful Paint</div>
+    </div>
+    <div class="p-4 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-center hover:border-accent-500/30 transition-colors">
+      <div class="text-2xl font-bold text-accent-500">&lt;100KB</div>
+      <div class="text-sm text-[#a1a1a1] mt-1">Initial Bundle Size</div>
+    </div>
+    <div class="p-4 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-center hover:border-accent-500/30 transition-colors">
+      <div class="text-2xl font-bold text-accent-500">0.8s</div>
+      <div class="text-sm text-[#a1a1a1] mt-1">Time to Interactive</div>
+    </div>
+  </div>
+</section>

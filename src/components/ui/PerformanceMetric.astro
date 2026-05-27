@@ -1,0 +1,38 @@
+---
+interface Props {
+  label: string;
+  value: number;
+  unit?: string;
+  target?: number;
+  color?: 'green' | 'orange' | 'red';
+}
+
+const { label, value, unit = '', target = 100, color } = Astro.props;
+
+const percentage = (value / target) * 100;
+let bgColor = 'bg-gradient-to-r from-green-500 to-emerald-500';
+let finalColor = color || 'green';
+
+if (percentage < 50) {
+  bgColor = 'bg-gradient-to-r from-red-500 to-pink-500';
+  finalColor = 'red';
+} else if (percentage < 75) {
+  bgColor = 'bg-gradient-to-r from-orange-500 to-amber-500';
+  finalColor = 'orange';
+}
+---
+
+<div class="space-y-2">
+  <div class="flex justify-between items-baseline">
+    <span class="text-sm font-medium text-[#d4d4d8]">{label}</span>
+    <span class="text-lg font-bold text-[#fafafa]">
+      {value}<span class="text-sm text-[#a1a1a1]">{unit}</span>
+    </span>
+  </div>
+  <div class="w-full bg-[#1a1a1a] rounded-full h-2 overflow-hidden">
+    <div
+      class={`h-full rounded-full transition-all duration-500 ${bgColor}`}
+      style={{ width: `${Math.min(percentage, 100)}%` }}
+    ></div>
+  </div>
+</div>

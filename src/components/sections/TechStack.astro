@@ -1,0 +1,94 @@
+---
+interface Tech {
+  name: string;
+  category: 'frontend' | 'backend' | 'tools' | 'cloud';
+  icon?: string;
+}
+
+interface Props {
+  title?: string;
+  showCategories?: boolean;
+}
+
+const techs: Tech[] = [
+  // Frontend
+  { name: 'React', category: 'frontend' },
+  { name: 'Vue.js', category: 'frontend' },
+  { name: 'TypeScript', category: 'frontend' },
+  { name: 'Astro', category: 'frontend' },
+  { name: 'Tailwind CSS', category: 'frontend' },
+  { name: 'Next.js', category: 'frontend' },
+
+  // Backend
+  { name: 'Node.js', category: 'backend' },
+  { name: 'PostgreSQL', category: 'backend' },
+  { name: 'PHP', category: 'backend' },
+  { name: 'API REST', category: 'backend' },
+  { name: 'GraphQL', category: 'backend' },
+
+  // Tools
+  { name: 'Git', category: 'tools' },
+  { name: 'Docker', category: 'tools' },
+  { name: 'Figma', category: 'tools' },
+
+  // Cloud
+  { name: 'Google Cloud', category: 'cloud' },
+  { name: 'Vercel', category: 'cloud' },
+];
+
+const categoryLabels = {
+  frontend: 'Frontend',
+  backend: 'Backend',
+  tools: 'Ferramentas',
+  cloud: 'Cloud',
+};
+
+const { title = 'Tech Stack', showCategories = true } = Astro.props;
+
+const techsByCategory = {
+  frontend: techs.filter((t) => t.category === 'frontend'),
+  backend: techs.filter((t) => t.category === 'backend'),
+  tools: techs.filter((t) => t.category === 'tools'),
+  cloud: techs.filter((t) => t.category === 'cloud'),
+};
+---
+
+<section class="py-12 md:py-20 space-y-8">
+  <div class="space-y-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-[#fafafa]">{title}</h2>
+    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+      Tecnologias e ferramentas que uso para construir produtos de alta qualidade.
+    </p>
+  </div>
+
+  {showCategories ? (
+    <div class="space-y-8">
+      {Object.entries(techsByCategory).map(([category, items]) => (
+        <div class="space-y-4">
+          <h3 class="text-sm font-semibold uppercase tracking-widest text-accent-500">
+            {categoryLabels[category as keyof typeof categoryLabels]}
+          </h3>
+          <div class="flex flex-wrap gap-2 md:gap-3">
+            {items.map((tech) => (
+              <div class="inline-flex items-center px-3 md:px-4 py-2 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
+                <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
+                  {tech.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="flex flex-wrap gap-2 md:gap-3">
+      {techs.map((tech) => (
+        <div class="inline-flex items-center px-3 md:px-4 py-2 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
+          <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
+            {tech.name}
+          </span>
+        </div>
+      ))}
+    </div>
+  )}
+</section>
