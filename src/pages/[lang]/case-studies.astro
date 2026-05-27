@@ -2,6 +2,9 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CaseStudies from '@/components/sections/CaseStudies.astro';
 import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
+import { getStaticPaths } from '@/i18n/routes';
+
+export { getStaticPaths };
 
 const lang = getLanguageFromUrl(Astro.url) as Language;
 const t = (key: string) => getTranslation(lang, key);
