@@ -5,9 +5,14 @@ import CourseCard from './CourseCard.astro';
 interface Props {
   selectedTech?: string;
   selectedInstitution?: string;
+  lang?: string;
 }
 
-const { selectedTech = '', selectedInstitution = '' } = Astro.props;
+const { selectedTech = '', selectedInstitution = '', lang = 'pt' } = Astro.props;
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
 
 // Extract unique institutions
 const allInstitutions = Array.from(
@@ -27,12 +32,13 @@ const filteredCourses = courses.filter((course) => {
   return techMatch && institutionMatch;
 });
 
-// Build query string for links
-const buildQueryString = (tech?: string, inst?: string) => {
+// Build full URL with localization
+const buildFilterUrl = (tech?: string, inst?: string) => {
   const parts = [];
   if (tech) parts.push(`tech=${encodeURIComponent(tech)}`);
   if (inst) parts.push(`inst=${encodeURIComponent(inst)}`);
-  return parts.length > 0 ? `?${parts.join('&')}` : '';
+  const query = parts.length > 0 ? `?${parts.join('&')}` : '';
+  return `${getLocalizedPath('/courses')}${query}`;
 };
 
 const filterSummary = () => {
@@ -56,7 +62,7 @@ const filterSummary = () => {
       </h3>
       <div class="flex flex-wrap gap-2">
         <a
-          href={`/courses${buildQueryString('', selectedInstitution)}`}
+          href={buildFilterUrl('', selectedInstitution)}
           class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
             !selectedTech
               ? 'bg-accent-500 text-[#0a0a0a]'
@@ -79,7 +85,7 @@ const filterSummary = () => {
 
           return (
             <a
-              href={`/courses${buildQueryString(tech, selectedInstitution)}`}
+              href={buildFilterUrl(tech, selectedInstitution)}
               class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                 isSelected
                   ? 'bg-accent-500 text-[#0a0a0a]'
@@ -100,7 +106,7 @@ const filterSummary = () => {
       </h3>
       <div class="flex flex-wrap gap-2">
         <a
-          href={`/courses${buildQueryString(selectedTech, '')}`}
+          href={buildFilterUrl(selectedTech, '')}
           class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
             !selectedInstitution
               ? 'bg-accent-500 text-[#0a0a0a]'
@@ -123,7 +129,7 @@ const filterSummary = () => {
 
           return (
             <a
-              href={`/courses${buildQueryString(selectedTech, institution)}`}
+              href={buildFilterUrl(selectedTech, institution)}
               class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                 isSelected
                   ? 'bg-accent-500 text-[#0a0a0a]'
