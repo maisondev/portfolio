@@ -122,9 +122,9 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   const instButtons = filterContainer?.querySelectorAll('[data-filter-inst]');
 
   if (filterContainer) {
-    const params = new URLSearchParams(window.location.search);
-    const selectedTech = params.get('tech') || '';
-    const selectedInst = params.get('inst') || '';
+    let params = new URLSearchParams(window.location.search);
+    let selectedTech = params.get('tech') || '';
+    let selectedInst = params.get('inst') || '';
 
     console.log('Filter initialized:', { selectedTech, selectedInst, techButtons: techButtons?.length, instButtons: instButtons?.length });
 
@@ -205,9 +205,9 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     // Add click handlers to buttons
     techButtons?.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const tech = btn.getAttribute('data-filter-tech');
+        selectedTech = btn.getAttribute('data-filter-tech') || '';
         const newParams = new URLSearchParams();
-        if (tech) newParams.set('tech', tech);
+        if (selectedTech) newParams.set('tech', selectedTech);
         if (selectedInst) newParams.set('inst', selectedInst);
         const query = newParams.toString();
         window.history.pushState({}, '', query ? `?${query}` : '');
@@ -217,10 +217,10 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
     instButtons?.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const inst = btn.getAttribute('data-filter-inst');
+        selectedInst = btn.getAttribute('data-filter-inst') || '';
         const newParams = new URLSearchParams();
         if (selectedTech) newParams.set('tech', selectedTech);
-        if (inst) newParams.set('inst', inst);
+        if (selectedInst) newParams.set('inst', selectedInst);
         const query = newParams.toString();
         window.history.pushState({}, '', query ? `?${query}` : '');
         updateUI();
