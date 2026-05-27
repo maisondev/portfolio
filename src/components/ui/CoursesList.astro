@@ -115,7 +115,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   </div>
 </div>
 
-<script>
+<script define:vars={{courses}}>
   const filterContainer = document.querySelector('[data-courses-filter]');
   const coursesGrid = filterContainer?.querySelector('[data-courses-grid]');
   const noResults = filterContainer?.querySelector('[data-no-results]');
@@ -123,44 +123,95 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   const techButtons = filterContainer?.querySelectorAll('[data-filter-tech]');
   const instButtons = filterContainer?.querySelectorAll('[data-filter-inst]');
 
+  // Parse courses from data attributes
+  const allCourses = [];
+  coursesGrid?.querySelectorAll('[data-course]').forEach((card) => {
+    const data = JSON.parse(card.getAttribute('data-course') || '{}');
+    allCourses.push(data);
+  });
+
   if (filterContainer) {
     let params = new URLSearchParams(window.location.search);
     let selectedTech = params.get('tech') || '';
     let selectedInst = params.get('inst') || '';
 
+    // Get available technologies based on current institution filter
+    const getAvailableTechs = (inst = '') => {
+      const techs = new Set();
+      allCourses.forEach((course) => {
+        if (!inst || course.platform.toLowerCase() === inst.toLowerCase()) {
+          course.technologies?.forEach((t) => techs.add(t));
+        }
+      });
+      return Array.from(techs).sort();
+    };
+
+    // Get available institutions based on current tech filter
+    const getAvailableInsts = (tech = '') => {
+      const insts = new Set();
+      allCourses.forEach((course) => {
+        if (!tech || course.technologies?.some((t) => t.toLowerCase() === tech.toLowerCase())) {
+          insts.add(course.platform);
+        }
+      });
+      return Array.from(insts).sort();
+    };
+
     const updateUI = () => {
-      // Update button states
+      const availableTechs = getAvailableTechs(selectedInst);
+      const availableInsts = getAvailableInsts(selectedTech);
+
+      // Update tech buttons
       techButtons?.forEach((btn) => {
         const tech = btn.getAttribute('data-filter-tech');
-        if (tech === selectedTech) {
+        const isAvailable = !tech || availableTechs.includes(tech);
+        const isSelected = tech === selectedTech;
+
+        if (isSelected) {
           btn.classList.add('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.disabled = false;
+        } else if (isAvailable) {
+          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.disabled = false;
         } else {
           btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.disabled = true;
         }
       });
 
+      // Update institution buttons
       instButtons?.forEach((btn) => {
         const inst = btn.getAttribute('data-filter-inst');
-        if (inst === selectedInst) {
+        const isAvailable = !inst || availableInsts.includes(inst);
+        const isSelected = inst === selectedInst;
+
+        if (isSelected) {
           btn.classList.add('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.disabled = false;
+        } else if (isAvailable) {
+          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.disabled = false;
         } else {
           btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.disabled = true;
         }
       });
 
       // Filter courses
       let visibleCount = 0;
-      coursesGrid?.querySelectorAll('[data-course]').forEach((card, idx) => {
+      coursesGrid?.querySelectorAll('[data-course]').forEach((card) => {
         const data = JSON.parse(card.getAttribute('data-course') || '{}');
         const technologies = data.technologies || [];
         const platform = data.platform || '';
 
         const techMatch = !selectedTech ||
-          technologies.some((t: string) => t.toLowerCase() === selectedTech.toLowerCase());
+          technologies.some((t) => t.toLowerCase() === selectedTech.toLowerCase());
 
         const instMatch = !selectedInst ||
           platform.toLowerCase() === selectedInst.toLowerCase();
@@ -201,25 +252,29 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     // Add click handlers to buttons
     techButtons?.forEach((btn) => {
       btn.addEventListener('click', () => {
-        selectedTech = btn.getAttribute('data-filter-tech') || '';
-        const newParams = new URLSearchParams();
-        if (selectedTech) newParams.set('tech', selectedTech);
-        if (selectedInst) newParams.set('inst', selectedInst);
-        const query = newParams.toString();
-        window.history.pushState({}, '', query ? `?${query}` : '');
-        updateUI();
+        if (!btn.disabled) {
+          selectedTech = btn.getAttribute('data-filter-tech') || '';
+          const newParams = new URLSearchParams();
+          if (selectedTech) newParams.set('tech', selectedTech);
+          if (selectedInst) newParams.set('inst', selectedInst);
+          const query = newParams.toString();
+          window.history.pushState({}, '', query ? `?${query}` : '');
+          updateUI();
+        }
       });
     });
 
     instButtons?.forEach((btn) => {
       btn.addEventListener('click', () => {
-        selectedInst = btn.getAttribute('data-filter-inst') || '';
-        const newParams = new URLSearchParams();
-        if (selectedTech) newParams.set('tech', selectedTech);
-        if (selectedInst) newParams.set('inst', selectedInst);
-        const query = newParams.toString();
-        window.history.pushState({}, '', query ? `?${query}` : '');
-        updateUI();
+        if (!btn.disabled) {
+          selectedInst = btn.getAttribute('data-filter-inst') || '';
+          const newParams = new URLSearchParams();
+          if (selectedTech) newParams.set('tech', selectedTech);
+          if (selectedInst) newParams.set('inst', selectedInst);
+          const query = newParams.toString();
+          window.history.pushState({}, '', query ? `?${query}` : '');
+          updateUI();
+        }
       });
     });
 
