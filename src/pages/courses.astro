@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CoursesList from '@/components/ui/CoursesList.astro';
+
+const tech = Astro.url.searchParams.get('tech') || '';
+---
+
+<BaseLayout
+  title="Meus Cursos"
+  description="Explore meus cursos e certificações em diversas tecnologias. Filtre por tecnologia para ver conteúdo específico."
+>
+  <div class="space-y-12">
+    <!-- Header -->
+    <div class="space-y-4">
+      <div>
+        <h1 class="text-4xl font-bold text-[#fafafa] mb-2">Meus Cursos</h1>
+        <div class="h-1 w-20 bg-accent-500 rounded-full"></div>
+      </div>
+      <p class="text-lg text-[#d4d4d8] max-w-2xl">
+        Explore meus cursos e certificações em diversas tecnologias. Clique em qualquer tag para filtrar por tecnologia.
+      </p>
+    </div>
+
+    <!-- Courses List with Filter -->
+    <CoursesList selectedTech={tech} />
+  </div>
+</BaseLayout>

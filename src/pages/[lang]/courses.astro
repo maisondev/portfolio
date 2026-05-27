@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CoursesList from '@/components/ui/CoursesList.astro';
+import { getLanguageFromUrl, type Language } from '@/i18n/utils';
+import { getStaticPaths } from '@/i18n/routes';
+
+export { getStaticPaths };
+
+const lang = getLanguageFromUrl(Astro.url) as Language;
+const tech = Astro.url.searchParams.get('tech') || '';
+
+const titles = {
+  pt: 'Meus Cursos',
+  en: 'My Courses',
+};
+
+const descriptions = {
+  pt: 'Explore meus cursos e certificações em diversas tecnologias. Clique em qualquer tag para filtrar por tecnologia.',
+  en: 'Explore my courses and certifications in various technologies. Click any tag to filter by technology.',
+};
+---
+
+<BaseLayout
+  title={titles[lang]}
+  description={descriptions[lang]}
+>
+  <div class="space-y-12">
+    <!-- Header -->
+    <div class="space-y-4">
+      <div>
+        <h1 class="text-4xl font-bold text-[#fafafa] mb-2">{titles[lang]}</h1>
+        <div class="h-1 w-20 bg-accent-500 rounded-full"></div>
+      </div>
+      <p class="text-lg text-[#d4d4d8] max-w-2xl">
+        {descriptions[lang]}
+      </p>
+    </div>
+
+    <!-- Courses List with Filter -->
+    <CoursesList selectedTech={tech} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,81 @@
+---
+import { courses, allTechnologies } from '@/config/courses';
+import CourseCard from './CourseCard.astro';
+
+interface Props {
+  selectedTech?: string;
+}
+
+const { selectedTech = '' } = Astro.props;
+
+const filteredCourses = selectedTech
+  ? courses.filter((course) =>
+      course.technologies.some(
+        (tech) => tech.toLowerCase() === selectedTech.toLowerCase()
+      )
+    )
+  : courses;
+---
+
+<div class="space-y-8">
+  <!-- Filter Buttons -->
+  <div class="space-y-3">
+    <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
+      Filtrar por tecnologia
+    </h3>
+    <div class="flex flex-wrap gap-2">
+      <a
+        href="/courses"
+        class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+          !selectedTech
+            ? 'bg-accent-500 text-[#0a0a0a]'
+            : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
+        }`}
+      >
+        Todos ({courses.length})
+      </a>
+      {allTechnologies.map((tech) => {
+        const count = courses.filter((course) =>
+          course.technologies.some(
+            (t) => t.toLowerCase() === tech.toLowerCase()
+          )
+        ).length;
+        const isSelected = selectedTech?.toLowerCase() === tech.toLowerCase();
+
+        return (
+          <a
+            href={`/courses?tech=${encodeURIComponent(tech)}`}
+            class={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+              isSelected
+                ? 'bg-accent-500 text-[#0a0a0a]'
+                : 'bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50'
+            }`}
+          >
+            {tech} ({count})
+          </a>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Courses Grid -->
+  <div>
+    <p class="text-sm text-[#d4d4d8] mb-4">
+      {selectedTech && `Mostrando ${filteredCourses.length} curso(s) de `}
+      {selectedTech && <span class="font-semibold text-accent-500">{selectedTech}</span>}
+      {!selectedTech && `Total: ${filteredCourses.length} cursos`}
+    </p>
+
+    {filteredCourses.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredCourses.map((course) => (
+          <CourseCard course={course} />
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-12 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a]/50">
+        <p class="text-[#d4d4d8]">Nenhum curso encontrado para "{selectedTech}"</p>
+      </div>
+    )}
+  </div>
+</div>

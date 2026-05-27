@@ -1,0 +1,69 @@
+---
+import type { Course } from '@/config/courses';
+
+interface Props {
+  course: Course;
+}
+
+const { course } = Astro.props;
+---
+
+<div class="group relative overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:border-accent-500/50 hover:bg-[#242424] flex flex-col">
+  <!-- Header with platform -->
+  <div class="px-6 py-4 border-b border-[#2a2a2a] bg-[#0a0a0a]">
+    <p class="text-xs font-semibold uppercase tracking-wider text-accent-500">
+      {course.platform}
+    </p>
+  </div>
+
+  <!-- Content -->
+  <div class="px-6 py-4 flex flex-col flex-grow space-y-4">
+    <!-- Title -->
+    <div>
+      <h4 class="text-lg font-bold text-[#fafafa] group-hover:text-accent-500 transition-colors line-clamp-2">
+        {course.name}
+      </h4>
+    </div>
+
+    <!-- Description -->
+    {course.description && (
+      <p class="text-sm text-[#d4d4d8] line-clamp-2">
+        {course.description}
+      </p>
+    )}
+
+    <!-- Technologies/Tags -->
+    <div class="flex flex-wrap gap-2">
+      {course.technologies.map((tech) => (
+        <a
+          href={`/courses?tech=${encodeURIComponent(tech)}`}
+          class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[#0a0a0a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50 hover:text-accent-500 transition-colors"
+        >
+          {tech}
+        </a>
+      ))}
+    </div>
+
+    <!-- Spacer -->
+    <div class="flex-grow"></div>
+
+    <!-- Footer with date -->
+    <div class="flex items-center justify-between pt-4 border-t border-[#2a2a2a]">
+      <p class="text-xs text-[#d4d4d8]">
+        Concluído em <span class="font-semibold text-[#fafafa]">{course.completedAt}</span>
+      </p>
+
+      {course.certificate && (
+        <div class="flex items-center gap-1 text-accent-500" title="Com certificado">
+          <svg
+            class="w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+          </svg>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
