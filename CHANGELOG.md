@@ -14,6 +14,13 @@ e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Nova estrutura de páginas com suporte a i18n
 - CHANGELOG.md para rastreamento de mudanças
 
+### Level 1: Impacto Visual & Primeira Impressão
+- **Stats Component** - Exibe 4 métricas principais (Projetos, Usuários, Código, Performance)
+- **TechStack Component** - Tech stack categorizado (Frontend, Backend, Tools, Cloud) com hover effects
+- **Quality Component** - Lighthouse scores e Core Web Vitals com visualização de barras de progresso
+- **PerformanceMetric Component** - Componente reutilizável para mostrar métricas com gradientes dinâmicos
+- Seções adicionadas à página inicial para máximo impacto
+
 ### Changed
 - Reorganização de projetos (agora em página separada)
 - Atualização do Footer com links corretos (removido "Concursos" da navegação principal)
