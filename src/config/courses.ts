@@ -24,6 +24,7 @@ export const courses: Course[] = [
     technologies: ['Claude', 'AI', 'Code', 'Development'],
     completedAt: 'abr 2026',
     certificate: {
+      url: 'https://learn.anthropic.com/verify-certificate?credential=6zx59q2tz4hu',
       credentialCode: '6zx59q2tz4hu',
     },
     description: 'Certificate of completion: Claude code 101. Competências: Claude da Anthropic, Subagentes de Código Claude',
@@ -34,6 +35,7 @@ export const courses: Course[] = [
     technologies: ['Claude', 'AI', 'Machine Learning'],
     completedAt: 'abr 2026',
     certificate: {
+      url: 'https://learn.anthropic.com/verify-certificate?credential=zxxizh6yd85j',
       credentialCode: 'zxxizh6yd85j',
     },
     description: 'Certificate of completion: Claude 101. Competências: Inteligência artificial, Claude da Anthropic',
@@ -82,6 +84,17 @@ export const courses: Course[] = [
       url: 'Introdução a Cibersegurança - CISCO',
     },
     description: 'Competências: Cibersegurança, CyberSecurity',
+  },
+  {
+    name: 'Introduction to HTML5',
+    platform: 'Coursera',
+    technologies: ['HTML5', 'Web Development', 'Frontend'],
+    completedAt: 'out 2024',
+    certificate: {
+      url: 'https://www.coursera.org/account/accomplishments/verify/QEF0XGYGN7DI',
+      credentialCode: 'QEF0XGYGN7DI',
+    },
+    description: 'Certificado de conclusão: Introduction to HTML5 pela University of Michigan',
   },
 ];
 

@@ -53,7 +53,25 @@ const { course } = Astro.props;
         Concluído em <span class="font-semibold text-[#fafafa]">{course.completedAt}</span>
       </p>
 
-      {course.certificate && (
+      {course.certificate && course.certificate.url && (
+        <a
+          href={course.certificate.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-medium bg-accent-500/10 text-accent-500 border border-accent-500/30 hover:border-accent-500/60 hover:bg-accent-500/20 transition-all"
+          title="Ver certificado"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+          </svg>
+          <span>Verificar</span>
+        </a>
+      )}
+      {course.certificate && !course.certificate.url && (
         <div class="flex items-center gap-1 text-accent-500" title="Com certificado">
           <svg
             class="w-4 h-4"
