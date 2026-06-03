@@ -909,6 +909,106 @@ export const courses: Course[] = [
     description: 'Competências: Redstone automation, circuits, conditional logic, pistons, dispensers',
   },
   {
+    name: 'Chrome DevTools: analise, inspecione e depure suas páginas Web',
+    platform: 'Alura',
+    technologies: ['Chrome DevTools', 'Frontend', 'Debugging'],
+    completedAt: 'out 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/chrome-devtools/certificate',
+    },
+    description: 'Competências: Chrome DevTools, inspection, debugging, performance, cookies, cache',
+  },
+  {
+    name: 'Git: Controle e compartilhe seu código',
+    platform: 'Alura',
+    technologies: ['Git', 'Version Control', 'Development Tools'],
+    completedAt: 'out 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/git/certificate',
+    },
+    description: 'Competências: Git fundamentals, branching, conflict resolution, open-source contribution',
+  },
+  {
+    name: 'Web Design Responsivo: Páginas que se adaptam do mobile ao desk',
+    platform: 'Alura',
+    technologies: ['Responsive Design', 'CSS', 'Web Design'],
+    completedAt: 'out 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/web-design-responsivo/certificate',
+    },
+    description: 'Competências: Fluid design, media queries, responsive imagery, mobile UX, viewport',
+  },
+  {
+    name: 'Flexbox: posicione elementos na tela',
+    platform: 'Alura',
+    technologies: ['Flexbox', 'CSS', 'Layout'],
+    completedAt: 'out 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/posicione-elementos-com-flexbox/certificate',
+    },
+    description: 'Competências: Flexbox layout, responsive design, grid layouts, mobile optimization',
+  },
+  {
+    name: 'Hábitos: da produtividade às metas pessoais',
+    platform: 'Alura',
+    technologies: ['Produtividade', 'Desenvolvimento Pessoal', 'Habilidades'],
+    completedAt: 'jun 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/habitos/certificate',
+    },
+    description: 'Competências: Habit formation, productivity, self-discipline, personal goals',
+  },
+  {
+    name: 'Java e JDBC: Trabalhando com um banco de dados',
+    platform: 'Alura',
+    technologies: ['Java', 'JDBC', 'Database', 'Backend'],
+    completedAt: 'mai 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/jdbc/certificate',
+    },
+    description: 'Competências: JDBC, database operations, SQL injection prevention, transactions',
+  },
+  {
+    name: 'MySQL I: Iniciando suas consultas',
+    platform: 'Alura',
+    technologies: ['MySQL', 'SQL', 'Database'],
+    completedAt: 'mai 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/introducao-a-banco-de-dados-e-sql/certificate',
+    },
+    description: 'Competências: MySQL queries, data consultation, updates, deletions, joins',
+  },
+  {
+    name: 'Java e JSTL: Tags para facilitar o desenvolvimento JSP',
+    platform: 'Alura',
+    technologies: ['Java', 'JSTL', 'JSP', 'Web Development'],
+    completedAt: 'mai 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/jstl/certificate',
+    },
+    description: 'Competências: JSTL tags, JSP development, iterating collections, formatting',
+  },
+  {
+    name: 'Servlets: Fundamentos de Java na Web',
+    platform: 'Alura',
+    technologies: ['Java', 'Servlets', 'Web Development', 'Backend'],
+    completedAt: 'mai 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/servlet-3-e-fundamentos-web/certificate',
+    },
+    description: 'Competências: Servlet API, HTTP methods, cookies, sessions, MVC pattern',
+  },
+  {
+    name: 'HTTP: Entendendo a web por baixo dos panos',
+    platform: 'Alura',
+    technologies: ['HTTP', 'Web Development', 'Backend'],
+    completedAt: 'abr 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/http-fundamentos/certificate',
+    },
+    description: 'Competências: HTTP fundamentals, HTTPS, REST web services, HTTP/2, security',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
