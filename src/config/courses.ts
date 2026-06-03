@@ -22,6 +22,106 @@ export const courses: Course[] = [
     description: 'Competências: JavaScript, lógica de programação, condicionais, loops',
   },
   {
+    name: 'Certificação Linux LPI Essentials parte 2: Open Source Software and Licensing',
+    platform: 'Alura',
+    technologies: ['Linux', 'Open Source', 'DevOps'],
+    completedAt: 'jul 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/linux-essentials-2/certificate',
+    },
+    description: 'Competências: Open source philosophy, licensing frameworks (GPL, BSD, Apache)',
+  },
+  {
+    name: 'Certificação Linux LPI Essentials parte 1: Evolution and Distributions',
+    platform: 'Alura',
+    technologies: ['Linux', 'DevOps', 'Package Management'],
+    completedAt: 'jun 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/linux-essentials-1/certificate',
+    },
+    description: 'Competências: Linux distributions, package management, server applications',
+  },
+  {
+    name: 'Git e Github: estratégias de ramificação, Conflitos e Pull Requests',
+    platform: 'Alura',
+    technologies: ['Git', 'GitHub', 'Version Control'],
+    completedAt: 'mai 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/git-github-branching-conflitos-pull-requests/certificate',
+    },
+    description: 'Competências: Git branching, conflict resolution, pull requests, GitHub workflows',
+  },
+  {
+    name: 'JavaScript: interfaces e Herança em Orientação a Objetos',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'OOP', 'Programming'],
+    completedAt: 'mai 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/javascript-polimorfismo/certificate',
+    },
+    description: 'Competências: Inheritance, interfaces, abstract classes em JavaScript',
+  },
+  {
+    name: 'JavaScript: programando a Orientação a Objetos',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'OOP', 'Programming'],
+    completedAt: 'mai 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/javascritpt-orientacao-objetos/certificate',
+    },
+    description: 'Competências: OOP em JavaScript, constructors, static methods, code modularization',
+  },
+  {
+    name: 'JavaScript: explorando a linguagem',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'Programming'],
+    completedAt: 'mai 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/javascript-introducao/certificate',
+    },
+    description: 'Competências: JavaScript fundamentals, variables, collections, conditionals, iteration',
+  },
+  {
+    name: 'Amazon S3: Manipule e armazene objetos na nuvem',
+    platform: 'Alura',
+    technologies: ['AWS', 'Amazon S3', 'Cloud', 'DevOps'],
+    completedAt: 'jan 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/aws-s3-manipule-e-armazene-na-nuvem/certificate',
+    },
+    description: 'Competências: AWS S3, cloud storage, access policies, versioning, storage classes',
+  },
+  {
+    name: 'HTML5 e CSS3 parte 4: avançando no CSS',
+    platform: 'Alura',
+    technologies: ['HTML5', 'CSS3', 'Web Development', 'Frontend'],
+    completedAt: 'dez 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/html5-css3-avancando-css/certificate',
+    },
+    description: 'Competências: Advanced CSS, responsive design, opacity, shadows, selectors',
+  },
+  {
+    name: 'HTML5 e CSS3 parte 3: trabalhando com formulários e tabelas',
+    platform: 'Alura',
+    technologies: ['HTML5', 'CSS3', 'Web Development', 'Frontend'],
+    completedAt: 'dez 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/html5-css3-formularios-tabelas/certificate',
+    },
+    description: 'Competências: HTML5 forms, tables, semantic HTML, advanced CSS',
+  },
+  {
+    name: 'Node.js Parte 1: Inovando com JavaScript no backend',
+    platform: 'Alura',
+    technologies: ['Node.js', 'JavaScript', 'Backend', 'Express'],
+    completedAt: 'dez 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/nodejs-fundamentos/certificate',
+    },
+    description: 'Competências: Node.js, Express, middleware, backend JavaScript development',
+  },
+  {
     name: 'Google AI Essentials',
     platform: 'Coursera',
     technologies: ['AI', 'Google Cloud', 'Machine Learning', 'Generative AI'],
