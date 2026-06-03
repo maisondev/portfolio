@@ -1109,6 +1109,106 @@ export const courses: Course[] = [
     description: 'Competências: Android development, Eclipse IDE, UI design, SQLite, data persistence',
   },
   {
+    name: 'JavaScript e HTML: pratique lógica com desenhos, animações e um jogo',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'HTML', 'Frontend', 'Game Development'],
+    completedAt: 'nov 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/logica-programacao-pratica-com-desenho-animacoes-em-jogo/certificate',
+    },
+    description: 'Competências: Canvas graphics, animations, game fundamentals, user interaction',
+  },
+  {
+    name: 'Android III: Aprimore sua app com Fragments, Google Maps e GPS',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'nov 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android-studio-iii-fragments-maps-gps/certificate',
+    },
+    description: 'Competências: Fragments, Google Maps, GPS, location services',
+  },
+  {
+    name: 'Eclipse: Produtividade Extrema na IDE com Java',
+    platform: 'Alura',
+    technologies: ['Eclipse', 'Java', 'Development Tools'],
+    completedAt: 'out 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/eclipse/certificate',
+    },
+    description: 'Competências: Eclipse IDE, reducing errors, debugging, productivity techniques',
+  },
+  {
+    name: 'Redes parte 1: conceitos e prática',
+    platform: 'Alura',
+    technologies: ['Networks', 'IT', 'Infrastructure'],
+    completedAt: 'out 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/redes-introducao/certificate',
+    },
+    description: 'Competências: IP addresses, DNS, routers, DHCP, network communication',
+  },
+  {
+    name: 'Android II: Integração com apps e recursos do device',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'out 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android-studio-ii-integracoes-e-recursos/certificate',
+    },
+    description: 'Competências: SMS, maps, camera, browser integration, device permissions',
+  },
+  {
+    name: 'Java Collections: Dominando Listas, Sets e Mapas',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Data Structures'],
+    completedAt: 'set 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-collections/certificate',
+    },
+    description: 'Competências: ArrayLists, Sets, Maps, Java collection framework',
+  },
+  {
+    name: 'UML: modelagem de soluções',
+    platform: 'Alura',
+    technologies: ['UML', 'Software Design', 'Metodologia'],
+    completedAt: 'set 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/introducao-a-uml/certificate',
+    },
+    description: 'Competências: Use case, class, sequence, activity, state, component diagrams',
+  },
+  {
+    name: 'Android I: Crie sua App fantástica com Android Studio',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'set 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android-studio/certificate',
+    },
+    description: 'Competências: Android Studio, project setup, UI, menus, activity lifecycle',
+  },
+  {
+    name: 'Java III: Principais APIs e bibliotecas',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Libraries'],
+    completedAt: 'ago 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-e-bibliotecas/certificate',
+    },
+    description: 'Competências: java.lang, java.io, Collections, threading, JAR, Javadoc',
+  },
+  {
+    name: 'Java II: Orientação a Objetos',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Object-Oriented Design'],
+    completedAt: 'ago 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-e-orientacao-a-objetos/certificate',
+    },
+    description: 'Competências: Java OOP, inheritance, polymorphism, abstract classes, interfaces',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
