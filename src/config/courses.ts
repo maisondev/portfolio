@@ -417,6 +417,106 @@ export const courses: Course[] = [
     },
     description: 'Competências: Linux, command line, shell basics, system administration',
   },
+  {
+    name: 'HTML5 e CSS3 parte 2: posicionamento, listas e navegação',
+    platform: 'Alura',
+    technologies: ['HTML5', 'CSS3', 'Web Development', 'Frontend'],
+    completedAt: 'dez 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/html5-css3-posicionamento-listas-navegacao/certificate',
+    },
+    description: 'Competências: CSS positioning, list structures, navigation design',
+  },
+  {
+    name: 'HTML5 e CSS3 parte 1: crie uma página da Web',
+    platform: 'Alura',
+    technologies: ['HTML5', 'CSS3', 'Web Development', 'Frontend'],
+    completedAt: 'nov 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/html5-css3-primeiros-passos/certificate',
+    },
+    description: 'Competências: HTML5 fundamentals, CSS3 styling, web page creation',
+  },
+  {
+    name: 'Introdução aos Métodos Ágeis',
+    platform: 'Alura',
+    technologies: ['Agile', 'Scrum', 'Gestão', 'Project Management'],
+    completedAt: 'out 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/introducao-aos-metodos-ageis/certificate',
+    },
+    description: 'Competências: Agile methods, Scrum, XP, Kanban, sprint planning',
+  },
+  {
+    name: 'Linux II: programas, processos e pacotes',
+    platform: 'Alura',
+    technologies: ['Linux', 'DevOps', 'System Administration'],
+    completedAt: 'out 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/linux-ubuntu-processos/certificate',
+    },
+    description: 'Competências: Process management, package installation, user management, shell scripting',
+  },
+  {
+    name: 'Scrum: agilidade em seu projeto',
+    platform: 'Alura',
+    technologies: ['Scrum', 'Agile', 'Project Management', 'Gestão'],
+    completedAt: 'set 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/agile-scrum/certificate',
+    },
+    description: 'Competências: Scrum framework, sprint management, retrospectives, backlog management',
+  },
+  {
+    name: 'Git e Github: controle e compartilhe seu código',
+    platform: 'Alura',
+    technologies: ['Git', 'GitHub', 'Version Control', 'DevOps'],
+    completedAt: 'set 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/git-github-controle-de-versao/certificate',
+    },
+    description: 'Competências: Git fundamentals, GitHub collaboration, version management',
+  },
+  {
+    name: 'Avançando com PHP: Arrays, Strings, Função e Web',
+    platform: 'Alura',
+    technologies: ['PHP', 'Programming', 'Backend', 'Web Development'],
+    completedAt: 'ago 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/php-arrays-strings-funcoes/certificate',
+    },
+    description: 'Competências: PHP arrays, strings, functions, web development with PHP',
+  },
+  {
+    name: 'Mídias Sociais: estratégias para engajar o público',
+    platform: 'Alura',
+    technologies: ['Social Media', 'Marketing', 'Business'],
+    completedAt: 'jul 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/estrategias-midias-sociais/certificate',
+    },
+    description: 'Competências: Social media strategy, content creation, community engagement, analytics',
+  },
+  {
+    name: 'Linux I: conhecendo e utilizando o terminal',
+    platform: 'Alura',
+    technologies: ['Linux', 'Terminal', 'DevOps', 'Bash'],
+    completedAt: 'jul 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/linux-ubuntu/certificate',
+    },
+    description: 'Competências: Linux terminal, file management, text editing with VI',
+  },
+  {
+    name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
+    platform: 'Alura',
+    technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
+    completedAt: 'jul 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/instagram/certificate',
+    },
+    description: 'Competências: Instagram marketing, profile optimization, content creation, analytics',
+  },
 ];
 
 // Extrair todas as tecnologias únicas para filtro
