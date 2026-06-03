@@ -809,6 +809,106 @@ export const courses: Course[] = [
     description: 'Competências: jQuery events, DOM manipulation, element creation, event listeners',
   },
   {
+    name: 'UX: o que é experiência de usuário',
+    platform: 'Alura',
+    technologies: ['UX Design', 'Design', 'User Experience'],
+    completedAt: 'dez 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/ux-base/certificate',
+    },
+    description: 'Competências: UX fundamentals, ideation, kanban, design deliverables, decision-making',
+  },
+  {
+    name: 'Go: a linguagem do Google',
+    platform: 'Alura',
+    technologies: ['Go', 'Backend', 'Programming'],
+    completedAt: 'nov 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/golang/certificate',
+    },
+    description: 'Competências: Go language, variables, control flow, web requests, collections, file I/O',
+  },
+  {
+    name: 'PHP e MySQL I: Fundamentos para criar um sistema na Web',
+    platform: 'Alura',
+    technologies: ['PHP', 'MySQL', 'Backend', 'Web Development'],
+    completedAt: 'nov 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/php-mysql-e-fundamentos-da-web/certificate',
+    },
+    description: 'Competências: PHP basics, MySQL, form handling, product management, server deployment',
+  },
+  {
+    name: 'Bootstrap: criação de uma single-page responsiva',
+    platform: 'Alura',
+    technologies: ['Bootstrap', 'CSS', 'Responsive Design', 'Frontend'],
+    completedAt: 'ago 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/bootstrap-criacao-single-page-responsiva/certificate',
+    },
+    description: 'Competências: Bootstrap framework, responsive design, single-page applications',
+  },
+  {
+    name: 'WordPress: Primeiros passos para não programadores',
+    platform: 'Alura',
+    technologies: ['WordPress', 'CMS', 'Web Development'],
+    completedAt: 'jul 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/wordpress-primeiros-passos/certificate',
+    },
+    description: 'Competências: WordPress setup, site customization, content management, SEO',
+  },
+  {
+    name: 'C: avançando na linguagem',
+    platform: 'Alura',
+    technologies: ['C', 'Programming', 'Backend'],
+    completedAt: 'jul 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/introducao-a-programacao-com-c-parte-2/certificate',
+    },
+    description: 'Competências: C arrays, pointers, memory management, binary, functions, I/O',
+  },
+  {
+    name: 'C: conhecendo a Linguagem das Linguagens',
+    platform: 'Alura',
+    technologies: ['C', 'Programming', 'Backend'],
+    completedAt: 'jun 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/introducao-a-programacao-com-c-parte-1/certificate',
+    },
+    description: 'Competências: C fundamentals, variables, conditionals, loops, data types, game logic',
+  },
+  {
+    name: 'Gestalt: aplicando princípios em um layout Photoshop',
+    platform: 'Alura',
+    technologies: ['Photoshop', 'Design', 'UX Design'],
+    completedAt: 'jan 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/design-gestalt/certificate',
+    },
+    description: 'Competências: Gestalt principles, Photoshop layout design, website design',
+  },
+  {
+    name: 'Acessibilidade web: crie designs inclusivos',
+    platform: 'Alura',
+    technologies: ['Web Accessibility', 'Design', 'Inclusive Design'],
+    completedAt: 'jan 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/acessibilidade-web-design-inclusivos/certificate',
+    },
+    description: 'Competências: Web accessibility, inclusive design for autism, deafness, dyslexia, low vision',
+  },
+  {
+    name: 'Minecraft: crie estruturas com redstone',
+    platform: 'Alura',
+    technologies: ['Minecraft', 'Lógica', 'Programming Concepts'],
+    completedAt: 'jan 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/minecraft-estruturas-logicas-redstone/certificate',
+    },
+    description: 'Competências: Redstone automation, circuits, conditional logic, pistons, dispensers',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
