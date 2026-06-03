@@ -109,7 +109,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       Total: {courses.length} cursos
     </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-courses-grid>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4" data-courses-grid>
       {courses.map((course) => (
         <div data-course={JSON.stringify({ technologies: course.technologies, platform: course.platform })}>
           <CourseCard course={course} />
