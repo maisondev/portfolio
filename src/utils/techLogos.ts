@@ -117,8 +117,8 @@ export const techLogosMap: Record<string, TechLogo> = {
   },
   'API REST': {
     name: 'API REST',
-    logo: `${SIMPLE_ICONS_CDN}/openapis.svg`,
-    color: '#6ba539',
+    logo: `${SIMPLE_ICONS_CDN}/swagger.svg`,
+    color: '#85ea2d',
   },
   'Machine Learning': {
     name: 'Machine Learning',
@@ -167,13 +167,13 @@ export const techLogosMap: Record<string, TechLogo> = {
   },
   'Cybersecurity': {
     name: 'Cybersecurity',
-    logo: `${SIMPLE_ICONS_CDN}/shield.svg`,
-    color: '#2e8555',
+    logo: `${SIMPLE_ICONS_CDN}/owasp.svg`,
+    color: '#000000',
   },
   'Security': {
     name: 'Security',
-    logo: `${SIMPLE_ICONS_CDN}/shield.svg`,
-    color: '#2e8555',
+    logo: `${SIMPLE_ICONS_CDN}/owasp.svg`,
+    color: '#000000',
   },
   'Project Management': {
     name: 'Project Management',
