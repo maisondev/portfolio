@@ -12,6 +12,16 @@ export interface Course {
 
 export const courses: Course[] = [
   {
+    name: 'Lógica de programação: mergulhe em programação com JavaScript',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'Programming', 'Lógica'],
+    completedAt: 'mar 2024',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/logica-programacao-mergulhe-programacao-javascript/certificate',
+    },
+    description: 'Competências: JavaScript, lógica de programação, condicionais, loops',
+  },
+  {
     name: 'Google AI Essentials',
     platform: 'Coursera',
     technologies: ['AI', 'Google Cloud', 'Machine Learning', 'Generative AI'],
@@ -216,6 +226,96 @@ export const courses: Course[] = [
       credentialCode: 'UC-6b8b0036-01bd-42c6-9ff2-f5c73a606197',
     },
     description: 'Curso completo sobre metodologia científica para pesquisa e desenvolvimento',
+  },
+  {
+    name: 'Arquitetura de computadores: por trás de como seu programa funciona',
+    platform: 'Alura',
+    technologies: ['Programação', 'Arquitetura', 'Computadores'],
+    completedAt: 'jul 2021',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/arquitetura-computadores-funcionamento-programa/certificate',
+    },
+    description: 'Competências: Arquitetura de computadores, execução de programas, memória',
+  },
+  {
+    name: 'Lógica de programação: laços e listas com JavaScript',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'Programming', 'Lógica'],
+    completedAt: 'jul 2021',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/javascript-listas-lacos/certificate',
+    },
+    description: 'Competências: Loops, arrays/listas, JavaScript fundamentals',
+  },
+  {
+    name: 'Lógica de programação: comece em lógica com o jogo Pong e JavaScript',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'Game Development', 'Lógica'],
+    completedAt: 'jul 2021',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/pong-javascript/certificate',
+    },
+    description: 'Competências: Game development, JavaScript, lógica de programação aplicada',
+  },
+  {
+    name: 'Rest com NodeJS: API com Express e MySQL',
+    platform: 'Alura',
+    technologies: ['Node.js', 'Express', 'MySQL', 'API REST', 'Backend'],
+    completedAt: 'abr 2021',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/node-rest-api/certificate',
+    },
+    description: 'Competências: REST API, Node.js, Express framework, MySQL database',
+  },
+  {
+    name: 'Lean Startup: primeiros passos da sua Startup enxuta',
+    platform: 'Alura',
+    technologies: ['Lean', 'Startups', 'Business', 'Gestão'],
+    completedAt: 'dez 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/lean/certificate',
+    },
+    description: 'Competências: Lean methodology, MVP development, startup strategy',
+  },
+  {
+    name: 'Adobe XD: design visual de um site mobile',
+    platform: 'Alura',
+    technologies: ['Adobe XD', 'Design', 'Mobile', 'UI/UX'],
+    completedAt: 'out 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/adobe-xd-site-mobile/certificate',
+    },
+    description: 'Competências: Adobe XD, mobile design, wireframing, prototyping',
+  },
+  {
+    name: 'Figma: design visual de um site mobile',
+    platform: 'Alura',
+    technologies: ['Figma', 'Design', 'Mobile', 'UI/UX'],
+    completedAt: 'set 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/figma-design-visual-site-mobile/certificate',
+    },
+    description: 'Competências: Figma, mobile design, wireframing, prototyping, visual design',
+  },
+  {
+    name: 'Certificação PMP e CAPM parte 1: processos de gerenciamento de projetos',
+    platform: 'Alura',
+    technologies: ['PMP', 'Project Management', 'Gestão'],
+    completedAt: 'set 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/certificacao-pmp-processos-de-gerenciamento-projetos/certificate',
+    },
+    description: 'Competências: PMP/CAPM certification, project management processes',
+  },
+  {
+    name: 'Certificação Linux LPI Essentials parte 3: Command Line Basics',
+    platform: 'Alura',
+    technologies: ['Linux', 'Command Line', 'DevOps'],
+    completedAt: 'ago 2020',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/linux-essentials-3/certificate',
+    },
+    description: 'Competências: Linux, command line, shell basics, system administration',
   },
 ];
 
