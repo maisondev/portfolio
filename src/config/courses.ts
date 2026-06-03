@@ -508,6 +508,107 @@ export const courses: Course[] = [
     description: 'Competências: Linux terminal, file management, text editing with VI',
   },
   {
+    name: 'PHP: conceitos, lidando com dados, loops e mais',
+    platform: 'Alura',
+    technologies: ['PHP', 'Backend', 'Programming'],
+    completedAt: 'jul 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/php-primeiros-passos/certificate',
+    },
+    description: 'Competências: PHP, variáveis, tipos de dados, strings, loops, condicionais',
+  },
+  {
+    name: 'Modelagem de Banco de Dados Relacional: Índices e Normalização',
+    platform: 'Alura',
+    technologies: ['Database', 'Data', 'SQL'],
+    completedAt: 'jul 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/modelagem-banco-relacional/certificate',
+    },
+    description: 'Competências: Índices de banco de dados, normalização, formas normais',
+  },
+  {
+    name: 'Comandos DML: manipulação de dados com MySQL',
+    platform: 'Alura',
+    technologies: ['MySQL', 'SQL', 'Database'],
+    completedAt: 'jul 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/mysql-dml-manipulacao-de-dados/certificate',
+    },
+    description: 'Competências: SQL DML, inserção, atualização, exclusão de dados, triggers',
+  },
+  {
+    name: 'Android parte 3: refinando o projeto',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'jun 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android-refinando-o-projeto/certificate',
+    },
+    description: 'Competências: UI design patterns, arquitetura de aplicação, diálogos, refatoração',
+  },
+  {
+    name: 'Android parte 2: avançando com listeners, menu e UI',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'jun 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android-avancando-listeners-menu-ui/certificate',
+    },
+    description: 'Competências: Event listeners, menus, UI design, componentes Android',
+  },
+  {
+    name: 'SOLID com Java: Orientação a Objetos com Java',
+    platform: 'Alura',
+    technologies: ['Java', 'Programming', 'Metodologia'],
+    completedAt: 'jun 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/orientacao-a-objetos-avancada-e-principios-solid/certificate',
+    },
+    description: 'Competências: SOLID principles, single responsibility, open/closed, Liskov substitution',
+  },
+  {
+    name: 'Consultas SQL: avançando no SQL com MySQL',
+    platform: 'Alura',
+    technologies: ['MySQL', 'SQL', 'Database'],
+    completedAt: 'jun 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/mysql-consultas-sql/certificate',
+    },
+    description: 'Competências: Filtros SQL, joins, funções MySQL, relatórios, otimização de queries',
+  },
+  {
+    name: 'SQL com MySQL: manipule e consulte dados',
+    platform: 'Alura',
+    technologies: ['MySQL', 'SQL', 'Database'],
+    completedAt: 'jun 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/mysql-manipule-dados-com-sql/certificate',
+    },
+    description: 'Competências: Manipulação e consulta de dados, operações CRUD, gerenciamento de banco',
+  },
+  {
+    name: 'Agilidade: promovendo a transformação ágil',
+    platform: 'Alura',
+    technologies: ['Agile', 'Metodologia', 'Project Management'],
+    completedAt: 'jun 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/fundamentos-agilidade/certificate',
+      credentialCode: '089c9956-67b5-441e-8383-5bc3dfc32c08',
+    },
+    description: 'Competências: Metodologias ágeis, Waterfall vs Agile, priorização, feedback loops',
+  },
+  {
+    name: 'Design Patterns Java II: Boas praticas de programação',
+    platform: 'Alura',
+    technologies: ['Java', 'Programming', 'Design Patterns'],
+    completedAt: 'jun 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/design-patterns-2/certificate',
+    },
+    description: 'Competências: Design patterns avançados, factories, flyweight, visitor, adapters',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
