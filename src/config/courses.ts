@@ -1320,6 +1320,16 @@ export const courses: Course[] = [
     description: 'Competências: JavaScript fundamentals, user interaction, conditionals, loops, arrays',
   },
   {
+    name: 'Windows Prompt: Trabalhando na linha de comando',
+    platform: 'Alura',
+    technologies: ['Windows', 'Terminal', 'Development Tools'],
+    completedAt: 'jul 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/prompt/certificate',
+    },
+    description: 'Competências: Command Prompt, environment variables, JDK installation, Chocolatey',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
