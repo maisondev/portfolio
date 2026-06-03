@@ -1209,6 +1209,96 @@ export const courses: Course[] = [
     description: 'Competências: Java OOP, inheritance, polymorphism, abstract classes, interfaces',
   },
   {
+    name: 'Fotografia: técnicas de composição',
+    platform: 'Alura',
+    technologies: ['Photography', 'Design', 'Creative Skills'],
+    completedAt: 'ago 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/introducao-a-fotografia/certificate',
+    },
+    description: 'Competências: Photo composition, planning, compositional rules, photography best practices',
+  },
+  {
+    name: 'Inglês: Candidate-se a vagas no exterior',
+    platform: 'Alura',
+    technologies: ['English', 'Linguagem', 'Professional Development'],
+    completedAt: 'ago 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/ingles-para-entrevistas/certificate',
+    },
+    description: 'Competências: Professional English, resume writing, cover letter, LinkedIn, interviews',
+  },
+  {
+    name: 'Excel: Domine o editor de planilhas mais famoso do mundo',
+    platform: 'Alura',
+    technologies: ['Excel', 'Produtividade', 'Data'],
+    completedAt: 'ago 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/excel/certificate',
+    },
+    description: 'Competências: Spreadsheet calculations, functions, VLOOKUP, filtering, charts',
+  },
+  {
+    name: 'Java I: Primeiros passos',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Programming'],
+    completedAt: 'ago 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/primeiros-passos-com-java/certificate',
+    },
+    description: 'Competências: Java fundamentals, variables, OOP basics, arrays, constructors',
+  },
+  {
+    name: 'HTML e CSS: Os seus primeiros passos',
+    platform: 'Alura',
+    technologies: ['HTML', 'CSS', 'Frontend', 'Web Development'],
+    completedAt: 'jul 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/html-e-css/certificate',
+    },
+    description: 'Competências: HTML basics, CSS styling, web fundamentals',
+  },
+  {
+    name: 'Concursos: noções básicas de informática',
+    platform: 'Alura',
+    technologies: ['IT', 'Informática', 'Professional'],
+    completedAt: 'jul 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/informatica-para-concursos/certificate',
+    },
+    description: 'Competências: Operating systems, hardware, Windows, internet, Microsoft Office',
+  },
+  {
+    name: 'Design de Apresentação parte 1: Princípios e Técnicas Visuais',
+    platform: 'Alura',
+    technologies: ['Design', 'Presentation', 'Visual Design'],
+    completedAt: 'jul 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/apresentacao-design/certificate',
+    },
+    description: 'Competências: Visual design principles, presentation strategies, audience engagement',
+  },
+  {
+    name: 'JavaScript e HTML: desenvolva um jogo e pratique lógica de programação',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'HTML', 'Game Development', 'Programming'],
+    completedAt: 'jul 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/logica-programacao-javascript-html/certificate',
+    },
+    description: 'Competências: Variables, functions, conditionals, loops, game development',
+  },
+  {
+    name: 'Lógica de Programação II: Funções, Desenhos e um Jogo',
+    platform: 'Alura',
+    technologies: ['Programming', 'Lógica', 'Game Development'],
+    completedAt: 'jul 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/praticando-logica-de-programacao/certificate',
+    },
+    description: 'Competências: Canvas graphics, function extraction, game development, animations',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
