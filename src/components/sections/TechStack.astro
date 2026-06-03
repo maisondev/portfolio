@@ -1,4 +1,7 @@
 ---
+import { courses } from '@/config/courses';
+import { getTechLogo, hasValidLogo } from '@/utils/techLogos';
+
 interface Tech {
   name: string;
   category: 'frontend' | 'backend' | 'ai' | 'tools' | 'cloud';
@@ -10,44 +13,40 @@ interface Props {
   showCategories?: boolean;
 }
 
-const techs: Tech[] = [
-  // Frontend
-  { name: 'React', category: 'frontend' },
-  { name: 'Vue.js', category: 'frontend' },
-  { name: 'TypeScript', category: 'frontend' },
-  { name: 'Astro', category: 'frontend' },
-  { name: 'Tailwind CSS', category: 'frontend' },
-  { name: 'Next.js', category: 'frontend' },
+// Extrair tecnologias dos cursos
+const courseTechs = new Set<string>();
+courses.forEach((course) => {
+  course.technologies.forEach((tech) => {
+    courseTechs.add(tech);
+  });
+});
 
-  // Backend
-  { name: 'Node.js', category: 'backend' },
-  { name: 'PostgreSQL', category: 'backend' },
-  { name: 'PHP 8.2', category: 'backend' },
-  { name: 'API REST', category: 'backend' },
-  { name: 'GraphQL', category: 'backend' },
-  { name: 'Python', category: 'backend' },
+// Categorizar tecnologias automaticamente
+const categorizeTech = (tech: string): 'frontend' | 'backend' | 'ai' | 'tools' | 'cloud' => {
+  const frontendKeywords = ['react', 'vue', 'astro', 'next', 'typescript', 'html', 'css', 'javascript', 'tailwind', 'frontend', 'web'];
+  const backendKeywords = ['node', 'python', 'php', 'postgresql', 'api', 'graphql', 'backend', 'database'];
+  const aiKeywords = ['ai', 'claude', 'machine learning', 'data science', 'deep learning', 'nlp', 'anthropic', 'chatgpt', 'generative'];
+  const cloudKeywords = ['aws', 'google cloud', 'vercel', 'kubernetes', 'cloud', 'docker'];
+  const toolsKeywords = ['git', 'figma', 'cybersecurity', 'security', 'project management', 'tools'];
 
-  // AI & Machine Learning
-  { name: 'Claude AI', category: 'ai' },
-  { name: 'Anthropic API', category: 'ai' },
-  { name: 'Machine Learning', category: 'ai' },
-  { name: 'Data Science', category: 'ai' },
-  { name: 'Deep Learning', category: 'ai' },
-  { name: 'NLP', category: 'ai' },
+  const lowerTech = tech.toLowerCase();
 
-  // Tools
-  { name: 'Git', category: 'tools' },
-  { name: 'Docker', category: 'tools' },
-  { name: 'Figma', category: 'tools' },
-  { name: 'Cybersecurity', category: 'tools' },
-  { name: 'Project Management', category: 'tools' },
+  if (frontendKeywords.some((k) => lowerTech.includes(k))) return 'frontend';
+  if (backendKeywords.some((k) => lowerTech.includes(k))) return 'backend';
+  if (aiKeywords.some((k) => lowerTech.includes(k))) return 'ai';
+  if (cloudKeywords.some((k) => lowerTech.includes(k))) return 'cloud';
+  if (toolsKeywords.some((k) => lowerTech.includes(k))) return 'tools';
 
-  // Cloud
-  { name: 'Google Cloud', category: 'cloud' },
-  { name: 'AWS', category: 'cloud' },
-  { name: 'Vercel', category: 'cloud' },
-  { name: 'Kubernetes', category: 'cloud' },
-];
+  return 'tools';
+};
+
+const techs: Tech[] = Array.from(courseTechs)
+  .filter((name) => hasValidLogo(name)) // Filtra apenas tecnologias com logos válidos
+  .map((name) => ({
+    name,
+    category: categorizeTech(name),
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 const categoryLabels = {
   frontend: 'Frontend',
@@ -83,27 +82,47 @@ const techsByCategory = {
           <h3 class="text-sm font-semibold uppercase tracking-widest text-accent-500">
             {categoryLabels[category as keyof typeof categoryLabels]}
           </h3>
-          <div class="flex flex-wrap gap-2 md:gap-3">
-            {items.map((tech) => (
-              <div class="inline-flex items-center px-3 md:px-4 py-2 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
-                <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
-                  {tech.name}
-                </span>
-              </div>
-            ))}
+          <div class="flex flex-wrap gap-3">
+            {items.map((tech) => {
+              const logo = getTechLogo(tech.name);
+              return (
+                <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
+                  <img
+                    src={logo.logo}
+                    alt={tech.name}
+                    class="w-5 h-5 md:w-6 md:h-6 flex-shrink-0 object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                    loading="lazy"
+                  />
+                  <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
+                    {tech.name}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       ))}
     </div>
   ) : (
-    <div class="flex flex-wrap gap-2 md:gap-3">
-      {techs.map((tech) => (
-        <div class="inline-flex items-center px-3 md:px-4 py-2 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
-          <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
-            {tech.name}
-          </span>
-        </div>
-      ))}
+    <div class="flex flex-wrap gap-3">
+      {techs.map((tech) => {
+        const logo = getTechLogo(tech.name);
+        return (
+          <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
+            <div class="w-6 h-6 md:w-7 md:h-7 flex-shrink-0 flex items-center justify-center bg-[#f5f5f5] rounded-md">
+              <img
+                src={logo.logo}
+                alt={tech.name}
+                class="w-4 h-4 md:w-5 md:h-5 object-contain"
+                loading="lazy"
+              />
+            </div>
+            <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
+              {tech.name}
+            </span>
+          </div>
+        );
+      })}
     </div>
   )}
 </section>
