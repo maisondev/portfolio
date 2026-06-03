@@ -1009,6 +1009,106 @@ export const courses: Course[] = [
     description: 'Competências: HTTP fundamentals, HTTPS, REST web services, HTTP/2, security',
   },
   {
+    name: 'JavaScript: programando na linguagem da web',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'Frontend', 'Web Development'],
+    completedAt: 'mar 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/javascript-programando-na-linguagem-web/certificate',
+    },
+    description: 'Competências: JavaScript fundamentals, variables, arrays, events, form handling, AJAX',
+  },
+  {
+    name: 'HTML5 e CSS3 II: Turbinando as suas páginas',
+    platform: 'Alura',
+    technologies: ['HTML5', 'CSS', 'Frontend', 'Web Development'],
+    completedAt: 'mar 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/avancando-html-css/certificate',
+    },
+    description: 'Competências: Flexbox, animations, transformations, gradients, responsive design',
+  },
+  {
+    name: 'HTML5 e CSS3 I: Suas primeiras páginas da Web',
+    platform: 'Alura',
+    technologies: ['HTML5', 'CSS', 'Frontend', 'Web Development'],
+    completedAt: 'jan 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/introducao-html-css/certificate',
+    },
+    description: 'Competências: HTML5, CSS3, web layout, positioning, semantic markup',
+  },
+  {
+    name: 'HTTP: Entendendo a web por baixo dos panos',
+    platform: 'Alura',
+    technologies: ['HTTP', 'Web Development', 'Backend'],
+    completedAt: 'jan 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/fundamentos-http/certificate',
+    },
+    description: 'Competências: HTTP protocol, HTTPS, domains, request/response, debugging',
+  },
+  {
+    name: 'Jogos com Android: Desenvolva seu próprio Flappy Bird',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Game Development'],
+    completedAt: 'jan 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/desenvolvendo-jogos-em-android/certificate',
+    },
+    description: 'Competências: Game programming, sprite animation, collision detection, audio',
+  },
+  {
+    name: 'Jogos com Android I: Desenvolvimento de jogos 2D',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Game Development'],
+    completedAt: 'jan 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/desenvolvimento-em-jogos-2d-com-android/certificate',
+    },
+    description: 'Competências: 2D graphics, Cartesian coordinates, image handling, game logic',
+  },
+  {
+    name: 'Android III: Integrações e Mapas para turbinar sua App',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'jan 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android3/certificate',
+    },
+    description: 'Competências: GPS, Google Maps, location services, fragments, asynchronous data',
+  },
+  {
+    name: 'Android II: Imersão em interfaces e recursos',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'jan 2017',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android2/certificate',
+    },
+    description: 'Competências: Android Intents, camera, file handling, LayoutInflater, services',
+  },
+  {
+    name: 'Produtividade: Aumente sua performance otimizando e organizando o seu tempo',
+    platform: 'Alura',
+    technologies: ['Produtividade', 'Desenvolvimento Pessoal'],
+    completedAt: 'dez 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/produtividade-otimizando-e-organizando-o-seu-tempo/certificate',
+    },
+    description: 'Competências: Time management, task organization, productivity, stress elimination',
+  },
+  {
+    name: 'Android I: Crie sua App fantástica no Eclipse',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'dez 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android1/certificate',
+    },
+    description: 'Competências: Android development, Eclipse IDE, UI design, SQLite, data persistence',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
