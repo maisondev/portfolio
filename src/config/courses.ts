@@ -709,6 +709,106 @@ export const courses: Course[] = [
     description: 'Competências: ES6, object-oriented programming, browser APIs, design patterns',
   },
   {
+    name: 'Java Exceções: aprenda a criar, lançar e controlar exceções',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Programming'],
+    completedAt: 'mar 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-excecoes/certificate',
+    },
+    description: 'Competências: Exception handling, throwing exceptions, checked vs unchecked exceptions',
+  },
+  {
+    name: 'Java Polimorfismo: entenda herança e interfaces',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Object-Oriented Design'],
+    completedAt: 'mar 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-heranca-interfaces-polimorfismo/certificate',
+    },
+    description: 'Competências: Herança, polymorphism, interfaces, abstract classes, method overriding',
+  },
+  {
+    name: 'Java OO: entendendo a Orientação a Objetos',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Object-Oriented Design'],
+    completedAt: 'fev 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-introducao-orientacao-objetos/certificate',
+    },
+    description: 'Competências: OOP fundamentals, encapsulation, object composition, static members',
+  },
+  {
+    name: 'Java JRE e JDK: compile e execute o seu programa',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Development Tools'],
+    completedAt: 'fev 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-primeiros-passos/certificate',
+    },
+    description: 'Competências: Java installation, JRE/JDK setup, Eclipse IDE, data types, variables',
+  },
+  {
+    name: 'Sass e Compass: Descomplicando o CSS',
+    platform: 'Alura',
+    technologies: ['Sass', 'CSS', 'Frontend'],
+    completedAt: 'fev 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/sass/certificate',
+    },
+    description: 'Competências: Sass, Compass, mixins, nesting, color functions, mathematical operations',
+  },
+  {
+    name: 'PHP e MySQL II: Cookies, sessões e mais recursos',
+    platform: 'Alura',
+    technologies: ['PHP', 'MySQL', 'Backend', 'Web Development'],
+    completedAt: 'jan 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/php-mysql-e-fundamentos-da-web-parte-2/certificate',
+    },
+    description: 'Competências: Authentication, sessions, security, email, SQL injection prevention',
+  },
+  {
+    name: 'Front-end: Projeto de conclusão',
+    platform: 'Alura',
+    technologies: ['Frontend', 'Web Development', 'HTML', 'CSS', 'JavaScript'],
+    completedAt: 'jan 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/projeto-carreira-front-end/certificate',
+    },
+    description: 'Competências: Header design, presenter panels, forms, page interactivity',
+  },
+  {
+    name: 'jQuery: avance na biblioteca mais popular do mercado parte 2',
+    platform: 'Alura',
+    technologies: ['jQuery', 'JavaScript', 'Frontend'],
+    completedAt: 'dez 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/jquery-a-biblioteca-do-mercado-parte-2/certificate',
+    },
+    description: 'Competências: jQuery animations, AJAX, error handling, CORS, plugins',
+  },
+  {
+    name: 'Vim: boas práticas a edição no terminal',
+    platform: 'Alura',
+    technologies: ['Vim', 'Terminal', 'Development Tools'],
+    completedAt: 'dez 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/vim/certificate',
+    },
+    description: 'Competências: Vim editor, terminal editing, configuration, code patterns',
+  },
+  {
+    name: 'jQuery: domine a biblioteca mais popular do mercado parte 1',
+    platform: 'Alura',
+    technologies: ['jQuery', 'JavaScript', 'Frontend'],
+    completedAt: 'dez 2018',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/jquery-a-biblioteca-do-mercado/certificate',
+    },
+    description: 'Competências: jQuery events, DOM manipulation, element creation, event listeners',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
