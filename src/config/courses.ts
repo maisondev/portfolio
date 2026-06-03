@@ -1299,6 +1299,27 @@ export const courses: Course[] = [
     description: 'Competências: Canvas graphics, function extraction, game development, animations',
   },
   {
+    name: 'LinkedIn: Como fazer o seu perfil trabalhar para você',
+    platform: 'Alura',
+    technologies: ['LinkedIn', 'Professional Development', 'Business'],
+    completedAt: 'jul 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/linkedin/certificate',
+      credentialCode: '302581d4fa89908daf8e9ce28b75a1cb',
+    },
+    description: 'Competências: LinkedIn profile, recommendations, skills endorsement, networking',
+  },
+  {
+    name: 'Lógica de Programação I: comece na carreira com JavaScript',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'Programming', 'Lógica'],
+    completedAt: 'jun 2016',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/logica-de-programacao/certificate',
+    },
+    description: 'Competências: JavaScript fundamentals, user interaction, conditionals, loops, arrays',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
