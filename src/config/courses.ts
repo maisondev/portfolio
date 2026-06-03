@@ -609,6 +609,106 @@ export const courses: Course[] = [
     description: 'Competências: Design patterns avançados, factories, flyweight, visitor, adapters',
   },
   {
+    name: 'Android parte 1: crie um app mobile',
+    platform: 'Alura',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'mai 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/android-sua-primeira-app-mobile/certificate',
+    },
+    description: 'Competências: Desenvolvimento Android, layouts, Activities, construção de aplicações mobile',
+  },
+  {
+    name: 'Orientação a Objetos: Melhores técnicas com Java',
+    platform: 'Alura',
+    technologies: ['Java', 'Programming', 'Object-Oriented Design'],
+    completedAt: 'mai 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/orientacao-objetos-java/certificate',
+    },
+    description: 'Competências: Programação orientada a objetos, encapsulamento, herança, polimorfismo',
+  },
+  {
+    name: 'Design Patterns Java I: Boas práticas de programação',
+    platform: 'Alura',
+    technologies: ['Java', 'Programming', 'Design Patterns'],
+    completedAt: 'mai 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/design-patterns/certificate',
+    },
+    description: 'Competências: Design patterns Strategy, Chain of Responsibility, Template Method, Decorator',
+  },
+  {
+    name: 'VRaptor3: Suas aplicações web em java mais produtivas',
+    platform: 'Alura',
+    technologies: ['VRaptor', 'Java', 'Web Framework'],
+    completedAt: 'abr 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/vraptor/certificate',
+    },
+    description: 'Competências: Framework VRaptor3, MVC architecture, controllers, dependency injection',
+  },
+  {
+    name: 'Expressões regulares: capturando textos de forma mágica',
+    platform: 'Alura',
+    technologies: ['Regex', 'Programming', 'Text Processing'],
+    completedAt: 'abr 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/expressoes-regulares/certificate',
+    },
+    description: 'Competências: Expressões regulares, pattern matching, character classes, greedy vs lazy',
+  },
+  {
+    name: 'Java e java.io: Streams, Reader e Writers',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'File I/O'],
+    completedAt: 'abr 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-trabalhando-com-io/certificate',
+    },
+    description: 'Competências: Java I/O, Streams, file operations, encoding, object serialization',
+  },
+  {
+    name: 'Java e java.util: Coleções, Wrappers e Lambda expressions',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Lambdas'],
+    completedAt: 'abr 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-util-lambdas/certificate',
+    },
+    description: 'Competências: Collections API, wrapper classes, lambda expressions, anonymous classes',
+  },
+  {
+    name: 'Java e java.lang: programe com a classe Object e String',
+    platform: 'Alura',
+    technologies: ['Java', 'Backend', 'Programming'],
+    completedAt: 'mar 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/java-pacotes-e-java-lang/certificate',
+    },
+    description: 'Competências: Java fundamentals, java.lang package, Object class, String class',
+  },
+  {
+    name: 'Vue.js parte 1: construindo Single Page Applications',
+    platform: 'Alura',
+    technologies: ['Vue.js', 'JavaScript', 'Frontend'],
+    completedAt: 'mar 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/vue-parte1/certificate',
+    },
+    description: 'Competências: Vue.js, component creation, API integration, routing, animations',
+  },
+  {
+    name: 'JavaScript: conhecendo o Browser e padrões de projeto',
+    platform: 'Alura',
+    technologies: ['JavaScript', 'Frontend', 'Design Patterns'],
+    completedAt: 'mar 2019',
+    certificate: {
+      url: 'https://cursos.alura.com.br/user/maisongalvao/course/javascript-es6-orientacao-a-objetos-parte-1/certificate',
+    },
+    description: 'Competências: ES6, object-oriented programming, browser APIs, design patterns',
+  },
+  {
     name: 'Instagram Marketing: primeiros passos para fortalecer sua marca',
     platform: 'Alura',
     technologies: ['Instagram', 'Social Media', 'Marketing', 'Business'],
