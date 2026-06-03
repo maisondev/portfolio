@@ -1,6 +1,16 @@
 ---
 import { type Language } from '@/i18n/utils';
 
+interface EducationItem {
+  degree: string;
+  institution: string;
+  year: string;
+  description: string;
+  type: 'graduacao' | 'pos-graduacao' | 'tecnico';
+  certificateUrl?: string;
+  certificatePages?: string[];
+}
+
 interface Props {
   id?: string;
   lang?: Language;
@@ -10,18 +20,13 @@ const { id, lang = 'pt' } = Astro.props;
 
 const education = [
   {
-    degree: 'Bacharelado em Engenharia de Software',
-    institution: 'Gran Faculdade',
-    year: 'Out 2024 – Out 2028',
-    description: 'Formação em Engenharia de Software com foco em arquitetura e desenvolvimento de sistemas de larga escala.',
-    type: 'graduacao',
-  },
-  {
     degree: 'Pós-Graduação Lato Sensu - Desenvolvimento Full Stack e Cloud Computing',
     institution: 'GRAN',
     year: 'Mai 2024 – Nov 2025',
     description: 'Especialização em desenvolvimento full stack com foco em tecnologias cloud e arquitetura moderna.',
     type: 'pos-graduacao',
+    certificateUrl: '/certificates/FullStack-Cloud-Computing.png',
+    certificatePages: ['/certificates/FullStack-Cloud-Computing.png'],
   },
   {
     degree: 'Especialista em Inteligência Artificial e Tecnologia na Gestão Pública',
@@ -29,6 +34,20 @@ const education = [
     year: 'Mai 2024 – Nov 2024',
     description: 'Especialização em aplicações de IA no contexto da administração pública.',
     type: 'pos-graduacao',
+    certificateUrl: '/certificates/IA-Gestao-Publica-p1.png',
+    certificatePages: [
+      '/certificates/IA-Gestao-Publica-p1.png',
+      '/certificates/IA-Gestao-Publica-p2.png',
+      '/certificates/IA-Gestao-Publica-p3.png',
+      '/certificates/IA-Gestao-Publica-p4.png',
+    ],
+  },
+  {
+    degree: 'Bacharelado em Engenharia de Software',
+    institution: 'Gran Faculdade',
+    year: 'Out 2024 – Out 2028',
+    description: 'Formação em Engenharia de Software com foco em arquitetura e desenvolvimento de sistemas de larga escala.',
+    type: 'graduacao',
   },
   {
     degree: 'Tecnologia em Análise e Desenvolvimento de Sistemas',
@@ -44,6 +63,15 @@ const education = [
     description: 'Formação técnica fundamental em informática e princípios de desenvolvimento.',
     type: 'tecnico',
   },
+  {
+    degree: 'Ensino Médio',
+    institution: 'Instituto Federal de Educação, Ciência e Tecnologia do Amazonas (IFAM)',
+    year: '2005 – 2007',
+    description: 'Formação de ensino médio integrada à educação técnica.',
+    type: 'tecnico',
+    certificateUrl: '/certificates/Ensino-Medio-p1.png',
+    certificatePages: ['/certificates/Ensino-Medio-p1.png', '/certificates/Ensino-Medio-p2.png'],
+  },
 ];
 
 const icons: Record<string, string> = {
@@ -57,7 +85,7 @@ const icons: Record<string, string> = {
 
 <section id={id} class="py-20 space-y-12">
   <div>
-    <h2 class="text-4xl font-bold text-[#fafafa] mb-8">Formação Acadêmica</h2>
+    <h1 class="text-4xl font-bold text-[#fafafa] mb-8">Formação</h1>
 
     <div class="space-y-6">
       <div class="space-y-4">
@@ -77,6 +105,16 @@ const icons: Record<string, string> = {
                     <span class="text-sm text-[#a1a1a1] whitespace-nowrap">{edu.year}</span>
                   </div>
                   <p class="text-[#d4d4d8] text-sm mt-2">{edu.description}</p>
+                  {edu.certificateUrl && (
+                    <button class="cert-btn inline-flex items-center gap-2 mt-3 text-sm text-accent-500 hover:text-accent-400 transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
+                      </svg>
+                      Ver certificado
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -85,4 +123,144 @@ const icons: Record<string, string> = {
       </div>
     </div>
   </div>
+  <!-- Modal para visualizar certificado -->
+  <dialog id="certModal" class="backdrop:bg-black/80 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
+    <div class="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-50">
+      <h3 class="text-lg font-semibold text-[#fafafa]">Visualizar Certificado</h3>
+      <button id="closeModal" class="text-[#d4d4d8] hover:text-[#fafafa] transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="flex flex-col items-center gap-4">
+      <img id="certImage" src="" alt="Certificado" class="max-w-full h-auto border border-[#2a2a2a] rounded" />
+
+      <!-- Navegação de páginas -->
+      <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-[#d4d4d8]">
+        <button id="prevPage" class="px-3 py-1 border border-[#2a2a2a] rounded hover:border-accent-500 transition-colors">← Anterior</button>
+        <span id="pageIndicator" class="text-[#a1a1a1]">Página 1 de 1</span>
+        <button id="nextPage" class="px-3 py-1 border border-[#2a2a2a] rounded hover:border-accent-500 transition-colors">Próxima →</button>
+      </div>
+    </div>
+  </dialog>
 </section>
+
+<style>
+  dialog#certModal::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Ocultar botões de download, print e save do PDF viewer */
+  #pdfViewer {
+    filter: brightness(1);
+  }
+
+  /* Overlay invisível para bloquear cliques em botões de download */
+  #pdfViewer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 120px;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('certModal') as HTMLDialogElement;
+  const closeBtn = document.getElementById('closeModal');
+  const certImage = document.getElementById('certImage') as HTMLImageElement;
+  const pageNav = document.getElementById('pageNav');
+  const pageIndicator = document.getElementById('pageIndicator');
+  const prevPageBtn = document.getElementById('prevPage');
+  const nextPageBtn = document.getElementById('nextPage');
+  const certButtons = document.querySelectorAll('.cert-btn');
+
+  let currentPages: string[] = [];
+  let currentPageIndex = 0;
+
+  function updatePageDisplay() {
+    if (currentPages.length === 0) return;
+
+    certImage.src = currentPages[currentPageIndex];
+    pageIndicator!.textContent = `Pagina ${currentPageIndex + 1} de ${currentPages.length}`;
+
+    if (currentPages.length > 1) {
+      pageNav!.classList.remove('hidden');
+      prevPageBtn!.disabled = currentPageIndex === 0;
+      nextPageBtn!.disabled = currentPageIndex === currentPages.length - 1;
+
+      prevPageBtn!.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
+      nextPageBtn!.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
+    } else {
+      pageNav!.classList.add('hidden');
+    }
+  }
+
+  certButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const pagesJson = btn.getAttribute('data-pages');
+      const firstImageUrl = btn.getAttribute('data-pdf');
+
+      if (pagesJson) {
+        currentPages = JSON.parse(pagesJson);
+      } else if (firstImageUrl) {
+        currentPages = [firstImageUrl];
+      }
+
+      currentPageIndex = 0;
+      updatePageDisplay();
+      modal.showModal();
+    });
+  });
+
+  prevPageBtn?.addEventListener('click', () => {
+    if (currentPageIndex > 0) {
+      currentPageIndex--;
+      updatePageDisplay();
+    }
+  });
+
+  nextPageBtn?.addEventListener('click', () => {
+    if (currentPageIndex < currentPages.length - 1) {
+      currentPageIndex++;
+      updatePageDisplay();
+    }
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    modal.close();
+  });
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.close();
+    }
+  });
+
+  // Bloquear clique direito
+  modal?.addEventListener('contextmenu', (e) => {
+    if (modal?.open) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // Bloquear teclas de atalho
+  document.addEventListener('keydown', (e) => {
+    if (modal?.open) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'p' || e.key === 'd')) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      // Navegação com setas
+      if (e.key === 'ArrowLeft') {
+        prevPageBtn?.click();
+      } else if (e.key === 'ArrowRight') {
+        nextPageBtn?.click();
+      }
+    }
+  }, true);
+</script>

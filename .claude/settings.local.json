@@ -38,7 +38,12 @@
       "WebFetch(domain:courses.edx.org)",
       "WebFetch(domain:www.udemy.com)",
       "WebFetch(domain:cursos.alura.com.br)",
-      "Bash(curl -s http://localhost:4321/)"
+      "Bash(curl -s http://localhost:4321/)",
+      "PowerShell(python --version 2>&1)",
+      "PowerShell(pip install *)",
+      "Bash(curl -s http://localhost:4321)",
+      "Bash(curl -s http://localhost:4321/pt/courses)",
+      "Bash(curl -s http://localhost:4321/pt/education)"
     ]
   }
 }

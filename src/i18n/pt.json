@@ -19,7 +19,7 @@
     "explore": "Explorar Mais",
     "exploreDesc": "Conheça minha experiência, formação e contribuições à comunidade.",
     "experience": "Experiência Profissional",
-    "education": "Formação & Concursos",
+    "education": "Formação",
     "articles": "Artigos & Writing",
     "message": "Enviar Mensagem"
   },
@@ -40,7 +40,7 @@
       "description": "13 anos de trajetória: 7 anos desenvolvendo soluções na esfera pública (PRODAM-AM) + 5 anos em liderança estratégica. Expertise técnica combinada com formação em IA, Full Stack, Cloud Computing e gestão de projetos."
     },
     "education": {
-      "title": "Educação",
+      "title": "Formação",
       "description": "Formação completa em tecnologia com múltiplas certificações. Compromisso contínuo com aprendizado e desenvolvimento profissional."
     },
     "projects": {

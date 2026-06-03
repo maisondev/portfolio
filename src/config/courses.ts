@@ -199,13 +199,6 @@ export const courses: Course[] = [
     description: 'Certificado Verificado pela W3Cx. Competências: HTML5 e CSS Fundamentals',
   },
   {
-    name: 'Data Administrator / Project Manager',
-    platform: 'GRAN',
-    technologies: ['Data', 'Project Management', 'Business'],
-    completedAt: 'abr 2026',
-    description: 'Certificação intermediária em administração de dados e gerenciamento de projetos',
-  },
-  {
     name: 'Claude Code 101',
     platform: 'Anthropic',
     technologies: ['Claude', 'AI', 'Code', 'Development'],
