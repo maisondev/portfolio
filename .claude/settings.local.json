@@ -37,7 +37,8 @@
       "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\src\" -Recurse -Directory | ForEach-Object { $_.FullName.Replace\\('C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\src\\\\', ''\\) } | Sort-Object)",
       "WebFetch(domain:courses.edx.org)",
       "WebFetch(domain:www.udemy.com)",
-      "WebFetch(domain:cursos.alura.com.br)"
+      "WebFetch(domain:cursos.alura.com.br)",
+      "Bash(curl -s http://localhost:4321/)"
     ]
   }
 }

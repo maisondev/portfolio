@@ -10,6 +10,16 @@ interface Props {
 
 const { lang = 'pt' } = Astro.props;
 
+const monthMap: Record<string, number> = {
+  jan: 0, fev: 1, mar: 2, abr: 3, mai: 4, jun: 5,
+  jul: 6, ago: 7, set: 8, out: 9, nov: 10, dez: 11,
+};
+
+const parseDate = (completedAt: string): number => {
+  const [month, year] = completedAt.split(' ');
+  return new Date(parseInt(year), monthMap[month] ?? 0).getTime();
+};
+
 const getLocalizedPath = (path: string) => {
   return lang === 'pt' ? `/pt${path}` : `/en${path}`;
 };
@@ -30,14 +40,21 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 ---
 
 <div class="space-y-8" data-courses-filter>
-  <!-- Search Box -->
-  <div>
+  <!-- Search and Sort Controls -->
+  <div class="flex gap-3 items-center">
     <input
       type="text"
       id="course-search"
       placeholder="Buscar curso por nome..."
-      class="w-full px-4 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-[#fafafa] placeholder:text-[#71717a] focus:outline-none focus:border-accent-500/50 transition-colors"
+      class="flex-1 px-4 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-[#fafafa] placeholder:text-[#71717a] focus:outline-none focus:border-accent-500/50 transition-colors"
     />
+    <select
+      id="course-sort"
+      class="px-3 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-[#d4d4d8] focus:outline-none focus:border-accent-500/50 transition-colors whitespace-nowrap"
+    >
+      <option value="desc">Mais recentes</option>
+      <option value="asc">Mais antigos</option>
+    </select>
   </div>
 
   <!-- Filters Section -->
@@ -111,7 +128,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4" data-courses-grid>
       {courses.map((course) => (
-        <div data-course={JSON.stringify({ technologies: course.technologies, platform: course.platform })}>
+        <div data-course={JSON.stringify({ technologies: course.technologies, platform: course.platform })} data-date={parseDate(course.completedAt)}>
           <CourseCard course={course} />
         </div>
       ))}
@@ -139,6 +156,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   const techButtons = filterContainer?.querySelectorAll('[data-filter-tech]');
   const instButtons = filterContainer?.querySelectorAll('[data-filter-inst]');
   const searchInput = document.getElementById('course-search');
+  const sortSelect = document.getElementById('course-sort');
   const paginationContainer = document.getElementById('pagination');
 
   // Parse courses from data attributes
@@ -170,6 +188,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     let selectedInst = params.get('inst') || '';
     let searchQuery = '';
     let currentPage = parseInt(params.get('page') || '0');
+    let sortOrder = params.get('sort') || 'desc';
 
     // Get available technologies based on current institution filter
     const getAvailableTechs = (inst = '') => {
@@ -191,6 +210,16 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         }
       });
       return Array.from(insts).sort();
+    };
+
+    const sortCards = () => {
+      const cards = Array.from(coursesGrid?.querySelectorAll('[data-course]') || []);
+      cards.sort((a, b) => {
+        const dateA = parseInt(a.getAttribute('data-date') || '0');
+        const dateB = parseInt(b.getAttribute('data-date') || '0');
+        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+      });
+      cards.forEach(card => coursesGrid?.appendChild(card));
     };
 
     const renderPagination = (visibleCards) => {
@@ -217,6 +246,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
               if (selectedTech) newParams.set('tech', selectedTech);
               if (selectedInst) newParams.set('inst', selectedInst);
               if (searchQuery) newParams.set('search', searchQuery);
+              if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
               if (currentPage > 0) newParams.set('page', currentPage);
               const query = newParams.toString();
               window.history.pushState({}, '', query ? `?${query}` : '');
@@ -368,8 +398,27 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         if (selectedTech) newParams.set('tech', selectedTech);
         if (selectedInst) newParams.set('inst', selectedInst);
         if (searchQuery) newParams.set('search', searchQuery);
+        if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
         const query = newParams.toString();
         window.history.pushState({}, '', query ? `?${query}` : '');
+        updateUI();
+      });
+    }
+
+    // Add sort select listener
+    if (sortSelect) {
+      sortSelect.value = sortOrder;
+      sortSelect.addEventListener('change', (e) => {
+        sortOrder = e.target.value;
+        currentPage = 0;
+        const newParams = new URLSearchParams();
+        if (selectedTech) newParams.set('tech', selectedTech);
+        if (selectedInst) newParams.set('inst', selectedInst);
+        if (searchQuery) newParams.set('search', searchQuery);
+        if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
+        const query = newParams.toString();
+        window.history.pushState({}, '', query ? `?${query}` : '');
+        sortCards();
         updateUI();
       });
     }
@@ -384,6 +433,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           if (selectedTech) newParams.set('tech', selectedTech);
           if (selectedInst) newParams.set('inst', selectedInst);
           if (searchQuery) newParams.set('search', searchQuery);
+          if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
           const query = newParams.toString();
           window.history.pushState({}, '', query ? `?${query}` : '');
           updateUI();
@@ -400,6 +450,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           if (selectedTech) newParams.set('tech', selectedTech);
           if (selectedInst) newParams.set('inst', selectedInst);
           if (searchQuery) newParams.set('search', searchQuery);
+          if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
           const query = newParams.toString();
           window.history.pushState({}, '', query ? `?${query}` : '');
           updateUI();
@@ -407,7 +458,8 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       });
     });
 
-    // Initial update
+    // Initial sort and update
+    sortCards();
     updateUI();
   }
 </script>
