@@ -33,13 +33,13 @@ const codeLabel = lang === 'pt' ? 'Código' : 'Code';
     <p class="text-body text-ink-muted">{description}</p>
   </div>
 
-  <div class="flex flex-wrap gap-2 mb-4">
+  <div class="flex flex-wrap gap-2 mb-6">
     {tags.map((tag) => (
       <Badge text={tag} variant="secondary" />
     ))}
   </div>
 
-  <div class="flex gap-3 pt-2 mt-auto">
+  <div class="border-t border-hairline pt-4 mt-auto flex gap-3">
     {demo && (
       <Button href={demo} variant="primary" target="_blank">
         {visitLabel}
