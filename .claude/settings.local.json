@@ -75,7 +75,12 @@
       "Bash(git restore *)",
       "PowerShell(Start-Process \"msedge\" \"http://localhost:4323/pt/experience\")",
       "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\public\\\\certificates\" | Where-Object {$_.Name -match \"\\(FullStack|TADS|IA-\\)\" } | Select-Object Name)",
-      "PowerShell(Rename-Item *)"
+      "PowerShell(Rename-Item *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(python -c \"import pdf2image; print\\('pdf2image OK'\\)\" 2>&1)",
+      "PowerShell(python -c \"from pdf2image import convert_from_path; print\\('Ready'\\)\" 2>&1)",
+      "PowerShell(python C:\\\\Users\\\\maiso\\\\convert_tads.py)",
+      "PowerShell(python C:\\\\Users\\\\maiso\\\\convert_fullstack.py)"
     ]
   }
 }

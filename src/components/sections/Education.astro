@@ -9,7 +9,6 @@ interface EducationItem {
   type: 'fundamental-medio' | 'tecnico' | 'graduacao' | 'pos-graduacao';
   certificateUrl?: string;
   certificatePages?: string[];
-  certificatePdf?: string;
 }
 
 interface Props {
@@ -56,7 +55,8 @@ const education = [
     year: '2018 – 2023',
     description: 'Formação técnica em análise e desenvolvimento de sistemas, com foco em desenvolvimento de software.',
     type: 'graduacao',
-    certificatePdf: '/certificates/TADS.pdf',
+    certificateUrl: '/certificates/TADS-p1.png',
+    certificatePages: ['/certificates/TADS-p1.png', '/certificates/TADS-p2.png'],
   },
   {
     degree: 'Ensino Técnico em Informática',
@@ -125,27 +125,16 @@ const icons: Record<string, string> = {
                 <p class="text-primary text-caption font-medium line-clamp-1">{edu.institution}</p>
                 <p class="text-caption text-ink-muted line-clamp-2 flex-1">{edu.description}</p>
               </div>
-              <div class="flex gap-2 flex-wrap">
-                {edu.certificateUrl && (
-                  <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
-                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                      <polyline points="17 21 17 13 7 13 7 21"/>
-                      <polyline points="7 3 7 8 15 8"/>
-                    </svg>
-                    <span class="hidden sm:inline">Ver</span>
-                  </button>
-                )}
-                {edu.certificatePdf && (
-                  <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificatePdf} data-is-pdf="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14 2 14 8 20 8"/>
-                    </svg>
-                    <span class="hidden sm:inline">Ver</span>
-                  </button>
-                )}
-              </div>
+              {edu.certificateUrl && (
+                <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                    <polyline points="17 21 17 13 7 13 7 21"/>
+                    <polyline points="7 3 7 8 15 8"/>
+                  </svg>
+                  <span class="hidden sm:inline">Ver</span>
+                </button>
+              )}
             </div>
           ))}
       </div>
@@ -163,8 +152,7 @@ const icons: Record<string, string> = {
       </button>
     </div>
     <div class="flex flex-col items-center gap-4">
-      <img id="certImage" src="" alt="Certificado" class="max-w-full h-auto border border-hairline rounded-lg hidden" />
-      <iframe id="certPdf" src="" title="Certificado PDF" class="hidden w-full border border-hairline rounded-lg" style="height: 600px;"></iframe>
+      <img id="certImage" src="" alt="Certificado" class="max-w-full h-auto border border-hairline rounded-lg" />
 
       <!-- Navegação de páginas -->
       <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-ink-muted">
@@ -186,7 +174,6 @@ const icons: Record<string, string> = {
   const modal = document.getElementById('certModal') as HTMLDialogElement;
   const closeBtn = document.getElementById('closeModal');
   const certImage = document.getElementById('certImage') as HTMLImageElement;
-  const certPdf = document.getElementById('certPdf') as HTMLIFrameElement;
   const pageNav = document.getElementById('pageNav');
   const pageIndicator = document.getElementById('pageIndicator');
   const prevPageBtn = document.getElementById('prevPage');
@@ -195,7 +182,6 @@ const icons: Record<string, string> = {
 
   let currentPages: string[] = [];
   let currentPageIndex = 0;
-  let isPdfMode = false;
 
   function updatePageDisplay() {
     if (currentPages.length === 0) return;
@@ -217,44 +203,30 @@ const icons: Record<string, string> = {
 
   certButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const isPdf = btn.hasAttribute('data-is-pdf');
       const pagesJson = btn.getAttribute('data-pages');
-      const fileUrl = btn.getAttribute('data-pdf');
+      const firstImageUrl = btn.getAttribute('data-pdf');
 
-      certImage.classList.add('hidden');
-      certPdf.classList.add('hidden');
-
-      if (isPdf && fileUrl) {
-        isPdfMode = true;
-        certPdf.src = fileUrl;
-        certPdf.classList.remove('hidden');
-        pageNav!.classList.add('hidden');
-      } else {
-        isPdfMode = false;
-        if (pagesJson) {
-          currentPages = JSON.parse(pagesJson);
-        } else if (fileUrl) {
-          currentPages = [fileUrl];
-        }
-
-        currentPageIndex = 0;
-        updatePageDisplay();
-        certImage.classList.remove('hidden');
+      if (pagesJson) {
+        currentPages = JSON.parse(pagesJson);
+      } else if (firstImageUrl) {
+        currentPages = [firstImageUrl];
       }
 
+      currentPageIndex = 0;
+      updatePageDisplay();
       modal.showModal();
     });
   });
 
   prevPageBtn?.addEventListener('click', () => {
-    if (!isPdfMode && currentPageIndex > 0) {
+    if (currentPageIndex > 0) {
       currentPageIndex--;
       updatePageDisplay();
     }
   });
 
   nextPageBtn?.addEventListener('click', () => {
-    if (!isPdfMode && currentPageIndex < currentPages.length - 1) {
+    if (currentPageIndex < currentPages.length - 1) {
       currentPageIndex++;
       updatePageDisplay();
     }
