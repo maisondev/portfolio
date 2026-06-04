@@ -134,6 +134,16 @@ Sempre teste hovers em **AMBOS os modos** para garantir contraste adequado:
 
 ## 📋 Adicionando Conteúdo
 
+### ⚠️ NUNCA invente dados — SEMPRE pergunte
+
+**Regra de ouro:** Se você não tem uma informação (salário, data, valor, descrição), **SEMPRE pergunte** ao usuário em vez de inventar ou adivinhar.
+
+Exemplos:
+- ❌ ERRADO: Colocar `salary: 'R$ 1.730,00'` sem ter sido informado
+- ✅ CORRETO: Perguntar "Qual é o salário?" e aguardar resposta
+
+**Por quê?** Dados incorretos são piores que dados faltando. Um campo vazio deixa claro que há informação pendente; um valor errado passa despercebido e está documentado permanentemente no site.
+
 ### Padrão de Dados (TypeScript)
 
 Sempre mantenha tipos explícitos para evitar erros de compilação:
