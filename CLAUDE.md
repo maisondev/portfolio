@@ -383,16 +383,15 @@ npm run build
 # Abra DevTools no editor (WebStorm) → aba Problems/Errors
 ```
 
-### Hot Reload não Funciona
+### Validar Mudanças Antes de Commitar
 
 ```
-❌ ERRADO: Iniciar novo servidor com `npm run dev`
-✅ CORRETO: Deixar servidor de dev rodando → salvar arquivo → página recarrega automaticamente
+✅ PADRÃO: Lint + Build (não rodar servidor local)
 
-Se não recarrega:
-1. Salve novamente (às vezes demora 2s)
-2. Pressione F5 no navegador (hard refresh)
-3. Se persiste: feche terminal do dev server → rode `npm run dev` de novo
+1. Edite os arquivos
+2. Rode: npm run build
+3. Se passar → seguro para commit
+4. Você testa no servidor que já está rodando
 ```
 
 ### TypeScript Strict Mode — Erros de Tipos
@@ -459,12 +458,12 @@ Astro serve assets de `public/` em `/` (raiz). Use imports para assets dinâmico
 
 ## ⚡ Dicas de Desenvolvimento
 
-1. **Hot reload:** Astro recompila ao salvar — sem reinício manual
+1. **Build antes de commit:** Rode `npm run build` — valida tudo (TypeScript, Tailwind, assets)
 2. **Imports:** Use alias `@/` (configurado em `tsconfig.json`)
 3. **Build lento?** Limpe `.astro/` e `dist/`, rode `npm install` novamente
 4. **TypeScript strict:** Sempre tipifique props e variáveis — nenhum `any`
 5. **Tailwind customizado:** Cores/fonts em `tailwind.config.mjs`, não em CSS
-6. **Servidor de dev:** Nunca iniciar novo servidor com `npm run dev` — sempre há um rodando para testes em tempo real. Verifique as mudanças no navegador do servidor existente.
+6. **Servidor de dev já rodando:** Você já tem servidor local ativo, salve arquivo → mudanças aparecem em tempo real
 7. **Dark mode testing:** `Ctrl+Shift+P` → "dark" no DevTools para simular preferência
 8. **Responsividade:** Teste em breakpoints: mobile (375px), tablet (768px), desktop (1024px), 4K (2560px)
 
@@ -472,10 +471,9 @@ Astro serve assets de `public/` em `/` (raiz). Use imports para assets dinâmico
 
 ## 📝 Checklist Antes de Commitar
 
-- [ ] Rodou `npm run dev` e testou a mudança no navegador?
-- [ ] Testou em light mode E dark mode?
-- [ ] Testou em mobile (resize DevTools para 375px)?
-- [ ] TypeScript compila sem erros? (Erro ao salvar = não commitê)
+- [ ] Rodou `npm run build` sem erros?
 - [ ] Se novo texto: adicionou tradução em pt.json E en.json?
 - [ ] Se novo componente: adicionou dark mode?
-- [ ] Se mexeu em layout: testou em telas 4K?
+- [ ] Se mexeu em layout: testou em telas 4K (você vê no servidor)?
+- [ ] TypeScript está tipado (sem `any`)?
+- [ ] Pronto para você testar no navegador (servidor já está rodando)
