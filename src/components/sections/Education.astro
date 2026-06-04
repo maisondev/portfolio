@@ -6,7 +6,7 @@ interface EducationItem {
   institution: string;
   year: string;
   description: string;
-  type: 'graduacao' | 'pos-graduacao' | 'tecnico';
+  type: 'fundamental-medio' | 'tecnico' | 'graduacao' | 'pos-graduacao';
   certificateUrl?: string;
   certificatePages?: string[];
 }
@@ -68,25 +68,45 @@ const education = [
     institution: 'Instituto Federal de Educação, Ciência e Tecnologia do Amazonas (IFAM)',
     year: '2005 – 2007',
     description: 'Formação de ensino médio integrada à educação técnica.',
-    type: 'tecnico',
+    type: 'fundamental-medio',
     certificateUrl: '/certificates/Ensino-Medio-p1.png',
     certificatePages: ['/certificates/Ensino-Medio-p1.png', '/certificates/Ensino-Medio-p2.png'],
   },
 ];
 
+const categories = [
+  { type: 'fundamental-medio', label: 'Ensino Fundamental e Médio', order: 1 },
+  { type: 'tecnico', label: 'Ensino Técnico', order: 2 },
+  { type: 'graduacao', label: 'Ensino Superior', order: 3 },
+  { type: 'pos-graduacao', label: 'Pós-Graduações', order: 4 },
+];
+
+const educationByCategory = categories.map(cat => ({
+  ...cat,
+  items: education.filter(e => e.type === cat.type)
+})).filter(cat => cat.items.length > 0);
+
 const icons: Record<string, string> = {
+  'fundamental-medio': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h8M8 15h8"/></svg>`,
+  'tecnico': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/></svg>`,
   'graduacao': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6m0 0l-8.97 4.97a2 2 0 01-2.06 0L2 16m20-6l-8.5-4.5a2 2 0 00-2 0L2 10m0 6v-6m0 0l8.97-4.97a2 2 0 012.06 0L22 10"/></svg>`,
   'pos-graduacao': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h8M8 15h8"/></svg>`,
-  'tecnico': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/></svg>`,
   'certificacao': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
 };
 
 ---
 
-<section id={id} class="bg-canvas py-20 md:py-24">
-  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 4xl:grid-cols-4 gap-4">
-        {education.map((edu) => (
+<section id={id} class="bg-canvas py-20 md:py-24 space-y-16">
+  {educationByCategory.map((category) => (
+    <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-4">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-6 h-6 text-primary">
+          <Fragment set:html={icons[category.type as keyof typeof icons]} />
+        </div>
+        <h3 class="text-headline font-semibold text-ink">{category.label}</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 4xl:grid-cols-4 gap-4">
+        {category.items.map((edu) => (
             <div class="bg-surface-1 border border-hairline rounded-lg p-5 space-y-3 hover:bg-surface-2 transition-colors h-full flex flex-col">
               <div class="flex gap-3 flex-col">
                 <div class="flex gap-3">
@@ -115,9 +135,10 @@ const icons: Record<string, string> = {
               )}
             </div>
           ))}
+      </div>
     </div>
-  </div>
-  </div>
+  ))}
+  </section>
   <!-- Modal para visualizar certificado -->
   <dialog id="certModal" class="backdrop:bg-black/80 rounded-xl border border-hairline-strong bg-surface-1 p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
     <div class="flex justify-between items-center mb-4 sticky top-0 bg-surface-1 z-50">
