@@ -11,6 +11,9 @@ const completedLabel = lang === 'pt' ? 'Concluído em' : 'Completed in';
 const verifyLabel = lang === 'pt' ? 'Verificar' : 'Verify';
 const certTitle = lang === 'pt' ? 'Ver certificado' : 'View certificate';
 const hasCertTitle = lang === 'pt' ? 'Com certificado' : 'Has certificate';
+
+// Detectar se é URL local ou externa
+const isLocalCert = course.certificate?.url?.startsWith('/');
 ---
 
 <div class="group relative overflow-hidden rounded-lg border border-hairline bg-surface-1 transition-all duration-300 hover:border-primary/50 hover:bg-surface-2 flex flex-col h-[380px]">
@@ -59,22 +62,42 @@ const hasCertTitle = lang === 'pt' ? 'Com certificado' : 'Has certificate';
       </p>
 
       {course.certificate && course.certificate.url && (
-        <a
-          href={course.certificate.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/30 hover:border-primary/60 hover:bg-primary/20 transition-all"
-          title={certTitle}
-        >
-          <svg
-            class="w-4 h-4"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-          </svg>
-          <span>{verifyLabel}</span>
-        </a>
+        <>
+          {isLocalCert ? (
+            <button
+              class="cert-btn inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/30 hover:border-primary/60 hover:bg-primary/20 transition-all cursor-pointer"
+              title={certTitle}
+              data-cert-url={course.certificate.url}
+              data-cert-name={course.name}
+            >
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span>{verifyLabel}</span>
+            </button>
+          ) : (
+            <a
+              href={course.certificate.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/30 hover:border-primary/60 hover:bg-primary/20 transition-all"
+              title={certTitle}
+            >
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span>{verifyLabel}</span>
+            </a>
+          )}
+        </>
       )}
       {course.certificate && !course.certificate.url && (
         <div class="flex items-center gap-1 text-primary" title={hasCertTitle}>
@@ -90,3 +113,61 @@ const hasCertTitle = lang === 'pt' ? 'Com certificado' : 'Has certificate';
     </div>
   </div>
 </div>
+
+{/* Modal para visualizar certificado */}
+<dialog id="certModal" class="backdrop:bg-black/80 rounded-xl border border-hairline bg-surface-1 dark:bg-surface-2 p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
+  <div class="flex justify-between items-center mb-4 sticky top-0 bg-surface-1 dark:bg-surface-2 z-50">
+    <h3 class="text-lg font-semibold text-ink dark:text-white" id="certTitle">Certificado</h3>
+    <button id="closeCertModal" class="text-ink-muted dark:text-ink-muted hover:text-ink dark:hover:text-white transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center justify-center gap-4 w-full h-full">
+    <iframe id="certPDF" src="" title="Certificado PDF" class="w-full h-[70vh] border border-hairline dark:border-hairline rounded-lg"></iframe>
+  </div>
+</dialog>
+
+<style>
+  dialog#certModal::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+</style>
+
+<script>
+  const certModal = document.getElementById('certModal') as HTMLDialogElement;
+  const closeCertBtn = document.getElementById('closeCertModal');
+  const certPDF = document.getElementById('certPDF') as HTMLIFrameElement;
+  const certTitle = document.getElementById('certTitle');
+  const certButtons = document.querySelectorAll('.cert-btn');
+
+  certButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const url = btn.getAttribute('data-cert-url');
+      const name = btn.getAttribute('data-cert-name');
+
+      if (url) {
+        certTitle!.textContent = `${name}`;
+        certPDF.src = url;
+        certModal.showModal();
+      }
+    });
+  });
+
+  closeCertBtn?.addEventListener('click', () => {
+    certModal.close();
+  });
+
+  certModal?.addEventListener('click', (e) => {
+    if (e.target === certModal) {
+      certModal.close();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (certModal?.open && e.key === 'Escape') {
+      certModal.close();
+    }
+  });
+</script>

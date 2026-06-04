@@ -12,6 +12,27 @@ export interface Course {
 
 export const courses: Course[] = [
   {
+    name: 'Web Development v3',
+    platform: 'Frontend Masters',
+    technologies: ['HTML5', 'CSS', 'JavaScript', 'Web Development', 'Frontend'],
+    completedAt: 'jun 2026',
+    certificate: {
+      url: '/documents/certificates/frontend-masters-web-dev-v3.pdf',
+    },
+    description: 'Complete course on modern web development fundamentals covering HTML5, CSS, and JavaScript',
+  },
+  {
+    name: 'Git',
+    platform: 'Pluralsight',
+    technologies: ['Git', 'Version Control', 'DevOps'],
+    completedAt: 'jun 2026',
+    certificate: {
+      url: 'https://app.pluralsight.com/learner/user/courses/v2/2dc37270-b683-4629-bd7e-769dc25ad575/certificate',
+      credentialCode: '2dc37270-b683-4629-bd7e-769dc25ad575',
+    },
+    description: 'Master Git version control with Pluralsight comprehensive course',
+  },
+  {
     name: 'Lógica de programação: mergulhe em programação com JavaScript',
     platform: 'Alura',
     technologies: ['JavaScript', 'Programming', 'Lógica'],

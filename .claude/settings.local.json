@@ -103,7 +103,15 @@
       "Bash(powershell *)",
       "Bash(npx playwright *)",
       "Bash(node -e ' *)",
-      "PowerShell(gs *)"
+      "PowerShell(gs *)",
+      "PowerShell(python -m pip install poppler-bin -q --upgrade 2>&1)",
+      "PowerShell(python convert_pdfs.py)",
+      "PowerShell(\"Poppler instalado, testando...\")",
+      "Bash(tail -30 C:\\\\\\\\Users\\\\\\\\maiso\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\claude\\\\\\\\C--Users-maiso-WebstormProjects-portfolio\\\\\\\\c70caa48-62fa-49e9-8b85-8446136bb80c\\\\\\\\tasks\\\\\\\\bmsml41i7.output)",
+      "PowerShell(choco install *)",
+      "Bash(Start-Sleep -Seconds 5)",
+      "Bash(Get-Content 'C:\\\\Users\\\\maiso\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-maiso-WebstormProjects-portfolio\\\\3d479000-4d77-4ef5-b9a5-965f302a8a59\\\\tasks\\\\bziscinyb.output')",
+      "Bash(Select-Object -Last 5)"
     ]
   }
 }
