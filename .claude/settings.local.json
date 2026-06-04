@@ -43,7 +43,28 @@
       "PowerShell(pip install *)",
       "Bash(curl -s http://localhost:4321)",
       "Bash(curl -s http://localhost:4321/pt/courses)",
-      "Bash(curl -s http://localhost:4321/pt/education)"
+      "Bash(curl -s http://localhost:4321/pt/education)",
+      "Bash(Get-Process -Name \"node\" -ErrorAction SilentlyContinue)",
+      "Bash(Stop-Process -Force)",
+      "Bash(curl -s http://localhost:4322/)",
+      "Bash(curl -s http://localhost:4321/pt/)",
+      "Bash(curl -s \"http://localhost:4321/pt/\")",
+      "PowerShell(chromium-cli *)",
+      "Bash(Get-Process -Name node -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -ExpandProperty Name)",
+      "Bash(curl -s \"http://localhost:4325/\")",
+      "Bash(curl -s \"http://localhost:4325/pt/concursos\")",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(netstat -tuln)",
+      "Bash(curl -s http://localhost:4323/pt)",
+      "PowerShell(head *)",
+      "PowerShell(Start-Process \"http://localhost:4324/en/case-studies\")",
+      "Bash(curl -s http://localhost:4321/pt/experience)",
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:4321/pt)",
+      "Bash(npm remove *)",
+      "Bash(curl -s 'http://localhost:4321/pt')"
     ]
   }
 }

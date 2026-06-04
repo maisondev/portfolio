@@ -10,7 +10,7 @@ const enUrl = changeLanguageUrl(Astro.url, 'en');
 <div class="flex items-center gap-2">
   <div class="relative group">
     <button
-      class="px-3 py-2 text-sm text-[#d4d4d8] hover:text-accent-500 hover:bg-[#1a1a1a] rounded-md transition-all duration-300 flex items-center gap-2"
+      class="px-3 py-2 text-body-sm text-ink-muted hover:text-primary hover:bg-surface-2 rounded-md transition-all duration-300 flex items-center gap-2"
       title={`Switch to ${languages[otherLang]}`}
     >
       <svg
@@ -28,29 +28,29 @@ const enUrl = changeLanguageUrl(Astro.url, 'en');
         ></path>
         <path d="M2 12h20"></path>
       </svg>
-      <span>{lang.toUpperCase()}</span>
+      <span>{lang === 'pt' ? 'BR' : 'EN'}</span>
     </button>
 
     <!-- Dropdown Menu -->
     <div
-      class="absolute right-0 mt-2 w-40 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+      class="absolute right-0 mt-2 w-40 bg-surface-1 border border-hairline rounded-lg shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
     >
       <a
         href={ptUrl}
-        class={`block px-4 py-2 text-sm rounded-t-lg transition-colors ${
+        class={`block px-4 py-2 text-body-sm rounded-t-lg transition-colors ${
           lang === 'pt'
-            ? 'bg-accent-500/20 text-accent-400'
-            : 'text-[#d4d4d8] hover:bg-[#2a2a2a]'
+            ? 'bg-surface-2 text-primary'
+            : 'text-ink-muted hover:bg-surface-2'
         }`}
       >
         🇧🇷 Português
       </a>
       <a
         href={enUrl}
-        class={`block px-4 py-2 text-sm rounded-b-lg transition-colors ${
+        class={`block px-4 py-2 text-body-sm rounded-b-lg transition-colors ${
           lang === 'en'
-            ? 'bg-accent-500/20 text-accent-400'
-            : 'text-[#d4d4d8] hover:bg-[#2a2a2a]'
+            ? 'bg-surface-2 text-primary'
+            : 'text-ink-muted hover:bg-surface-2'
         }`}
       >
         🇺🇸 English

@@ -14,21 +14,20 @@ interface Props {
 const { title, description, tags, github, demo, image } = Astro.props;
 ---
 
-<div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 hover:border-accent-500/50 transition-all duration-300 space-y-4">
+<div class="bg-surface-1 border border-hairline rounded-lg p-6 hover:bg-surface-2 transition-all duration-300 space-y-4">
   {image && (
-    <div class="relative overflow-hidden rounded-lg group">
+    <div class="relative overflow-hidden rounded-md group">
       <img
         src={image}
         alt={title}
-        class="w-full h-64 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+        class="w-full h-64 object-cover rounded-md group-hover:scale-105 transition-transform duration-300"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   )}
 
-  <div class="space-y-2">
-    <h3 class="text-xl font-bold text-[#fafafa]">{title}</h3>
-    <p class="text-[#d4d4d8]">{description}</p>
+  <div class="space-y-3">
+    <h3 class="text-card-title font-semibold text-ink">{title}</h3>
+    <p class="text-body text-ink-muted">{description}</p>
   </div>
 
   <div class="flex flex-wrap gap-2">

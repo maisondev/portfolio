@@ -1,31 +1,55 @@
 ---
+import { type Language } from '@/i18n/utils';
+
 interface Props {
   id?: string;
+  lang?: Language;
 }
 
-const { id } = Astro.props;
+const { id, lang = 'pt' } = Astro.props;
 
-const testimonials = [
-  {
-    text: 'Adicione testimonials de colegas, clientes ou líderes aqui. 2-3 bem colocados aumentam significativamente sua credibilidade.',
-    author: 'Seu Nome',
-    title: 'Seu Cargo',
-    company: 'Sua Empresa',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=1',
+const t = {
+  pt: {
+    heading: 'Recomendações',
+    subtitle: 'O que colegas, clientes e líderes dizem sobre trabalhar comigo.',
+    tipTitle: '💬 Adicione Testimonials Reais',
+    tipBody: 'Peça para colegas, clientes ou gerentes deixarem uma recomendação no LinkedIn ou enviem um email. Demonstra prova social real e aumenta muito a credibilidade.',
+    testimonials: [
+      {
+        text: 'Adicione testimonials de colegas, clientes ou líderes aqui. 2-3 bem colocados aumentam significativamente sua credibilidade.',
+        author: 'Seu Nome',
+        title: 'Seu Cargo',
+        company: 'Sua Empresa',
+        image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=1',
+      },
+    ],
   },
-];
+  en: {
+    heading: 'Recommendations',
+    subtitle: 'What colleagues, clients, and leaders say about working with me.',
+    tipTitle: '💬 Add Real Testimonials',
+    tipBody: 'Ask colleagues, clients, or managers to leave a recommendation on LinkedIn or send an email. It demonstrates real social proof and greatly increases credibility.',
+    testimonials: [
+      {
+        text: 'Add testimonials from colleagues, clients, or leaders here. 2-3 well-placed ones significantly increase your credibility.',
+        author: 'Their Name',
+        title: 'Their Title',
+        company: 'Their Company',
+        image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=1',
+      },
+    ],
+  },
+}[lang];
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24 space-y-12">
   <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-4">
-    <h2 class="text-4xl font-bold text-ink">Recomendações</h2>
-    <p class="text-ink-muted text-lg max-w-3xl">
-      O que colegas, clientes e líderes dizem sobre trabalhar comigo.
-    </p>
+    <h2 class="text-4xl font-bold text-ink">{t.heading}</h2>
+    <p class="text-ink-muted text-lg max-w-3xl">{t.subtitle}</p>
   </div>
 
   <div class="max-w-5xl mx-auto px-6 md:px-8 grid md:grid-cols-2 gap-6">
-    {testimonials.map((testimonial) => (
+    {t.testimonials.map((testimonial) => (
       <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-4">
         <div class="space-y-2">
           <p class="text-ink-muted italic text-lg leading-relaxed">
@@ -48,11 +72,8 @@ const testimonials = [
     ))}
 
     <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
-      <h3 class="text-lg font-semibold text-accent-400 mb-2">💬 Adicione Testimonials Reais</h3>
-      <p class="text-ink-muted">
-        Peça para colegas, clientes ou gerentes deixarem uma recomendação no LinkedIn ou enviem um email.
-        Demonstra prova social real e aumenta muito a credibilidade.
-      </p>
+      <h3 class="text-lg font-semibold text-accent-400 mb-2">{t.tipTitle}</h3>
+      <p class="text-ink-muted">{t.tipBody}</p>
     </div>
   </div>
 </section>

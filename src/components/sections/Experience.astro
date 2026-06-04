@@ -60,15 +60,14 @@ const experiences = lang === 'pt' ? [
 ];
 ---
 
-<section id={id} class="py-20 space-y-12">
-  <div class="space-y-4">
-    <h1 class="text-4xl font-bold text-[#fafafa]">{lang === 'pt' ? 'Experiência' : 'Experience'}</h1>
-    <p class="text-[#d4d4d8] text-lg max-w-3xl">
-      {lang === 'pt' ? '13+ anos trabalhando com tecnologia na esfera pública, combinando desenvolvimento técnico com liderança estratégica.' : '13+ years working with technology in the public sector, combining technical development with strategic leadership.'}
+<section id={id} class="bg-canvas py-20 md:py-24 space-y-12">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-8">
+    <p class="text-body-lg text-ink-muted max-w-3xl">
+      {lang === 'pt' ? 'Trajetória profissional combinando desenvolvimento técnico com liderança estratégica em projetos de impacto público.' : 'Professional trajectory combining technical development with strategic leadership in public impact projects.'}
     </p>
   </div>
 
-  <div class="space-y-6">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-6">
     {experiences.map((exp) => (
       <ExperienceCard
         role={exp.role}

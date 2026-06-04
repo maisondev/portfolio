@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher.astro';
+import ThemeSwitcher from '@/components/ui/ThemeSwitcher.astro';
 import MobileMenu from '@/components/ui/MobileMenu.astro';
 import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
 
@@ -12,13 +13,12 @@ const getLocalizedPath = (path: string) => {
 
 const links = [
   { href: getLocalizedPath('/'), label: t('nav.home') },
-  { href: getLocalizedPath('/experience'), label: t('nav.experience') },
-  { href: getLocalizedPath('/case-studies'), label: t('nav.caseStudies') },
-  { href: getLocalizedPath('/projects'), label: t('nav.projects') },
-  { href: getLocalizedPath('/education'), label: t('nav.education') },
-  { href: getLocalizedPath('/courses'), label: t('nav.courses') },
-  { href: getLocalizedPath('/blog'), label: t('nav.blog') },
   { href: getLocalizedPath('/contests'), label: t('nav.contests') },
+  { href: getLocalizedPath('/courses'), label: t('nav.courses') },
+  { href: getLocalizedPath('/case-studies'), label: t('nav.caseStudies') },
+  { href: getLocalizedPath('/experience'), label: t('nav.experience') },
+  { href: getLocalizedPath('/education'), label: t('nav.education') },
+  { href: getLocalizedPath('/projects'), label: t('nav.projects') },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -27,9 +27,9 @@ const isActive = (href: string) => {
 };
 ---
 
-<header class="bg-[#0a0a0a] border-b border-[#2a2a2a] sticky top-0 z-50 backdrop-blur-sm bg-[#0a0a0a]/95">
-  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-    <a href={getLocalizedPath('/')} class="text-2xl font-black text-accent-500 hover:text-accent-400 transition-colors tracking-wider">
+<header class="bg-canvas border-b border-hairline sticky top-0 z-50 backdrop-blur-sm bg-canvas/95 transition-colors duration-300">
+  <nav class="max-w-5xl mx-auto px-6 md:px-8 py-4 flex justify-between items-center">
+    <a href={getLocalizedPath('/')} class="text-headline font-semibold text-primary hover:text-primary-hover transition-colors">
       MG
     </a>
 
@@ -38,10 +38,10 @@ const isActive = (href: string) => {
         <li>
           <a
             href={link.href}
-            class={`px-3 py-2 text-sm rounded-md transition-all duration-300 border-b-2 ${
+            class={`px-3 py-2 text-body-sm rounded-md transition-all duration-300 ${
               isActive(link.href)
-                ? 'text-accent-500 border-accent-500 bg-[#1a1a1a]'
-                : 'text-[#d4d4d8] hover:text-accent-500 hover:bg-[#1a1a1a] border-transparent'
+                ? 'text-primary bg-surface-2'
+                : 'text-ink-subtle hover:text-ink-muted hover:bg-surface-1 dark:hover:bg-surface-2'
             }`}
           >
             {link.label}
@@ -50,11 +50,12 @@ const isActive = (href: string) => {
       ))}
     </ul>
 
-    <div class="flex gap-4 items-center">
+    <div class="flex gap-2 items-center">
+      <ThemeSwitcher />
       <LanguageSwitcher />
       <a
         href="mailto:maisongalvao@outlook.com"
-        class="hidden sm:block px-4 py-2 bg-accent-500 text-[#0a0a0a] rounded-lg font-semibold hover:bg-accent-400 transition-colors text-sm"
+        class="hidden sm:block px-4 py-2 bg-primary text-white rounded-md text-button font-medium hover:bg-primary-hover transition-colors"
       >
         {t('nav.language') === 'Idioma' ? 'Contato' : 'Contact'}
       </a>

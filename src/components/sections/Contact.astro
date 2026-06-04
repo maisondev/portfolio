@@ -1,31 +1,48 @@
 ---
 import Button from '@/components/ui/Button.astro';
+import { type Language } from '@/i18n/utils';
 
 interface Props {
   id?: string;
+  lang?: Language;
 }
 
-const { id } = Astro.props;
+const { id, lang = 'pt' } = Astro.props;
+
+const t = {
+  pt: {
+    title: 'Contato',
+    description: 'Tem interesse em trabalhar comigo ou quer conversar sobre tecnologia? Fico feliz em conversar!',
+    email: 'Enviar Email',
+    whatsapp: 'WhatsApp',
+    linkedin: 'LinkedIn',
+  },
+  en: {
+    title: 'Contact',
+    description: 'Interested in working together or want to chat about technology? I\'d love to connect!',
+    email: 'Send Email',
+    whatsapp: 'WhatsApp',
+    linkedin: 'LinkedIn',
+  },
+}[lang];
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24 space-y-8">
   <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-8">
     <div class="space-y-4">
-      <h2 class="text-3xl sm:text-4xl font-bold text-ink">Contato</h2>
-      <p class="text-ink-muted text-lg max-w-3xl">
-        Tem interesse em trabalhar comigo ou quer conversar sobre tecnologia? Fico feliz em conversar!
-      </p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-ink">{t.title}</h2>
+      <p class="text-ink-muted text-lg max-w-3xl">{t.description}</p>
     </div>
 
     <div class="flex flex-col sm:flex-row gap-4">
       <Button href="mailto:maisongalvao@outlook.com" variant="primary">
-        Enviar Email
+        {t.email}
       </Button>
       <Button href="https://wa.me/5592986255936" variant="secondary" target="_blank" rel="noopener noreferrer">
-        WhatsApp
+        {t.whatsapp}
       </Button>
       <Button href="https://linkedin.com/in/maisongalvao" variant="secondary" target="_blank" rel="noopener noreferrer">
-        LinkedIn
+        {t.linkedin}
       </Button>
     </div>
   </div>

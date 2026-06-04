@@ -9,56 +9,62 @@ interface Props {
 
 const { id, lang = 'pt' } = Astro.props;
 
-const frontendSkills = [
-  'Vue.js',
-  'React',
-  'TypeScript',
-  'Tailwind CSS',
-  'HTML/CSS',
-  'Responsive Design',
-];
+const t = {
+  pt: {
+    heading: 'Sobre',
+    p1: 'Desenvolvedor de Software na PRODAM-AM com 13 anos de experiência em tecnologia. Formação forte em engenharia de software com pós-graduação em Full Stack, Cloud Computing e IA, complementada por especialização em gestão de projetos e inovação com inteligência artificial.',
+    p2: 'Minha jornada combina experiência profunda em desenvolvimento (7 anos na PRODAM) com liderança estratégica de TI (5 anos como Gerente). Especializado em arquitetura de sistemas escaláveis, modernização de aplicações legadas e aplicação prática de IA em gestão pública.',
+    p3: 'Apaixonado por resolver problemas complexos através de tecnologia bem aplicada. Criei projetos como Sinapses (gerador de roadmaps com IA usando Google Gemini) e sou constantemente dedicado a código de qualidade, boas práticas de engenharia e compartilhamento de conhecimento.',
+    stack: 'Tech Stack',
+    location: '📍 Location',
+    locationValue: 'Manaus, Amazonas — Brazil',
+    locationSub: 'Available for remote work',
+    experience: '💼 Experience',
+    experienceValue: '13 years in Technology',
+    experienceSub: '7 years @ PRODAM, 5 years in Leadership',
+    education: '🎓 Education',
+    educationValue: 'Software Engineering',
+    educationSub: 'Full Stack & Cloud Computing',
+  },
+  en: {
+    heading: 'About',
+    p1: 'Software Developer at PRODAM-AM with 13 years of technology experience. Strong background in software engineering with postgraduate studies in Full Stack, Cloud Computing, and AI, complemented by specialization in project management and innovation with artificial intelligence.',
+    p2: 'My journey combines deep development experience (7 years at PRODAM) with strategic IT leadership (5 years as Manager). Specialized in scalable systems architecture, legacy application modernization, and practical AI application in public management.',
+    p3: 'Passionate about solving complex problems through well-applied technology. I built projects like Sinapses (AI-powered roadmap generator using Google Gemini) and am constantly dedicated to quality code, good engineering practices, and knowledge sharing.',
+    stack: 'Tech Stack',
+    location: '📍 Location',
+    locationValue: 'Manaus, Amazonas — Brazil',
+    locationSub: 'Available for remote work',
+    experience: '💼 Experience',
+    experienceValue: '13 years in Technology',
+    experienceSub: '7 years @ PRODAM, 5 years in Leadership',
+    education: '🎓 Education',
+    educationValue: 'Software Engineering',
+    educationSub: 'Full Stack & Cloud Computing',
+  },
+}[lang];
 
-const backendSkills = [
-  'Node.js',
-  'PostgreSQL',
-  'REST APIs',
-  'Express.js',
-  'Integração de APIs (Gemini)',
-  'Arquitetura de Sistemas',
-];
+const backendSkills = lang === 'pt'
+  ? ['Node.js', 'PostgreSQL', 'REST APIs', 'Express.js', 'Integração de APIs (Gemini)', 'Arquitetura de Sistemas']
+  : ['Node.js', 'PostgreSQL', 'REST APIs', 'Express.js', 'API Integration (Gemini)', 'Systems Architecture'];
 
-const devTools = [
-  'Git/GitHub',
-  'Docker',
-  'Linux',
-  'Cloud Deployment',
-  'Google Cloud',
-  'Database Design',
-];
+const frontendSkills = ['Vue.js', 'React', 'TypeScript', 'Tailwind CSS', 'HTML/CSS', 'Responsive Design'];
+
+const devTools = ['Git/GitHub', 'Docker', 'Linux', 'Cloud Deployment', 'Google Cloud', 'Database Design'];
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24 space-y-16">
   <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-6">
-    <h1 class="text-4xl font-bold text-ink">Sobre</h1>
+    <h1 class="text-4xl font-bold text-ink">{t.heading}</h1>
     <div class="space-y-4">
-      <p class="text-ink-muted text-lg leading-relaxed max-w-3xl">
-        Desenvolvedor de Software na PRODAM-AM com 13 anos de experiência em tecnologia. Formação forte em engenharia de software
-        com pós-graduação em Full Stack, Cloud Computing e IA, complementada por especialização em gestão de projetos e inovação com inteligência artificial.
-      </p>
-      <p class="text-ink-muted text-lg leading-relaxed max-w-3xl">
-        Minha jornada combina experiência profunda em desenvolvimento (7 anos na PRODAM) com liderança estratégica de TI (5 anos como Gerente).
-        Especializado em arquitetura de sistemas escaláveis, modernização de aplicações legadas e aplicação prática de IA em gestão pública.
-      </p>
-      <p class="text-ink-muted text-lg leading-relaxed max-w-3xl">
-        Apaixonado por resolver problemas complexos através de tecnologia bem aplicada. Criei projetos como Sinapses
-        (gerador de roadmaps com IA usando Google Gemini) e sou constantemente dedicado a código de qualidade, boas práticas
-        de engenharia e compartilhamento de conhecimento.
-      </p>
+      <p class="text-ink-muted text-lg leading-relaxed max-w-3xl">{t.p1}</p>
+      <p class="text-ink-muted text-lg leading-relaxed max-w-3xl">{t.p2}</p>
+      <p class="text-ink-muted text-lg leading-relaxed max-w-3xl">{t.p3}</p>
     </div>
   </div>
 
   <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-8">
-    <h3 class="text-2xl font-bold text-ink">Stack Técnico</h3>
+    <h3 class="text-2xl font-bold text-ink">{t.stack}</h3>
 
     <div class="grid sm:grid-cols-3 gap-8">
       <div class="space-y-4">
@@ -93,19 +99,19 @@ const devTools = [
   <div class="max-w-5xl mx-auto px-6 md:px-8">
     <div class="grid md:grid-cols-3 gap-6">
       <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-2">
-        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">📍 Localização</h4>
-        <p class="text-ink text-lg font-semibold">Manaus, Amazonas - Brasil</p>
-        <p class="text-ink-muted text-sm">Disponível para trabalho remoto</p>
+        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.location}</h4>
+        <p class="text-ink text-lg font-semibold">{t.locationValue}</p>
+        <p class="text-ink-muted text-sm">{t.locationSub}</p>
       </div>
       <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-2">
-        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">💼 Experiência</h4>
-        <p class="text-ink text-lg font-semibold">13 anos em Tecnologia</p>
-        <p class="text-ink-muted text-sm">7 anos @ PRODAM, 5 anos em Liderança</p>
+        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.experience}</h4>
+        <p class="text-ink text-lg font-semibold">{t.experienceValue}</p>
+        <p class="text-ink-muted text-sm">{t.experienceSub}</p>
       </div>
       <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-2">
-        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">🎓 Formação</h4>
-        <p class="text-ink text-lg font-semibold">Engenharia de Software</p>
-        <p class="text-ink-muted text-sm">Full Stack & Cloud Computing</p>
+        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.education}</h4>
+        <p class="text-ink text-lg font-semibold">{t.educationValue}</p>
+        <p class="text-ink-muted text-sm">{t.educationSub}</p>
       </div>
     </div>
   </div>

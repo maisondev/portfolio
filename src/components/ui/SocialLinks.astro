@@ -47,7 +47,7 @@ const icons = {
       href={social.url}
       target="_blank"
       rel="noopener noreferrer"
-      class={`${sizeClasses[size]} text-[#d4d4d8] ${social.color} transition-colors duration-300 hover:scale-110 transform`}
+      class={`${sizeClasses[size]} text-ink-muted ${social.color} transition-colors duration-300 hover:scale-110 transform`}
       title={social.name}
     >
       <Fragment set:html={icons[social.icon as keyof typeof icons]} />

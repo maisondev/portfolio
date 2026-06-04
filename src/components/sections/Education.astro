@@ -83,30 +83,25 @@ const icons: Record<string, string> = {
 
 ---
 
-<section id={id} class="py-20 space-y-12">
-  <div>
-    <h1 class="text-4xl font-bold text-[#fafafa] mb-8">Formação</h1>
-
-    <div class="space-y-6">
-      <div class="space-y-4">
-        <div class="space-y-4">
-          {education.map((edu) => (
-            <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 space-y-2 hover:border-accent-500/30 transition-colors">
+<section id={id} class="bg-canvas py-20 md:py-24 space-y-12">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-6">
+        {education.map((edu) => (
+            <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-3 hover:bg-surface-2 transition-colors">
               <div class="flex gap-3">
-                <div class="w-6 h-6 flex-shrink-0 text-accent-500 mt-1">
+                <div class="w-6 h-6 flex-shrink-0 text-primary mt-1">
                   <Fragment set:html={icons[edu.type as keyof typeof icons]} />
                 </div>
                 <div class="flex-1">
                   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
                     <div>
-                      <h4 class="text-lg font-semibold text-[#fafafa]">{edu.degree}</h4>
-                      <p class="text-accent-500">{edu.institution}</p>
+                      <h4 class="text-card-title font-semibold text-ink">{edu.degree}</h4>
+                      <p class="text-primary text-body-sm font-medium">{edu.institution}</p>
                     </div>
-                    <span class="text-sm text-[#a1a1a1] whitespace-nowrap">{edu.year}</span>
+                    <span class="text-caption text-ink-tertiary whitespace-nowrap">{edu.year}</span>
                   </div>
-                  <p class="text-[#d4d4d8] text-sm mt-2">{edu.description}</p>
+                  <p class="text-body-sm text-ink-muted mt-2">{edu.description}</p>
                   {edu.certificateUrl && (
-                    <button class="cert-btn inline-flex items-center gap-2 mt-3 text-sm text-accent-500 hover:text-accent-400 transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
+                    <button class="cert-btn inline-flex items-center gap-2 mt-3 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                         <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
                         <polyline points="17 21 17 13 7 13 7 21"/>
@@ -119,28 +114,25 @@ const icons: Record<string, string> = {
               </div>
             </div>
           ))}
-        </div>
-      </div>
-    </div>
   </div>
   <!-- Modal para visualizar certificado -->
-  <dialog id="certModal" class="backdrop:bg-black/80 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
-    <div class="flex justify-between items-center mb-4 sticky top-0 bg-[#1a1a1a] z-50">
-      <h3 class="text-lg font-semibold text-[#fafafa]">Visualizar Certificado</h3>
-      <button id="closeModal" class="text-[#d4d4d8] hover:text-[#fafafa] transition-colors">
+  <dialog id="certModal" class="backdrop:bg-black/80 rounded-xl border border-hairline-strong bg-surface-1 p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
+    <div class="flex justify-between items-center mb-4 sticky top-0 bg-surface-1 z-50">
+      <h3 class="text-card-title font-semibold text-ink">Visualizar Certificado</h3>
+      <button id="closeModal" class="text-ink-muted hover:text-ink transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
       </button>
     </div>
     <div class="flex flex-col items-center gap-4">
-      <img id="certImage" src="" alt="Certificado" class="max-w-full h-auto border border-[#2a2a2a] rounded" />
+      <img id="certImage" src="" alt="Certificado" class="max-w-full h-auto border border-hairline rounded-lg" />
 
       <!-- Navegação de páginas -->
-      <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-[#d4d4d8]">
-        <button id="prevPage" class="px-3 py-1 border border-[#2a2a2a] rounded hover:border-accent-500 transition-colors">← Anterior</button>
-        <span id="pageIndicator" class="text-[#a1a1a1]">Página 1 de 1</span>
-        <button id="nextPage" class="px-3 py-1 border border-[#2a2a2a] rounded hover:border-accent-500 transition-colors">Próxima →</button>
+      <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-ink-muted">
+        <button id="prevPage" class="px-3 py-1 border border-hairline rounded-md hover:bg-surface-2 transition-colors">← Anterior</button>
+        <span id="pageIndicator" class="text-ink-tertiary">Página 1 de 1</span>
+        <button id="nextPage" class="px-3 py-1 border border-hairline rounded-md hover:bg-surface-2 transition-colors">Próxima →</button>
       </div>
     </div>
   </dialog>

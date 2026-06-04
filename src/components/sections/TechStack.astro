@@ -4,13 +4,12 @@ import { getTechLogo, hasValidLogo } from '@/utils/techLogos';
 
 interface Tech {
   name: string;
-  category: 'frontend' | 'backend' | 'ai' | 'tools' | 'cloud';
-  icon?: string;
+  category: 'frontend' | 'backend' | 'devops' | 'devsecops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null;
 }
 
 interface Props {
   title?: string;
-  showCategories?: boolean;
+  lang?: 'pt' | 'en';
 }
 
 // Extrair tecnologias dos cursos
@@ -21,79 +20,118 @@ courses.forEach((course) => {
   });
 });
 
-// Categorizar tecnologias automaticamente
-const categorizeTech = (tech: string): 'frontend' | 'backend' | 'ai' | 'tools' | 'cloud' => {
-  const frontendKeywords = ['react', 'vue', 'astro', 'next', 'typescript', 'html', 'css', 'javascript', 'tailwind', 'frontend', 'web'];
-  const backendKeywords = ['node', 'python', 'php', 'postgresql', 'api', 'graphql', 'backend', 'database'];
-  const aiKeywords = ['ai', 'claude', 'machine learning', 'data science', 'deep learning', 'nlp', 'anthropic', 'chatgpt', 'generative'];
-  const cloudKeywords = ['aws', 'google cloud', 'vercel', 'kubernetes', 'cloud', 'docker'];
-  const toolsKeywords = ['git', 'figma', 'cybersecurity', 'security', 'project management', 'tools'];
+// Categorizar tecnologias com mais precisão
+const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'devsecops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null => {
+  const frontendKeywords = ['react', 'vue', 'astro', 'next', 'typescript', 'html', 'css', 'javascript', 'tailwind', 'frontend', 'web', 'bootstrap'];
+  const backendKeywords = ['node', 'python', 'php', 'postgresql', 'api', 'graphql', 'backend', 'database', 'mysql', 'mongodb', 'express', 'fastapi', 'rest', 'laravel'];
+  const devopsKeywords = ['docker', 'kubernetes', 'devops', 'ci/cd', 'jenkins', 'github actions', 'aws', 'google cloud', 'azure', 'terraform', 'ansible'];
+  const devsecopsKeywords = ['security', 'devsecops', 'cybersecurity', 'owasp', 'penetration testing', 'siem'];
+  const dataAnalystKeywords = ['data analyst', 'business intelligence', 'bi', 'analytics', 'tableau', 'power bi', 'excel', 'sql analytics'];
+  const aiEngineerKeywords = ['ai', 'artificial intelligence', 'claude', 'machine learning', 'deep learning', 'nlp', 'anthropic', 'chatgpt', 'generative', 'langchain', 'pytorch', 'tensorflow', 'ai engineer'];
+  const dataEngineerKeywords = ['data engineer', 'data science', 'pandas', 'spark', 'etl', 'data pipeline', 'airflow', 'snowflake'];
 
   const lowerTech = tech.toLowerCase();
 
   if (frontendKeywords.some((k) => lowerTech.includes(k))) return 'frontend';
   if (backendKeywords.some((k) => lowerTech.includes(k))) return 'backend';
-  if (aiKeywords.some((k) => lowerTech.includes(k))) return 'ai';
-  if (cloudKeywords.some((k) => lowerTech.includes(k))) return 'cloud';
-  if (toolsKeywords.some((k) => lowerTech.includes(k))) return 'tools';
+  if (devopsKeywords.some((k) => lowerTech.includes(k))) return 'devops';
+  if (devsecopsKeywords.some((k) => lowerTech.includes(k))) return 'devsecops';
+  if (dataAnalystKeywords.some((k) => lowerTech.includes(k))) return 'data-analyst';
+  if (aiEngineerKeywords.some((k) => lowerTech.includes(k))) return 'ai-engineer';
+  if (dataEngineerKeywords.some((k) => lowerTech.includes(k))) return 'data-engineer';
 
-  return 'tools';
+  return null;
 };
 
 const techs: Tech[] = Array.from(courseTechs)
-  .filter((name) => hasValidLogo(name)) // Filtra apenas tecnologias com logos válidos
+  .filter((name) => hasValidLogo(name))
   .map((name) => ({
     name,
     category: categorizeTech(name),
   }))
+  .filter((tech) => tech.category !== null)
   .sort((a, b) => a.name.localeCompare(b.name));
-
-const categoryLabels = {
-  frontend: 'Frontend',
-  backend: 'Backend',
-  ai: 'AI & Machine Learning',
-  tools: 'Ferramentas',
-  cloud: 'Cloud & DevOps',
-};
-
-const { title = 'Tech Stack', showCategories = true } = Astro.props;
 
 const techsByCategory = {
   frontend: techs.filter((t) => t.category === 'frontend'),
   backend: techs.filter((t) => t.category === 'backend'),
-  ai: techs.filter((t) => t.category === 'ai'),
-  tools: techs.filter((t) => t.category === 'tools'),
-  cloud: techs.filter((t) => t.category === 'cloud'),
+  devops: techs.filter((t) => t.category === 'devops'),
+  devsecops: techs.filter((t) => t.category === 'devsecops'),
+  'data-analyst': techs.filter((t) => t.category === 'data-analyst'),
+  'ai-engineer': techs.filter((t) => t.category === 'ai-engineer'),
+  'data-engineer': techs.filter((t) => t.category === 'data-engineer'),
+};
+
+const { title = 'Tech Stack', lang = 'pt' } = Astro.props;
+const subtitle = lang === 'pt'
+  ? 'Tecnologias que uso para construir soluções inovadoras e escaláveis.'
+  : 'Technologies I use to build innovative and scalable solutions.';
+
+// Duplicar arrays para preencher o espaço e efeito infinito
+const duplicateTechsForScroll = (techs: Tech[]) => {
+  if (techs.length === 0) return [];
+  // Duplicar 4x para garantir preenchimento contínuo
+  return Array(4).fill(0).flatMap(() => techs);
+};
+
+const duplicatedTechs = {
+  frontend: duplicateTechsForScroll(techsByCategory.frontend),
+  backend: duplicateTechsForScroll(techsByCategory.backend),
+  devops: duplicateTechsForScroll(techsByCategory.devops),
+  devsecops: duplicateTechsForScroll(techsByCategory.devsecops),
+  'data-analyst': duplicateTechsForScroll(techsByCategory['data-analyst']),
+  'ai-engineer': duplicateTechsForScroll(techsByCategory['ai-engineer']),
+  'data-engineer': duplicateTechsForScroll(techsByCategory['data-engineer']),
 };
 ---
 
-<section class="py-12 md:py-20 space-y-8">
-  <div class="space-y-4">
-    <h2 class="text-3xl md:text-4xl font-bold text-[#fafafa]">{title}</h2>
-    <p class="text-[#d4d4d8] text-lg max-w-3xl">
-      Tecnologias e ferramentas que uso para construir produtos de alta qualidade.
-    </p>
+<section class="bg-canvas py-20 space-y-12 md:py-24">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-8">
+    <div>
+      <h2 class="text-display-lg font-semibold text-ink">{title}</h2>
+      <p class="text-body-lg text-ink-muted max-w-3xl mt-4">
+        Tecnologias que uso para construir soluções inovadoras e escaláveis.
+      </p>
+    </div>
   </div>
 
-  {showCategories ? (
-    <div class="space-y-8">
-      {Object.entries(techsByCategory).map(([category, items]) => (
-        <div class="space-y-4">
-          <h3 class="text-sm font-semibold uppercase tracking-widest text-accent-500">
-            {categoryLabels[category as keyof typeof categoryLabels]}
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-10">
+    {Object.entries(techsByCategory).map(([category, items]) => (
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-headline font-semibold text-primary">
+            {category === 'frontend' && 'Frontend'}
+            {category === 'backend' && 'Backend'}
+            {category === 'devops' && 'DevOps'}
+            {category === 'devsecops' && 'DevSecOps'}
+            {category === 'data-analyst' && 'Data Analyst'}
+            {category === 'ai-engineer' && 'AI Engineer'}
+            {category === 'data-engineer' && 'Data Engineer'}
           </h3>
-          <div class="flex flex-wrap gap-3">
-            {items.map((tech) => {
+        </div>
+
+        <div class="relative h-20 overflow-hidden">
+          {/* Gradient overlay left e right */}
+          <div class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-canvas to-transparent z-10 pointer-events-none"></div>
+          <div class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-canvas to-transparent z-10 pointer-events-none"></div>
+
+          {/* Tech carousel horizontal */}
+          <div class="animate-scroll-horizontal flex gap-3 py-2 px-4">
+            {duplicatedTechs[category as keyof typeof duplicatedTechs].map((tech, idx) => {
               const logo = getTechLogo(tech.name);
               return (
-                <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
+                <div
+                  key={`${tech.name}-${idx}`}
+                  class="tech-card inline-flex items-center gap-2 px-3 py-2 rounded-md bg-surface-2 hover:bg-surface-3 transition-all duration-300 group flex-shrink-0 cursor-pointer border border-hairline"
+                >
                   <img
                     src={logo.logo}
                     alt={tech.name}
-                    class="w-5 h-5 md:w-6 md:h-6 flex-shrink-0 object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                    class="w-4 h-4 flex-shrink-0 object-contain opacity-100 group-hover:opacity-100 transition-opacity"
+                    style="filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.2))"
                     loading="lazy"
                   />
-                  <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
+                  <span class="text-caption text-ink-subtle font-medium group-hover:text-ink-muted transition-colors whitespace-nowrap">
                     {tech.name}
                   </span>
                 </div>
@@ -101,28 +139,85 @@ const techsByCategory = {
             })}
           </div>
         </div>
-      ))}
-    </div>
-  ) : (
-    <div class="flex flex-wrap gap-3">
-      {techs.map((tech) => {
-        const logo = getTechLogo(tech.name);
-        return (
-          <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] hover:border-accent-500/50 hover:bg-[#1f1f1f] transition-all duration-300 group">
-            <div class="w-6 h-6 md:w-7 md:h-7 flex-shrink-0 flex items-center justify-center bg-[#f5f5f5] rounded-md">
-              <img
-                src={logo.logo}
-                alt={tech.name}
-                class="w-4 h-4 md:w-5 md:h-5 object-contain"
-                loading="lazy"
-              />
-            </div>
-            <span class="text-sm md:text-base text-[#d4d4d8] font-medium group-hover:text-accent-400 transition-colors">
-              {tech.name}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  )}
+      </div>
+    ))}
+  </div>
 </section>
+
+<style>
+  @keyframes scroll-horizontal {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50% - 0.75rem));
+    }
+  }
+
+  .animate-scroll-horizontal {
+    animation: scroll-horizontal 40s linear infinite;
+    animation-play-state: running;
+  }
+
+  .animate-scroll-horizontal:hover {
+    animation-play-state: paused;
+  }
+
+  .tech-card {
+    position: relative;
+  }
+
+  img.is-black {
+    filter: invert(1) drop-shadow(0 0 0.5px rgba(0,0,0,0.2)) !important;
+  }
+
+  img.is-colored {
+    filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.2)) !important;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.tech-card img').forEach((img) => {
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || 100;
+      canvas.height = img.naturalHeight || 100;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      try {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+
+        let r = 0, g = 0, b = 0, count = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          if (data[i + 3] > 128) { // alpha > 128
+            r += data[i];
+            g += data[i + 1];
+            b += data[i + 2];
+            count++;
+          }
+        }
+
+        if (count > 0) {
+          r /= count;
+          g /= count;
+          b /= count;
+
+          // Se RGB é muito escuro (preto/cinza escuro)
+          const brightness = (r + g + b) / 3;
+          const isGray = Math.abs(r - g) < 20 && Math.abs(g - b) < 20 && Math.abs(r - b) < 20;
+
+          if (brightness < 100 && isGray) {
+            img.classList.add('is-black');
+          } else {
+            img.classList.add('is-colored');
+          }
+        }
+      } catch (e) {
+        // Se não conseguir analisar, deixa como colorido
+        img.classList.add('is-colored');
+      }
+    };
+  });
+</script>

@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import About from '@/components/sections/About.astro';
+import OpenSource from '@/components/sections/OpenSource.astro';
+import Contact from '@/components/sections/Contact.astro';
 import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
 import { getStaticPaths } from '@/i18n/routes';
 
@@ -11,8 +13,10 @@ const t = (key: string) => getTranslation(lang, key);
 ---
 
 <BaseLayout
-  title={`Sobre - Maison Galvão`}
-  description="Sobre Maison Galvão - Desenvolvedor com 13+ anos de experiência"
+  title={lang === 'pt' ? 'Sobre - Maison Galvão' : 'About - Maison Galvão'}
+  description={lang === 'pt' ? 'Sobre Maison Galvão - Desenvolvedor com 13+ anos de experiência' : 'About Maison Galvão - Developer with 13+ years of experience'}
 >
   <About lang={lang} />
+  <OpenSource lang={lang} />
+  <Contact lang={lang} />
 </BaseLayout>

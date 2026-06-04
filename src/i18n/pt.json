@@ -12,8 +12,8 @@
     "language": "Idioma"
   },
   "hero": {
-    "title": "Software Engineer",
-    "description": "13 anos de expertise em tecnologia: 7 anos desenvolvendo sistemas escaláveis na PRODAM + 5 anos em liderança TI + formação contínua em IA, Full Stack e Cloud Computing. Especializado em arquitetura de sistemas, TypeScript/Node.js e inovação com IA."
+    "title": "Especialista em Inteligência Artificial, Desenvolvimento Full Stack, Cloud Computing e Gestão Pública",
+    "description": "13 anos de expertise em tecnologia: 7 anos desenvolvendo sistemas escaláveis na PRODAM + 5 anos em liderança TI na Prefeitura de Manaus + formação contínua em IA, Full Stack e Cloud Computing. Especializado em arquitetura de sistemas, TypeScript/Node.js e inovação com IA."
   },
   "cta": {
     "explore": "Explorar Mais",
@@ -37,7 +37,7 @@
   "pages": {
     "experience": {
       "title": "Experiência Profissional",
-      "description": "13 anos de trajetória: 7 anos desenvolvendo soluções na esfera pública (PRODAM-AM) + 5 anos em liderança estratégica. Expertise técnica combinada com formação em IA, Full Stack, Cloud Computing e gestão de projetos."
+      "description": "13 anos de expertise em tecnologia na esfera pública. 7 anos desenvolvendo sistemas escaláveis na PRODAM + 5 anos em liderança estratégica. Expertise técnica em Full Stack, Cloud Computing, IA e arquitetura de sistemas."
     },
     "education": {
       "title": "Formação",

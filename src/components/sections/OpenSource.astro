@@ -1,35 +1,62 @@
 ---
 import Button from '@/components/ui/Button.astro';
+import { type Language } from '@/i18n/utils';
 
 interface Props {
   id?: string;
+  lang?: Language;
 }
 
-const { id } = Astro.props;
+const { id, lang = 'pt' } = Astro.props;
 
-const contributions = [
-  {
-    title: 'Contribuições em Projetos Open Source',
-    description: 'Participação ativa em desenvolvimento de software livre, contribuindo code reviews, features e bug fixes.',
-    highlights: [
-      'Contribuidor em projetos da comunidade',
-      'Revisão de pull requests',
-      'Mentoria de desenvolvedores junior',
+const t = {
+  pt: {
+    heading: 'Open Source & Comunidade',
+    subtitle: 'Crença forte em compartilhar conhecimento e contribuir para a comunidade de desenvolvedores.',
+    viewGithub: 'Ver no GitHub',
+    tipTitle: '💡 Sua história com Open Source',
+    tipBody: 'Adicione seus repositórios principais, contribuições a projetos conhecidos, ou iniciativas que você lidera. Isso diferencia profissionais sênior no mercado.',
+    contributions: [
+      {
+        title: 'Contribuições em Projetos Open Source',
+        description: 'Participação ativa em desenvolvimento de software livre, contribuindo code reviews, features e bug fixes.',
+        highlights: [
+          'Contribuidor em projetos da comunidade',
+          'Revisão de pull requests',
+          'Mentoria de desenvolvedores junior',
+        ],
+      },
     ],
   },
-];
+  en: {
+    heading: 'Open Source & Community',
+    subtitle: 'Strong belief in sharing knowledge and contributing to the developer community.',
+    viewGithub: 'View on GitHub',
+    tipTitle: '💡 Your Open Source story',
+    tipBody: 'Add your main repositories, contributions to known projects, or initiatives you lead. This sets senior professionals apart in the market.',
+    contributions: [
+      {
+        title: 'Open Source Project Contributions',
+        description: 'Active participation in open source development, contributing code reviews, features, and bug fixes.',
+        highlights: [
+          'Contributor to community projects',
+          'Pull request reviews',
+          'Junior developer mentoring',
+        ],
+      },
+    ],
+  },
+}[lang];
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24 space-y-12">
   <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-4">
-    <h2 class="text-4xl font-bold text-ink">Open Source & Comunidade</h2>
-    <p class="text-ink-muted text-lg max-w-3xl">
-      Crença forte em compartilhar conhecimento e contribuir para a comunidade de desenvolvedores.
-    </p>
+    <h2 class="text-4xl font-bold text-ink">{t.heading}</h2>
+    <p class="text-ink-muted text-lg max-w-3xl">{t.subtitle}</p>
   </div>
 
   <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-6">
-    {contributions.map((contrib) => (
+    {t.contributions.map((contrib) => (
       <div class="bg-surface-1 border border-hairline rounded-lg p-6 sm:p-8 space-y-6">
         <div class="space-y-2">
           <h3 class="text-2xl font-bold text-ink">{contrib.title}</h3>
@@ -47,18 +74,15 @@ const contributions = [
 
         <div class="pt-4">
           <Button href="https://github.com/maisongalvao" variant="secondary" target="_blank">
-            Ver no GitHub
+            {t.viewGithub}
           </Button>
         </div>
       </div>
     ))}
 
     <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
-      <h3 class="text-lg font-semibold text-accent-400 mb-2">💡 Sua história com Open Source</h3>
-      <p class="text-ink-muted">
-        Adicione seus repositórios principais, contribuições a projetos conhecidos, ou iniciativas que você lidera.
-        Isso diferencia profissionais sênior no mercado.
-      </p>
+      <h3 class="text-lg font-semibold text-accent-400 mb-2">{t.tipTitle}</h3>
+      <p class="text-ink-muted">{t.tipBody}</p>
     </div>
   </div>
 </section>

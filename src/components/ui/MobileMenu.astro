@@ -13,9 +13,9 @@ const linksJson = JSON.stringify(links);
     type="button"
     class="relative w-10 h-10 flex flex-col justify-center items-center gap-1.5"
   >
-    <span id="line1" class="h-0.5 w-6 bg-white block transition-all duration-300"></span>
-    <span id="line2" class="h-0.5 w-6 bg-white block transition-all duration-300"></span>
-    <span id="line3" class="h-0.5 w-6 bg-white block transition-all duration-300"></span>
+    <span id="line1" class="h-0.5 w-6 bg-ink block transition-all duration-300"></span>
+    <span id="line2" class="h-0.5 w-6 bg-ink block transition-all duration-300"></span>
+    <span id="line3" class="h-0.5 w-6 bg-ink block transition-all duration-300"></span>
   </button>
 </div>
 
@@ -27,12 +27,12 @@ const linksJson = JSON.stringify(links);
   overlay.id = 'mobile-nav-overlay';
   overlay.setAttribute('style', [
     'position: fixed',
-    'top: 73px',
+    'top: 56px',
     'left: 0',
     'right: 0',
     'bottom: 0',
-    'background: linear-gradient(135deg, #0a0a0a 0%, #0f1a05 50%, #0a0a0a 100%)',
-    'border-top: 1px solid #84cc16',
+    'background: #010102',
+    'border-top: 1px solid #23252a',
     'z-index: 9999',
     'display: none',
     'overflow-y: auto',
@@ -48,9 +48,9 @@ const linksJson = JSON.stringify(links);
     a.setAttribute('style', [
       'display: block',
       'padding: 12px 16px',
-      'color: #d4d4d8',
-      'font-size: 1.125rem',
-      'font-weight: 500',
+      'color: #8a8f98',
+      'font-size: 1rem',
+      'font-weight: 400',
       'border-radius: 8px',
       'margin-bottom: 4px',
       'border-left: 2px solid transparent',
@@ -58,12 +58,12 @@ const linksJson = JSON.stringify(links);
     ].join('; '));
 
     a.addEventListener('mouseenter', () => {
-      a.style.color = '#84cc16';
-      a.style.backgroundColor = '#2a2a2a';
-      a.style.borderLeftColor = '#84cc16';
+      a.style.color = '#5e6ad2';
+      a.style.backgroundColor = '#1a1b22';
+      a.style.borderLeftColor = '#5e6ad2';
     });
     a.addEventListener('mouseleave', () => {
-      a.style.color = '#d4d4d8';
+      a.style.color = '#8a8f98';
       a.style.backgroundColor = 'transparent';
       a.style.borderLeftColor = 'transparent';
     });

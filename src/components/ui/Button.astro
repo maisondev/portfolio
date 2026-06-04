@@ -1,20 +1,23 @@
 ---
 interface Props {
   href: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   target?: string;
+  rel?: string;
   class?: string;
+  title?: string;
 }
 
-const { href, variant = 'primary', target, class: className } = Astro.props;
+const { href, variant = 'primary', target, rel, class: className, title } = Astro.props;
 
-const baseClasses = 'px-6 py-3 rounded-lg font-semibold transition-all duration-300 inline-block text-sm sm:text-base';
+const baseClasses = 'transition-all duration-300 inline-block font-sans text-button py-2 px-3.5 rounded-md';
 const variantClasses = {
-  primary: 'bg-accent-500 text-[#0a0a0a] hover:bg-accent-400 hover:shadow-lg hover:shadow-accent-500/40 active:scale-95 hover:text-[#0a0a0a]',
-  secondary: 'bg-[#1a1a1a] text-[#fafafa] border border-[#2a2a2a] hover:bg-[#2a2a2a] hover:border-accent-500 hover:text-accent-400',
+  primary: 'bg-primary text-white hover:bg-primary-hover focus:outline-2 focus:outline-offset-2 focus:outline-primary-focus active:scale-95',
+  secondary: 'bg-surface-1 text-ink border border-hairline hover:bg-surface-2 hover:text-ink hover:border-hairline-strong focus:outline-2 focus:outline-offset-2 focus:outline-primary-focus active:scale-95',
+  tertiary: 'bg-canvas text-ink hover:bg-surface-1 hover:text-ink focus:outline-2 focus:outline-offset-2 focus:outline-primary-focus active:scale-95',
 };
 ---
 
-<a href={href} target={target} class={`${baseClasses} ${variantClasses[variant]} ${className || ''}`}>
+<a href={href} target={target} rel={rel} title={title} class={`${baseClasses} ${variantClasses[variant]} ${className || ''}`}>
   <slot />
 </a>

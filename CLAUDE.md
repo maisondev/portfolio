@@ -34,7 +34,7 @@ src/
 ### Paleta de Cores (Tailwind customizado)
 
 - **Fundo:** `#0a0a0a` (preto profundo)
-- **Texto primário:** `#fafafa` (branco suave)
+- **Texto primário:** `#fafafa` (branco suave)nas paginas 
 - **Accent:** `accent-500` = `#84cc16` (verde elétrico) — mude em `tailwind.config.mjs`
 - **Texto secundário:** `#d4d4d8` (cinza claro)
 - **Bordas:** `#2a2a2a` (cinza escuro)
