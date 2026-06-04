@@ -46,11 +46,11 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       type="text"
       id="course-search"
       placeholder="Buscar curso por nome..."
-      class="flex-1 px-4 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-[#fafafa] placeholder:text-[#71717a] focus:outline-none focus:border-accent-500/50 transition-colors"
+      class="flex-1 px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-none focus:border-primary/50 transition-colors"
     />
     <select
       id="course-sort"
-      class="px-3 py-2.5 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-[#d4d4d8] focus:outline-none focus:border-accent-500/50 transition-colors whitespace-nowrap"
+      class="px-3 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink-muted focus:outline-none focus:border-primary/50 transition-colors whitespace-nowrap"
     >
       <option value="desc">Mais recentes</option>
       <option value="asc">Mais antigos</option>
@@ -61,13 +61,13 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   <div class="space-y-6">
     <!-- Filter by Technology -->
     <div class="space-y-3">
-      <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
+      <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
         Filtrar por tecnologia
       </h3>
       <div class="flex flex-wrap gap-2" data-tech-filters>
         <button
           data-filter-tech=""
-          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-accent-500 text-[#0a0a0a]"
+          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
         >
           Todas ({courses.length})
         </button>
@@ -81,7 +81,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           return (
             <button
               data-filter-tech={tech}
-              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50"
+              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50"
             >
               {tech} ({count})
             </button>
@@ -92,13 +92,13 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
     <!-- Filter by Institution -->
     <div class="space-y-3">
-      <h3 class="text-sm font-semibold text-[#fafafa] uppercase tracking-wide">
+      <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
         Filtrar por instituição
       </h3>
       <div class="flex flex-wrap gap-2" data-inst-filters>
         <button
           data-filter-inst=""
-          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-accent-500 text-[#0a0a0a]"
+          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
         >
           Todas ({allInstitutions.length})
         </button>
@@ -110,7 +110,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           return (
             <button
               data-filter-inst={institution}
-              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-[#1a1a1a] text-[#d4d4d8] border border-[#2a2a2a] hover:border-accent-500/50"
+              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50"
             >
               {institution} ({count})
             </button>
@@ -122,7 +122,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
   <!-- Courses Grid -->
   <div>
-    <p class="text-sm text-[#d4d4d8] mb-4" data-filter-summary>
+    <p class="text-sm text-ink-muted mb-4" data-filter-summary>
       Total: {courses.length} cursos
     </p>
 
@@ -134,8 +134,8 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       ))}
     </div>
 
-    <div class="hidden text-center py-12 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a]/50" data-no-results>
-      <p class="text-[#d4d4d8]">
+    <div class="hidden text-center py-12 rounded-lg border border-hairline bg-surface-1/50" data-no-results>
+      <p class="text-ink-muted">
         Nenhum curso encontrado com os filtros selecionados
       </p>
     </div>
@@ -236,8 +236,8 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
             btn.textContent = i + 1;
             btn.className = `px-3 py-2 rounded text-sm font-medium transition-all ${
               i === currentPage
-                ? 'bg-accent-500 text-[#0a0a0a]'
-                : 'border border-[#2a2a2a] bg-[#1a1a1a] text-[#d4d4d8] hover:border-accent-500/50'
+                ? 'bg-primary text-white'
+                : 'border border-hairline bg-surface-1 text-ink-muted hover:border-primary/50'
             }`;
 
             btn.addEventListener('click', () => {
@@ -273,16 +273,16 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const isSelected = tech === selectedTech;
 
         if (isSelected) {
-          btn.classList.add('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.add('bg-primary', 'text-white');
+          btn.classList.remove('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline', 'opacity-50', 'cursor-not-allowed');
           btn.disabled = false;
         } else if (isAvailable) {
-          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]', 'opacity-50', 'cursor-not-allowed');
-          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.classList.remove('bg-primary', 'text-white', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline');
           btn.disabled = false;
         } else {
-          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline', 'opacity-50', 'cursor-not-allowed');
           btn.disabled = true;
         }
       });
@@ -294,16 +294,16 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const isSelected = inst === selectedInst;
 
         if (isSelected) {
-          btn.classList.add('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.remove('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.add('bg-primary', 'text-white');
+          btn.classList.remove('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline', 'opacity-50', 'cursor-not-allowed');
           btn.disabled = false;
         } else if (isAvailable) {
-          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]', 'opacity-50', 'cursor-not-allowed');
-          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]');
+          btn.classList.remove('bg-primary', 'text-white', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline');
           btn.disabled = false;
         } else {
-          btn.classList.remove('bg-accent-500', 'text-[#0a0a0a]');
-          btn.classList.add('bg-[#1a1a1a]', 'text-[#d4d4d8]', 'border', 'border-[#2a2a2a]', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline', 'opacity-50', 'cursor-not-allowed');
           btn.disabled = true;
         }
       });

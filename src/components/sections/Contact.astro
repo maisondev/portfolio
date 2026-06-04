@@ -8,23 +8,25 @@ interface Props {
 const { id } = Astro.props;
 ---
 
-<section id={id} class="py-20 space-y-8">
-  <div class="space-y-4">
-    <h2 class="text-3xl sm:text-4xl font-bold text-[#fafafa]">Contato</h2>
-    <p class="text-[#d4d4d8] text-lg max-w-3xl">
-      Tem interesse em trabalhar comigo ou quer conversar sobre tecnologia? Fico feliz em conversar!
-    </p>
-  </div>
+<section id={id} class="bg-canvas py-20 md:py-24 space-y-8">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-8">
+    <div class="space-y-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-ink">Contato</h2>
+      <p class="text-ink-muted text-lg max-w-3xl">
+        Tem interesse em trabalhar comigo ou quer conversar sobre tecnologia? Fico feliz em conversar!
+      </p>
+    </div>
 
-  <div class="flex flex-col sm:flex-row gap-4">
-    <Button href="mailto:maisongalvao@outlook.com" variant="primary">
-      Enviar Email
-    </Button>
-    <Button href="https://wa.me/5592986255936" variant="secondary" target="_blank">
-      WhatsApp
-    </Button>
-    <Button href="https://linkedin.com/in/maisongalvao" variant="secondary" target="_blank">
-      LinkedIn
-    </Button>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <Button href="mailto:maisongalvao@outlook.com" variant="primary">
+        Enviar Email
+      </Button>
+      <Button href="https://wa.me/5592986255936" variant="secondary" target="_blank" rel="noopener noreferrer">
+        WhatsApp
+      </Button>
+      <Button href="https://linkedin.com/in/maisongalvao" variant="secondary" target="_blank" rel="noopener noreferrer">
+        LinkedIn
+      </Button>
+    </div>
   </div>
 </section>

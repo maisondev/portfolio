@@ -10,10 +10,10 @@ interface Props {
 const { name, title, description } = Astro.props;
 ---
 
-<section class="min-h-screen flex flex-col justify-center gap-8 py-12 sm:py-20">
-  <div class="space-y-6">
+<section class="bg-canvas min-h-screen flex flex-col justify-center gap-8 py-12 sm:py-20">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 w-full space-y-6">
     <div class="space-y-2">
-      <h1 class="text-5xl sm:text-7xl font-bold text-[#fafafa] tracking-tight leading-[1.1]">
+      <h1 class="text-5xl sm:text-7xl font-bold text-ink tracking-tight leading-[1.1]">
         {name}
       </h1>
       <div class="h-1 w-20 bg-accent-500 rounded-full"></div>
@@ -23,29 +23,29 @@ const { name, title, description } = Astro.props;
       {title}
     </h2>
 
-    <p class="text-lg sm:text-xl text-[#d4d4d8] max-w-3xl leading-relaxed font-light">
+    <p class="text-lg sm:text-xl text-ink-muted max-w-3xl leading-relaxed font-light">
       {description}
     </p>
-  </div>
 
-  <div class="flex flex-col sm:flex-row gap-3 pt-8">
-    <Button
-      href="https://github.com/maisongalvao"
-      variant="primary"
-      target="_blank"
-    >
-      GitHub
-    </Button>
-    <Button
-      href="https://linkedin.com/in/maisongalvao"
-      variant="secondary"
-      target="_blank"
-    >
-      LinkedIn
-    </Button>
-    <Button href="#contact" variant="secondary">
-      Agendar Conversa
-    </Button>
+    <div class="flex flex-col sm:flex-row gap-3 pt-8">
+      <Button
+        href="https://github.com/maisongalvao"
+        variant="primary"
+        target="_blank"
+      >
+        GitHub
+      </Button>
+      <Button
+        href="https://linkedin.com/in/maisongalvao"
+        variant="secondary"
+        target="_blank"
+      >
+        LinkedIn
+      </Button>
+      <Button href="#contact" variant="secondary">
+        Agendar Conversa
+      </Button>
+    </div>
   </div>
 </section>
 

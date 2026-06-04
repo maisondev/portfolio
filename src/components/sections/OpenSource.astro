@@ -20,25 +20,25 @@ const contributions = [
 ];
 ---
 
-<section id={id} class="py-20 space-y-12">
-  <div class="space-y-4">
-    <h2 class="text-4xl font-bold text-[#fafafa]">Open Source & Comunidade</h2>
-    <p class="text-[#d4d4d8] text-lg max-w-3xl">
+<section id={id} class="bg-canvas py-20 md:py-24 space-y-12">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-4">
+    <h2 class="text-4xl font-bold text-ink">Open Source & Comunidade</h2>
+    <p class="text-ink-muted text-lg max-w-3xl">
       Crença forte em compartilhar conhecimento e contribuir para a comunidade de desenvolvedores.
     </p>
   </div>
 
-  <div class="space-y-6">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-6">
     {contributions.map((contrib) => (
-      <div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 space-y-6">
+      <div class="bg-surface-1 border border-hairline rounded-lg p-6 sm:p-8 space-y-6">
         <div class="space-y-2">
-          <h3 class="text-2xl font-bold text-[#fafafa]">{contrib.title}</h3>
-          <p class="text-[#d4d4d8] text-lg">{contrib.description}</p>
+          <h3 class="text-2xl font-bold text-ink">{contrib.title}</h3>
+          <p class="text-ink-muted text-lg">{contrib.description}</p>
         </div>
 
         <ul class="space-y-3">
           {contrib.highlights.map((highlight) => (
-            <li class="flex gap-3 text-[#d4d4d8]">
+            <li class="flex gap-3 text-ink-muted">
               <span class="text-accent-500 font-bold text-xl">✓</span>
               <span>{highlight}</span>
             </li>
@@ -52,13 +52,13 @@ const contributions = [
         </div>
       </div>
     ))}
-  </div>
 
-  <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
-    <h3 class="text-lg font-semibold text-accent-400 mb-2">💡 Sua história com Open Source</h3>
-    <p class="text-[#d4d4d8]">
-      Adicione seus repositórios principais, contribuições a projetos conhecidos, ou iniciativas que você lidera.
-      Isso diferencia profissionais sênior no mercado.
-    </p>
+    <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
+      <h3 class="text-lg font-semibold text-accent-400 mb-2">💡 Sua história com Open Source</h3>
+      <p class="text-ink-muted">
+        Adicione seus repositórios principais, contribuições a projetos conhecidos, ou iniciativas que você lidera.
+        Isso diferencia profissionais sênior no mercado.
+      </p>
+    </div>
   </div>
 </section>

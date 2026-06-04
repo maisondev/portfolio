@@ -14,25 +14,25 @@ const icon = getServiceIcon(service.icon);
   href={service.url}
   target="_blank"
   rel="noopener noreferrer"
-  class="group relative overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] transition-all duration-300 hover:border-accent-500/50 hover:bg-[#242424]"
+  class="group relative overflow-hidden rounded-lg border border-hairline bg-surface-1 transition-all duration-300 hover:border-accent-500/50 hover:bg-surface-2"
 >
   <!-- Content -->
   <div class="relative p-6 flex flex-col items-center justify-center text-center h-full min-h-[180px]">
     <!-- Icon -->
     <div
-      class="mb-4 w-12 h-12 rounded-lg flex items-center justify-center bg-[#0a0a0a] border border-[#2a2a2a] transition-all duration-300 group-hover:border-accent-500/50 group-hover:text-accent-500"
+      class="mb-4 w-12 h-12 rounded-lg flex items-center justify-center bg-canvas border border-hairline transition-all duration-300 group-hover:border-accent-500/50 group-hover:text-accent-500"
     >
       <Fragment set:html={icon} />
     </div>
 
     <!-- Name -->
-    <h4 class="text-lg font-semibold text-[#fafafa] mb-2 transition-colors duration-300 group-hover:text-accent-500">
+    <h4 class="text-lg font-semibold text-ink mb-2 transition-colors duration-300 group-hover:text-accent-500">
       {service.name}
     </h4>
 
     <!-- Description -->
     {service.description && (
-      <p class="text-sm text-[#d4d4d8] transition-colors duration-300 group-hover:text-[#fafafa]">
+      <p class="text-sm text-ink-muted transition-colors duration-300 group-hover:text-ink">
         {service.description}
       </p>
     )}

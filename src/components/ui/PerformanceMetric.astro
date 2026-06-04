@@ -24,12 +24,12 @@ if (percentage < 50) {
 
 <div class="space-y-2">
   <div class="flex justify-between items-baseline">
-    <span class="text-sm font-medium text-[#d4d4d8]">{label}</span>
-    <span class="text-lg font-bold text-[#fafafa]">
-      {value}<span class="text-sm text-[#a1a1a1]">{unit}</span>
+    <span class="text-sm font-medium text-ink-muted">{label}</span>
+    <span class="text-lg font-bold text-ink">
+      {value}<span class="text-sm text-ink-subtle">{unit}</span>
     </span>
   </div>
-  <div class="w-full bg-[#1a1a1a] rounded-full h-2 overflow-hidden">
+  <div class="w-full bg-surface-1 rounded-full h-2 overflow-hidden">
     <div
       class={`h-full rounded-full transition-all duration-500 ${bgColor}`}
       style={{ width: `${Math.min(percentage, 100)}%` }}
