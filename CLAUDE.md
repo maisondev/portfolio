@@ -100,6 +100,28 @@ const { title, variant = 'primary' } = Astro.props;
 - Dev: abra DevTools → `Ctrl+Shift+P` → "dark" → selecione tema
 - Ou clique no botão de tema no site se disponível
 
+**5. ⚠️ IMPORTANTE: Estados Hover em Light/Dark Mode**
+
+Sempre teste hovers em **AMBOS os modos** para garantir contraste adequado:
+
+```astro
+<!-- ❌ ERRADO: Ícone pode ficar invisível no hover -->
+<svg class="w-5 h-5 text-white">...</svg>
+
+<!-- ✅ CORRETO: Sempre especifique a cor explicitamente -->
+<svg class="w-5 h-5 text-white dark:text-white">...</svg>
+
+<!-- ✅ OU use classes de hover com ambas as variantes -->
+<button class="text-ink hover:text-ink-muted dark:text-white dark:hover:text-ink-muted">
+```
+
+**Checklist de Hover:**
+- [ ] Ícones/textos têm cor explícita (não confie em `currentColor` sozinho)
+- [ ] Hover em light mode: contraste visível
+- [ ] Hover em dark mode: contraste visível
+- [ ] Links: sempre `hover:text-*` com cor diferente
+- [ ] Botões: sempre testar primário, secundário, terciário em ambos modos
+
 ## 📋 Adicionando Conteúdo
 
 ### Cursos

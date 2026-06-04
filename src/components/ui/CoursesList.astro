@@ -41,20 +41,33 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
 <div class="space-y-8" data-courses-filter>
   <!-- Search and Sort Controls -->
-  <div class="flex gap-3 items-center">
+  <div class="space-y-4">
     <input
       type="text"
       id="course-search"
       placeholder={lang === 'pt' ? 'Buscar curso por nome...' : 'Search course by name...'}
-      class="flex-1 px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-none focus:border-primary/50 transition-colors"
+      class="w-full px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-none focus:border-primary/50 transition-colors"
     />
-    <select
-      id="course-sort"
-      class="px-3 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink-muted focus:outline-none focus:border-primary/50 transition-colors whitespace-nowrap"
-    >
-      <option value="desc">{lang === 'pt' ? 'Mais recentes' : 'Most recent'}</option>
-      <option value="asc">{lang === 'pt' ? 'Mais antigos' : 'Oldest first'}</option>
-    </select>
+
+    <!-- Sort Buttons -->
+    <div class="flex gap-2">
+      <button
+        id="course-sort-desc"
+        class="sort-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
+        data-sort="desc"
+        title={lang === 'pt' ? 'Ordenar por mais recentes' : 'Sort by most recent'}
+      >
+        {lang === 'pt' ? '↓ Mais recentes' : '↓ Most recent'}
+      </button>
+      <button
+        id="course-sort-asc"
+        class="sort-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50"
+        data-sort="asc"
+        title={lang === 'pt' ? 'Ordenar por mais antigos' : 'Sort by oldest first'}
+      >
+        {lang === 'pt' ? '↑ Mais antigos' : '↑ Oldest first'}
+      </button>
+    </div>
   </div>
 
   <!-- Filters Section -->
@@ -155,8 +168,8 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   const filterSummary = filterContainer?.querySelector('[data-filter-summary]');
   const techButtons = filterContainer?.querySelectorAll('[data-filter-tech]');
   const instButtons = filterContainer?.querySelectorAll('[data-filter-inst]');
+  const sortButtons = filterContainer?.querySelectorAll('.sort-btn');
   const searchInput = document.getElementById('course-search');
-  const sortSelect = document.getElementById('course-sort');
   const paginationContainer = document.getElementById('pagination');
 
   // Parse courses from data attributes
@@ -419,11 +432,24 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       });
     }
 
-    // Add sort select listener
-    if (sortSelect) {
-      sortSelect.value = sortOrder;
-      sortSelect.addEventListener('change', (e) => {
-        sortOrder = e.target.value;
+    // Update sort buttons visual state
+    const updateSortButtons = () => {
+      sortButtons?.forEach((btn) => {
+        const btnSort = btn.getAttribute('data-sort');
+        if (btnSort === sortOrder) {
+          btn.classList.add('bg-primary', 'text-white');
+          btn.classList.remove('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline');
+        } else {
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline');
+        }
+      });
+    };
+
+    // Add sort button listeners
+    sortButtons?.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        sortOrder = btn.getAttribute('data-sort') || 'desc';
         currentPage = 0;
         const newParams = new URLSearchParams();
         if (selectedTech) newParams.set('tech', selectedTech);
@@ -433,9 +459,10 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const query = newParams.toString();
         window.history.pushState({}, '', query ? `?${query}` : '');
         sortCards();
+        updateSortButtons();
         updateUI();
       });
-    }
+    });
 
     // Add click handlers to buttons
     techButtons?.forEach((btn) => {
@@ -473,6 +500,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     });
 
     // Initial sort and update
+    updateSortButtons();
     sortCards();
     updateUI();
   }

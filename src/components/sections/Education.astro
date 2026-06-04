@@ -9,6 +9,7 @@ interface EducationItem {
   type: 'fundamental-medio' | 'tecnico' | 'graduacao' | 'pos-graduacao';
   certificateUrl?: string;
   certificatePages?: string[];
+  certificatePdf?: string;
 }
 
 interface Props {
@@ -20,13 +21,14 @@ const { id, lang = 'pt' } = Astro.props;
 
 const education = [
   {
-    degree: 'Pós-Graduação Lato Sensu - Desenvolvimento Full Stack e Cloud Computing',
+    degree: 'Especialista em Desenvolvimento Full Stack e Cloud Computing',
     institution: 'GRAN',
     year: 'Mai 2024 – Nov 2025',
     description: 'Especialização em desenvolvimento full stack com foco em tecnologias cloud e arquitetura moderna.',
     type: 'pos-graduacao',
     certificateUrl: '/certificates/FullStack-Cloud-Computing.png',
     certificatePages: ['/certificates/FullStack-Cloud-Computing.png'],
+    certificatePdf: '/certificates/FullStack-Cloud-Computing.pdf',
   },
   {
     degree: 'Especialista em Inteligência Artificial e Tecnologia na Gestão Pública',
@@ -65,9 +67,9 @@ const education = [
   },
   {
     degree: 'Ensino Médio',
-    institution: 'Instituto Federal de Educação, Ciência e Tecnologia do Amazonas (IFAM)',
+    institution: 'Escola Estadual Ruy Araújo',
     year: '2005 – 2007',
-    description: 'Formação de ensino médio integrada à educação técnica.',
+    description: 'Formação de ensino médio.',
     type: 'fundamental-medio',
     certificateUrl: '/certificates/Ensino-Medio-p1.png',
     certificatePages: ['/certificates/Ensino-Medio-p1.png', '/certificates/Ensino-Medio-p2.png'],
@@ -123,16 +125,27 @@ const icons: Record<string, string> = {
                 <p class="text-primary text-caption font-medium line-clamp-1">{edu.institution}</p>
                 <p class="text-caption text-ink-muted line-clamp-2 flex-1">{edu.description}</p>
               </div>
-              {edu.certificateUrl && (
-                <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors self-start" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
-                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                    <polyline points="17 21 17 13 7 13 7 21"/>
-                    <polyline points="7 3 7 8 15 8"/>
-                  </svg>
-                  <span class="hidden sm:inline">Ver</span>
-                </button>
-              )}
+              <div class="flex gap-2 flex-wrap">
+                {edu.certificateUrl && (
+                  <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
+                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                      <polyline points="17 21 17 13 7 13 7 21"/>
+                      <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    <span class="hidden sm:inline">Ver</span>
+                  </button>
+                )}
+                {edu.certificatePdf && (
+                  <a href={edu.certificatePdf} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span class="hidden sm:inline">PDF</span>
+                  </a>
+                )}
+              </div>
             </div>
           ))}
       </div>

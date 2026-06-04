@@ -4,6 +4,7 @@ import Badge from './Badge.astro';
 interface Props {
   role: string;
   company: string;
+  companyUrl?: string;
   period: string;
   description: string;
   highlights: string[];
@@ -11,7 +12,7 @@ interface Props {
   lang?: 'pt' | 'en';
 }
 
-const { role, company, period, description, highlights, technologies, lang = 'pt' } = Astro.props;
+const { role, company, companyUrl, period, description, highlights, technologies, lang = 'pt' } = Astro.props;
 const highlightsLabel = lang === 'pt' ? 'Destaques' : 'Highlights';
 ---
 
@@ -20,7 +21,21 @@ const highlightsLabel = lang === 'pt' ? 'Destaques' : 'Highlights';
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
       <div>
         <h3 class="text-card-title font-semibold text-ink">{role}</h3>
-        <p class="text-primary font-medium text-body-sm">{company}</p>
+        {companyUrl ? (
+          <a
+            href={companyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary font-medium text-body-sm hover:text-primary-hover transition-colors inline-flex items-center gap-1"
+          >
+            {company}
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-6l6-6m0 0l-6 6"></path>
+            </svg>
+          </a>
+        ) : (
+          <p class="text-primary font-medium text-body-sm">{company}</p>
+        )}
       </div>
       <span class="text-caption text-ink-tertiary whitespace-nowrap">{period}</span>
     </div>

@@ -190,11 +190,6 @@ export const techLogosMap: Record<string, TechLogo> = {
     logo: `${DEVICON_CDN}/github/github-original.svg`,
     color: '#ff6b6b',
   },
-  'Data Analyst': {
-    name: 'Data Analyst',
-    logo: `${DEVICON_CDN}/pandas/pandas-original.svg`,
-    color: '#150458',
-  },
   'AI Engineer': {
     name: 'AI Engineer',
     logo: `${DEVICON_CDN}/pytorch/pytorch-original.svg`,

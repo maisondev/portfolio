@@ -70,7 +70,8 @@
       "PowerShell(Test-Path *)",
       "PowerShell(Get-NetTCPConnection *)",
       "Bash(curl -s http://localhost:4322/pt/contests)",
-      "Bash(xargs grep -l \"space-y-\")"
+      "Bash(xargs grep -l \"space-y-\")",
+      "PowerShell(Start-Process \"msedge\" \"http://localhost:4323/experience\")"
     ]
   }
 }
