@@ -116,7 +116,8 @@
       "PowerShell(Get-Item \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\public\\\\certificates\\\\FullStack-Cloud-Computing-p1.png\" | Select-Object Name, @{Name=\"Size \\(bytes\\)\";Expression={$_.Length}})",
       "Bash(cat)",
       "Bash(python /tmp/convert_pdf.py)",
-      "Bash(python *)"
+      "Bash(python *)",
+      "PowerShell(Get-Job *)"
     ]
   }
 }
