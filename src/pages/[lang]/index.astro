@@ -27,11 +27,11 @@ const getLocalizedPath = (path: string) => {
     lang={lang}
   />
 
-  <TechStack />
+  <TechStack lang={lang} />
 
   <!-- Quick CTA Section -->
   <section class="bg-canvas py-20 md:py-24 space-y-8">
-    <div class="max-w-5xl mx-auto px-6 md:px-8 space-y-8">
+    <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-6 md:px-8 space-y-8">
       <div class="space-y-4">
         <h2 class="text-display-md font-semibold text-ink">{t('cta.explore')}</h2>
         <p class="text-body-lg text-ink-muted">{t('cta.exploreDesc')}</p>

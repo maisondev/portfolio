@@ -3,12 +3,17 @@ import type { Course } from '@/config/courses';
 
 interface Props {
   course: Course;
+  lang?: 'pt' | 'en';
 }
 
-const { course } = Astro.props;
+const { course, lang = 'pt' } = Astro.props;
+const completedLabel = lang === 'pt' ? 'Concluído em' : 'Completed in';
+const verifyLabel = lang === 'pt' ? 'Verificar' : 'Verify';
+const certTitle = lang === 'pt' ? 'Ver certificado' : 'View certificate';
+const hasCertTitle = lang === 'pt' ? 'Com certificado' : 'Has certificate';
 ---
 
-<div class="group relative overflow-hidden rounded-lg border border-hairline bg-surface-1 transition-all duration-300 hover:border-primary/50 hover:bg-surface-2 flex flex-col min-h-[340px]">
+<div class="group relative overflow-hidden rounded-lg border border-hairline bg-surface-1 transition-all duration-300 hover:border-primary/50 hover:bg-surface-2 flex flex-col h-[380px]">
   <!-- Header with platform -->
   <div class="px-6 py-4 border-b border-hairline bg-canvas">
     <p class="text-xs font-semibold uppercase tracking-wider text-primary">
@@ -50,7 +55,7 @@ const { course } = Astro.props;
     <!-- Footer with date -->
     <div class="flex items-center justify-between pt-4 border-t border-hairline">
       <p class="text-xs text-ink-muted">
-        Concluído em <span class="font-semibold text-ink">{course.completedAt}</span>
+        {completedLabel} <span class="font-semibold text-ink">{course.completedAt}</span>
       </p>
 
       {course.certificate && course.certificate.url && (
@@ -59,7 +64,7 @@ const { course } = Astro.props;
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/30 hover:border-primary/60 hover:bg-primary/20 transition-all"
-          title="Ver certificado"
+          title={certTitle}
         >
           <svg
             class="w-4 h-4"
@@ -68,11 +73,11 @@ const { course } = Astro.props;
           >
             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
           </svg>
-          <span>Verificar</span>
+          <span>{verifyLabel}</span>
         </a>
       )}
       {course.certificate && !course.certificate.url && (
-        <div class="flex items-center gap-1 text-primary" title="Com certificado">
+        <div class="flex items-center gap-1 text-primary" title={hasCertTitle}>
           <svg
             class="w-4 h-4"
             fill="currentColor"

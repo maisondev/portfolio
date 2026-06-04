@@ -9,9 +9,12 @@ interface Props {
   github?: string;
   demo?: string;
   image?: string;
+  lang?: 'pt' | 'en';
 }
 
-const { title, description, tags, github, demo, image } = Astro.props;
+const { title, description, tags, github, demo, image, lang = 'pt' } = Astro.props;
+const visitLabel = lang === 'pt' ? 'Visitar' : 'Visit';
+const codeLabel = lang === 'pt' ? 'Código' : 'Code';
 ---
 
 <div class="bg-surface-1 border border-hairline rounded-lg p-6 hover:bg-surface-2 transition-all duration-300 space-y-4">
@@ -39,12 +42,12 @@ const { title, description, tags, github, demo, image } = Astro.props;
   <div class="flex gap-3 pt-2">
     {demo && (
       <Button href={demo} variant="primary" target="_blank">
-        Visitar
+        {visitLabel}
       </Button>
     )}
     {github && (
       <Button href={github} variant="secondary" target="_blank">
-        Código
+        {codeLabel}
       </Button>
     )}
   </div>

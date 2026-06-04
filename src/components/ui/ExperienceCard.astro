@@ -8,9 +8,11 @@ interface Props {
   description: string;
   highlights: string[];
   technologies: string[];
+  lang?: 'pt' | 'en';
 }
 
-const { role, company, period, description, highlights, technologies } = Astro.props;
+const { role, company, period, description, highlights, technologies, lang = 'pt' } = Astro.props;
+const highlightsLabel = lang === 'pt' ? 'Destaques' : 'Highlights';
 ---
 
 <div class="bg-surface-1 border border-hairline rounded-lg p-6 sm:p-8 hover:bg-surface-2 transition-all duration-300 space-y-6">
@@ -27,7 +29,7 @@ const { role, company, period, description, highlights, technologies } = Astro.p
 
   {highlights.length > 0 && (
     <div class="space-y-2">
-      <h4 class="text-caption font-semibold text-ink-subtle uppercase tracking-wide">Destaques</h4>
+      <h4 class="text-caption font-semibold text-ink-subtle uppercase tracking-wide">{highlightsLabel}</h4>
       <ul class="space-y-1.5">
         {highlights.map((highlight) => (
           <li class="flex gap-3 text-body-sm text-ink-muted">

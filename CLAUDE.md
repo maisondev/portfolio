@@ -178,3 +178,4 @@ Não há test suite configurada. Validações manuais:
 3. **Build lento?** Limpe `.astro/` e `dist/`, rode `npm install` novamente
 4. **TypeScript strict:** Sempre tipifique props e variáveis — nenhum `any`
 5. **Tailwind customizado:** Cores/fonts em `tailwind.config.mjs`, não em CSS
+6. **Servidor de dev:** Nunca iniciar novo servidor com `npm run dev` — sempre há um rodando para testes em tempo real. Verifique as mudanças no navegador do servidor existente.

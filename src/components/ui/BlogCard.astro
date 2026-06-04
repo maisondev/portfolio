@@ -8,9 +8,11 @@ interface Props {
   readTime: string;
   tags: string[];
   slug: string;
+  lang?: 'pt' | 'en';
 }
 
-const { title, excerpt, date, readTime, tags, slug } = Astro.props;
+const { title, excerpt, date, readTime, tags, slug, lang = 'pt' } = Astro.props;
+const readLabel = lang === 'pt' ? 'Ler →' : 'Read →';
 ---
 
 <a href={slug} class="group block">
@@ -35,7 +37,7 @@ const { title, excerpt, date, readTime, tags, slug } = Astro.props;
         <span>{readTime}</span>
       </div>
       <span class="text-primary font-semibold group-hover:translate-x-1 transition-transform">
-        Ler →
+        {readLabel}
       </span>
     </div>
   </div>
