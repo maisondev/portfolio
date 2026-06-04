@@ -111,7 +111,12 @@
       "PowerShell(choco install *)",
       "Bash(Start-Sleep -Seconds 5)",
       "Bash(Get-Content 'C:\\\\Users\\\\maiso\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-maiso-WebstormProjects-portfolio\\\\3d479000-4d77-4ef5-b9a5-965f302a8a59\\\\tasks\\\\bziscinyb.output')",
-      "Bash(Select-Object -Last 5)"
+      "Bash(Select-Object -Last 5)",
+      "PowerShell(ls *)",
+      "PowerShell(Get-Item \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\public\\\\certificates\\\\FullStack-Cloud-Computing-p1.png\" | Select-Object Name, @{Name=\"Size \\(bytes\\)\";Expression={$_.Length}})",
+      "Bash(cat)",
+      "Bash(python /tmp/convert_pdf.py)",
+      "Bash(python *)"
     ]
   }
 }
