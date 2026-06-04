@@ -125,16 +125,18 @@ const icons: Record<string, string> = {
                 <p class="text-primary text-caption font-medium line-clamp-1">{edu.institution}</p>
                 <p class="text-caption text-ink-muted line-clamp-2 flex-1">{edu.description}</p>
               </div>
-              {edu.certificateUrl && (
-                <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
-                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                    <polyline points="17 21 17 13 7 13 7 21"/>
-                    <polyline points="7 3 7 8 15 8"/>
-                  </svg>
-                  <span class="hidden sm:inline">Ver</span>
-                </button>
-              )}
+              <div class="flex gap-2 flex-wrap">
+                {edu.certificateUrl && (
+                  <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
+                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                      <polyline points="17 21 17 13 7 13 7 21"/>
+                      <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    <span class="hidden sm:inline">Ver</span>
+                  </button>
+                )}
+              </div>
             </div>
           ))}
       </div>
