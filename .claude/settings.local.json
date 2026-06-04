@@ -82,7 +82,12 @@
       "PowerShell(python C:\\\\Users\\\\maiso\\\\convert_tads.py)",
       "PowerShell(python C:\\\\Users\\\\maiso\\\\convert_fullstack.py)",
       "PowerShell(Copy-Item *)",
-      "Bash(grep -E \"\\\\.astro$\")"
+      "Bash(grep -E \"\\\\.astro$\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4322/pt/courses)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4322/pt/experience)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4322/pt/education)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4322/pt/contests)",
+      "Bash(awk '/<footer/,/<\\\\/footer/' \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\dist\\\\pt\\\\index.html\")"
     ]
   }
 }

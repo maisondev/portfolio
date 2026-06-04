@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import HeroWithProfile from '@/components/sections/HeroWithProfile.astro';
+import About from '@/components/sections/About.astro';
+import Contact from '@/components/sections/Contact.astro';
 import TechStack from '@/components/sections/TechStack.astro';
 import Button from '@/components/ui/Button.astro';
 import { getLanguageFromUrl, getTranslation, isValidLanguage, type Language } from '@/i18n/utils';
@@ -27,7 +29,9 @@ const getLocalizedPath = (path: string) => {
     lang={lang}
   />
 
-  <TechStack lang={lang} />
+  <About lang={lang} />
+
+  <Contact lang={lang} />
 
   <!-- Quick CTA Section -->
   <section class="bg-canvas py-20 md:py-24 space-y-8">
