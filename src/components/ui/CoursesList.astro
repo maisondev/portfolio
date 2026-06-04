@@ -45,15 +45,15 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     <input
       type="text"
       id="course-search"
-      placeholder="Buscar curso por nome..."
+      placeholder={lang === 'pt' ? 'Buscar curso por nome...' : 'Search course by name...'}
       class="flex-1 px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-none focus:border-primary/50 transition-colors"
     />
     <select
       id="course-sort"
       class="px-3 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink-muted focus:outline-none focus:border-primary/50 transition-colors whitespace-nowrap"
     >
-      <option value="desc">Mais recentes</option>
-      <option value="asc">Mais antigos</option>
+      <option value="desc">{lang === 'pt' ? 'Mais recentes' : 'Most recent'}</option>
+      <option value="asc">{lang === 'pt' ? 'Mais antigos' : 'Oldest first'}</option>
     </select>
   </div>
 
@@ -62,14 +62,14 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     <!-- Filter by Technology -->
     <div class="space-y-3">
       <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
-        Filtrar por tecnologia
+        {lang === 'pt' ? 'Filtrar por tecnologia' : 'Filter by technology'}
       </h3>
       <div class="flex flex-wrap gap-2" data-tech-filters>
         <button
           data-filter-tech=""
           class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
         >
-          Todas ({courses.length})
+          {lang === 'pt' ? `Todas (${courses.length})` : `All (${courses.length})`}
         </button>
         {allTechnologies.map((tech) => {
           const count = courses.filter((course) =>
@@ -93,14 +93,14 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     <!-- Filter by Institution -->
     <div class="space-y-3">
       <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
-        Filtrar por instituição
+        {lang === 'pt' ? 'Filtrar por instituição' : 'Filter by institution'}
       </h3>
       <div class="flex flex-wrap gap-2" data-inst-filters>
         <button
           data-filter-inst=""
           class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
         >
-          Todas ({allInstitutions.length})
+          {lang === 'pt' ? `Todas (${allInstitutions.length})` : `All (${allInstitutions.length})`}
         </button>
         {allInstitutions.map((institution) => {
           const count = courses.filter((course) =>
@@ -123,7 +123,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   <!-- Courses Grid -->
   <div>
     <p class="text-sm text-ink-muted mb-4" data-filter-summary>
-      Total: {courses.length} cursos
+      {lang === 'pt' ? `Total: ${courses.length} cursos` : `Total: ${courses.length} courses`}
     </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4" data-courses-grid>
@@ -136,7 +136,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
     <div class="hidden text-center py-12 rounded-lg border border-hairline bg-surface-1/50" data-no-results>
       <p class="text-ink-muted">
-        Nenhum curso encontrado com os filtros selecionados
+        {lang === 'pt' ? 'Nenhum curso encontrado com os filtros selecionados' : 'No courses found with the selected filters'}
       </p>
     </div>
 
@@ -147,7 +147,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
   </div>
 </div>
 
-<script define:vars={{courses}}>
+<script define:vars={{courses, lang}}>
   const PAGE_SIZE = 48;
   const filterContainer = document.querySelector('[data-courses-filter]');
   const coursesGrid = filterContainer?.querySelector('[data-courses-grid]');
@@ -355,23 +355,37 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       if (selectedInst) filters.push(`"${selectedInst}"`);
 
       if (filterSummary) {
+        const isPt = lang === 'pt';
+        const courseWord = (n) => isPt ? `curso(s)` : `course(s)`;
         if (filters.length === 0) {
           if (searchQuery) {
-            filterSummary.textContent = `Encontrados ${visibleCount} curso(s) com "${searchQuery}"`;
+            filterSummary.textContent = isPt
+              ? `Encontrados ${visibleCount} ${courseWord()} com "${searchQuery}"`
+              : `Found ${visibleCount} ${courseWord()} matching "${searchQuery}"`;
           } else {
-            filterSummary.textContent = `Total: ${visibleCount} cursos`;
+            filterSummary.textContent = isPt
+              ? `Total: ${visibleCount} cursos`
+              : `Total: ${visibleCount} courses`;
           }
         } else if (filters.length === 1) {
           if (searchQuery) {
-            filterSummary.textContent = `Mostrando ${visibleCount} curso(s) de ${filters[0]} com "${searchQuery}"`;
+            filterSummary.textContent = isPt
+              ? `Mostrando ${visibleCount} ${courseWord()} de ${filters[0]} com "${searchQuery}"`
+              : `Showing ${visibleCount} ${courseWord()} from ${filters[0]} matching "${searchQuery}"`;
           } else {
-            filterSummary.textContent = `Mostrando ${visibleCount} curso(s) de ${filters[0]}`;
+            filterSummary.textContent = isPt
+              ? `Mostrando ${visibleCount} ${courseWord()} de ${filters[0]}`
+              : `Showing ${visibleCount} ${courseWord()} from ${filters[0]}`;
           }
         } else {
           if (searchQuery) {
-            filterSummary.textContent = `Mostrando ${visibleCount} curso(s) de ${filters.join(' + ')} com "${searchQuery}"`;
+            filterSummary.textContent = isPt
+              ? `Mostrando ${visibleCount} ${courseWord()} de ${filters.join(' + ')} com "${searchQuery}"`
+              : `Showing ${visibleCount} ${courseWord()} from ${filters.join(' + ')} matching "${searchQuery}"`;
           } else {
-            filterSummary.textContent = `Mostrando ${visibleCount} curso(s) de ${filters.join(' + ')}`;
+            filterSummary.textContent = isPt
+              ? `Mostrando ${visibleCount} ${courseWord()} de ${filters.join(' + ')}`
+              : `Showing ${visibleCount} ${courseWord()} from ${filters.join(' + ')}`;
           }
         }
       }
