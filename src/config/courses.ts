@@ -33,6 +33,16 @@ export const courses: Course[] = [
     description: 'Master Git version control with Pluralsight comprehensive course',
   },
   {
+    name: 'Business English',
+    platform: 'WiseUp',
+    technologies: ['English', 'Business', 'Language'],
+    completedAt: 'jun 2024',
+    certificate: {
+      url: 'https://files.wiseup.com/?url=https://online.wiseup.com/storage/user-certificates/c1faad1507bf6b8c0dd8c376a19a2008.pdf&documentType=CERTIFICATE&title=Wise',
+    },
+    description: 'Business English course covering professional communication and business language',
+  },
+  {
     name: 'Lógica de programação: mergulhe em programação com JavaScript',
     platform: 'Alura',
     technologies: ['JavaScript', 'Programming', 'Lógica'],
