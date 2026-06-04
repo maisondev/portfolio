@@ -4,8 +4,7 @@ import { Trophy } from '@lucide/astro';
 
 interface Document {
   title: string;
-  pages?: string[];
-  pdf?: string;
+  pages: string[];
 }
 
 interface Contest {
@@ -38,11 +37,17 @@ const contests: Contest[] = lang === 'pt' ? [
     documents: [
       {
         title: 'Edital',
-        pdf: '/documents/contests/edital-tecnico-municipal-2010.pdf'
+        pages: [
+          '/documents/contests/edital-tecnico-municipal-2010-page1.jpg',
+          '/documents/contests/edital-tecnico-municipal-2010-page2.jpg'
+        ]
       },
       {
         title: 'Diário da Aprovação',
-        pdf: '/documents/contests/dom-tecnico-municipal-2010.pdf'
+        pages: [
+          '/documents/contests/dom-tecnico-municipal-2010-page1.jpg',
+          '/documents/contests/dom-tecnico-municipal-2010-page2.jpg'
+        ]
       }
     ],
   },
@@ -98,11 +103,17 @@ const contests: Contest[] = lang === 'pt' ? [
     documents: [
       {
         title: 'Edital',
-        pdf: '/documents/contests/edital-tecnico-municipal-2010.pdf'
+        pages: [
+          '/documents/contests/edital-tecnico-municipal-2010-page1.jpg',
+          '/documents/contests/edital-tecnico-municipal-2010-page2.jpg'
+        ]
       },
       {
         title: 'Publication Certificate',
-        pdf: '/documents/contests/dom-tecnico-municipal-2010.pdf'
+        pages: [
+          '/documents/contests/dom-tecnico-municipal-2010-page1.jpg',
+          '/documents/contests/dom-tecnico-municipal-2010-page2.jpg'
+        ]
       }
     ],
   },
@@ -344,8 +355,7 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
                     <button
                       class="doc-btn inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
                       data-doc-title={doc.title}
-                      data-doc-pages={doc.pages ? JSON.stringify(doc.pages) : ''}
-                      data-doc-pdf={doc.pdf || ''}
+                      data-doc-pages={JSON.stringify(doc.pages)}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 flex-shrink-0">
                         <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
@@ -378,10 +388,8 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
       </svg>
     </button>
   </div>
-  <div class="flex flex-col items-center gap-4 w-full h-full">
-    <img id="docImage" src="" alt="Documento" class="max-w-full h-auto border border-hairline dark:border-hairline rounded-lg hidden" />
-
-    <iframe id="docPDF" src="" title="Documento PDF" class="hidden w-full h-[70vh] border border-hairline dark:border-hairline rounded-lg"></iframe>
+  <div class="flex flex-col items-center gap-4">
+    <img id="docImage" src="" alt="Documento" class="max-w-full h-auto border border-hairline dark:border-hairline rounded-lg" />
 
     {/* Navegação de páginas */}
     <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-ink-muted dark:text-ink-muted">
@@ -402,7 +410,6 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
   const docModal = document.getElementById('docModal') as HTMLDialogElement;
   const closeBtnDoc = document.getElementById('closeDocModal');
   const docImage = document.getElementById('docImage') as HTMLImageElement;
-  const docPDF = document.getElementById('docPDF') as HTMLIFrameElement;
   const pageNav = document.getElementById('pageNav');
   const pageIndicator = document.getElementById('pageIndicator');
   const prevPageBtn = document.getElementById('prevDocPage');
@@ -412,31 +419,22 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
 
   let currentPages: string[] = [];
   let currentPageIndex = 0;
-  let currentPDF = '';
 
   function updatePageDisplay() {
-    if (currentPDF) {
-      // PDF mode
-      docImage.classList.add('hidden');
-      docPDF.classList.remove('hidden');
+    if (currentPages.length === 0) return;
+
+    docImage.src = currentPages[currentPageIndex];
+    pageIndicator!.textContent = `Página ${currentPageIndex + 1} de ${currentPages.length}`;
+
+    if (currentPages.length > 1) {
+      pageNav!.classList.remove('hidden');
+      prevPageBtn!.disabled = currentPageIndex === 0;
+      nextPageBtn!.disabled = currentPageIndex === currentPages.length - 1;
+
+      prevPageBtn!.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
+      nextPageBtn!.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
+    } else {
       pageNav!.classList.add('hidden');
-    } else if (currentPages.length > 0) {
-      // Image mode
-      docImage.classList.remove('hidden');
-      docPDF.classList.add('hidden');
-      docImage.src = currentPages[currentPageIndex];
-      pageIndicator!.textContent = `Página ${currentPageIndex + 1} de ${currentPages.length}`;
-
-      if (currentPages.length > 1) {
-        pageNav!.classList.remove('hidden');
-        prevPageBtn!.disabled = currentPageIndex === 0;
-        nextPageBtn!.disabled = currentPageIndex === currentPages.length - 1;
-
-        prevPageBtn!.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
-        nextPageBtn!.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
-      } else {
-        pageNav!.classList.add('hidden');
-      }
     }
   }
 
@@ -444,17 +442,11 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
     btn.addEventListener('click', () => {
       const title = btn.getAttribute('data-doc-title');
       const pagesJson = btn.getAttribute('data-doc-pages');
-      const pdfUrl = btn.getAttribute('data-doc-pdf');
 
       docTitle!.textContent = `${title}`;
 
-      if (pdfUrl && pdfUrl.trim()) {
-        currentPDF = pdfUrl;
-        currentPages = [];
-        docPDF.src = pdfUrl;
-      } else if (pagesJson && pagesJson.trim()) {
+      if (pagesJson) {
         currentPages = JSON.parse(pagesJson);
-        currentPDF = '';
       }
 
       currentPageIndex = 0;
