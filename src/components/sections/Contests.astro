@@ -1,6 +1,22 @@
 ---
 import { type Language } from '@/i18n/utils';
-import { FileText, ExternalLink, Trophy } from '@lucide/astro';
+import { Trophy } from '@lucide/astro';
+
+interface Document {
+  title: string;
+  pages: string[];
+}
+
+interface Contest {
+  position: string;
+  organization: string;
+  year: string;
+  banca: string;
+  classification?: string;
+  totalVacancies?: number;
+  salary?: string;
+  documents?: Document[];
+}
 
 interface Props {
   id?: string;
@@ -9,7 +25,7 @@ interface Props {
 
 const { id, lang = 'pt' } = Astro.props;
 
-const contests = lang === 'pt' ? [
+const contests: Contest[] = lang === 'pt' ? [
   {
     position: 'Técnico Municipal - Tecnologia da Informação (Informática)',
     organization: 'Prefeitura de Manaus',
@@ -17,11 +33,8 @@ const contests = lang === 'pt' ? [
     banca: 'Fundação Conesul de Desenvolvimento',
     classification: '1º lugar',
     totalVacancies: 10,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: '',
+    documents: [],
   },
   {
     position: 'Desenvolvedor de Software',
@@ -30,11 +43,8 @@ const contests = lang === 'pt' ? [
     banca: 'Fundação Professor Carlos Augusto Bittencourt - FUNCAB',
     classification: '21º lugar',
     totalVacancies: 24,
-    type: 'edital',
     salary: 'R$ 3.063,86',
-    editalUrl: 'https://prodam.am.gov.br/wp-content/uploads/2011/09/Edital.pdf',
-    convocacaoUrl: 'https://prodam.am.gov.br/wp-content/uploads/2011/09/24a-CVGP-Site-PRODAM-em-3jul18.pdf',
-    officialDiary: '#',
+    documents: [],
   },
   {
     position: 'Gerente de Informática',
@@ -43,11 +53,8 @@ const contests = lang === 'pt' ? [
     banca: 'CESGRANRIO',
     classification: '',
     totalVacancies: 0,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: '#',
+    documents: [],
   },
   {
     position: 'Aprovado em Concurso Público',
@@ -56,11 +63,8 @@ const contests = lang === 'pt' ? [
     banca: 'FCC',
     classification: '',
     totalVacancies: 0,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: 'https://diario.imprensaoficial.am.gov.br/portal/visualizacoes/pdf/18078#/p:29/e:18078?find=Maison%20Marcel%20Madri',
+    documents: [],
   },
   {
     position: 'Aprovado em Concurso Público',
@@ -69,11 +73,8 @@ const contests = lang === 'pt' ? [
     banca: 'FCC',
     classification: '',
     totalVacancies: 0,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: '/documents/dom-6300-28042026.pdf',
+    documents: [],
   },
 ] : [
   {
@@ -83,11 +84,8 @@ const contests = lang === 'pt' ? [
     banca: 'Conesul Development Foundation',
     classification: '1st place',
     totalVacancies: 10,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: '',
+    documents: [],
   },
   {
     position: 'Software Developer',
@@ -96,11 +94,8 @@ const contests = lang === 'pt' ? [
     banca: 'Professor Carlos Augusto Bittencourt Foundation - FUNCAB',
     classification: '21st place',
     totalVacancies: 24,
-    type: 'edital',
     salary: 'R$ 3.063,86',
-    editalUrl: 'https://prodam.am.gov.br/wp-content/uploads/2011/09/Edital.pdf',
-    convocacaoUrl: 'https://prodam.am.gov.br/wp-content/uploads/2011/09/24a-CVGP-Site-PRODAM-em-3jul18.pdf',
-    officialDiary: '#',
+    documents: [],
   },
   {
     position: 'IT Manager',
@@ -109,11 +104,8 @@ const contests = lang === 'pt' ? [
     banca: 'CESGRANRIO',
     classification: '',
     totalVacancies: 0,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: '#',
+    documents: [],
   },
   {
     position: 'Approved in Public Contest',
@@ -122,11 +114,8 @@ const contests = lang === 'pt' ? [
     banca: 'FCC',
     classification: '',
     totalVacancies: 0,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: 'https://diario.imprensaoficial.am.gov.br/portal/visualizacoes/pdf/18078#/p:29/e:18078?find=Maison%20Marcel%20Madri',
+    documents: [],
   },
   {
     position: 'Approved in Public Contest',
@@ -135,27 +124,25 @@ const contests = lang === 'pt' ? [
     banca: 'FCC',
     classification: '',
     totalVacancies: 0,
-    type: 'edital',
     salary: '',
-    editalUrl: '',
-    convocacaoUrl: '',
-    officialDiary: '/documents/dom-6300-28042026.pdf',
+    documents: [],
   },
 ];
 
 const sortedContests = contests.sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
-const getTypeBadge = (type: string, totalVacancies: number, classification: string) => {
+const getTypeBadge = (totalVacancies: number, classification: string) => {
   if (!classification) return null;
-  const classNum = parseInt(classification);
+  const classNum = parseInt(classification.split('º')[0]);
   const isFromEdital = classNum <= totalVacancies;
   return isFromEdital ? 'edital' : 'cadastro_reserva';
 };
 
-// Extract unique values for filters
 const uniqueYears = Array.from(new Set(contests.map(c => c.year))).sort((a, b) => parseInt(b) - parseInt(a));
 const uniqueBancas = Array.from(new Set(contests.map(c => c.banca)));
 const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)));
+
+const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-widest`;
 ---
 
 <section id={id} class="bg-canvas dark:bg-canvas py-16 md:py-24">
@@ -164,7 +151,7 @@ const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)
     <div class="space-y-6">
       {/* Filter by Year */}
       <div class="space-y-3">
-        <h3 class="text-xs font-semibold text-ink dark:text-white uppercase tracking-widest">
+        <h3 class={labelField('year')}>
           {lang === 'pt' ? 'Filtrar por ano' : 'Filter by year'}
         </h3>
         <div class="flex flex-wrap gap-2.5" data-year-filters>
@@ -187,7 +174,7 @@ const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)
 
       {/* Filter by Banca */}
       <div class="space-y-3">
-        <h3 class="text-xs font-semibold text-ink dark:text-white uppercase tracking-widest">
+        <h3 class={labelField('banca')}>
           {lang === 'pt' ? 'Filtrar por banca' : 'Filter by organization'}
         </h3>
         <div class="flex flex-wrap gap-2.5" data-banca-filters>
@@ -210,7 +197,7 @@ const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)
 
       {/* Filter by Organization */}
       <div class="space-y-3">
-        <h3 class="text-xs font-semibold text-ink dark:text-white uppercase tracking-widest">
+        <h3 class={labelField('organization')}>
           {lang === 'pt' ? 'Filtrar por instituição' : 'Filter by institution'}
         </h3>
         <div class="flex flex-wrap gap-2.5" data-org-filters>
@@ -232,41 +219,44 @@ const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)
       </div>
     </div>
 
+    {/* Contests Grid */}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" data-contests-grid>
       {sortedContests.map((contest) => {
-        const badgeType = getTypeBadge(contest.type, contest.totalVacancies, contest.classification);
-        const isFirstPlace = contest.classification === '1º lugar' || contest.classification === '1st place';
+        const badgeType = getTypeBadge(contest.totalVacancies || 0, contest.classification || '');
+        const isFirstPlace = contest.classification?.includes('1º') || contest.classification?.includes('1st');
+        const hasDocuments = contest.documents && contest.documents.length > 0;
 
         return (
           <div class={`group bg-surface-1 dark:bg-surface-2 border rounded-lg p-6 transition-all duration-300 flex flex-col ${isFirstPlace ? 'border-accent-500/40 hover:border-accent-500 dark:border-accent-500/30 dark:hover:border-accent-500' : 'border-hairline hover:border-primary/50 dark:border-hairline dark:hover:border-primary/50'} hover:shadow-lg dark:hover:shadow-lg/20`}>
-            {/* Header com Badge à direita */}
-            <div class="space-y-3">
+
+            {/* Header */}
+            <div class="space-y-3 pb-4 border-b border-hairline dark:border-hairline">
               <div class="flex items-start justify-between gap-3">
                 <div class="flex-1 space-y-2.5">
                   <div class="flex items-start gap-2.5">
                     {isFirstPlace && <Trophy class="w-5 h-5 text-accent-500 flex-shrink-0 mt-1" />}
                     <h3 class="text-base font-bold text-ink dark:text-white leading-tight">{contest.position}</h3>
                   </div>
+
+                  {/* Órgão */}
                   <div>
-                    <p class="text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-wide">{lang === 'pt' ? 'Órgão' : 'Agency'}</p>
-                    <p class="text-accent-500 dark:text-accent-400 font-semibold text-sm mt-1">{contest.organization}</p>
-                  </div>
-                  <div class="space-y-1.5 text-xs">
-                    <p class="text-ink-muted dark:text-ink-muted"><span class="font-semibold">Banca:</span> {contest.banca.split(' - ')[1] || contest.banca}</p>
-                    <p class="text-ink-muted dark:text-ink-muted"><span class="font-semibold">Ano:</span> {contest.year}</p>
+                    <p class={labelField('org')}>
+                      {lang === 'pt' ? 'Órgão' : 'Agency'}
+                    </p>
+                    <p class="text-accent-500 dark:text-accent-400 font-semibold text-sm mt-1.5">{contest.organization}</p>
                   </div>
                 </div>
 
-                {/* Modalidade Badge à Direita */}
+                {/* Badge */}
                 {badgeType && (
                   <div class="flex-shrink-0">
                     {badgeType === 'edital' ? (
-                      <div class="bg-accent-500 dark:bg-accent-500 text-black dark:text-black px-3 py-2 rounded-md text-xs font-bold flex items-center gap-2 min-w-max hover:bg-accent-600 dark:hover:bg-accent-600 transition-colors" data-filter="edital" title={lang === 'pt' ? 'Aprovado nas vagas diretas' : 'Approved in direct vacancies'}>
+                      <div class="bg-accent-500 dark:bg-accent-500 text-black dark:text-black px-3 py-2 rounded-md text-xs font-bold flex items-center gap-2 min-w-max hover:bg-accent-600 dark:hover:bg-accent-600 transition-colors" title={lang === 'pt' ? 'Aprovado nas vagas diretas' : 'Approved in direct vacancies'}>
                         <span class="text-sm">✓</span>
                         <span>{lang === 'pt' ? 'Vagas' : 'Direct'}</span>
                       </div>
                     ) : (
-                      <div class="bg-primary dark:bg-primary text-white dark:text-white px-3 py-2 rounded-md text-xs font-bold flex items-center gap-2 min-w-max hover:bg-primary-hover dark:hover:bg-primary-hover transition-colors" data-filter="cadastro-reserva" title={lang === 'pt' ? 'Aprovado em cadastro de reserva' : 'Approved in reserve list'}>
+                      <div class="bg-primary dark:bg-primary text-white dark:text-white px-3 py-2 rounded-md text-xs font-bold flex items-center gap-2 min-w-max hover:bg-primary-hover dark:hover:bg-primary-hover transition-colors" title={lang === 'pt' ? 'Aprovado em cadastro de reserva' : 'Approved in reserve list'}>
                         <span class="text-sm">📋</span>
                         <span>{lang === 'pt' ? 'Reserva' : 'Reserve'}</span>
                       </div>
@@ -276,84 +266,197 @@ const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)
               </div>
             </div>
 
-            {/* Info */}
-            <div class="flex-grow">
-              <div class="space-y-3 pt-4 border-t border-hairline dark:border-hairline">
-                <div class="grid grid-cols-2 gap-4">
-                  {/* Classificação */}
-                  {contest.classification && (
-                    <div>
-                      <p class="text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-wide">{lang === 'pt' ? 'Ranking' : 'Ranking'}</p>
-                      <p class="text-base font-bold text-accent-500 dark:text-accent-400 mt-1">{contest.classification}</p>
-                    </div>
-                  )}
-
-                  {/* Vagas */}
-                  {contest.totalVacancies > 0 && (
-                    <div>
-                      <p class="text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-wide">{lang === 'pt' ? 'Vagas' : 'Vacancies'}</p>
-                      <p class="text-base font-bold text-ink dark:text-white mt-1">{contest.totalVacancies}</p>
-                    </div>
-                  )}
+            {/* Details Section */}
+            <div class="flex-grow py-4 space-y-4">
+              {/* Banca e Ano */}
+              <div class="space-y-2.5">
+                <div>
+                  <p class={labelField('banca')}>
+                    {lang === 'pt' ? 'Banca' : 'Organization'}
+                  </p>
+                  <p class="text-sm text-ink dark:text-white mt-1.5">{contest.banca || '—'}</p>
                 </div>
 
-                {/* Salário */}
-                {contest.salary && (
-                  <div class="pt-2 border-t border-hairline/50 dark:border-hairline/50">
-                    <p class="text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-wide">{lang === 'pt' ? 'Salário' : 'Salary'}</p>
-                    <p class="text-sm font-bold text-ink dark:text-white mt-1">{contest.salary}</p>
-                  </div>
-                )}
+                <div>
+                  <p class={labelField('ano')}>
+                    {lang === 'pt' ? 'Ano' : 'Year'}
+                  </p>
+                  <p class="text-sm text-ink dark:text-white mt-1.5">{contest.year || '—'}</p>
+                </div>
               </div>
+
+              {/* Ranking e Vagas */}
+              <div class="grid grid-cols-2 gap-4 pt-2 border-t border-hairline/50 dark:border-hairline/50">
+                <div>
+                  <p class={labelField('ranking')}>
+                    {lang === 'pt' ? 'Ranking' : 'Ranking'}
+                  </p>
+                  <p class="text-sm font-semibold text-accent-500 dark:text-accent-400 mt-1.5">{contest.classification || '—'}</p>
+                </div>
+
+                <div>
+                  <p class={labelField('vagas')}>
+                    {lang === 'pt' ? 'Vagas' : 'Vacancies'}
+                  </p>
+                  <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.totalVacancies || '—'}</p>
+                </div>
+              </div>
+
+              {/* Salário */}
+              {(contest.salary) && (
+                <div class="pt-2 border-t border-hairline/50 dark:border-hairline/50">
+                  <p class={labelField('salary')}>
+                    {lang === 'pt' ? 'Salário' : 'Salary'}
+                  </p>
+                  <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.salary || '—'}</p>
+                </div>
+              )}
             </div>
 
-            {/* Links Section - Always at bottom */}
-            {(contest.editalUrl || contest.convocacaoUrl || contest.officialDiary !== '#') && (
-              <div class="pt-4 border-t border-hairline dark:border-hairline">
-                <p class="text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-wide mb-3">{lang === 'pt' ? 'Documentos' : 'Documents'}</p>
-                <div class="flex flex-wrap gap-2">
-                  {contest.editalUrl && (
-                    <a
-                      href={contest.editalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
-                      title={lang === 'pt' ? 'Edital' : 'Announcement'}
+            {/* Documents Section */}
+            <div class="pt-4 border-t border-hairline dark:border-hairline">
+              <p class={labelField('documents')}>
+                {lang === 'pt' ? 'Documentos' : 'Documents'}
+              </p>
+              {hasDocuments && contest.documents!.length > 0 ? (
+                <div class="flex flex-wrap gap-2 mt-3">
+                  {contest.documents!.map((doc) => (
+                    <button
+                      class="doc-btn inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
+                      data-doc-title={doc.title}
+                      data-doc-pages={JSON.stringify(doc.pages)}
                     >
-                      <ExternalLink class="w-4 h-4" />
-                      {lang === 'pt' ? 'Edital' : 'Announce'}
-                    </a>
-                  )}
-                  {contest.convocacaoUrl && (
-                    <a
-                      href={contest.convocacaoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
-                      title={lang === 'pt' ? 'Convocação' : 'Call'}
-                    >
-                      <ExternalLink class="w-4 h-4" />
-                      {lang === 'pt' ? 'Convoc.' : 'Call'}
-                    </a>
-                  )}
-                  {contest.officialDiary !== '#' && (
-                    <a
-                      href={contest.officialDiary}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
-                      title={lang === 'pt' ? 'Diário Oficial' : 'Official Journal'}
-                    >
-                      <ExternalLink class="w-4 h-4" />
-                      {lang === 'pt' ? 'D.O.' : 'Journal'}
-                    </a>
-                  )}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 flex-shrink-0">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
+                      </svg>
+                      <span>{doc.title}</span>
+                    </button>
+                  ))}
                 </div>
-              </div>
-            )}
+              ) : (
+                <p class="text-xs text-ink-muted dark:text-ink-muted mt-2">—</p>
+              )}
+            </div>
           </div>
         );
       })}
     </div>
   </div>
 </section>
+
+{/* Modal para visualizar documento */}
+<dialog id="docModal" class="backdrop:bg-black/80 rounded-xl border border-hairline-strong bg-surface-1 dark:bg-surface-2 p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
+  <div class="flex justify-between items-center mb-4 sticky top-0 bg-surface-1 dark:bg-surface-2 z-50">
+    <h3 class="text-lg font-semibold text-ink dark:text-white" id="docTitle">Visualizar Documento</h3>
+    <button id="closeDocModal" class="text-ink-muted dark:text-ink-muted hover:text-ink dark:hover:text-white transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center gap-4">
+    <img id="docImage" src="" alt="Documento" class="max-w-full h-auto border border-hairline dark:border-hairline rounded-lg" />
+
+    {/* Navegação de páginas */}
+    <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-ink-muted dark:text-ink-muted">
+      <button id="prevDocPage" class="px-3 py-1 border border-hairline dark:border-hairline rounded-md hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors">← {lang === 'pt' ? 'Anterior' : 'Previous'}</button>
+      <span id="pageIndicator" class="text-ink-tertiary dark:text-ink-muted">Página 1 de 1</span>
+      <button id="nextDocPage" class="px-3 py-1 border border-hairline dark:border-hairline rounded-md hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors">{lang === 'pt' ? 'Próxima' : 'Next'} →</button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  dialog#docModal::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+</style>
+
+<script>
+  const docModal = document.getElementById('docModal') as HTMLDialogElement;
+  const closeBtnDoc = document.getElementById('closeDocModal');
+  const docImage = document.getElementById('docImage') as HTMLImageElement;
+  const pageNav = document.getElementById('pageNav');
+  const pageIndicator = document.getElementById('pageIndicator');
+  const prevPageBtn = document.getElementById('prevDocPage');
+  const nextPageBtn = document.getElementById('nextDocPage');
+  const docTitle = document.getElementById('docTitle');
+  const docButtons = document.querySelectorAll('.doc-btn');
+
+  let currentPages: string[] = [];
+  let currentPageIndex = 0;
+
+  function updatePageDisplay() {
+    if (currentPages.length === 0) return;
+
+    docImage.src = currentPages[currentPageIndex];
+    pageIndicator!.textContent = `Página ${currentPageIndex + 1} de ${currentPages.length}`;
+
+    if (currentPages.length > 1) {
+      pageNav!.classList.remove('hidden');
+      prevPageBtn!.disabled = currentPageIndex === 0;
+      nextPageBtn!.disabled = currentPageIndex === currentPages.length - 1;
+
+      prevPageBtn!.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
+      nextPageBtn!.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
+    } else {
+      pageNav!.classList.add('hidden');
+    }
+  }
+
+  docButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const title = btn.getAttribute('data-doc-title');
+      const pagesJson = btn.getAttribute('data-doc-pages');
+
+      docTitle!.textContent = `${title}`;
+
+      if (pagesJson) {
+        currentPages = JSON.parse(pagesJson);
+      }
+
+      currentPageIndex = 0;
+      updatePageDisplay();
+      docModal.showModal();
+    });
+  });
+
+  prevPageBtn?.addEventListener('click', () => {
+    if (currentPageIndex > 0) {
+      currentPageIndex--;
+      updatePageDisplay();
+    }
+  });
+
+  nextPageBtn?.addEventListener('click', () => {
+    if (currentPageIndex < currentPages.length - 1) {
+      currentPageIndex++;
+      updatePageDisplay();
+    }
+  });
+
+  closeBtnDoc?.addEventListener('click', () => {
+    docModal.close();
+  });
+
+  docModal?.addEventListener('click', (e) => {
+    if (e.target === docModal) {
+      docModal.close();
+    }
+  });
+
+  // Navegação com setas
+  document.addEventListener('keydown', (e) => {
+    if (docModal?.open) {
+      if (e.key === 'ArrowLeft') {
+        prevPageBtn?.click();
+      } else if (e.key === 'ArrowRight') {
+        nextPageBtn?.click();
+      } else if (e.key === 'Escape') {
+        docModal.close();
+      }
+    }
+  });
+</script>
