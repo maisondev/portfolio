@@ -111,13 +111,8 @@ const icons: Record<string, string> = {
         {category.items.map((edu) => (
             <div class="bg-surface-1 border border-hairline rounded-lg p-5 space-y-3 hover:bg-surface-2 transition-colors h-full flex flex-col">
               <div class="flex gap-3 flex-col">
-                <div class="flex gap-3">
-                  <div class="w-5 h-5 flex-shrink-0 text-primary">
-                    <Fragment set:html={icons[edu.type as keyof typeof icons]} />
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <h4 class="text-sm font-semibold text-ink leading-tight line-clamp-2">{edu.degree}</h4>
-                  </div>
+                <div class="flex-1 min-w-0">
+                  <h4 class="text-sm font-semibold text-ink leading-tight line-clamp-2">{edu.degree}</h4>
                 </div>
                 <span class="text-caption text-ink-tertiary">{edu.year}</span>
               </div>

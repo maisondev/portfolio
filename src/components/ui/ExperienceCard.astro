@@ -37,7 +37,12 @@ const highlightsLabel = lang === 'pt' ? 'Destaques' : 'Highlights';
           <p class="text-primary font-medium text-body-sm">{company}</p>
         )}
       </div>
-      <span class="text-caption text-ink-tertiary whitespace-nowrap">{period}</span>
+      <span class="text-body-sm font-medium text-ink-muted dark:text-ink-subtle whitespace-nowrap flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 7V3m8 4V3m4 6H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" />
+        </svg>
+        {period}
+      </span>
     </div>
     <p class="text-body text-ink-muted leading-relaxed">{description}</p>
   </div>

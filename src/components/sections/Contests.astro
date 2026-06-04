@@ -275,14 +275,14 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
                   <p class={labelField('banca')}>
                     {lang === 'pt' ? 'Banca' : 'Organization'}
                   </p>
-                  <p class="text-sm text-ink dark:text-white mt-1.5">{contest.banca || '—'}</p>
+                  <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.banca || '—'}</p>
                 </div>
 
                 <div>
                   <p class={labelField('ano')}>
                     {lang === 'pt' ? 'Ano' : 'Year'}
                   </p>
-                  <p class="text-sm text-ink dark:text-white mt-1.5">{contest.year || '—'}</p>
+                  <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.year || '—'}</p>
                 </div>
               </div>
 
