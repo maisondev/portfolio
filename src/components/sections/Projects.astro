@@ -9,15 +9,6 @@ interface Props {
 
 const { id, lang = 'pt' } = Astro.props;
 
-const t = {
-  pt: {
-    subtitle: 'Projetos que demonstram expertise em novas tecnologias e resolução de problemas práticos.',
-  },
-  en: {
-    subtitle: 'Projects that demonstrate expertise in new technologies and practical problem-solving.',
-  },
-}[lang];
-
 const projects = lang === 'pt'
   ? [
       {
@@ -58,10 +49,6 @@ const projects = lang === 'pt'
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24 space-y-12">
-  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-8">
-    <p class="text-body-lg text-ink-muted max-w-3xl">{t.subtitle}</p>
-  </div>
-
   <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 grid gap-6">
     {projects.map((project) => (
       <ProjectCard
