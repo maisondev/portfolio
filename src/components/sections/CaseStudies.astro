@@ -49,30 +49,30 @@ const caseStudies = [
       : 'Distributed Architecture & Performance Optimization',
     period: '2020 - Present',
     challenge: lang === 'pt'
-      ? 'Sistema legado em Natural/ADABAS atendendo 10k usuários simultâneos. Período de matrículas (dezembro) causava crashes com acessos concentrados. Necessidade de escalar 5x mantendo uptime crítico.'
+      ? 'Sistema legado em Natural/ADABAS atendendo 10k usuários simultâneos. Período de matrículas (dezembro) causava colapsos com acessos concentrados. Necessidade de escalar 5x mantendo disponibilidade crítica.'
       : 'Legacy system in Natural/ADABAS handling 10k simultaneous users. Enrollment period (December) caused crashes due to concentrated traffic. Need to scale 5x while maintaining critical uptime.',
     results: lang === 'pt'
       ? [
           '50k+ usuários simultâneos em horários de pico',
-          '99.98% de uptime durante pico de matrículas',
+          '99.98% de disponibilidade durante pico de matrículas',
           'Latência reduzida de 2000ms para 150ms (p99)',
-          'Zero-downtime deployments com Blue-Green',
+          'Implantações sem interrupção com estratégia Blue-Green',
           'Processamento de 2M+ requisições diárias',
         ]
       : [
           '50k+ simultaneous users during peak hours',
           '99.98% uptime during enrollment peaks',
           'Latency reduced from 2000ms to 150ms (p99)',
-          'Zero-downtime deployments with Blue-Green',
+          'Zero-downtime deployments with Blue-Green strategy',
           '2M+ requests processing daily',
         ],
     technologies: ['TypeScript', 'Node.js', 'Vue.js', 'PostgreSQL', 'Redis', 'Docker', 'Kubernetes', 'AWS'],
     keyLearnings: lang === 'pt'
       ? [
-          'Migração de monolito Natural/ADABAS para arquitetura de microserviços cloud-native',
-          'Load testing e capacity planning para picos de demanda previsíveis (.gov)',
-          'Compliance e requisitos de acessibilidade em plataformas estaduais',
-          'Estratégias de caching distribuído em sistemas de alta concorrência',
+          'Migração de monolito Natural/ADABAS para arquitetura de microsserviços cloud-native',
+          'Testes de carga e planejamento de capacidade para picos de demanda previsíveis (.gov)',
+          'Conformidade e requisitos de acessibilidade em plataformas estaduais',
+          'Estratégias de cache distribuído em sistemas de alta concorrência',
           'Orquestração de containers em ambientes heterogêneos',
         ]
       : [
@@ -96,20 +96,20 @@ const caseStudies = [
       ? 'Secretaria de Estado de Educação (SEDUC) & Prefeitura de Manaus'
       : 'State Education Secretariat (SEDUC) & Manaus City Hall',
     scope: lang === 'pt'
-      ? 'Migração Legacy → Web | AI-Powered Rule Extraction | Full-Stack Architecture'
+      ? 'Migração de Sistema Legado → Web | Extração de Regras com IA | Arquitetura Full-Stack'
       : 'Legacy Migration → Web | AI-Powered Rule Extraction | Full-Stack Architecture',
     period: '2023 - Present',
     challenge: lang === 'pt'
-      ? 'Sistema Natural/ADABAS monolítico que integra todos os serviços de educação (estadual + municipal). Utilizado em 1000+ escolas com centenas de milhares de usuários. Necessário migrar para arquitetura web moderna mantendo todas as 500+ regras de negócio complexas e garantindo zero downtime.'
+      ? 'Sistema Natural/ADABAS monolítico que integra todos os serviços de educação (estadual + municipal). Utilizado em 1000+ escolas com centenas de milhares de usuários. Necessário migrar para arquitetura web moderna mantendo todas as 500+ regras de negócio complexas e garantindo zero interrupções de serviço.'
       : 'Monolithic Natural/ADABAS system integrating all education services (state + municipal). Used across 1000+ schools with hundreds of thousands of users. Required migration to modern web architecture while maintaining 500+ complex business rules and ensuring zero downtime.',
     results: lang === 'pt'
       ? [
           '1000+ escolas estaduais e municipais integradas',
           'Migração de 500+ regras de negócio complexas com IA (Claude)',
-          'Backend: PHP 8.2 + Symfony 6 (RESTful API)',
-          'Frontend: Vue.js 3 + TypeScript (responsive design)',
-          'Zero perda de funcionalidade durante transição',
-          'Redução de tempo de onboarding de escolas em 60%',
+          'Backend: PHP 8.2 + Symfony 6 (API RESTful)',
+          'Frontend: Vue.js 3 + TypeScript (design responsivo)',
+          'Sem perda de funcionalidade durante a transição',
+          'Redução de 60% no tempo de integração de escolas',
         ]
       : [
           '1000+ state and municipal schools integrated',
@@ -122,12 +122,12 @@ const caseStudies = [
     technologies: ['PHP 8.2', 'Symfony 6', 'Vue.js 3', 'TypeScript', 'PostgreSQL', 'Docker', 'AWS', 'Claude API', 'REST APIs'],
     keyLearnings: lang === 'pt'
       ? [
-          'Extracting complex business rules from legacy Natural/ADABAS using Claude AI - automating reverse-engineering',
-          'Full-stack web architecture for enterprise education systems serving 1000+ institutions',
-          'Managing scope in large-scale .gov projects with competing requirements (SEDUC vs Prefeitura)',
-          'Database schema normalization from hierarchical (ADABAS) to relational (PostgreSQL)',
-          'Progressive rollout strategy to 1000+ schools with minimal disruption',
-          'Integration patterns between modern REST APIs and legacy system dependencies',
+          'Extração de regras de negócio complexas de sistemas legado Natural/ADABAS usando Claude IA - automatizando engenharia reversa',
+          'Arquitetura web full-stack para sistemas de educação corporativos atendendo 1000+ instituições',
+          'Gerenciamento de escopo em projetos .gov em larga escala com requisitos conflitantes (SEDUC vs Prefeitura)',
+          'Normalização de schemas de banco de dados de modelo hierárquico (ADABAS) para relacional (PostgreSQL)',
+          'Estratégia de implantação progressiva em 1000+ escolas com disrupção mínima',
+          'Padrões de integração entre APIs REST modernas e dependências de sistemas legados',
         ]
       : [
           'Extracting complex business rules from legacy Natural/ADABAS using Claude AI - automating reverse-engineering',

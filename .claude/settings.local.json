@@ -98,7 +98,12 @@
       "Bash(Get-ChildItem *)",
       "Bash(Start-Sleep -Seconds 3)",
       "Bash(Select-String -Pattern '<h4.*?text-sm.*?' -Context 2)",
-      "Bash(chromium-cli *)"
+      "Bash(chromium-cli *)",
+      "PowerShell(Get-ChildItem \"G:\\\\Meu Drive\\\\Acadêmico\\\\Certificados\" -Recurse | Select-Object Name, FullName, @{Name='Type'; Expression={if \\($_.PSIsContainer\\) { 'Pasta' } else { [System.IO.Path]::GetExtension\\($_\\) }}} | Format-Table -AutoSize)",
+      "Bash(powershell *)",
+      "Bash(npx playwright *)",
+      "Bash(node -e ' *)",
+      "PowerShell(gs *)"
     ]
   }
 }

@@ -4,7 +4,8 @@ import { Trophy } from '@lucide/astro';
 
 interface Document {
   title: string;
-  pages: string[];
+  pages?: string[];
+  pdf?: string;
 }
 
 interface Contest {
@@ -33,8 +34,17 @@ const contests: Contest[] = lang === 'pt' ? [
     banca: 'Fundação Conesul de Desenvolvimento',
     classification: '1º lugar',
     totalVacancies: 10,
-    salary: '',
-    documents: [],
+    salary: 'R$ 1.730,00',
+    documents: [
+      {
+        title: 'Edital',
+        pdf: '/documents/contests/edital-tecnico-municipal-2010.pdf'
+      },
+      {
+        title: 'Diário da Aprovação',
+        pdf: '/documents/contests/dom-tecnico-municipal-2010.pdf'
+      }
+    ],
   },
   {
     position: 'Desenvolvedor de Software',
@@ -84,8 +94,17 @@ const contests: Contest[] = lang === 'pt' ? [
     banca: 'Conesul Development Foundation',
     classification: '1st place',
     totalVacancies: 10,
-    salary: '',
-    documents: [],
+    salary: 'R$ 1.730,00',
+    documents: [
+      {
+        title: 'Edital',
+        pdf: '/documents/contests/edital-tecnico-municipal-2010.pdf'
+      },
+      {
+        title: 'Publication Certificate',
+        pdf: '/documents/contests/dom-tecnico-municipal-2010.pdf'
+      }
+    ],
   },
   {
     position: 'Software Developer',
@@ -325,7 +344,8 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
                     <button
                       class="doc-btn inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
                       data-doc-title={doc.title}
-                      data-doc-pages={JSON.stringify(doc.pages)}
+                      data-doc-pages={doc.pages ? JSON.stringify(doc.pages) : ''}
+                      data-doc-pdf={doc.pdf || ''}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 flex-shrink-0">
                         <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
