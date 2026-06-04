@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Início",
+    "about": "Sobre",
     "projects": "Projetos",
     "caseStudies": "Estudos de Caso",
     "experience": "Experiência",
@@ -20,8 +21,7 @@
     "exploreDesc": "Conheça minha experiência, formação e contribuições à comunidade.",
     "experience": "Experiência Profissional",
     "education": "Formação",
-    "articles": "Artigos & Writing",
-    "message": "Enviar Mensagem"
+    "articles": "Artigos & Writing"
   },
   "contact": {
     "title": "Contato",

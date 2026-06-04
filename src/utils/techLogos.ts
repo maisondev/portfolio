@@ -92,7 +92,7 @@ export const techLogosMap: Record<string, TechLogo> = {
   },
   'AWS': {
     name: 'AWS',
-    logo: `${DEVICON_CDN}/amazonwebservices/amazonwebservices-original.svg`,
+    logo: `${DEVICON_CDN}/amazonwebservices/amazonwebservices-original-wordmark.svg`,
     color: '#ff9900',
   },
   'Google Cloud': {

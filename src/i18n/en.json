@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "about": "About",
     "projects": "Projects",
     "caseStudies": "Case Studies",
     "experience": "Experience",
@@ -20,8 +21,7 @@
     "exploreDesc": "Learn about my experience, education, and contributions to the community.",
     "experience": "Professional Experience",
     "education": "Education & Public Contests",
-    "articles": "Articles & Writing",
-    "message": "Send Message"
+    "articles": "Articles & Writing"
   },
   "contact": {
     "title": "Contact",

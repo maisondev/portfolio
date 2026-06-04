@@ -1,24 +1,37 @@
 ---
 import SocialLinks from '@/components/ui/SocialLinks.astro';
+import { getLanguageFromUrl, type Language } from '@/i18n/utils';
 
+const lang = getLanguageFromUrl(Astro.url) as Language;
 const year = new Date().getFullYear();
 
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
+
 const links = [
-  { label: 'Home', href: '/' },
-  { label: 'Sobre', href: '/about' },
-  { label: 'Cursos', href: '/courses' },
-  { label: 'Projetos', href: '/projects' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Experiência', href: '/experience' },
-  { label: 'Educação', href: '/education' },
-  { label: 'Concursos', href: '/contests' },
+  { label: 'Home', href: getLocalizedPath('/') },
+  { label: 'Sobre', href: getLocalizedPath('/about') },
+  { label: 'Cursos', href: getLocalizedPath('/courses') },
+  { label: 'Projetos', href: getLocalizedPath('/projects') },
+  { label: 'Experiência', href: getLocalizedPath('/experience') },
+  { label: 'Educação', href: getLocalizedPath('/education') },
+  { label: 'Concursos', href: getLocalizedPath('/contests') },
+];
+
+const contactLinks = [
+  { label: 'Email', href: 'mailto:maisongalvao@outlook.com', external: false },
+  { label: 'WhatsApp', href: 'https://wa.me/5592986255936', external: true },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/maisongalvao', external: true },
+  { label: 'GitHub', href: 'https://github.com/maisondev', external: true },
+  { label: 'Instagram', href: 'https://instagram.com/maisongalvao', external: true },
 ];
 ---
 
 <footer class="bg-surface-1 border-t border-hairline mt-20 transition-colors duration-300">
   <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 py-12 md:py-16">
     <!-- Links Section -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 mb-12">
+    <div class="grid grid-cols-2 gap-8 mb-12">
       <div>
         <h3 class="text-body-sm font-semibold text-ink mb-4">Navegação</h3>
         <ul class="space-y-2">
@@ -36,62 +49,20 @@ const links = [
       </div>
 
       <div>
-        <h3 class="text-body-sm font-semibold text-ink mb-4">Contato</h3>
+        <h3 class="text-body-sm font-semibold text-ink mb-4">Contato & Redes</h3>
         <ul class="space-y-2">
-          <li>
-            <a
-              href="mailto:maisongalvao@outlook.com"
-              class="text-body-sm text-ink-subtle hover:text-ink-muted transition-colors"
-            >
-              Email
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://wa.me/5592986255936"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-body-sm text-ink-subtle hover:text-ink-muted transition-colors"
-            >
-              WhatsApp
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://linkedin.com/in/maisongalvao"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-body-sm text-ink-subtle hover:text-ink-muted transition-colors"
-            >
-              LinkedIn
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="text-body-sm font-semibold text-ink mb-4">Redes</h3>
-        <ul class="space-y-2">
-          <li>
-            <a
-              href="https://github.com/maisondev"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-body-sm text-ink-subtle hover:text-ink-muted transition-colors"
-            >
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://instagram.com/maisongalvao"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-body-sm text-ink-subtle hover:text-ink-muted transition-colors"
-            >
-              Instagram
-            </a>
-          </li>
+          {contactLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
+                class="text-body-sm text-ink-subtle hover:text-ink-muted transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

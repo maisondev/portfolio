@@ -4,7 +4,7 @@ import { getTechLogo, hasValidLogo } from '@/utils/techLogos';
 
 interface Tech {
   name: string;
-  category: 'frontend' | 'backend' | 'devops' | 'devsecops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null;
+  category: 'frontend' | 'backend' | 'devops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null;
 }
 
 interface Props {
@@ -21,11 +21,10 @@ courses.forEach((course) => {
 });
 
 // Categorizar tecnologias com mais precisão
-const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'devsecops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null => {
+const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null => {
   const frontendKeywords = ['react', 'vue', 'astro', 'next', 'typescript', 'html', 'css', 'javascript', 'tailwind', 'frontend', 'web', 'bootstrap'];
   const backendKeywords = ['node', 'python', 'php', 'postgresql', 'api', 'graphql', 'backend', 'database', 'mysql', 'mongodb', 'express', 'fastapi', 'rest', 'laravel'];
-  const devopsKeywords = ['docker', 'kubernetes', 'devops', 'ci/cd', 'jenkins', 'github actions', 'aws', 'google cloud', 'azure', 'terraform', 'ansible'];
-  const devsecopsKeywords = ['security', 'devsecops', 'cybersecurity', 'owasp', 'penetration testing', 'siem'];
+  const devopsKeywords = ['docker', 'kubernetes', 'devops', 'ci/cd', 'jenkins', 'github actions', 'aws', 'google cloud', 'azure', 'terraform', 'ansible', 'security', 'devsecops', 'cybersecurity', 'owasp', 'penetration testing', 'siem'];
   const dataAnalystKeywords = ['data analyst', 'business intelligence', 'bi', 'analytics', 'tableau', 'power bi', 'excel', 'sql analytics'];
   const aiEngineerKeywords = ['ai', 'artificial intelligence', 'claude', 'machine learning', 'deep learning', 'nlp', 'anthropic', 'chatgpt', 'generative', 'langchain', 'pytorch', 'tensorflow', 'ai engineer'];
   const dataEngineerKeywords = ['data engineer', 'data science', 'pandas', 'spark', 'etl', 'data pipeline', 'airflow', 'snowflake'];
@@ -35,7 +34,6 @@ const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'devs
   if (frontendKeywords.some((k) => lowerTech.includes(k))) return 'frontend';
   if (backendKeywords.some((k) => lowerTech.includes(k))) return 'backend';
   if (devopsKeywords.some((k) => lowerTech.includes(k))) return 'devops';
-  if (devsecopsKeywords.some((k) => lowerTech.includes(k))) return 'devsecops';
   if (dataAnalystKeywords.some((k) => lowerTech.includes(k))) return 'data-analyst';
   if (aiEngineerKeywords.some((k) => lowerTech.includes(k))) return 'ai-engineer';
   if (dataEngineerKeywords.some((k) => lowerTech.includes(k))) return 'data-engineer';
@@ -56,7 +54,6 @@ const techsByCategory = {
   frontend: techs.filter((t) => t.category === 'frontend'),
   backend: techs.filter((t) => t.category === 'backend'),
   devops: techs.filter((t) => t.category === 'devops'),
-  devsecops: techs.filter((t) => t.category === 'devsecops'),
   'data-analyst': techs.filter((t) => t.category === 'data-analyst'),
   'ai-engineer': techs.filter((t) => t.category === 'ai-engineer'),
   'data-engineer': techs.filter((t) => t.category === 'data-engineer'),
@@ -78,7 +75,6 @@ const duplicatedTechs = {
   frontend: duplicateTechsForScroll(techsByCategory.frontend),
   backend: duplicateTechsForScroll(techsByCategory.backend),
   devops: duplicateTechsForScroll(techsByCategory.devops),
-  devsecops: duplicateTechsForScroll(techsByCategory.devsecops),
   'data-analyst': duplicateTechsForScroll(techsByCategory['data-analyst']),
   'ai-engineer': duplicateTechsForScroll(techsByCategory['ai-engineer']),
   'data-engineer': duplicateTechsForScroll(techsByCategory['data-engineer']),
@@ -94,7 +90,9 @@ const duplicatedTechs = {
   </div>
 
   <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-10">
-    {Object.entries(techsByCategory).map(([category, items]) => (
+    {Object.entries(techsByCategory)
+      .filter(([_, items]) => items.length > 0)
+      .map(([category, items]) => (
       (
       <div class="space-y-4">
         <div>
@@ -102,7 +100,6 @@ const duplicatedTechs = {
             {category === 'frontend' && 'Frontend'}
             {category === 'backend' && 'Backend'}
             {category === 'devops' && 'DevOps'}
-            {category === 'devsecops' && 'DevSecOps'}
             {category === 'data-analyst' && 'Data Analyst'}
             {category === 'ai-engineer' && 'AI Engineer'}
             {category === 'data-engineer' && 'Data Engineer'}
@@ -167,12 +164,22 @@ const duplicatedTechs = {
     position: relative;
   }
 
+  /* Light mode: black icons stay normal */
   img.is-black {
-    filter: invert(1) drop-shadow(0 0 0.5px rgba(0,0,0,0.2)) !important;
+    filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.2)) !important;
+  }
+
+  /* Dark mode: invert black icons to white */
+  .dark img.is-black {
+    filter: invert(1) drop-shadow(0 0 0.5px rgba(255,255,255,0.2)) !important;
   }
 
   img.is-colored {
     filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.2)) !important;
+  }
+
+  .dark img.is-colored {
+    filter: drop-shadow(0 0 0.5px rgba(255,255,255,0.2)) !important;
   }
 </style>
 

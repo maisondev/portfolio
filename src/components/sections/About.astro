@@ -1,5 +1,5 @@
 ---
-import Badge from '@/components/ui/Badge.astro';
+import TechStack from '@/components/sections/TechStack.astro';
 import { type Language } from '@/i18n/utils';
 
 interface Props {
@@ -16,13 +16,13 @@ const t = {
     p2: 'Minha trajetória profissional combina experiência técnica e liderança. Atuei como Gerente de Informática na SEMTRAD entre 2013 e 2018, sendo responsável pela coordenação de equipes, suporte à infraestrutura tecnológica e implantação de soluções para a administração pública. Desde 2018, integro a equipe da PRODAM-AM como Desenvolvedor de Software, participando da análise, desenvolvimento, manutenção e modernização de sistemas corporativos.',
     p3: 'Ao longo da carreira, desenvolvi sólida experiência em arquitetura de software, desenvolvimento web, integração de sistemas, modernização de aplicações legadas e adoção de boas práticas de engenharia de software. Também mantenho interesse constante em Inteligência Artificial aplicada à produtividade, automação e apoio à tomada de decisão. Sou apaixonado por tecnologia e aprendizado contínuo, e acredito que software de qualidade é construído pela combinação de conhecimento técnico, disciplina, colaboração e foco na resolução de problemas reais.',
     stack: 'Tech Stack',
-    location: '📍 Location',
+    location: 'Location',
     locationValue: 'Manaus, Amazonas — Brazil',
     locationSub: 'Disponível para trabalho remoto',
-    experience: '💼 Experience',
+    experience: 'Experience',
     experienceValue: '+16 anos em Tecnologia da Informação',
     experienceSub: 'Gerente de Informática (2013-2018) • Desenvolvedor de Software (2018-presente)',
-    education: '🎓 Education',
+    education: 'Education',
     educationValue: 'Análise de Sistemas + IFAM',
     educationSub: 'Full Stack • Cloud Computing • Inteligência Artificial',
   },
@@ -32,25 +32,18 @@ const t = {
     p2: 'My professional trajectory combines technical expertise and leadership. I served as IT Manager at SEMTRAD between 2013 and 2018, responsible for team coordination, technological infrastructure support, and solution implementation for public administration. Since 2018, I have been part of the PRODAM-AM team as a Software Developer, participating in analysis, development, maintenance, and modernization of corporate systems.',
     p3: 'Throughout my career, I have developed solid experience in software architecture, web development, systems integration, legacy application modernization, and adoption of software engineering best practices. I also maintain a constant interest in Artificial Intelligence applied to productivity, automation, and decision support. I am passionate about technology and continuous learning, and I believe that quality software is built through a combination of technical knowledge, discipline, collaboration, and focus on solving real problems.',
     stack: 'Tech Stack',
-    location: '📍 Location',
+    location: 'Location',
     locationValue: 'Manaus, Amazonas — Brazil',
     locationSub: 'Available for remote work',
-    experience: '💼 Experience',
+    experience: 'Experience',
     experienceValue: '+16 years in Information Technology',
     experienceSub: 'IT Manager (2013-2018) • Software Developer (2018-present)',
-    education: '🎓 Education',
+    education: 'Education',
     educationValue: 'Systems Analysis + IFAM',
     educationSub: 'Full Stack • Cloud Computing • Artificial Intelligence',
   },
 }[lang];
 
-const backendSkills = lang === 'pt'
-  ? ['Node.js', 'PostgreSQL', 'REST APIs', 'Express.js', 'Integração de APIs (Gemini)', 'Arquitetura de Sistemas']
-  : ['Node.js', 'PostgreSQL', 'REST APIs', 'Express.js', 'API Integration (Gemini)', 'Systems Architecture'];
-
-const frontendSkills = ['Vue.js', 'React', 'TypeScript', 'Tailwind CSS', 'HTML/CSS', 'Responsive Design'];
-
-const devTools = ['Git/GitHub', 'Docker', 'Linux', 'Cloud Deployment', 'Google Cloud', 'Database Design'];
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24 space-y-16">
@@ -63,38 +56,7 @@ const devTools = ['Git/GitHub', 'Docker', 'Linux', 'Cloud Deployment', 'Google C
     </div>
   </div>
 
-  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-8">
-    <h3 class="text-2xl font-bold text-ink">{t.stack}</h3>
-
-    <div class="grid sm:grid-cols-3 gap-8">
-      <div class="space-y-4">
-        <h4 class="text-lg font-semibold text-accent-500">Frontend</h4>
-        <div class="flex flex-wrap gap-2">
-          {frontendSkills.map((skill) => (
-            <Badge text={skill} variant="primary" />
-          ))}
-        </div>
-      </div>
-
-      <div class="space-y-4">
-        <h4 class="text-lg font-semibold text-accent-500">Backend</h4>
-        <div class="flex flex-wrap gap-2">
-          {backendSkills.map((skill) => (
-            <Badge text={skill} variant="primary" />
-          ))}
-        </div>
-      </div>
-
-      <div class="space-y-4">
-        <h4 class="text-lg font-semibold text-accent-500">DevTools</h4>
-        <div class="flex flex-wrap gap-2">
-          {devTools.map((skill) => (
-            <Badge text={skill} variant="primary" />
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
+  <TechStack lang={lang} />
 
   <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8">
     <div class="grid md:grid-cols-3 gap-6">
