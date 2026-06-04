@@ -60,14 +60,8 @@ const experiences = lang === 'pt' ? [
 ];
 ---
 
-<section id={id} class="bg-canvas py-20 md:py-24 space-y-12">
-  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-6 md:px-8 space-y-8">
-    <p class="text-body-lg text-ink-muted max-w-3xl">
-      {lang === 'pt' ? 'Trajetória profissional combinando desenvolvimento técnico com liderança estratégica em projetos de impacto público.' : 'Professional trajectory combining technical development with strategic leadership in public impact projects.'}
-    </p>
-  </div>
-
-  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-6 md:px-8 space-y-6">
+<section id={id} class="bg-canvas py-20 md:py-24">
+  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-6">
     {experiences.map((exp) => (
       <ExperienceCard
         role={exp.role}

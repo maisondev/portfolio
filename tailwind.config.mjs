@@ -4,6 +4,15 @@ export default {
   darkMode: 'class',
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
+    screens: {
+      xs: '375px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+      '4xl': '2560px',
+    },
     extend: {
       fontFamily: {
         sans: ['Linear Display', 'SF Pro Display', 'system-ui', '-apple-system', ...defaultTheme.fontFamily.sans],
@@ -66,6 +75,10 @@ export default {
         xl: '16px',
         xxl: '24px',
         pill: '9999px',
+      },
+      maxWidth: {
+        '8xl': '88rem',
+        '9xl': '96rem',
       },
       spacing: {
         xxs: '4px',

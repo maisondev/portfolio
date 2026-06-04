@@ -13,32 +13,44 @@ const contests = lang === 'pt' ? [
     position: 'Desenvolvedor de Software',
     organization: 'PRODAM-AM (Empresa de Processamento de Dados do Amazonas)',
     year: '2018',
-    status: 'Aprovado',
     banca: 'CESGRANRIO/IBFC',
+    classification: '21º lugar',
+    totalVacancies: 24,
+    type: 'edital',
+    salary: 'R$ 3.063,86',
     officialDiary: '#',
   },
   {
     position: 'Gerente de Informática',
     organization: 'Prefeitura de Manaus - SEMTRAD',
     year: '2013',
-    status: 'Aprovado',
     banca: 'CESGRANRIO',
+    classification: '',
+    totalVacancies: 0,
+    type: 'edital',
+    salary: '',
     officialDiary: '#',
   },
   {
     position: 'Aprovado em Concurso Público',
     organization: 'SEMA-AM (Secretaria de Estado do Meio Ambiente)',
     year: '2026',
-    status: 'Aprovado',
     banca: 'FCC',
+    classification: '',
+    totalVacancies: 0,
+    type: 'edital',
+    salary: '',
     officialDiary: 'https://diario.imprensaoficial.am.gov.br/portal/visualizacoes/pdf/18078#/p:29/e:18078?find=Maison%20Marcel%20Madri',
   },
   {
     position: 'Aprovado em Concurso Público',
     organization: 'CGM-MANAUS (Controladoria Geral do Município)',
     year: '2026',
-    status: 'Aprovado',
     banca: 'FCC',
+    classification: '',
+    totalVacancies: 0,
+    type: 'edital',
+    salary: '',
     officialDiary: '/documents/dom-6300-28042026.pdf',
   },
 ] : [
@@ -46,85 +58,135 @@ const contests = lang === 'pt' ? [
     position: 'Software Developer',
     organization: 'PRODAM-AM (Amazonas Data Processing Company)',
     year: '2018',
-    status: 'Approved',
     banca: 'CESGRANRIO/IBFC',
+    classification: '21st place',
+    totalVacancies: 24,
+    type: 'edital',
+    salary: 'R$ 3.063,86',
     officialDiary: '#',
   },
   {
     position: 'IT Manager',
     organization: 'City of Manaus - SEMTRAD',
     year: '2013',
-    status: 'Approved',
     banca: 'CESGRANRIO',
+    classification: '',
+    totalVacancies: 0,
+    type: 'edital',
+    salary: '',
     officialDiary: '#',
   },
   {
     position: 'Approved in Public Contest',
     organization: 'SEMA-AM (State Department of Environment)',
     year: '2026',
-    status: 'Approved',
     banca: 'FCC',
+    classification: '',
+    totalVacancies: 0,
+    type: 'edital',
+    salary: '',
     officialDiary: 'https://diario.imprensaoficial.am.gov.br/portal/visualizacoes/pdf/18078#/p:29/e:18078?find=Maison%20Marcel%20Madri',
   },
   {
     position: 'Approved in Public Contest',
     organization: 'CGM-MANAUS (General Controller of the Municipality)',
     year: '2026',
-    status: 'Approved',
     banca: 'FCC',
+    classification: '',
+    totalVacancies: 0,
+    type: 'edital',
+    salary: '',
     officialDiary: '/documents/dom-6300-28042026.pdf',
   },
 ];
 
-// Ordenar concursos por ano (mais recentes primeiro)
 const sortedContests = contests.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+
+const getTypeBadge = (type: string, totalVacancies: number, classification: string) => {
+  if (!classification) return null;
+  const classNum = parseInt(classification);
+  const isFromEdital = classNum <= totalVacancies;
+  return isFromEdital ? 'edital' : 'cadastro_reserva';
+};
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24">
-  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-6 md:px-8 space-y-8">
-    {sortedContests.map((contest) => (
-      <div class="bg-surface-1 border border-hairline rounded-lg p-6 sm:p-8 hover:border-accent-500/30 transition-all duration-300 space-y-4">
-        <div class="space-y-2">
-          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-            <div>
-              <h3 class="text-xl sm:text-2xl font-bold text-ink">{contest.position}</h3>
-              <p class="text-accent-500 font-semibold text-sm sm:text-base">{contest.organization}</p>
+  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-6">
+    {sortedContests.map((contest) => {
+      const badgeType = getTypeBadge(contest.type, contest.totalVacancies, contest.classification);
+
+      return (
+        <div class="group bg-surface-1 border border-hairline rounded-xl p-6 sm:p-8 hover:border-accent-500/50 hover:shadow-lg transition-all duration-300 space-y-5">
+          {/* Header */}
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div class="flex-1 space-y-2">
+              <h3 class="text-2xl sm:text-3xl font-bold text-ink">{contest.position}</h3>
+              <p class="text-accent-500 font-semibold text-base">{contest.organization}</p>
             </div>
-            <div class="flex gap-2 items-center">
-              <span class="bg-accent-500/20 text-accent-500 px-3 py-1 rounded-full text-xs font-semibold">
-                {contest.status}
-              </span>
-              <span class="text-ink-muted text-sm">{contest.year}</span>
+            <div class="flex gap-2 flex-wrap sm:flex-col sm:items-end">
+              <span class="text-ink-muted text-sm font-medium">{contest.year}</span>
+              <span class="text-ink-muted text-xs">Banca: {contest.banca}</span>
             </div>
           </div>
-          <p class="text-ink-muted text-sm">Banca: {contest.banca}</p>
+
+          {/* Main Info Row */}
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-hairline">
+            {/* Classificação */}
+            {contest.classification && (
+              <div class="space-y-1">
+                <p class="text-ink-muted text-xs font-semibold uppercase tracking-wide">Classificação</p>
+                <p class="text-2xl sm:text-3xl font-bold text-accent-500">{contest.classification}</p>
+                {contest.totalVacancies > 0 && (
+                  <p class="text-ink-muted text-xs">de {contest.totalVacancies} vagas</p>
+                )}
+              </div>
+            )}
+
+            {/* Tipo Badge */}
+            {badgeType && (
+              <div class="space-y-1">
+                <p class="text-ink-muted text-xs font-semibold uppercase tracking-wide">Modalidade</p>
+                {badgeType === 'edital' ? (
+                  <span class="inline-flex items-center gap-1 bg-accent-500/20 text-accent-500 px-3 py-2 rounded-lg text-sm font-bold">
+                    ✓ Edital
+                  </span>
+                ) : (
+                  <span class="inline-flex items-center gap-1 bg-primary/20 text-primary px-3 py-2 rounded-lg text-sm font-bold">
+                    📋 Cadastro Reserva
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Salário */}
+            {contest.salary && (
+              <div class="space-y-1">
+                <p class="text-ink-muted text-xs font-semibold uppercase tracking-wide">Salário</p>
+                <p class="text-xl sm:text-2xl font-bold text-ink">{contest.salary}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Link Diário Oficial */}
+          {contest.officialDiary !== '#' && (
+            <div class="pt-3 border-t border-hairline">
+              <a
+                href={contest.officialDiary}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold text-sm transition-colors group-hover:translate-x-1"
+              >
+                {lang === 'pt' ? 'Ver Diário Oficial' : 'View Official Journal'}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          )}
         </div>
-
-        {contest.officialDiary !== '#' && (
-          <div class="pt-3 border-t border-hairline">
-            <a
-              href={contest.officialDiary}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold text-sm transition-colors"
-            >
-              Diário Oficial
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/>
-                <line x1="10" y1="14" x2="21" y2="3"/>
-              </svg>
-            </a>
-          </div>
-        )}
-      </div>
-    ))}
-
-    <div class="bg-accent-500/10 border border-accent-500/30 rounded-lg p-6 sm:p-8">
-      <h3 class="text-lg font-semibold text-accent-400 mb-2">{lang === 'pt' ? '💼 Adicionar Novos Concursos' : '💼 Add New Contests'}</h3>
-      <p class="text-ink-muted text-sm">
-        {lang === 'pt' ? 'Para adicionar novos concursos aprovados, preencha os dados acima incluindo o link do diário oficial. Isso demonstra credibilidade profissional e transparência perante a administração pública.' : 'To add new approved contests, fill in the information above including the official journal link. This demonstrates professional credibility and transparency with public administration.'}
-      </p>
-    </div>
+      );
+    })}
   </div>
 </section>

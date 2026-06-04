@@ -65,7 +65,11 @@
       "Bash(curl -s http://localhost:4321/pt)",
       "Bash(npm remove *)",
       "Bash(curl -s 'http://localhost:4321/pt')",
-      "Bash(curl -s http://localhost:4322/pt)"
+      "Bash(curl -s http://localhost:4322/pt)",
+      "Bash(npx chromium-cli *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "Bash(curl -s http://localhost:4322/pt/contests)"
     ]
   }
 }
