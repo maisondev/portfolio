@@ -16,13 +16,13 @@ const t = {
     p2: 'Minha trajetória profissional combina experiência técnica e liderança. Atuei como Gerente de Informática na SEMTRAD entre 2013 e 2018, sendo responsável pela coordenação de equipes, suporte à infraestrutura tecnológica e implantação de soluções para a administração pública. Desde 2018, integro a equipe da PRODAM-AM como Desenvolvedor de Software, participando da análise, desenvolvimento, manutenção e modernização de sistemas corporativos.',
     p3: 'Ao longo da carreira, desenvolvi sólida experiência em arquitetura de software, desenvolvimento web, integração de sistemas, modernização de aplicações legadas e adoção de boas práticas de engenharia de software. Também mantenho interesse constante em Inteligência Artificial aplicada à produtividade, automação e apoio à tomada de decisão. Sou apaixonado por tecnologia e aprendizado contínuo, e acredito que software de qualidade é construído pela combinação de conhecimento técnico, disciplina, colaboração e foco na resolução de problemas reais.',
     stack: 'Tech Stack',
-    location: 'Location',
-    locationValue: 'Manaus, Amazonas — Brazil',
+    location: 'Localização',
+    locationValue: 'Manaus, Amazonas — Brasil',
     locationSub: 'Disponível para trabalho remoto',
-    experience: 'Experience',
+    experience: 'Experiência',
     experienceValue: '+16 anos em Tecnologia da Informação',
     experienceSub: 'Gerente de Informática (2013-2018) • Desenvolvedor de Software (2018-presente)',
-    education: 'Education',
+    education: 'Educação',
     educationValue: 'Análise de Sistemas + IFAM',
     educationSub: 'Full Stack • Cloud Computing • Inteligência Artificial',
   },
@@ -60,18 +60,33 @@ const t = {
 
   <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8">
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-2">
-        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.location}</h4>
+      <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-500" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8m3.5-9c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5m-7 0c.83 0 1.5-.67 1.5-1.5S9.33 9 8.5 9 7 9.67 7 10.5 7.67 12 8.5 12m3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.location}</h4>
+        </div>
         <p class="text-ink text-lg font-semibold">{t.locationValue}</p>
         <p class="text-ink-muted text-sm">{t.locationSub}</p>
       </div>
-      <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-2">
-        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.experience}</h4>
+      <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-500" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14l4 4V5c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v3z"/>
+          </svg>
+          <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.experience}</h4>
+        </div>
         <p class="text-ink text-lg font-semibold">{t.experienceValue}</p>
         <p class="text-ink-muted text-sm">{t.experienceSub}</p>
       </div>
-      <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-2">
-        <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.education}</h4>
+      <div class="bg-surface-1 border border-hairline rounded-lg p-6 space-y-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-500" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6.18L23 9 12 3zM5 9.08L12 12.7l7-3.62V9.08L12 12.7 5 9.08z"/>
+          </svg>
+          <h4 class="text-sm font-semibold text-accent-500 uppercase tracking-wide">{t.education}</h4>
+        </div>
         <p class="text-ink text-lg font-semibold">{t.educationValue}</p>
         <p class="text-ink-muted text-sm">{t.educationSub}</p>
       </div>
