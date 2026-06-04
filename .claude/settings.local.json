@@ -71,7 +71,11 @@
       "PowerShell(Get-NetTCPConnection *)",
       "Bash(curl -s http://localhost:4322/pt/contests)",
       "Bash(xargs grep -l \"space-y-\")",
-      "PowerShell(Start-Process \"msedge\" \"http://localhost:4323/experience\")"
+      "PowerShell(Start-Process \"msedge\" \"http://localhost:4323/experience\")",
+      "Bash(git restore *)",
+      "PowerShell(Start-Process \"msedge\" \"http://localhost:4323/pt/experience\")",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\public\\\\certificates\" | Where-Object {$_.Name -match \"\\(FullStack|TADS|IA-\\)\" } | Select-Object Name)",
+      "PowerShell(Rename-Item *)"
     ]
   }
 }

@@ -26,9 +26,8 @@ const education = [
     year: 'Mai 2024 – Nov 2025',
     description: 'Especialização em desenvolvimento full stack com foco em tecnologias cloud e arquitetura moderna.',
     type: 'pos-graduacao',
-    certificateUrl: '/certificates/FullStack-Cloud-Computing.png',
-    certificatePages: ['/certificates/FullStack-Cloud-Computing.png'],
-    certificatePdf: '/certificates/FullStack-Cloud-Computing.pdf',
+    certificateUrl: '/certificates/FullStack-Cloud-Computing-p1.png',
+    certificatePages: ['/certificates/FullStack-Cloud-Computing-p1.png'],
   },
   {
     degree: 'Especialista em Inteligência Artificial e Tecnologia na Gestão Pública',
@@ -56,7 +55,7 @@ const education = [
     institution: 'Instituto Federal de Educação, Ciência e Tecnologia do Amazonas (IFAM)',
     year: '2018 – 2023',
     description: 'Formação técnica em análise e desenvolvimento de sistemas, com foco em desenvolvimento de software.',
-    type: 'tecnico',
+    type: 'graduacao',
     certificatePdf: '/certificates/TADS.pdf',
   },
   {
@@ -138,13 +137,13 @@ const icons: Record<string, string> = {
                   </button>
                 )}
                 {edu.certificatePdf && (
-                  <a href={edu.certificatePdf} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors">
+                  <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificatePdf} data-is-pdf="true">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                       <polyline points="14 2 14 8 20 8"/>
                     </svg>
-                    <span class="hidden sm:inline">PDF</span>
-                  </a>
+                    <span class="hidden sm:inline">Ver</span>
+                  </button>
                 )}
               </div>
             </div>
@@ -164,7 +163,8 @@ const icons: Record<string, string> = {
       </button>
     </div>
     <div class="flex flex-col items-center gap-4">
-      <img id="certImage" src="" alt="Certificado" class="max-w-full h-auto border border-hairline rounded-lg" />
+      <img id="certImage" src="" alt="Certificado" class="max-w-full h-auto border border-hairline rounded-lg hidden" />
+      <iframe id="certPdf" src="" title="Certificado PDF" class="hidden w-full border border-hairline rounded-lg" style="height: 600px;"></iframe>
 
       <!-- Navegação de páginas -->
       <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-ink-muted">
@@ -180,28 +180,13 @@ const icons: Record<string, string> = {
   dialog#certModal::backdrop {
     background-color: rgba(0, 0, 0, 0.8);
   }
-
-  /* Ocultar botões de download, print e save do PDF viewer */
-  #pdfViewer {
-    filter: brightness(1);
-  }
-
-  /* Overlay invisível para bloquear cliques em botões de download */
-  #pdfViewer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 120px;
-    pointer-events: auto;
-  }
 </style>
 
 <script>
   const modal = document.getElementById('certModal') as HTMLDialogElement;
   const closeBtn = document.getElementById('closeModal');
   const certImage = document.getElementById('certImage') as HTMLImageElement;
+  const certPdf = document.getElementById('certPdf') as HTMLIFrameElement;
   const pageNav = document.getElementById('pageNav');
   const pageIndicator = document.getElementById('pageIndicator');
   const prevPageBtn = document.getElementById('prevPage');
@@ -210,6 +195,7 @@ const icons: Record<string, string> = {
 
   let currentPages: string[] = [];
   let currentPageIndex = 0;
+  let isPdfMode = false;
 
   function updatePageDisplay() {
     if (currentPages.length === 0) return;
@@ -231,30 +217,44 @@ const icons: Record<string, string> = {
 
   certButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
+      const isPdf = btn.hasAttribute('data-is-pdf');
       const pagesJson = btn.getAttribute('data-pages');
-      const firstImageUrl = btn.getAttribute('data-pdf');
+      const fileUrl = btn.getAttribute('data-pdf');
 
-      if (pagesJson) {
-        currentPages = JSON.parse(pagesJson);
-      } else if (firstImageUrl) {
-        currentPages = [firstImageUrl];
+      certImage.classList.add('hidden');
+      certPdf.classList.add('hidden');
+
+      if (isPdf && fileUrl) {
+        isPdfMode = true;
+        certPdf.src = fileUrl;
+        certPdf.classList.remove('hidden');
+        pageNav!.classList.add('hidden');
+      } else {
+        isPdfMode = false;
+        if (pagesJson) {
+          currentPages = JSON.parse(pagesJson);
+        } else if (fileUrl) {
+          currentPages = [fileUrl];
+        }
+
+        currentPageIndex = 0;
+        updatePageDisplay();
+        certImage.classList.remove('hidden');
       }
 
-      currentPageIndex = 0;
-      updatePageDisplay();
       modal.showModal();
     });
   });
 
   prevPageBtn?.addEventListener('click', () => {
-    if (currentPageIndex > 0) {
+    if (!isPdfMode && currentPageIndex > 0) {
       currentPageIndex--;
       updatePageDisplay();
     }
   });
 
   nextPageBtn?.addEventListener('click', () => {
-    if (currentPageIndex < currentPages.length - 1) {
+    if (!isPdfMode && currentPageIndex < currentPages.length - 1) {
       currentPageIndex++;
       updatePageDisplay();
     }
