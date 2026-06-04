@@ -54,6 +54,52 @@ const { title, variant = 'primary' } = Astro.props;
 <button class="..."></button>
 ```
 
+### 🌓 Dark Mode & Light Mode (OBRIGATÓRIO)
+
+**Sempre que adicionar novo CSS ou componente, implemente AMBOS os modos:**
+
+**1. Use classes Tailwind com prefixo `dark:`**
+```astro
+<!-- BG: preto no dark, branco no light -->
+<div class="bg-white dark:bg-[#0a0a0a]">
+  <!-- Texto: preto no light, branco no dark -->
+  <p class="text-black dark:text-white">Conteúdo</p>
+</div>
+```
+
+**2. Cores predefinidas já têm suporte:**
+```astro
+<!-- Use a paleta do tailwind.config.mjs -->
+<div class="bg-canvas"><!-- automático: #fafafa light, #0a0a0a dark --></div>
+<span class="text-ink"><!-- automático: #0a0a0a light, #fafafa dark --></span>
+<button class="bg-accent-500"><!-- #84cc16 em ambos --></button>
+```
+
+**3. CSS customizado? Adicione ambas as variantes:**
+```css
+/* ❌ ERRADO */
+.my-component { background: #fafafa; }
+
+/* ✅ CORRETO */
+.my-component {
+  @apply bg-white dark:bg-[#0a0a0a];
+}
+
+/* OU em CSS puro */
+.my-component {
+  background: #fafafa; /* light */
+}
+@media (prefers-color-scheme: dark) {
+  .my-component {
+    background: #0a0a0a; /* dark */
+  }
+}
+```
+
+**4. Teste AMBOS os modos:**
+- Dev: abra DevTools → `Ctrl+Shift+P` → "dark" → selecione tema
+- Ou clique no botão de tema no site se disponível
+
 ## 📋 Adicionando Conteúdo
 
 ### Cursos
