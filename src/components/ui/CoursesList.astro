@@ -141,7 +141,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-grid>
       {courses.map((course) => (
-        <div data-course={JSON.stringify({ technologies: course.technologies, platform: course.platform })} data-date={parseDate(course.completedAt)}>
+        <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform })} data-date={parseDate(course.completedAt)}>
           <CourseCard course={course} lang={lang} />
         </div>
       ))}
@@ -180,20 +180,6 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     allCourses.push(data);
     courseCards.set(index, card);
   });
-
-  // Get course name from the actual course object
-  const getCourseNames = () => {
-    const names = new Map();
-    coursesGrid?.querySelectorAll('[data-course]').forEach((card, index) => {
-      const courseObj = courses[index];
-      if (courseObj) {
-        names.set(index, courseObj.name.toLowerCase());
-      }
-    });
-    return names;
-  };
-
-  const courseNames = getCourseNames();
 
   if (filterContainer) {
     let params = new URLSearchParams(window.location.search);
@@ -328,7 +314,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const data = JSON.parse(card.getAttribute('data-course') || '{}');
         const technologies = data.technologies || [];
         const platform = data.platform || '';
-        const courseName = courseNames.get(index) || '';
+        const courseName = data.name || '';
 
         const techMatch = !selectedTech ||
           technologies.some((t) => t.toLowerCase() === selectedTech.toLowerCase());
