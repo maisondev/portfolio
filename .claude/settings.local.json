@@ -69,7 +69,8 @@
       "Bash(npx chromium-cli *)",
       "PowerShell(Test-Path *)",
       "PowerShell(Get-NetTCPConnection *)",
-      "Bash(curl -s http://localhost:4322/pt/contests)"
+      "Bash(curl -s http://localhost:4322/pt/contests)",
+      "Bash(xargs grep -l \"space-y-\")"
     ]
   }
 }
