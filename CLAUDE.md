@@ -100,6 +100,28 @@ Renderizado em: `CoursesList.astro` (com filtros por tech/platform) → `CourseC
 2. `src/i18n/{new-lang}.json` → cópia com traduções
 3. `src/i18n/routes.ts` → mapeamento de rotas se diferentes
 
+### ⚠️ IMPORTANTE: Novo Texto = Tradução Obrigatória
+
+**Sempre que adicionar novo texto ao site:**
+- ✅ Adicione versão em **português** primeiro
+- ✅ **Imediatamente após**, adicione versão em **inglês**
+- ✅ Se o texto é global (header, footer, menu) → `src/i18n/{pt,en}.json`
+- ✅ Se o texto é dentro de componentes → use `{lang === 'pt' ? 'texto-pt' : 'texto-en'}`
+
+**Exemplo em componente:**
+```astro
+<h3>{lang === 'pt' ? 'Meus Projetos' : 'My Projects'}</h3>
+```
+
+**Exemplo em JSON i18n:**
+```json
+// src/i18n/pt.json
+{ "about_title": "Sobre Mim" }
+
+// src/i18n/en.json
+{ "about_title": "About Me" }
+```
+
 ## 🚀 Comandos Principais
 
 ```bash
