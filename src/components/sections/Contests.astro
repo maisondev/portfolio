@@ -475,6 +475,33 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
           ))}
         </div>
       </div>
+
+      {/* Filter by Status (Vagas vs Reserva) */}
+      <div class="space-y-3">
+        <h3 class={labelField('status')}>
+          {lang === 'pt' ? 'Filtrar por tipo de aprovação' : 'Filter by approval type'}
+        </h3>
+        <div class="flex flex-wrap gap-2.5" data-status-filters>
+          <button
+            data-filter-status=""
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-white hover:bg-primary-hover dark:bg-primary dark:hover:bg-primary-hover"
+          >
+            {lang === 'pt' ? 'Todos' : 'All'}
+          </button>
+          <button
+            data-filter-status="vagas"
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
+          >
+            {lang === 'pt' ? 'Vagas Diretas' : 'Direct Vacancies'}
+          </button>
+          <button
+            data-filter-status="reserva"
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
+          >
+            {lang === 'pt' ? 'Cadastro de Reserva' : 'Reserve List'}
+          </button>
+        </div>
+      </div>
     </div>
 
     {/* Contests Grid */}
@@ -484,9 +511,18 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
         const badgeType = getTypeBadge(contest.totalVacancies || 0, contest.classification || '');
         const isFirstPlace = contest.classification?.includes('1º') || contest.classification?.includes('1st');
         const hasDocuments = contest.documents && contest.documents.length > 0;
+        const classNum = contest.classification ? parseInt(contest.classification.split('º')[0].split('th')[0]) : 0;
+        const isReserva = classNum > (contest.totalVacancies || 0);
+        const statusType = isReserva ? 'reserva' : 'vagas';
 
         return (
-          <div class={`group bg-surface-1 dark:bg-surface-2 border rounded-lg p-6 transition-all duration-300 flex flex-col ${isFirstPlace ? 'border-accent-500/40 hover:border-accent-500 dark:border-accent-500/30 dark:hover:border-accent-500' : 'border-hairline hover:border-primary/50 dark:border-hairline dark:hover:border-primary/50'} hover:shadow-lg dark:hover:shadow-lg/20`}>
+          <div
+            class={`group bg-surface-1 dark:bg-surface-2 border rounded-lg p-6 transition-all duration-300 flex flex-col ${isFirstPlace ? 'border-accent-500/40 hover:border-accent-500 dark:border-accent-500/30 dark:hover:border-accent-500' : 'border-hairline hover:border-primary/50 dark:border-hairline dark:hover:border-primary/50'} hover:shadow-lg dark:hover:shadow-lg/20`}
+            data-year={contest.year}
+            data-banca={contest.banca}
+            data-org={contest.organization}
+            data-status={statusType}
+          >
 
             {/* Header */}
             <div class="space-y-3 pb-4 border-b border-hairline dark:border-hairline">
@@ -678,6 +714,91 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
       docModal.close();
       docFrame.src = '';
     }
+  });
+
+  // ==================== FILTROS ====================
+  const filterContainer = document.querySelector('[data-contests-filter]');
+  const contestsGrid = document.querySelector('[data-contests-grid]');
+  const allContestCards = Array.from(document.querySelectorAll('[data-contests-grid] > div'));
+
+  let activeFilters = {
+    year: '',
+    banca: '',
+    org: '',
+    status: ''
+  };
+
+  function applyFilters() {
+    allContestCards.forEach((card) => {
+      let shouldShow = true;
+
+      // Filtro por Ano
+      if (activeFilters.year) {
+        const cardYear = card.getAttribute('data-year');
+        shouldShow = shouldShow && cardYear === activeFilters.year;
+      }
+
+      // Filtro por Banca
+      if (activeFilters.banca) {
+        const cardBanca = card.getAttribute('data-banca');
+        shouldShow = shouldShow && cardBanca === activeFilters.banca;
+      }
+
+      // Filtro por Organização
+      if (activeFilters.org) {
+        const cardOrg = card.getAttribute('data-org');
+        shouldShow = shouldShow && cardOrg === activeFilters.org;
+      }
+
+      // Filtro por Status (Vagas vs Reserva)
+      if (activeFilters.status) {
+        const cardStatus = card.getAttribute('data-status');
+        shouldShow = shouldShow && cardStatus === activeFilters.status;
+      }
+
+      card.style.display = shouldShow ? '' : 'none';
+    });
+  }
+
+  // Event listeners para os filtros
+  const filterBtns = filterContainer?.querySelectorAll('.filter-btn');
+  filterBtns?.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const yearFilter = btn.getAttribute('data-filter-year');
+      const bancaFilter = btn.getAttribute('data-filter-banca');
+      const orgFilter = btn.getAttribute('data-filter-org');
+      const statusFilter = btn.getAttribute('data-filter-status');
+
+      // Atualizar filtro ativo
+      if (yearFilter !== null) {
+        activeFilters.year = yearFilter;
+        // Remover classe ativa de outros botões de ano
+        document.querySelectorAll('[data-filter-year]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
+        btn.classList.add('bg-primary', 'text-white');
+      }
+
+      if (bancaFilter !== null) {
+        activeFilters.banca = bancaFilter;
+        document.querySelectorAll('[data-filter-banca]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
+        btn.classList.add('bg-primary', 'text-white');
+      }
+
+      if (orgFilter !== null) {
+        activeFilters.org = orgFilter;
+        document.querySelectorAll('[data-filter-org]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
+        btn.classList.add('bg-primary', 'text-white');
+      }
+
+      if (statusFilter !== null) {
+        activeFilters.status = statusFilter;
+        document.querySelectorAll('[data-filter-status]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
+        btn.classList.add('bg-primary', 'text-white');
+      }
+
+      applyFilters();
+    });
   });
 </script>
 
