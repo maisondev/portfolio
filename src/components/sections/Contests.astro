@@ -562,6 +562,16 @@ const uniqueYears = Array.from(new Set(contests.map(c => c.year))).sort((a, b) =
 const uniqueBancas = Array.from(new Set(contests.map(c => c.banca)));
 const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)));
 
+// Funções para contar filtros
+const countByYear = (year: string) => contests.filter(c => c.year === year).length;
+const countByBanca = (banca: string) => contests.filter(c => c.banca === banca).length;
+const countByOrg = (org: string) => contests.filter(c => c.organization === org).length;
+const countByStatus = (status: string) => {
+  if (status === 'vagas') return contestsVagas;
+  if (status === 'reserva') return contestsReserva;
+  return totalContests;
+};
+
 const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-widest`;
 
 // Estatísticas de concursos
@@ -614,14 +624,14 @@ const contestsReserva = contests.filter(c => {
             data-filter-year=""
             class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
-            {lang === 'pt' ? 'Todos' : 'All'}
+            {lang === 'pt' ? 'Todos' : 'All'} <span class="font-semibold">({totalContests})</span>
           </button>
           {uniqueYears.map((year) => (
             <button
               data-filter-year={year}
               class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
             >
-              {year}
+              {year} <span class="font-semibold">({countByYear(year)})</span>
             </button>
           ))}
         </div>
@@ -637,14 +647,14 @@ const contestsReserva = contests.filter(c => {
             data-filter-banca=""
             class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
-            {lang === 'pt' ? 'Todas' : 'All'}
+            {lang === 'pt' ? 'Todas' : 'All'} <span class="font-semibold">({totalContests})</span>
           </button>
           {uniqueBancas.map((banca) => (
             <button
               data-filter-banca={banca}
               class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
             >
-              {banca.split(' - ')[1] || banca}
+              {banca.split(' - ')[1] || banca} <span class="font-semibold">({countByBanca(banca)})</span>
             </button>
           ))}
         </div>
@@ -660,14 +670,14 @@ const contestsReserva = contests.filter(c => {
             data-filter-org=""
             class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
-            {lang === 'pt' ? 'Todas' : 'All'}
+            {lang === 'pt' ? 'Todas' : 'All'} <span class="font-semibold">({totalContests})</span>
           </button>
           {uniqueOrganizations.map((org) => (
             <button
               data-filter-org={org}
               class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
             >
-              {org}
+              {org} <span class="font-semibold">({countByOrg(org)})</span>
             </button>
           ))}
         </div>
@@ -683,19 +693,19 @@ const contestsReserva = contests.filter(c => {
             data-filter-status=""
             class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
-            {lang === 'pt' ? 'Todos' : 'All'}
+            {lang === 'pt' ? 'Todos' : 'All'} <span class="font-semibold">({totalContests})</span>
           </button>
           <button
             data-filter-status="vagas"
             class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
           >
-            {lang === 'pt' ? 'Vagas Diretas' : 'Direct Vacancies'}
+            {lang === 'pt' ? 'Vagas Diretas' : 'Direct Vacancies'} <span class="font-semibold">({contestsVagas})</span>
           </button>
           <button
             data-filter-status="reserva"
             class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
           >
-            {lang === 'pt' ? 'Cadastro de Reserva' : 'Reserve List'}
+            {lang === 'pt' ? 'Cadastro de Reserva' : 'Reserve List'} <span class="font-semibold">({contestsReserva})</span>
           </button>
         </div>
       </div>
