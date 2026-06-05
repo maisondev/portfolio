@@ -415,7 +415,7 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
         <div class="flex flex-wrap gap-2.5" data-year-filters>
           <button
             data-filter-year=""
-            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-white hover:bg-primary-hover dark:bg-primary dark:hover:bg-primary-hover"
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
             {lang === 'pt' ? 'Todos' : 'All'}
           </button>
@@ -438,7 +438,7 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
         <div class="flex flex-wrap gap-2.5" data-banca-filters>
           <button
             data-filter-banca=""
-            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-white hover:bg-primary-hover dark:bg-primary dark:hover:bg-primary-hover"
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
             {lang === 'pt' ? 'Todas' : 'All'}
           </button>
@@ -461,7 +461,7 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
         <div class="flex flex-wrap gap-2.5" data-org-filters>
           <button
             data-filter-org=""
-            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-white hover:bg-primary-hover dark:bg-primary dark:hover:bg-primary-hover"
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
             {lang === 'pt' ? 'Todas' : 'All'}
           </button>
@@ -484,7 +484,7 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
         <div class="flex flex-wrap gap-2.5" data-status-filters>
           <button
             data-filter-status=""
-            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-white hover:bg-primary-hover dark:bg-primary dark:hover:bg-primary-hover"
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
           >
             {lang === 'pt' ? 'Todos' : 'All'}
           </button>
@@ -774,27 +774,42 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
       // Atualizar filtro ativo
       if (yearFilter !== null) {
         activeFilters.year = yearFilter;
-        // Remover classe ativa de outros botões de ano
-        document.querySelectorAll('[data-filter-year]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
-        btn.classList.add('bg-primary', 'text-white');
+        document.querySelectorAll('[data-filter-year]').forEach(b => {
+          b.classList.remove('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+          b.classList.add('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
+        });
+        btn.classList.add('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+        btn.classList.remove('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
       }
 
       if (bancaFilter !== null) {
         activeFilters.banca = bancaFilter;
-        document.querySelectorAll('[data-filter-banca]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
-        btn.classList.add('bg-primary', 'text-white');
+        document.querySelectorAll('[data-filter-banca]').forEach(b => {
+          b.classList.remove('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+          b.classList.add('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
+        });
+        btn.classList.add('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+        btn.classList.remove('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
       }
 
       if (orgFilter !== null) {
         activeFilters.org = orgFilter;
-        document.querySelectorAll('[data-filter-org]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
-        btn.classList.add('bg-primary', 'text-white');
+        document.querySelectorAll('[data-filter-org]').forEach(b => {
+          b.classList.remove('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+          b.classList.add('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
+        });
+        btn.classList.add('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+        btn.classList.remove('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
       }
 
       if (statusFilter !== null) {
         activeFilters.status = statusFilter;
-        document.querySelectorAll('[data-filter-status]').forEach(b => b.classList.remove('bg-primary', 'text-white'));
-        btn.classList.add('bg-primary', 'text-white');
+        document.querySelectorAll('[data-filter-status]').forEach(b => {
+          b.classList.remove('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+          b.classList.add('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
+        });
+        btn.classList.add('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+        btn.classList.remove('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
       }
 
       applyFilters();
