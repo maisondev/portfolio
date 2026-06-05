@@ -770,9 +770,10 @@ const contestsReserva = contests.filter(c => {
             </div>
 
             {/* Details Section */}
-            <div class="flex-grow py-3 space-y-3">
-              {/* Banca e Ano */}
-              <div class="grid grid-cols-2 gap-4">
+            <div class="flex-grow py-3">
+              {/* Banca, Ano, Ranking, Vagas e Salário - Grid 3 colunas */}
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-1">
+                {/* Coluna 1: Banca */}
                 <div>
                   <p class={labelField('banca')}>
                     {lang === 'pt' ? 'Banca' : 'Organization'}
@@ -784,32 +785,36 @@ const contestsReserva = contests.filter(c => {
                   )}
                 </div>
 
+                {/* Coluna 2: Ano */}
                 <div>
                   <p class={labelField('ano')}>
                     {lang === 'pt' ? 'Ano' : 'Year'}
                   </p>
                   <p class={valueField('ano')}>{contest.year || '—'}</p>
                 </div>
-              </div>
 
-              {/* Ranking, Vagas e Salário */}
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-2 border-t border-hairline/50 dark:border-hairline/50">
-                <div>
+                {/* Coluna 3: Vazio na primeira linha */}
+                <div class="border-t border-hairline/50 dark:border-hairline/50 md:border-t-0"></div>
+
+                {/* Coluna 1: Ranking */}
+                <div class="border-t border-hairline/50 dark:border-hairline/50 md:border-t-0 pt-3 md:pt-0">
                   <p class={labelField('ranking')}>
                     {lang === 'pt' ? 'Ranking' : 'Ranking'}
                   </p>
                   <p class={valueField('ranking')}>{contest.classification || '—'}</p>
                 </div>
 
-                <div>
+                {/* Coluna 2: Vagas */}
+                <div class="border-t border-hairline/50 dark:border-hairline/50 md:border-t-0 pt-3 md:pt-0">
                   <p class={labelField('vagas')}>
                     {lang === 'pt' ? 'Vagas' : 'Vacancies'}
                   </p>
                   <p class={valueField('vagas')}>{contest.totalVacancies || '—'}</p>
                 </div>
 
+                {/* Coluna 3: Salário */}
                 {contest.salary && (
-                  <div>
+                  <div class="border-t border-hairline/50 dark:border-hairline/50 md:border-t-0 pt-3 md:pt-0">
                     <p class={labelField('salary')}>
                       {lang === 'pt' ? 'Salário' : 'Salary'}
                     </p>
