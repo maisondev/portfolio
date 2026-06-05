@@ -573,6 +573,7 @@ const countByStatus = (status: string) => {
 };
 
 const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark:text-ink-muted uppercase tracking-widest`;
+const valueField = (label: string) => `text-sm text-ink dark:text-white mt-1.5`;
 
 // Estatísticas de concursos
 const totalContests = contests.length;
@@ -745,7 +746,7 @@ const contestsReserva = contests.filter(c => {
                     <p class={labelField('org')}>
                       {lang === 'pt' ? 'Órgão' : 'Agency'}
                     </p>
-                    <p class="text-accent-500 dark:text-accent-400 font-semibold text-sm mt-1.5">{contest.organization}</p>
+                    <p class={valueField('org')}>{contest.organization}</p>
                   </div>
                 </div>
 
@@ -777,9 +778,9 @@ const contestsReserva = contests.filter(c => {
                     {lang === 'pt' ? 'Banca' : 'Organization'}
                   </p>
                   {contest.concursoLink ? (
-                    <a href={contest.concursoLink} target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-primary hover:text-primary-hover dark:text-primary dark:hover:text-primary-hover transition-colors mt-1.5 inline-block underline decoration-1 underline-offset-2">{contest.banca || '—'}</a>
+                    <a href={contest.concursoLink} target="_blank" rel="noopener noreferrer" class={`${valueField('banca')} text-primary hover:text-primary-hover dark:text-primary dark:hover:text-primary-hover transition-colors inline-block underline decoration-1 underline-offset-2`}>{contest.banca || '—'}</a>
                   ) : (
-                    <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.banca || '—'}</p>
+                    <p class={valueField('banca')}>{contest.banca || '—'}</p>
                   )}
                 </div>
 
@@ -787,7 +788,7 @@ const contestsReserva = contests.filter(c => {
                   <p class={labelField('ano')}>
                     {lang === 'pt' ? 'Ano' : 'Year'}
                   </p>
-                  <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.year || '—'}</p>
+                  <p class={valueField('ano')}>{contest.year || '—'}</p>
                 </div>
               </div>
 
@@ -797,14 +798,14 @@ const contestsReserva = contests.filter(c => {
                   <p class={labelField('ranking')}>
                     {lang === 'pt' ? 'Ranking' : 'Ranking'}
                   </p>
-                  <p class="text-sm font-semibold text-accent-500 dark:text-accent-400 mt-1.5">{contest.classification || '—'}</p>
+                  <p class={valueField('ranking')}>{contest.classification || '—'}</p>
                 </div>
 
                 <div>
                   <p class={labelField('vagas')}>
                     {lang === 'pt' ? 'Vagas' : 'Vacancies'}
                   </p>
-                  <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.totalVacancies || '—'}</p>
+                  <p class={valueField('vagas')}>{contest.totalVacancies || '—'}</p>
                 </div>
               </div>
 
@@ -814,7 +815,7 @@ const contestsReserva = contests.filter(c => {
                   <p class={labelField('salary')}>
                     {lang === 'pt' ? 'Salário' : 'Salary'}
                   </p>
-                  <p class="text-sm font-semibold text-ink dark:text-white mt-1.5">{contest.salary || '—'}</p>
+                  <p class={valueField('salary')}>{contest.salary || '—'}</p>
                 </div>
               )}
             </div>
