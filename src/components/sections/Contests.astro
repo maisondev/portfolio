@@ -589,8 +589,19 @@ const contestsReserva = contests.filter(c => {
 
 <section id={id} class="bg-canvas dark:bg-canvas py-16 md:py-24">
   <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-6 md:px-8 space-y-12" data-contests-filter>
+    {/* Mobile Toggle Button */}
+    <button
+      id="toggleFilters"
+      class="md:hidden w-full bg-primary dark:bg-primary text-white dark:text-white px-4 py-3 rounded-lg text-sm font-medium transition-all hover:bg-primary-hover dark:hover:bg-primary-hover flex items-center justify-between"
+    >
+      <span>{lang === 'pt' ? 'Filtros e Ordenação' : 'Filters & Sorting'}</span>
+      <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 transition-transform">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+
     {/* Filters and Sorting Panel */}
-    <div class="bg-surface-1 dark:bg-surface-2 border border-hairline dark:border-hairline rounded-xl p-6 md:p-8 space-y-6">
+    <div id="filtersPanel" class="hidden md:block bg-surface-1 dark:bg-surface-2 border border-hairline dark:border-hairline rounded-xl p-6 md:p-8 space-y-6">
       {/* Filter by Year */}
       <div class="space-y-3">
         <h3 class={labelField('year')}>
@@ -722,6 +733,12 @@ const contestsReserva = contests.filter(c => {
             class="sort-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
           >
             {lang === 'pt' ? 'Salário (Maior)' : 'Salary (Highest)'}
+          </button>
+          <button
+            data-sort="type"
+            class="sort-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
+          >
+            {lang === 'pt' ? 'Tipo (Vagas 1º)' : 'Type (Direct 1st)'}
           </button>
         </div>
       </div>
@@ -949,6 +966,18 @@ const contestsReserva = contests.filter(c => {
     }
   });
 
+  // ==================== MOBILE FILTERS TOGGLE ====================
+  const toggleBtn = document.getElementById('toggleFilters');
+  const filtersPanel = document.getElementById('filtersPanel');
+  const toggleIcon = document.getElementById('toggleIcon');
+
+  if (toggleBtn && filtersPanel) {
+    toggleBtn.addEventListener('click', () => {
+      filtersPanel.classList.toggle('hidden');
+      toggleIcon?.classList.toggle('rotate-180');
+    });
+  }
+
   // ==================== ORDENAÇÃO ====================
   const sortButtons = document.querySelectorAll('.sort-btn');
   const sortContestsGrid = document.querySelector('[data-contests-grid]');
@@ -986,6 +1015,14 @@ const contestsReserva = contests.filter(c => {
           const aSalary = parseFloat(a.getAttribute('data-salary')!.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
           const bSalary = parseFloat(b.getAttribute('data-salary')!.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
           return bSalary - aSalary;
+        });
+      } else if (sortType === 'type') {
+        cards.sort((a, b) => {
+          const aStatus = a.getAttribute('data-status');
+          const bStatus = b.getAttribute('data-status');
+          if (aStatus === 'vagas' && bStatus !== 'vagas') return -1;
+          if (aStatus !== 'vagas' && bStatus === 'vagas') return 1;
+          return 0;
         });
       }
 
