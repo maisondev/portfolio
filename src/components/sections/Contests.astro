@@ -4,7 +4,7 @@ import { Trophy } from '@lucide/astro';
 
 interface Document {
   title: string;
-  pages: string[];
+  url: string;
 }
 
 interface Contest {
@@ -37,17 +37,11 @@ const contests: Contest[] = lang === 'pt' ? [
     documents: [
       {
         title: 'Edital',
-        pages: [
-          '/documents/contests/edital-tecnico-municipal-2010-page1.jpg',
-          '/documents/contests/edital-tecnico-municipal-2010-page2.jpg'
-        ]
+        url: '/documents/contests/edital-tecnico-municipal-2010.pdf'
       },
       {
         title: 'Diário da Aprovação',
-        pages: [
-          '/documents/contests/dom-tecnico-municipal-2010-page1.jpg',
-          '/documents/contests/dom-tecnico-municipal-2010-page2.jpg'
-        ]
+        url: '/documents/contests/dom-tecnico-municipal-2010.pdf'
       }
     ],
   },
@@ -103,17 +97,11 @@ const contests: Contest[] = lang === 'pt' ? [
     documents: [
       {
         title: 'Edital',
-        pages: [
-          '/documents/contests/edital-tecnico-municipal-2010-page1.jpg',
-          '/documents/contests/edital-tecnico-municipal-2010-page2.jpg'
-        ]
+        url: '/documents/contests/edital-tecnico-municipal-2010.pdf'
       },
       {
         title: 'Publication Certificate',
-        pages: [
-          '/documents/contests/dom-tecnico-municipal-2010-page1.jpg',
-          '/documents/contests/dom-tecnico-municipal-2010-page2.jpg'
-        ]
+        url: '/documents/contests/dom-tecnico-municipal-2010.pdf'
       }
     ],
   },
@@ -352,10 +340,11 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
               {hasDocuments && contest.documents!.length > 0 ? (
                 <div class="flex flex-wrap gap-2 mt-3">
                   {contest.documents!.map((doc) => (
-                    <button
-                      class="doc-btn inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
-                      data-doc-title={doc.title}
-                      data-doc-pages={JSON.stringify(doc.pages)}
+                    <a
+                      href={doc.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="doc-link inline-flex items-center gap-2 bg-surface-2 dark:bg-surface-3 hover:bg-surface-3 dark:hover:bg-surface-4 text-primary dark:text-primary hover:text-primary-hover dark:hover:text-primary-hover text-xs px-3 py-2 rounded-md transition-colors font-medium"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 flex-shrink-0">
                         <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
@@ -363,7 +352,7 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
                         <polyline points="7 3 7 8 15 8"/>
                       </svg>
                       <span>{doc.title}</span>
-                    </button>
+                    </a>
                   ))}
                 </div>
               ) : (
@@ -378,117 +367,3 @@ const labelField = (label: string) => `text-xs font-semibold text-ink-muted dark
   </div>
 </section>
 
-{/* Modal para visualizar documento */}
-<dialog id="docModal" class="backdrop:bg-black/80 rounded-xl border border-hairline-strong bg-surface-1 dark:bg-surface-2 p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
-  <div class="flex justify-between items-center mb-4 sticky top-0 bg-surface-1 dark:bg-surface-2 z-50">
-    <h3 class="text-lg font-semibold text-ink dark:text-white" id="docTitle">Visualizar Documento</h3>
-    <button id="closeDocModal" class="text-ink-muted dark:text-ink-muted hover:text-ink dark:hover:text-white transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
-        <path d="M18 6L6 18M6 6l12 12"/>
-      </svg>
-    </button>
-  </div>
-  <div class="flex flex-col items-center gap-4">
-    <img id="docImage" src="" alt="Documento" class="max-w-full h-auto border border-hairline dark:border-hairline rounded-lg" />
-
-    {/* Navegação de páginas */}
-    <div id="pageNav" class="hidden flex items-center gap-4 text-sm text-ink-muted dark:text-ink-muted">
-      <button id="prevDocPage" class="px-3 py-1 border border-hairline dark:border-hairline rounded-md hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors">← {lang === 'pt' ? 'Anterior' : 'Previous'}</button>
-      <span id="pageIndicator" class="text-ink-tertiary dark:text-ink-muted">Página 1 de 1</span>
-      <button id="nextDocPage" class="px-3 py-1 border border-hairline dark:border-hairline rounded-md hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors">{lang === 'pt' ? 'Próxima' : 'Next'} →</button>
-    </div>
-  </div>
-</dialog>
-
-<style>
-  dialog#docModal::backdrop {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-</style>
-
-<script>
-  const docModal = document.getElementById('docModal') as HTMLDialogElement;
-  const closeBtnDoc = document.getElementById('closeDocModal');
-  const docImage = document.getElementById('docImage') as HTMLImageElement;
-  const pageNav = document.getElementById('pageNav');
-  const pageIndicator = document.getElementById('pageIndicator');
-  const prevPageBtn = document.getElementById('prevDocPage');
-  const nextPageBtn = document.getElementById('nextDocPage');
-  const docTitle = document.getElementById('docTitle');
-  const docButtons = document.querySelectorAll('.doc-btn');
-
-  let currentPages: string[] = [];
-  let currentPageIndex = 0;
-
-  function updatePageDisplay() {
-    if (currentPages.length === 0) return;
-
-    docImage.src = currentPages[currentPageIndex];
-    pageIndicator!.textContent = `Página ${currentPageIndex + 1} de ${currentPages.length}`;
-
-    if (currentPages.length > 1) {
-      pageNav!.classList.remove('hidden');
-      prevPageBtn!.disabled = currentPageIndex === 0;
-      nextPageBtn!.disabled = currentPageIndex === currentPages.length - 1;
-
-      prevPageBtn!.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
-      nextPageBtn!.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
-    } else {
-      pageNav!.classList.add('hidden');
-    }
-  }
-
-  docButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const title = btn.getAttribute('data-doc-title');
-      const pagesJson = btn.getAttribute('data-doc-pages');
-
-      docTitle!.textContent = `${title}`;
-
-      if (pagesJson) {
-        currentPages = JSON.parse(pagesJson);
-      }
-
-      currentPageIndex = 0;
-      updatePageDisplay();
-      docModal.showModal();
-    });
-  });
-
-  prevPageBtn?.addEventListener('click', () => {
-    if (currentPageIndex > 0) {
-      currentPageIndex--;
-      updatePageDisplay();
-    }
-  });
-
-  nextPageBtn?.addEventListener('click', () => {
-    if (currentPageIndex < currentPages.length - 1) {
-      currentPageIndex++;
-      updatePageDisplay();
-    }
-  });
-
-  closeBtnDoc?.addEventListener('click', () => {
-    docModal.close();
-  });
-
-  docModal?.addEventListener('click', (e) => {
-    if (e.target === docModal) {
-      docModal.close();
-    }
-  });
-
-  // Navegação com setas
-  document.addEventListener('keydown', (e) => {
-    if (docModal?.open) {
-      if (e.key === 'ArrowLeft') {
-        prevPageBtn?.click();
-      } else if (e.key === 'ArrowRight') {
-        nextPageBtn?.click();
-      } else if (e.key === 'Escape') {
-        docModal.close();
-      }
-    }
-  });
-</script>
