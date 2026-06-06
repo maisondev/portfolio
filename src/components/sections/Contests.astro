@@ -348,16 +348,18 @@ const contestsReserva = contests.filter(c => {
     docFrame.src = '';
   });
 
-  docModal?.addEventListener('click', (e) => {
-    if (e.target === docModal) {
-      docModal.close();
-      docFrame.src = '';
-    }
-  });
+  if (docModal) {
+    docModal.addEventListener('click', (e) => {
+      if (e.target === docModal) {
+        docModal.close();
+        docFrame.src = '';
+      }
+    });
+  }
 
   // Fechar com ESC
   document.addEventListener('keydown', (e) => {
-    if (docModal?.open && e.key === 'Escape') {
+    if (docModal && docModal.open && e.key === 'Escape') {
       docModal.close();
       docFrame.src = '';
     }
@@ -371,7 +373,7 @@ const contestsReserva = contests.filter(c => {
   if (toggleBtn && filtersPanel) {
     toggleBtn.addEventListener('click', () => {
       filtersPanel.classList.toggle('hidden');
-      toggleIcon?.classList.toggle('rotate-180');
+      if (toggleIcon) toggleIcon.classList.toggle('rotate-180');
     });
   }
 
@@ -487,8 +489,8 @@ const contestsReserva = contests.filter(c => {
   }
 
   // Event listeners para os filtros
-  const filterBtns = filterContainer?.querySelectorAll('.filter-btn');
-  filterBtns?.forEach((btn) => {
+  const filterBtns = filterContainer ? filterContainer.querySelectorAll('.filter-btn') : [];
+  if (filterBtns) filterBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
 
@@ -563,5 +565,6 @@ const contestsReserva = contests.filter(c => {
       applyFilters();
     });
   });
+  }
 </script>
 
