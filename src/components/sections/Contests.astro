@@ -332,7 +332,7 @@ const contestsReserva = contests.filter(c => {
       const title = btn.getAttribute('data-doc-title');
       const url = btn.getAttribute('data-doc-url');
 
-      docTitle!.textContent = `${title}`;
+      docTitle.textContent = `${title}`;
 
       if (url) {
         docFrame.src = url;
@@ -343,7 +343,7 @@ const contestsReserva = contests.filter(c => {
     });
   });
 
-  closeBtnDoc?.addEventListener('click', () => {
+  closeBtnDoc &&closeBtnDoc.addEventListener('click', () => {
     docModal.close();
     docFrame.src = '';
   });
@@ -424,7 +424,7 @@ const contestsReserva = contests.filter(c => {
       }
 
       // Re-append sorted cards
-      cards.forEach(card => sortContestsGrid!.appendChild(card));
+      cards.forEach(card => sortContestsGrid.appendChild(card));
     });
   });
 
