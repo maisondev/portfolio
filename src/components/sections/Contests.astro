@@ -561,8 +561,13 @@ const getTypeBadge = (totalVacancies: number, classification: string) => {
 const uniqueYears = Array.from(new Set(contests.map(c => c.year))).sort((a, b) => parseInt(b) - parseInt(a));
 const uniqueBancas = Array.from(new Set(contests.map(c => c.banca)));
 const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)));
-// Extrair categoria de cargo (considera especialidade se existir)
+// Extrair categoria de cargo (considera especialidade, desenvolvimento, etc.)
 const getPositionCategory = (position: string) => {
+  // Se contém "Desenvolvimento" ou "Desenvolvedor", classifica como Desenvolvedor
+  if (/desenvolvimento|desenvolvedor/i.test(position)) {
+    return 'Desenvolvedor';
+  }
+
   // Se tem "Especialidade" ou "Especialidad", usa o que vem depois
   const especialidadeMatch = position.match(/Especialidad[ae]\s+([^,\n]+)/i);
   if (especialidadeMatch) {
