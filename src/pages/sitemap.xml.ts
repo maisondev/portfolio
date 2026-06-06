@@ -10,7 +10,7 @@ interface SitemapUrl {
   priority: number;
 }
 
-export const get = () => {
+export const GET = () => {
   const today = new Date().toISOString().split('T')[0];
 
   const urls: SitemapUrl[] = [
@@ -85,11 +85,11 @@ ${urls
     .join('\n')}
 </urlset>`;
 
-  return {
-    body: sitemap,
+  return new Response(sitemap, {
+    status: 200,
     headers: {
       'Content-Type': 'application/xml',
       'Cache-Control': 'public, max-age=3600',
     },
-  };
+  });
 };
