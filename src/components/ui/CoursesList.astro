@@ -179,14 +179,6 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       {lang === 'pt' ? `Total: ${courses.length} cursos` : `Total: ${courses.length} courses`}
     </p>
 
-    <!-- Loading Indicator -->
-    <div id="courses-loading" class="hidden flex items-center justify-center py-12">
-      <div class="flex items-center gap-3">
-        <div class="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-        <p class="text-sm text-ink-muted">{lang === 'pt' ? 'Ordenando...' : 'Sorting...'}</p>
-      </div>
-    </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-container>
       {courses.map((course) => (
         <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])} data-tech-count={course.technologies.length}>
@@ -561,11 +553,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
         const query = newParams.toString();
         window.history.pushState({}, '', query ? `?${query}` : '');
 
-        // Show loading
-        const loadingEl = document.getElementById('courses-loading');
-        if (loadingEl) {
-          loadingEl.classList.remove('hidden');
-        }
+        // Show system loading cursor
+        document.documentElement.style.cursor = 'wait';
 
         // Sort and update UI with a small delay for visual feedback
         setTimeout(() => {
@@ -573,10 +562,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           updateSortButtons();
           updateUI();
 
-          // Hide loading
-          if (loadingEl) {
-            loadingEl.classList.add('hidden');
-          }
+          // Hide system loading cursor
+          document.documentElement.style.cursor = 'auto';
         }, 200);
       });
     });
