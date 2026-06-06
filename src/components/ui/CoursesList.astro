@@ -313,21 +313,51 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     const sortCards = () => {
       let currentCards = getAllCards();
 
-      // Ordenação normal por data
-      currentCards.sort((a, b) => {
-        const dateA = parseInt(a.getAttribute('data-date') || '0');
-        const dateB = parseInt(b.getAttribute('data-date') || '0');
-        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-      });
+      if (sortOrder === 'tech') {
+        // Agrupar por tecnologia primária
+        const grouped = {};
+        const techOrder = [];
 
-      const originalGrid = coursesContainer;
-      originalGrid.innerHTML = '';
+        currentCards.forEach((card) => {
+          const primaryTech = card.getAttribute('data-primary-tech') || 'Sem tecnologia';
+          if (!grouped[primaryTech]) {
+            grouped[primaryTech] = [];
+            techOrder.push(primaryTech);
+          }
+          grouped[primaryTech].push(card);
+        });
 
-      currentCards.forEach(card => {
-        originalGrid.appendChild(card);
-      });
+        // Ordenar grupos por quantidade de cards (decrescente)
+        techOrder.sort((a, b) => grouped[b].length - grouped[a].length);
 
-      coursesContainer = originalGrid;
+        const originalGrid = coursesContainer;
+        originalGrid.innerHTML = '';
+
+        // Adicionar cards agrupados por tecnologia
+        techOrder.forEach((tech) => {
+          grouped[tech].forEach((card) => {
+            originalGrid.appendChild(card);
+          });
+        });
+
+        coursesContainer = originalGrid;
+      } else {
+        // Ordenação normal por data
+        currentCards.sort((a, b) => {
+          const dateA = parseInt(a.getAttribute('data-date') || '0');
+          const dateB = parseInt(b.getAttribute('data-date') || '0');
+          return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+        });
+
+        const originalGrid = coursesContainer;
+        originalGrid.innerHTML = '';
+
+        currentCards.forEach(card => {
+          originalGrid.appendChild(card);
+        });
+
+        coursesContainer = originalGrid;
+      }
     };
 
     const renderPagination = (visibleCards) => {
