@@ -902,8 +902,13 @@ const contestsReserva = contests.filter(c => {
                   <p class={valueField('ano')}>{contest.year || '—'}</p>
                 </div>
 
-                {/* Coluna 3: Vazio na primeira linha */}
-                <div class="border-t border-hairline/50 dark:border-hairline/50 md:border-t-0"></div>
+                {/* Coluna 3: Esfera */}
+                <div>
+                  <p class={labelField('sphere')}>
+                    {lang === 'pt' ? 'Esfera' : 'Sphere'}
+                  </p>
+                  <p class={valueField('sphere')}>{contest.sphere || '—'}</p>
+                </div>
 
                 {/* Coluna 1: Ranking */}
                 <div class="border-t border-hairline/50 dark:border-hairline/50 md:border-t-0 pt-3 md:pt-0">
