@@ -1,4 +1,6 @@
 ---
+import Card from './Card.astro';
+
 interface EducationItem {
   degree: string;
   institution: string;
@@ -17,7 +19,7 @@ interface Props {
 const { edu } = Astro.props;
 ---
 
-<div class="bg-surface-1 border border-hairline rounded-lg p-5 space-y-3 hover:bg-surface-2 transition-colors h-full flex flex-col">
+<Card variant="secondary" class="p-5 space-y-3">
   <div class="flex gap-3 flex-col">
     <div class="flex-1 min-w-0">
       <h4 class="text-sm font-semibold text-ink leading-tight line-clamp-2">{edu.degree}</h4>
@@ -58,4 +60,4 @@ const { edu } = Astro.props;
       </button>
     )}
   </div>
-</div>
+</Card>
