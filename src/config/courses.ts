@@ -1368,6 +1368,6 @@ export const courses: Course[] = [
 // Extrair todas as tecnologias únicas para filtro
 export const getAllTechnologies = () => {
   return Array.from(
-    new Set(courses.flatMap((course) => course.technologies))
+    new Set(courses.flatMap((course) => course.technologies)),
   ).sort();
 };

@@ -365,7 +365,7 @@ export const getTechLogo = (techName: string): TechLogo | null => {
 
   // Tenta correspondência parcial (case-insensitive)
   const key = Object.keys(techLogosMap).find(
-    (k) => k.toLowerCase() === techName.toLowerCase()
+    (k) => k.toLowerCase() === techName.toLowerCase(),
   );
 
   if (key) {

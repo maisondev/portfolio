@@ -127,7 +127,8 @@
       "Bash(timeout 20 sleep 1 *)",
       "Bash(grep -n \"^];$\" src/components/sections/Contests.astro)",
       "Bash(awk '/^const contests:/ {start=NR} start && /^];$/ && NR > start {print NR; exit}' src/components/sections/Contests.astro)",
-      "Bash(git update-index *)"
+      "Bash(git update-index *)",
+      "Bash(git revert *)"
     ]
   }
 }

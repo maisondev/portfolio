@@ -74,15 +74,15 @@ export const get = () => {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
-  .map(
-    (url) => `  <url>
+    .map(
+      (url) => `  <url>
     <loc>${BASE_URL}${url.url}</loc>
     <lastmod>${url.lastmod}</lastmod>
     <changefreq>${url.changefreq}</changefreq>
     <priority>${url.priority}</priority>
-  </url>`
-  )
-  .join('\n')}
+  </url>`,
+    )
+    .join('\n')}
 </urlset>`;
 
   return {

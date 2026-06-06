@@ -67,7 +67,7 @@ export const courseListSchema = (courses: Array<{
   platform: string;
   technologies?: string[];
   completedAt?: string;
-}>, lang: string = 'pt'): CourseSchema[] => {
+}>, _lang: string = 'pt'): CourseSchema[] => {
   return courses.map((course) => ({
     '@context': 'https://schema.org',
     '@type': 'Course',

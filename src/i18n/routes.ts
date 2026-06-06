@@ -1,4 +1,4 @@
-import { languages, defaultLanguage, type Language } from './utils';
+import { languages, type Language } from './utils';
 
 export function getStaticPaths() {
   return Object.keys(languages).map((lang) => ({

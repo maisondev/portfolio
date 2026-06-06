@@ -40,20 +40,6 @@ const allYears = Array.from(
   )
 ).sort((a, b) => b - a); // Sort descending (newest first)
 
-// Contar frequência de cada tecnologia
-const techFrequency: Record<string, number> = {};
-courses.forEach((course) => {
-  course.technologies.forEach((tech) => {
-    techFrequency[tech] = (techFrequency[tech] || 0) + 1;
-  });
-});
-
-// Função para obter a frequência máxima de tecnologias de um curso
-const getMaxTechFrequency = (technologies: string[]): number => {
-  if (technologies.length === 0) return 0;
-  return Math.max(...technologies.map((tech) => techFrequency[tech] || 0));
-};
-
 // Build full URL with localization
 const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
   const parts = [];
@@ -198,11 +184,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     <div id="courses-grid-wrapper" class="space-y-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-container>
         {courses.map((course) => (
-          <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])} data-tech-count={course.technologies.length} data-max-tech-freq={getMaxTechFrequency(course.technologies)} data-primary-tech={(() => {
-            const techs = course.technologies;
-            if (techs.length === 0) return '';
-            return techs.reduce((prev, curr) => (techFrequency[curr] || 0) > (techFrequency[prev] || 0) ? curr : prev);
-          })()}>
+          <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])}>
             <CourseCard course={course} lang={lang} />
           </div>
         ))}
@@ -313,70 +295,20 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     const sortCards = () => {
       let currentCards = getAllCards();
 
-      if (sortOrder === 'tech') {
-        // Agrupar por TODAS as tecnologias de cada card
-        const grouped = {};
-        const techOrder = [];
-        const techCount = {};
+      currentCards.sort((a, b) => {
+        const dateA = parseInt(a.getAttribute('data-date') || '0');
+        const dateB = parseInt(b.getAttribute('data-date') || '0');
+        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+      });
 
-        currentCards.forEach((card) => {
-          const data = JSON.parse(card.getAttribute('data-course') || '{}');
-          const technologies = data.technologies || [];
+      const originalGrid = coursesContainer;
+      originalGrid.innerHTML = '';
 
-          // Card aparece em cada grupo de tecnologia que possui
-          technologies.forEach((tech) => {
-            if (!grouped[tech]) {
-              grouped[tech] = [];
-              techOrder.push(tech);
-              techCount[tech] = 0;
-            }
-            grouped[tech].push(card);
-            techCount[tech]++;
-          });
-        });
+      currentCards.forEach(card => {
+        originalGrid.appendChild(card);
+      });
 
-        // Ordenar grupos por quantidade de cards (decrescente)
-        techOrder.sort((a, b) => techCount[b] - techCount[a]);
-
-        const originalGrid = coursesContainer;
-        originalGrid.innerHTML = '';
-
-        // Adicionar cards agrupados por tecnologia com headers
-        techOrder.forEach((tech) => {
-          // Criar header do grupo
-          const header = document.createElement('div');
-          header.className = 'col-span-full mb-4 mt-8 first:mt-0';
-          header.innerHTML = `
-            <h3 class="text-lg font-semibold text-primary">
-              ${tech} <span class="text-ink-muted font-normal">(${techCount[tech]})</span>
-            </h3>
-          `;
-          originalGrid.appendChild(header);
-
-          // Adicionar cards do grupo (sem duplicação visual - usar cloneNode)
-          grouped[tech].forEach((card) => {
-            originalGrid.appendChild(card.cloneNode(true));
-          });
-        });
-
-        coursesContainer = originalGrid;
-      } else {
-        // Ordenação normal por data
-        currentCards.sort((a, b) => {
-          const dateA = parseInt(a.getAttribute('data-date') || '0');
-          const dateB = parseInt(b.getAttribute('data-date') || '0');
-          return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-        });
-
-        const originalGrid = coursesContainer;
-        originalGrid.innerHTML = '';
-
-        currentCards.forEach(card => {
-          originalGrid.appendChild(card);
-        });
-
-        coursesContainer = originalGrid;
-      }
+      coursesContainer = originalGrid;
     };
 
     const renderPagination = (visibleCards) => {

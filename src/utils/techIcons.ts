@@ -206,7 +206,7 @@ export const getTechIcon = (techName: string): TechIcon => {
 
   // Tenta correspondência parcial (case-insensitive)
   const key = Object.keys(techIconsMap).find(
-    (k) => k.toLowerCase() === techName.toLowerCase()
+    (k) => k.toLowerCase() === techName.toLowerCase(),
   );
 
   if (key) {
