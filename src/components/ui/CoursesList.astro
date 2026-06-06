@@ -40,6 +40,20 @@ const allYears = Array.from(
   )
 ).sort((a, b) => b - a); // Sort descending (newest first)
 
+// Contar frequência de cada tecnologia
+const techFrequency: Record<string, number> = {};
+courses.forEach((course) => {
+  course.technologies.forEach((tech) => {
+    techFrequency[tech] = (techFrequency[tech] || 0) + 1;
+  });
+});
+
+// Função para obter a frequência máxima de tecnologias de um curso
+const getMaxTechFrequency = (technologies: string[]): number => {
+  if (technologies.length === 0) return 0;
+  return Math.max(...technologies.map((tech) => techFrequency[tech] || 0));
+};
+
 // Build full URL with localization
 const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
   const parts = [];
@@ -181,7 +195,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-container>
       {courses.map((course) => (
-        <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])} data-tech-count={course.technologies.length}>
+        <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])} data-tech-count={course.technologies.length} data-max-tech-freq={getMaxTechFrequency(course.technologies)}>
           <CourseCard course={course} lang={lang} />
         </div>
       ))}
@@ -284,8 +298,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       const cards = Array.from(coursesContainer?.querySelectorAll('[data-course]') || []);
       cards.sort((a, b) => {
         if (sortOrder === 'tech') {
-          const techA = parseInt(a.getAttribute('data-tech-count') || '0');
-          const techB = parseInt(b.getAttribute('data-tech-count') || '0');
+          const techA = parseInt(a.getAttribute('data-max-tech-freq') || '0');
+          const techB = parseInt(b.getAttribute('data-max-tech-freq') || '0');
           return techB - techA;
         } else {
           const dateA = parseInt(a.getAttribute('data-date') || '0');
