@@ -70,14 +70,15 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
   <div class="space-y-6 hidden" id="filters-section" data-filters-section>
     <!-- Search Input -->
     <div class="space-y-3">
-      <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
+      <label htmlFor="course-search" class="text-sm font-semibold text-ink uppercase tracking-wide">
         {lang === 'pt' ? 'Buscar' : 'Search'}
-      </h3>
+      </label>
       <input
         type="text"
         id="course-search"
         placeholder={lang === 'pt' ? 'Buscar curso por nome...' : 'Search course by name...'}
-        class="w-full px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-none focus:border-primary/50 transition-colors"
+        class="w-full px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-2 focus:outline-primary/50 focus:border-primary transition-colors"
+        aria-label={lang === 'pt' ? 'Buscar cursos por nome' : 'Search courses by name'}
       />
     </div>
 
@@ -86,10 +87,11 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
         {lang === 'pt' ? 'Filtrar por tecnologia' : 'Filter by technology'}
       </h3>
-      <div class="flex flex-wrap gap-2" data-tech-filters>
+      <div class="flex flex-wrap gap-2" data-tech-filters aria-label={lang === 'pt' ? 'Filtros de tecnologia' : 'Technology filters'}>
         <button
           data-filter-tech=""
-          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
+          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+          aria-label={lang === 'pt' ? 'Mostrar todos os cursos' : 'Show all courses'}
         >
           {lang === 'pt' ? `Todas (${courses.length})` : `All (${courses.length})`}
         </button>
@@ -106,7 +108,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           .map(({ tech, count }) => (
             <button
               data-filter-tech={tech}
-              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50"
+              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50 focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+              aria-label={lang === 'pt' ? `Filtrar por ${tech} (${count} cursos)` : `Filter by ${tech} (${count} courses)`}
             >
               {tech} ({count})
             </button>
@@ -119,7 +122,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
         {lang === 'pt' ? 'Filtrar por instituição' : 'Filter by institution'}
       </h3>
-      <div class="flex flex-wrap gap-2" data-inst-filters>
+      <div class="flex flex-wrap gap-2" data-inst-filters aria-label={lang === 'pt' ? 'Filtros de instituição' : 'Institution filters'}>
         <button
           data-filter-inst=""
           class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
@@ -148,7 +151,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
         {lang === 'pt' ? 'Filtrar por ano' : 'Filter by year'}
       </h3>
-      <div class="flex flex-wrap gap-2" data-year-filters>
+      <div class="flex flex-wrap gap-2" data-year-filters aria-label={lang === 'pt' ? 'Filtros de ano' : 'Year filters'}>
         <button
           data-filter-year=""
           class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"

@@ -12,7 +12,7 @@ const labelField = 'text-xs font-semibold text-ink-muted uppercase tracking-wide
   <h3 class={labelField}>
     {lang === 'pt' ? 'Ordenar por' : 'Sort by'}
   </h3>
-  <div class="flex flex-wrap gap-2.5" data-sort-buttons>
+  <div class="flex flex-wrap gap-2.5" data-sort-buttons role="group" aria-label={lang === 'pt' ? 'Opções de ordenação' : 'Sort options'}>
     <button
       id="course-sort-recent"
       data-sort="desc"
