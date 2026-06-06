@@ -107,22 +107,24 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
         >
           {lang === 'pt' ? `Todas (${courses.length})` : `All (${courses.length})`}
         </button>
-        {allTechnologies.map((tech) => {
-          const count = courses.filter((course) =>
-            course.technologies.some(
-              (t) => t.toLowerCase() === tech.toLowerCase()
-            )
-          ).length;
-
-          return (
+        {allTechnologies
+          .map((tech) => {
+            const count = courses.filter((course) =>
+              course.technologies.some(
+                (t) => t.toLowerCase() === tech.toLowerCase()
+              )
+            ).length;
+            return { tech, count };
+          })
+          .sort((a, b) => b.count - a.count)
+          .map(({ tech, count }) => (
             <button
               data-filter-tech={tech}
               class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50"
             >
               {tech} ({count})
             </button>
-          );
-        })}
+          ))}
       </div>
     </div>
 
