@@ -333,8 +333,19 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
         const originalGrid = coursesContainer;
         originalGrid.innerHTML = '';
 
-        // Adicionar cards agrupados por tecnologia
+        // Adicionar cards agrupados por tecnologia com headers
         techOrder.forEach((tech) => {
+          // Criar header do grupo
+          const header = document.createElement('div');
+          header.className = 'col-span-full mb-4 mt-8 first:mt-0';
+          header.innerHTML = `
+            <h3 class="text-lg font-semibold text-primary">
+              ${tech} <span class="text-ink-muted font-normal">(${grouped[tech].length})</span>
+            </h3>
+          `;
+          originalGrid.appendChild(header);
+
+          // Adicionar cards do grupo
           grouped[tech].forEach((card) => {
             originalGrid.appendChild(card);
           });
