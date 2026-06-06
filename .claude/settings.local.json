@@ -120,7 +120,13 @@
       "PowerShell(Get-Job *)",
       "Bash(node -e \"const {courses} = require\\('./src/config/courses.ts'\\); const platforms = [...new Set\\(courses.map\\(c => c.platform\\)\\)].sort\\(\\); console.log\\(platforms.join\\('\\\\n'\\)\\)\")",
       "Bash(sed -n '30,577p' src/components/sections/Contests.astro)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(git checkout *)",
+      "Bash(sed -n '13,15p' src/components/sections/Contests.astro)",
+      "Bash(sed -n '542,544p' src/components/sections/Contests.astro)",
+      "Bash(timeout 20 sleep 1 *)",
+      "Bash(grep -n \"^];$\" src/components/sections/Contests.astro)",
+      "Bash(awk '/^const contests:/ {start=NR} start && /^];$/ && NR > start {print NR; exit}' src/components/sections/Contests.astro)"
     ]
   }
 }

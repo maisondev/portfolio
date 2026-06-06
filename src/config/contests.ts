@@ -1,0 +1,413 @@
+export interface Document {
+  title: string;
+  url: string;
+}
+
+export interface Contest {
+  position: string;
+  organization: string;
+  year: string;
+  banca: string;
+  sphere: 'Municipal' | 'Estadual' | 'Federal';
+  concursoLink?: string;
+  classification?: string;
+  totalVacancies?: number;
+  salary?: string;
+  documents?: Document[];
+}
+
+export const contestsPT: Contest[] = [
+  {
+    position: 'Técnico Municipal - Tecnologia da Informação (Informática)',
+    organization: 'Prefeitura de Manaus',
+    year: '2010',
+    banca: 'Fundação Conesul de Desenvolvimento',
+    sphere: 'Municipal',
+    classification: '1º lugar',
+    totalVacancies: 10,
+    salary: 'R$ 1.245,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-tecnico-municipal-2010.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-resultado-final-2010.pdf' },
+      { title: 'Nomeação', url: '/documents/contests/nomeacao-tecnico-municipal-2010.pdf' }
+    ],
+  },
+  {
+    position: 'Técnico Municipal - Assistente de Administração',
+    organization: 'Prefeitura de Manaus - Secretaria Municipal de Administração (SEMAD)',
+    year: '2011',
+    banca: 'Instituto Movens',
+    sphere: 'Municipal',
+    classification: '2324º lugar',
+    totalVacancies: 733,
+    salary: 'R$ 1.245,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-assistente-administracao-2011.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-assistente-administracao-2011.pdf' }
+    ],
+  },
+  {
+    position: 'Técnico Previdenciário - Informática',
+    organization: 'Manaus Prev',
+    year: '2015',
+    banca: 'Fundação Carlos Chagas',
+    sphere: 'Municipal',
+    classification: '262º lugar',
+    totalVacancies: 2,
+    salary: 'R$ 4.000,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-tecnico-previdenciario-2015.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-tecnico-previdenciario-2015.pdf' }
+    ],
+  },
+  {
+    position: 'Analista de Desenvolvimento de Sistemas',
+    organization: 'Prefeitura de Manaus - Secretaria Municipal de Saúde (SEMSA)',
+    year: '2022',
+    banca: 'Fundação Getulio Vargas',
+    sphere: 'Municipal',
+    concursoLink: 'https://conhecimento.fgv.br/concursos/semad22/002',
+    classification: '24º lugar',
+    totalVacancies: 4,
+    salary: 'R$ 8.313,61',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-sistemas-2022.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-analista-sistemas-2022.pdf' },
+      { title: 'Resultado', url: '/documents/contests/resultado-analista-sistemas-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Desenvolvedor de Software',
+    organization: 'PRODAM-AM (Empresa de Processamento de Dados do Amazonas)',
+    year: '2018',
+    banca: 'Fundação Professor Carlos Augusto Bittencourt - FUNCAB',
+    sphere: 'Estadual',
+    classification: '21º lugar',
+    totalVacancies: 24,
+    salary: 'R$ 3.063,86',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-desenvolvedor-prodam-2018.pdf' },
+      { title: 'Nomeação', url: '/documents/contests/nomeacao-desenvolvedor-prodam-2018.pdf' }
+    ],
+  },
+  {
+    position: 'Analista de Sistema da Informação',
+    organization: 'DETRAN-AM (Departamento Estadual de Trânsito)',
+    year: '2022',
+    banca: 'Instituto Brasileiro de Formação e Capacitação',
+    sphere: 'Estadual',
+    concursoLink: 'https://concursos.ibfc.org.br/informacoes/390/',
+    classification: '8º lugar',
+    totalVacancies: 3,
+    salary: 'R$ 5.500,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-sistema-detran-2022.pdf' },
+      { title: 'Nomeação', url: '/documents/contests/nomeacao-analista-sistema-detran-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Analista Judiciário, Especialidade Programador',
+    organization: 'TJAM (Tribunal de Justiça do Amazonas)',
+    year: '2019',
+    banca: 'CEBRASPE',
+    sphere: 'Estadual',
+    concursoLink: 'https://www.cebraspe.org.br/concursos/tj_am_19_servidor',
+    classification: '79º lugar',
+    totalVacancies: 8,
+    salary: 'R$ 4.558,34',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-judiciario-tjam-2019.pdf' },
+      { title: 'Resultado Final', url: '/documents/contests/resultado-analista-judiciario-tjam-2019.pdf' }
+    ],
+  },
+  {
+    position: 'Agente de Apoio, Especialidade Programador',
+    organization: 'MPE-AM (Ministério Público do Estado do Amazonas)',
+    year: '2023',
+    banca: 'Fundação Carlos Chagas',
+    sphere: 'Estadual',
+    concursoLink: 'https://www.concursosfcc.com.br/concursos/mpeam123/index.html',
+    classification: '4º lugar (Cota de Negros)',
+    totalVacancies: 2,
+    salary: 'R$ 8.034,35',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-agente-apoio-mpe-2023.pdf' },
+      { title: 'Resultado Final', url: '/documents/contests/resultado-agente-apoio-mpe-2023.pdf' }
+    ],
+  },
+  {
+    position: 'Analista Judiciário, Apoio Especializado - Tecnologia da Informação',
+    organization: 'TRE-AM (Tribunal Regional Eleitoral do Amazonas)',
+    year: '2024',
+    banca: 'CEBRASPE',
+    sphere: 'Federal',
+    concursoLink: 'https://www.cebraspe.org.br/concursos/cpnuje_24',
+    classification: '19º lugar',
+    totalVacancies: 5,
+    salary: 'R$ 3.994,78',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-judiciario-tre-2024.pdf' },
+      { title: 'Resultado Final', url: '/documents/contests/resultado-analista-judiciario-tre-2024.pdf' }
+    ],
+  },
+  {
+    position: 'Analista Judiciário, Apoio Especializado - Análise de Sistemas',
+    organization: 'STM (Superior Tribunal Militar)',
+    year: '2025',
+    banca: 'CEBRASPE',
+    sphere: 'Federal',
+    concursoLink: 'https://www.cebraspe.org.br/concursos/stm_25',
+    classification: '104º lugar',
+    totalVacancies: 16,
+    salary: 'R$ 14.852,66',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-judiciario-stm-2025.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-analista-judiciario-stm-2025.pdf' }
+    ],
+  },
+  {
+    position: 'Especialista de Fomento - Desenvolvimento de Sistemas',
+    organization: 'AFEAM (Agência de Fomento do Estado do Amazonas)',
+    year: '2022',
+    banca: 'Instituto Brasileiro de Formação e Capacitação',
+    sphere: 'Estadual',
+    concursoLink: 'https://concursos.ibfc.org.br/informacoes/403/',
+    classification: '11º lugar',
+    totalVacancies: 3,
+    salary: 'R$ 8.352,13',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-especialista-fomento-afeam-2022.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-especialista-fomento-afeam-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Gestor de Tecnologia da Informação da Fazenda Estadual',
+    organization: 'SEFAZ-AM (Secretaria da Fazenda do Amazonas)',
+    year: '2022',
+    banca: 'Fundação Getulio Vargas',
+    sphere: 'Estadual',
+    concursoLink: 'https://conhecimento.fgv.br/concursos/sefazam22',
+    classification: '114º lugar',
+    totalVacancies: 15,
+    salary: 'R$ 18.866,37',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-gestor-tecnologia-sefaz-2022.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-gestor-tecnologia-sefaz-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Auditor Municipal de Controle Interno - Tecnologia da Informação',
+    organization: 'CGM-MANAUS (Controladoria Geral do Município)',
+    year: '2025',
+    banca: 'Instituto Consulplan',
+    sphere: 'Municipal',
+    concursoLink: 'https://institutoconsulplan.org.br/getConc.aspx?key=7mBK337c9Y8=',
+    classification: '35º lugar',
+    totalVacancies: 6,
+    salary: 'R$ 10.000,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-auditor-cgm-2025.pdf' },
+      { title: 'Homologação', url: '/documents/contests/homologacao-auditor-cgm-2025.pdf' }
+    ],
+  },
+];
+
+export const contestsEN: Contest[] = [
+  {
+    position: 'IT Technician - Information Technology (Computer Science)',
+    organization: 'City of Manaus',
+    year: '2010',
+    banca: 'Conesul Development Foundation',
+    sphere: 'Municipal',
+    classification: '1st place',
+    totalVacancies: 10,
+    salary: 'R$ 1.245,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-tecnico-municipal-2010.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-resultado-final-2010.pdf' },
+      { title: 'Appointment', url: '/documents/contests/nomeacao-tecnico-municipal-2010.pdf' }
+    ],
+  },
+  {
+    position: 'Municipal Technician - Administration Assistant',
+    organization: 'City of Manaus - Municipal Administration Secretariat (SEMAD)',
+    year: '2011',
+    banca: 'Instituto Movens',
+    sphere: 'Municipal',
+    classification: '2324th place',
+    totalVacancies: 733,
+    salary: 'R$ 1.245,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-assistente-administracao-2011.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-assistente-administracao-2011.pdf' }
+    ],
+  },
+  {
+    position: 'Pension Technician - IT',
+    organization: 'Manaus Prev',
+    year: '2015',
+    banca: 'Carlos Chagas Foundation',
+    sphere: 'Municipal',
+    classification: '262nd place',
+    totalVacancies: 2,
+    salary: 'R$ 4.000,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-tecnico-previdenciario-2015.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-tecnico-previdenciario-2015.pdf' }
+    ],
+  },
+  {
+    position: 'Systems Development Analyst',
+    organization: 'City of Manaus - Municipal Health Secretariat (SEMSA)',
+    year: '2022',
+    banca: 'Getulio Vargas Foundation',
+    sphere: 'Municipal',
+    concursoLink: 'https://conhecimento.fgv.br/concursos/semad22/002',
+    classification: '24th place',
+    totalVacancies: 4,
+    salary: 'R$ 8.313,61',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-sistemas-2022.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-analista-sistemas-2022.pdf' },
+      { title: 'Result', url: '/documents/contests/resultado-analista-sistemas-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Software Developer',
+    organization: 'PRODAM-AM (Amazonas Data Processing Company)',
+    year: '2018',
+    banca: 'Professor Carlos Augusto Bittencourt Foundation - FUNCAB',
+    sphere: 'Estadual',
+    classification: '21st place',
+    totalVacancies: 24,
+    salary: 'R$ 3.063,86',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-desenvolvedor-prodam-2018.pdf' },
+      { title: 'Appointment', url: '/documents/contests/nomeacao-desenvolvedor-prodam-2018.pdf' }
+    ],
+  },
+  {
+    position: 'Information Systems Analyst',
+    organization: 'DETRAN-AM (State Traffic Department)',
+    year: '2022',
+    banca: 'Brazilian Institute of Training and Capacity Building',
+    sphere: 'Estadual',
+    concursoLink: 'https://concursos.ibfc.org.br/informacoes/390/',
+    classification: '8th place',
+    totalVacancies: 3,
+    salary: 'R$ 5.500,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-sistema-detran-2022.pdf' },
+      { title: 'Appointment', url: '/documents/contests/nomeacao-analista-sistema-detran-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Judicial Analyst, Programmer Specialty',
+    organization: 'TJAM (Court of Justice of Amazonas)',
+    year: '2019',
+    banca: 'CEBRASPE',
+    sphere: 'Estadual',
+    concursoLink: 'https://www.cebraspe.org.br/concursos/tj_am_19_servidor',
+    classification: '79th place',
+    totalVacancies: 8,
+    salary: 'R$ 4.558,34',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-judiciario-tjam-2019.pdf' },
+      { title: 'Final Result', url: '/documents/contests/resultado-analista-judiciario-tjam-2019.pdf' }
+    ],
+  },
+  {
+    position: 'Support Agent, Programmer Specialty',
+    organization: 'MPE-AM (Public Ministry of the State of Amazonas)',
+    year: '2023',
+    banca: 'Carlos Chagas Foundation',
+    sphere: 'Estadual',
+    concursoLink: 'https://www.concursosfcc.com.br/concursos/mpeam123/index.html',
+    classification: '4th place (Black Quota)',
+    totalVacancies: 2,
+    salary: 'R$ 8.034,35',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-agente-apoio-mpe-2023.pdf' },
+      { title: 'Final Result', url: '/documents/contests/resultado-agente-apoio-mpe-2023.pdf' }
+    ],
+  },
+  {
+    position: 'Judicial Analyst, Specialized Support - Information Technology',
+    organization: 'TRE-AM (Regional Electoral Court of Amazonas)',
+    year: '2024',
+    banca: 'CEBRASPE',
+    sphere: 'Federal',
+    concursoLink: 'https://www.cebraspe.org.br/concursos/cpnuje_24',
+    classification: '19th place',
+    totalVacancies: 5,
+    salary: 'R$ 3.994,78',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-judiciario-tre-2024.pdf' },
+      { title: 'Final Result', url: '/documents/contests/resultado-analista-judiciario-tre-2024.pdf' }
+    ],
+  },
+  {
+    position: 'Judicial Analyst, Specialized Support - Systems Analysis',
+    organization: 'STM (Superior Military Court)',
+    year: '2025',
+    banca: 'CEBRASPE',
+    sphere: 'Federal',
+    concursoLink: 'https://www.cebraspe.org.br/concursos/stm_25',
+    classification: '104th place',
+    totalVacancies: 16,
+    salary: 'R$ 14.852,66',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-judiciario-stm-2025.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-analista-judiciario-stm-2025.pdf' }
+    ],
+  },
+  {
+    position: 'Development Systems Specialist',
+    organization: 'AFEAM (State Development Agency of Amazonas)',
+    year: '2022',
+    banca: 'Brazilian Institute of Training and Capacity Building',
+    sphere: 'Estadual',
+    concursoLink: 'https://concursos.ibfc.org.br/informacoes/403/',
+    classification: '11th place',
+    totalVacancies: 3,
+    salary: 'R$ 8.352,13',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-especialista-fomento-afeam-2022.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-especialista-fomento-afeam-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Information Technology Manager for State Treasury',
+    organization: 'SEFAZ-AM (State Treasury Department)',
+    year: '2022',
+    banca: 'Getulio Vargas Foundation',
+    sphere: 'Estadual',
+    concursoLink: 'https://conhecimento.fgv.br/concursos/sefazam22',
+    classification: '114th place',
+    totalVacancies: 15,
+    salary: 'R$ 18.866,37',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-gestor-tecnologia-sefaz-2022.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-gestor-tecnologia-sefaz-2022.pdf' }
+    ],
+  },
+  {
+    position: 'Internal Audit Manager - Information Technology',
+    organization: 'CGM-MANAUS (City General Comptroller)',
+    year: '2025',
+    banca: 'Instituto Consulplan',
+    sphere: 'Municipal',
+    concursoLink: 'https://institutoconsulplan.org.br/getConc.aspx?key=7mBK337c9Y8=',
+    classification: '35th place',
+    totalVacancies: 6,
+    salary: 'R$ 10.000,00',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-auditor-cgm-2025.pdf' },
+      { title: 'Homologation', url: '/documents/contests/homologacao-auditor-cgm-2025.pdf' }
+    ],
+  },
+];
+
+export const getContests = (lang: 'pt' | 'en'): Contest[] => {
+  return lang === 'pt' ? contestsPT : contestsEN;
+};
