@@ -327,51 +327,27 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           return parseInt(freqB) - parseInt(freqA);
         });
 
-        // Encontrar o container original e limpar apenas os cards
+        // Encontrar o grid original
         const originalGrid = coursesContainer;
-        const wrapper = originalGrid.parentElement;
 
-        // Criar container temporário para os grupos
-        const tempContainer = document.createElement('div');
-        tempContainer.className = 'space-y-6';
-        tempContainer.id = 'tech-sorted-container';
+        // Limpar o grid mas manter o atributo
+        originalGrid.innerHTML = '';
 
+        // Adicionar grupos com headers e cards
         sortedTechs.forEach(tech => {
-          // Criar container para o grupo
-          const groupContainer = document.createElement('div');
-          groupContainer.className = 'space-y-3';
-
           // Criar header de tecnologia
           const header = document.createElement('div');
-          header.innerHTML = `<h3 class="text-lg font-semibold text-ink/90 dark:text-white/90 py-2">${tech} <span class="text-sm font-normal text-ink-muted">(${grouped[tech].length})</span></h3>`;
-          groupContainer.appendChild(header);
+          header.className = 'col-span-full text-lg font-semibold text-ink/90 dark:text-white/90 py-2';
+          header.innerHTML = `${tech} <span class="text-sm font-normal text-ink-muted">(${grouped[tech].length})</span>`;
+          originalGrid.appendChild(header);
 
-          // Criar grid para este grupo
-          const grid = document.createElement('div');
-          grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4';
-          grid.setAttribute('data-courses-container', '');
-
-          // Adicionar clones dos cards do grupo
+          // Adicionar cards do grupo
           grouped[tech].forEach(card => {
-            grid.appendChild(card.cloneNode(true));
+            originalGrid.appendChild(card);
           });
-
-          groupContainer.appendChild(grid);
-          tempContainer.appendChild(groupContainer);
         });
 
-        // Remover container anterior se existir
-        const existingTechContainer = wrapper.querySelector('#tech-sorted-container');
-        if (existingTechContainer) {
-          existingTechContainer.remove();
-        }
-
-        // Esconder grid original e adicionar novo container
-        originalGrid.classList.add('hidden');
-        wrapper.appendChild(tempContainer);
-
-        // Atualizar referência - coursesContainer agora procura em todo o wrapper
-        coursesContainer = tempContainer;
+        coursesContainer = originalGrid;
       } else {
         // Ordenação normal por data
         currentCards.sort((a, b) => {
@@ -380,29 +356,14 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
         });
 
-        const wrapper = coursesWrapper || coursesContainer?.parentElement;
+        const originalGrid = coursesContainer;
+        originalGrid.innerHTML = '';
 
-        // Remover container de tecnologia se existir
-        const techContainer = wrapper?.querySelector('#tech-sorted-container');
-        if (techContainer) {
-          techContainer.remove();
-        }
+        currentCards.forEach(card => {
+          originalGrid.appendChild(card);
+        });
 
-        // Mostrar grid original
-        const originalGrid = wrapper?.querySelector('[data-courses-container]');
-        if (originalGrid && originalGrid.classList.contains('hidden')) {
-          originalGrid.classList.remove('hidden');
-        }
-
-        // Limpar e reorganizar cards no grid original
-        if (originalGrid) {
-          originalGrid.innerHTML = '';
-          currentCards.forEach(card => {
-            const clone = card.cloneNode(true);
-            originalGrid.appendChild(clone);
-          });
-          coursesContainer = originalGrid;
-        }
+        coursesContainer = originalGrid;
       }
     };
 
