@@ -251,6 +251,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     const data = JSON.parse(card.getAttribute('data-course') || '{}');
     allCourses.push(data);
     courseCards.set(index, card);
+    // Adicionar ID único para rastreamento após reorganização
+    card.setAttribute('data-card-index', index.toString());
   });
 
   if (filterContainer) {
@@ -480,7 +482,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       let visibleCount = 0;
       const visibleCards = [];
 
-      getAllCards().forEach((card, index) => {
+      getAllCards().forEach((card) => {
+        const cardIndex = parseInt(card.getAttribute('data-card-index') || '0');
         const data = JSON.parse(card.getAttribute('data-course') || '{}');
         const technologies = data.technologies || [];
         const platform = data.platform || '';
@@ -500,7 +503,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           courseName.includes(searchQuery.toLowerCase());
 
         if (techMatch && instMatch && yearMatch && searchMatch) {
-          visibleCards.push({ card, index });
+          visibleCards.push({ card, index: cardIndex });
           visibleCount++;
         }
       });
@@ -511,8 +514,9 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       const paginatedVisibleCards = visibleCards.slice(startIdx, endIdx);
       const paginatedVisibleIndices = new Set(paginatedVisibleCards.map(v => v.index));
 
-      getAllCards().forEach((card, index) => {
-        if (paginatedVisibleIndices.has(index)) {
+      getAllCards().forEach((card) => {
+        const cardIndex = parseInt(card.getAttribute('data-card-index') || '0');
+        if (paginatedVisibleIndices.has(cardIndex)) {
           card.classList.remove('hidden');
         } else {
           card.classList.add('hidden');
