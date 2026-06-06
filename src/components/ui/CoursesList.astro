@@ -193,12 +193,18 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       {lang === 'pt' ? `Total: ${courses.length} cursos` : `Total: ${courses.length} courses`}
     </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-container>
-      {courses.map((course) => (
-        <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])} data-tech-count={course.technologies.length} data-max-tech-freq={getMaxTechFrequency(course.technologies)}>
-          <CourseCard course={course} lang={lang} />
-        </div>
-      ))}
+    <div id="courses-grid-wrapper" class="space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-container>
+        {courses.map((course) => (
+          <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])} data-tech-count={course.technologies.length} data-max-tech-freq={getMaxTechFrequency(course.technologies)} data-primary-tech={(() => {
+            const techs = course.technologies;
+            if (techs.length === 0) return '';
+            return techs.reduce((prev, curr) => (techFrequency[curr] || 0) > (techFrequency[prev] || 0) ? curr : prev);
+          })()}>
+            <CourseCard course={course} lang={lang} />
+          </div>
+        ))}
+      </div>
     </div>
 
     <div class="hidden text-center py-12 rounded-lg border border-hairline bg-surface-1/50" data-no-results>
@@ -296,18 +302,50 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
 
     const sortCards = () => {
       const cards = Array.from(coursesContainer?.querySelectorAll('[data-course]') || []);
-      cards.sort((a, b) => {
-        if (sortOrder === 'tech') {
-          const techA = parseInt(a.getAttribute('data-max-tech-freq') || '0');
-          const techB = parseInt(b.getAttribute('data-max-tech-freq') || '0');
-          return techB - techA;
-        } else {
+
+      if (sortOrder === 'tech') {
+        // Agrupar por tecnologia
+        const grouped = {};
+        cards.forEach(card => {
+          const primaryTech = card.getAttribute('data-primary-tech') || 'Sem tecnologia';
+          if (!grouped[primaryTech]) {
+            grouped[primaryTech] = [];
+          }
+          grouped[primaryTech].push(card);
+        });
+
+        // Ordenar grupos por frequência (maior para menor)
+        const sortedTechs = Object.keys(grouped).sort((a, b) => {
+          const freqA = grouped[a][0]?.getAttribute('data-max-tech-freq') || '0';
+          const freqB = grouped[b][0]?.getAttribute('data-max-tech-freq') || '0';
+          return parseInt(freqB) - parseInt(freqA);
+        });
+
+        // Limpar container e reconstruir com headers
+        coursesContainer.innerHTML = '';
+
+        sortedTechs.forEach(tech => {
+          // Criar header de tecnologia
+          const header = document.createElement('div');
+          header.className = 'col-span-full';
+          header.innerHTML = `<h3 class="text-lg font-semibold text-ink sticky top-0 bg-canvas py-2 z-10">${tech} <span class="text-sm font-normal text-ink-muted">(${grouped[tech].length})</span></h3>`;
+          coursesContainer.appendChild(header);
+
+          // Adicionar cards do grupo
+          grouped[tech].forEach(card => {
+            coursesContainer.appendChild(card);
+          });
+        });
+      } else {
+        // Ordenação normal por data
+        cards.sort((a, b) => {
           const dateA = parseInt(a.getAttribute('data-date') || '0');
           const dateB = parseInt(b.getAttribute('data-date') || '0');
           return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-        }
-      });
-      cards.forEach(card => coursesContainer?.appendChild(card));
+        });
+        coursesContainer.innerHTML = '';
+        cards.forEach(card => coursesContainer.appendChild(card));
+      }
     };
 
     const renderPagination = (visibleCards) => {
