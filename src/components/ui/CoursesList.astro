@@ -643,15 +643,17 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
         // Show loading overlay
         window.showLoading(lang === 'pt' ? 'Reordenando cursos...' : 'Reordering courses...');
 
-        // Sort and update UI with a minimum delay to ensure loading is visible
-        setTimeout(() => {
-          sortCards();
-          updateSortButtons();
-          updateUI();
+        // Use requestAnimationFrame para garantir que o loading apareça antes do processamento
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            sortCards();
+            updateSortButtons();
+            updateUI();
 
-          // Hide loading overlay
-          window.hideLoading();
-        }, 500);
+            // Hide loading overlay imediatamente após processamento
+            window.hideLoading();
+          }, 0);
+        });
       });
     });
 
