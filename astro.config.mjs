@@ -5,6 +5,17 @@ export default defineConfig({
   integrations: [tailwind()],
   site: 'https://maisongalvao.dev',
   output: 'static',
+  vite: {
+    build: {
+      minify: 'esbuild',
+      cssMinify: true,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined,
+        },
+      },
+    },
+  },
   i18n: {
     defaultLocale: 'pt',
     locales: ['pt', 'en'],
