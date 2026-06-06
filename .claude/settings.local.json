@@ -133,7 +133,9 @@
       "Bash(xargs ls -lh)",
       "Bash(git -C \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\" add -A)",
       "Bash(git -C \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\" commit -m \"Perf: otimizar desempenho com lazy loading, fontes e minificação\")",
-      "Bash(xargs grep -l \"img\\\\|image\")"
+      "Bash(xargs grep -l \"img\\\\|image\")",
+      "Bash(xargs du -sh)",
+      "Bash(awk '{print $5, $9}')"
     ]
   }
 }
