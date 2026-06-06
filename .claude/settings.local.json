@@ -127,7 +127,9 @@
       "Bash(timeout 20 sleep 1 *)",
       "Bash(grep -n \"^];$\" src/components/sections/Contests.astro)",
       "Bash(awk '/^const contests:/ {start=NR} start && /^];$/ && NR > start {print NR; exit}' src/components/sections/Contests.astro)",
-      "Bash(git update-index *)"
+      "Bash(git update-index *)",
+      "PowerShell(\\(Get-Content \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\src\\\\components\\\\sections\\\\Education.astro\" | Measure-Object -Line\\).Lines)",
+      "PowerShell(\\(Get-Content \"C:\\\\Users\\\\maiso\\\\WebstormProjects\\\\portfolio\\\\src\\\\components\\\\sections\\\\CaseStudies.astro\" | Measure-Object -Line\\).Lines)"
     ]
   }
 }
