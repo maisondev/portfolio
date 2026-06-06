@@ -341,14 +341,17 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           const header = document.createElement('div');
           header.className = 'col-span-full text-lg font-semibold text-ink/90 dark:text-white/90 py-2';
           header.innerHTML = `${tech} <span class="text-sm font-normal text-ink-muted">(${grouped[tech].length})</span>`;
+          header.setAttribute('data-tech-header', 'true');
           originalGrid.appendChild(header);
 
           // Adicionar cards do grupo
           grouped[tech].forEach(card => {
+            card.classList.remove('hidden');
             originalGrid.appendChild(card);
           });
         });
 
+        console.log('[DEBUG sortCards] Total cards agora:', originalGrid.querySelectorAll('[data-course]').length);
         coursesContainer = originalGrid;
       } else {
         // Ordenação normal por data
@@ -513,6 +516,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       const endIdx = startIdx + PAGE_SIZE;
       const paginatedVisibleCards = visibleCards.slice(startIdx, endIdx);
       const paginatedVisibleIndices = new Set(paginatedVisibleCards.map(v => v.index));
+
+      console.log('[DEBUG updateUI] visibleCount:', visibleCount, 'paginatedVisibleCards:', paginatedVisibleCards.length, 'paginatedVisibleIndices:', Array.from(paginatedVisibleIndices));
 
       getAllCards().forEach((card) => {
         const cardIndex = parseInt(card.getAttribute('data-card-index') || '0');
