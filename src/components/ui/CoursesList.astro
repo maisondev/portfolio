@@ -246,6 +246,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
   // Parse courses from data attributes
   const allCourses = [];
   const courseCards = new Map();
+  const coursesWrapper = coursesContainer?.parentElement;
   coursesContainer?.querySelectorAll('[data-course]').forEach((card, index) => {
     const data = JSON.parse(card.getAttribute('data-course') || '{}');
     allCourses.push(data);
@@ -300,8 +301,13 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       return Array.from(years).sort((a, b) => b - a);
     };
 
+    // Helper para encontrar todos os cards independente da estrutura
+    const getAllCards = () => {
+      return Array.from(coursesWrapper?.querySelectorAll('[data-course]') || coursesContainer?.querySelectorAll('[data-course]') || []);
+    };
+
     const sortCards = () => {
-      let currentCards = Array.from(coursesContainer?.querySelectorAll('[data-course]') || []);
+      let currentCards = getAllCards();
 
       if (sortOrder === 'tech') {
         // Agrupar por tecnologia
@@ -486,7 +492,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       let visibleCount = 0;
       const visibleCards = [];
 
-      coursesContainer?.querySelectorAll('[data-course]').forEach((card, index) => {
+      getAllCards().forEach((card, index) => {
         const data = JSON.parse(card.getAttribute('data-course') || '{}');
         const technologies = data.technologies || [];
         const platform = data.platform || '';
@@ -517,7 +523,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       const paginatedVisibleCards = visibleCards.slice(startIdx, endIdx);
       const paginatedVisibleIndices = new Set(paginatedVisibleCards.map(v => v.index));
 
-      coursesContainer?.querySelectorAll('[data-course]').forEach((card, index) => {
+      getAllCards().forEach((card, index) => {
         if (paginatedVisibleIndices.has(index)) {
           card.classList.remove('hidden');
         } else {
