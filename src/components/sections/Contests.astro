@@ -398,21 +398,21 @@ const contestsReserva = contests.filter(c => {
 
       // Sort cards
       if (sortType === 'default') {
-        cards.sort((a, b) => parseInt(b.getAttribute('data-year')!) - parseInt(a.getAttribute('data-year')!));
+        cards.sort((a, b) => parseInt(b.getAttribute('data-year') || '0') - parseInt(a.getAttribute('data-year') || '0'));
       } else if (sortType === 'year-desc') {
-        cards.sort((a, b) => parseInt(b.getAttribute('data-year')!) - parseInt(a.getAttribute('data-year')!));
+        cards.sort((a, b) => parseInt(b.getAttribute('data-year') || '0') - parseInt(a.getAttribute('data-year') || '0'));
       } else if (sortType === 'year-asc') {
-        cards.sort((a, b) => parseInt(a.getAttribute('data-year')!) - parseInt(b.getAttribute('data-year')!));
+        cards.sort((a, b) => parseInt(a.getAttribute('data-year') || '0') - parseInt(b.getAttribute('data-year') || '0'));
       } else if (sortType === 'ranking') {
         cards.sort((a, b) => {
-          const aRank = parseInt(a.getAttribute('data-ranking')!.split('º')[0].split('th')[0]) || 9999;
-          const bRank = parseInt(b.getAttribute('data-ranking')!.split('º')[0].split('th')[0]) || 9999;
+          const aRank = parseInt((a.getAttribute('data-ranking') || '').split('º')[0].split('th')[0]) || 9999;
+          const bRank = parseInt((b.getAttribute('data-ranking') || '').split('º')[0].split('th')[0]) || 9999;
           return aRank - bRank;
         });
       } else if (sortType === 'salary') {
         cards.sort((a, b) => {
-          const aSalary = parseFloat(a.getAttribute('data-salary')!.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
-          const bSalary = parseFloat(b.getAttribute('data-salary')!.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+          const aSalary = parseFloat((a.getAttribute('data-salary') || '').replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+          const bSalary = parseFloat((b.getAttribute('data-salary') || '').replace(/[^\d,]/g, '').replace(',', '.')) || 0;
           return bSalary - aSalary;
         });
       } else if (sortType === 'type') {
@@ -565,6 +565,5 @@ const contestsReserva = contests.filter(c => {
       applyFilters();
     });
   });
-  }
 </script>
 

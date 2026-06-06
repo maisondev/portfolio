@@ -215,11 +215,14 @@ const icons: Record<string, string> = {
 
       if (currentPages.length > 1) {
         pageNav.classList.remove('hidden');
-        prevPageBtn!.disabled = currentPageIndex === 0;
-        nextPageBtn!.disabled = currentPageIndex === currentPages.length - 1;
-
-        prevPageBtn!.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
-        nextPageBtn!.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
+        if (prevPageBtn) {
+          prevPageBtn.disabled = currentPageIndex === 0;
+          prevPageBtn.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
+        }
+        if (nextPageBtn) {
+          nextPageBtn.disabled = currentPageIndex === currentPages.length - 1;
+          nextPageBtn.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
+        }
       } else {
         pageNav.classList.add('hidden');
       }
