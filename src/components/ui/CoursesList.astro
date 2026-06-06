@@ -301,12 +301,12 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     };
 
     const sortCards = () => {
-      const cards = Array.from(coursesContainer?.querySelectorAll('[data-course]') || []);
+      let currentCards = Array.from(coursesContainer?.querySelectorAll('[data-course]') || []);
 
       if (sortOrder === 'tech') {
         // Agrupar por tecnologia
         const grouped = {};
-        cards.forEach(card => {
+        currentCards.forEach(card => {
           const primaryTech = card.getAttribute('data-primary-tech') || 'Sem tecnologia';
           if (!grouped[primaryTech]) {
             grouped[primaryTech] = [];
@@ -321,30 +321,55 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           return parseInt(freqB) - parseInt(freqA);
         });
 
-        // Limpar container e reconstruir com headers
-        coursesContainer.innerHTML = '';
+        // Limpar wrapper e reconstruir com grupos separados
+        const wrapper = coursesContainer.parentElement;
+        wrapper.innerHTML = '';
 
         sortedTechs.forEach(tech => {
+          // Criar container para o grupo
+          const groupContainer = document.createElement('div');
+          groupContainer.className = 'space-y-3';
+
           // Criar header de tecnologia
           const header = document.createElement('div');
-          header.className = 'col-span-full';
-          header.innerHTML = `<h3 class="text-lg font-semibold text-ink sticky top-0 bg-canvas py-2 z-10">${tech} <span class="text-sm font-normal text-ink-muted">(${grouped[tech].length})</span></h3>`;
-          coursesContainer.appendChild(header);
+          header.innerHTML = `<h3 class="text-lg font-semibold text-ink/90 dark:text-white/90 py-2">${tech} <span class="text-sm font-normal text-ink-muted">(${grouped[tech].length})</span></h3>`;
+          groupContainer.appendChild(header);
+
+          // Criar grid para este grupo
+          const grid = document.createElement('div');
+          grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4';
 
           // Adicionar cards do grupo
           grouped[tech].forEach(card => {
-            coursesContainer.appendChild(card);
+            grid.appendChild(card);
           });
+
+          groupContainer.appendChild(grid);
+          wrapper.appendChild(groupContainer);
         });
+
+        // Atualizar referência do coursesContainer para próximas operações
+        coursesContainer = wrapper;
       } else {
         // Ordenação normal por data
-        cards.sort((a, b) => {
+        currentCards.sort((a, b) => {
           const dateA = parseInt(a.getAttribute('data-date') || '0');
           const dateB = parseInt(b.getAttribute('data-date') || '0');
           return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
         });
-        coursesContainer.innerHTML = '';
-        cards.forEach(card => coursesContainer.appendChild(card));
+
+        const wrapper = coursesContainer.parentElement || document.querySelector('[id="courses-grid-wrapper"]');
+        wrapper.innerHTML = '';
+
+        const newGrid = document.createElement('div');
+        newGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4';
+        newGrid.setAttribute('data-courses-container', '');
+
+        currentCards.forEach(card => newGrid.appendChild(card));
+        wrapper.appendChild(newGrid);
+
+        // Atualizar referência do coursesContainer
+        coursesContainer = newGrid;
       }
     };
 
