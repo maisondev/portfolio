@@ -1,32 +1,43 @@
 ---
-// LoadingOverlay.astro - Loading global bonito e reutilizável
+// LoadingOverlay.astro - Loading global bonito com animações incríveis
 ---
 
 <div id="loading-overlay" class="fixed inset-0 z-[9999] hidden">
-  <!-- Overlay semi-transparente -->
-  <div class="absolute inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm"></div>
+  <!-- Overlay semi-transparente com animação -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/50 dark:from-black/50 dark:to-black/70 backdrop-blur-md transition-all duration-300"></div>
 
   <!-- Conteúdo centralizado -->
-  <div class="absolute inset-0 flex items-center justify-center">
-    <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-4">
-      <!-- Spinner animado -->
-      <div class="relative w-12 h-12">
-        <svg
-          class="w-12 h-12 animate-spin text-accent-500"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <circle cx="12" cy="12" r="10" stroke-linecap="round" class="opacity-25" />
-          <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round" class="opacity-75" />
-        </svg>
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl p-10 flex flex-col items-center gap-6 animate-slide-up max-w-sm w-full border border-white/10 dark:border-white/5">
+      <!-- Spinner com múltiplos anéis animados -->
+      <div class="relative w-16 h-16">
+        <!-- Anel externo 1 (rotação) -->
+        <div class="absolute inset-0 rounded-full border-2 border-transparent border-t-accent-500 border-r-accent-500/50 animate-spin-slow"></div>
+
+        <!-- Anel externo 2 (rotação reversa) -->
+        <div class="absolute inset-2 rounded-full border-2 border-transparent border-b-accent-400 border-l-accent-400/50 animate-spin-reverse"></div>
+
+        <!-- Anel interno pulsante -->
+        <div class="absolute inset-4 rounded-full border border-accent-500/30 animate-pulse-scale"></div>
+
+        <!-- Ponto central -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
+        </div>
       </div>
 
-      <!-- Texto opcional -->
-      <p id="loading-text" class="text-sm font-medium text-ink dark:text-white text-center">
-        Carregando...
-      </p>
+      <!-- Texto com animação de fade -->
+      <div class="text-center space-y-2">
+        <p id="loading-text" class="text-sm font-semibold text-ink dark:text-white animate-fade-in">
+          Carregando...
+        </p>
+        <!-- Três pontinhos animados -->
+        <div class="flex gap-1 justify-center h-4">
+          <span class="inline-block w-1 h-1 bg-accent-500 rounded-full animate-bounce" style="animation-delay: 0s;"></span>
+          <span class="inline-block w-1 h-1 bg-accent-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
+          <span class="inline-block w-1 h-1 bg-accent-500 rounded-full animate-bounce" style="animation-delay: 0.4s;"></span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -66,13 +77,69 @@
 </script>
 
 <style>
-  @keyframes spin {
+  @keyframes spin-slow {
     to {
       transform: rotate(360deg);
     }
   }
 
-  .animate-spin {
-    animation: spin 1s linear infinite;
+  @keyframes spin-reverse {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes pulse-scale {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 2s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin-reverse 3s linear infinite;
+  }
+
+  .animate-pulse-scale {
+    animation: pulse-scale 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out 0.2s both;
   }
 </style>
