@@ -117,7 +117,10 @@
       "Bash(cat)",
       "Bash(python /tmp/convert_pdf.py)",
       "Bash(python *)",
-      "PowerShell(Get-Job *)"
+      "PowerShell(Get-Job *)",
+      "Bash(node -e \"const {courses} = require\\('./src/config/courses.ts'\\); const platforms = [...new Set\\(courses.map\\(c => c.platform\\)\\)].sort\\(\\); console.log\\(platforms.join\\('\\\\n'\\)\\)\")",
+      "Bash(sed -n '30,577p' src/components/sections/Contests.astro)",
+      "Read(//tmp/**)"
     ]
   }
 }
