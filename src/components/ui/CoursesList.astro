@@ -314,21 +314,29 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       let currentCards = getAllCards();
 
       if (sortOrder === 'tech') {
-        // Agrupar por tecnologia primária
+        // Agrupar por TODAS as tecnologias de cada card
         const grouped = {};
         const techOrder = [];
+        const techCount = {};
 
         currentCards.forEach((card) => {
-          const primaryTech = card.getAttribute('data-primary-tech') || 'Sem tecnologia';
-          if (!grouped[primaryTech]) {
-            grouped[primaryTech] = [];
-            techOrder.push(primaryTech);
-          }
-          grouped[primaryTech].push(card);
+          const data = JSON.parse(card.getAttribute('data-course') || '{}');
+          const technologies = data.technologies || [];
+
+          // Card aparece em cada grupo de tecnologia que possui
+          technologies.forEach((tech) => {
+            if (!grouped[tech]) {
+              grouped[tech] = [];
+              techOrder.push(tech);
+              techCount[tech] = 0;
+            }
+            grouped[tech].push(card);
+            techCount[tech]++;
+          });
         });
 
         // Ordenar grupos por quantidade de cards (decrescente)
-        techOrder.sort((a, b) => grouped[b].length - grouped[a].length);
+        techOrder.sort((a, b) => techCount[b] - techCount[a]);
 
         const originalGrid = coursesContainer;
         originalGrid.innerHTML = '';
@@ -340,14 +348,14 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           header.className = 'col-span-full mb-4 mt-8 first:mt-0';
           header.innerHTML = `
             <h3 class="text-lg font-semibold text-primary">
-              ${tech} <span class="text-ink-muted font-normal">(${grouped[tech].length})</span>
+              ${tech} <span class="text-ink-muted font-normal">(${techCount[tech]})</span>
             </h3>
           `;
           originalGrid.appendChild(header);
 
-          // Adicionar cards do grupo
+          // Adicionar cards do grupo (sem duplicação visual - usar cloneNode)
           grouped[tech].forEach((card) => {
-            originalGrid.appendChild(card);
+            originalGrid.appendChild(card.cloneNode(true));
           });
         });
 
