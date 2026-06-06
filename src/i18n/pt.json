@@ -18,10 +18,11 @@
   },
   "cta": {
     "explore": "Explorar Mais",
-    "exploreDesc": "Conheça minha experiência, formação e contribuições à comunidade.",
+    "exploreDesc": "Conheça minha experiência, formação, concursos e qualificações.",
     "experience": "Experiência Profissional",
     "education": "Formação",
-    "articles": "Artigos & Writing"
+    "contests": "Concursos Públicos",
+    "courses": "Cursos & Certificados"
   },
   "contact": {
     "title": "Contato",

@@ -18,10 +18,11 @@
   },
   "cta": {
     "explore": "Explore More",
-    "exploreDesc": "Learn about my experience, education, and contributions to the community.",
+    "exploreDesc": "Learn about my experience, education, public contests and qualifications.",
     "experience": "Professional Experience",
-    "education": "Education & Public Contests",
-    "articles": "Articles & Writing"
+    "education": "Education",
+    "contests": "Public Contests",
+    "courses": "Courses & Certificates"
   },
   "contact": {
     "title": "Contact",
