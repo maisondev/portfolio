@@ -1,6 +1,7 @@
 ---
 import { courses, getAllTechnologies } from '@/config/courses';
 import CourseCard from './CourseCard.astro';
+import CoursesSort from './CoursesSort.astro';
 
 const allTechnologies = getAllTechnologies();
 
@@ -29,49 +30,57 @@ const allInstitutions = Array.from(
   new Set(courses.map((course) => course.platform))
 ).sort();
 
+// Extract unique years from courses
+const allYears = Array.from(
+  new Set(
+    courses.map((course) => {
+      const [, year] = course.completedAt.split(' ');
+      return parseInt(year);
+    })
+  )
+).sort((a, b) => b - a); // Sort descending (newest first)
+
 // Build full URL with localization
-const buildFilterUrl = (tech?: string, inst?: string) => {
+const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
   const parts = [];
   if (tech) parts.push(`tech=${encodeURIComponent(tech)}`);
   if (inst) parts.push(`inst=${encodeURIComponent(inst)}`);
+  if (year) parts.push(`year=${encodeURIComponent(year)}`);
   const query = parts.length > 0 ? `?${parts.join('&')}` : '';
   return `${getLocalizedPath('/courses')}${query}`;
 };
 ---
 
-<div class="space-y-8" data-courses-filter>
-  <!-- Search and Sort Controls -->
-  <div class="space-y-4">
-    <input
-      type="text"
-      id="course-search"
-      placeholder={lang === 'pt' ? 'Buscar curso por nome...' : 'Search course by name...'}
-      class="w-full px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-none focus:border-primary/50 transition-colors"
-    />
+<div class="space-y-6" data-courses-filter>
+  <!-- Sort Controls Component -->
+  <CoursesSort lang={lang} />
 
-    <!-- Sort Buttons -->
-    <div class="flex gap-2">
-      <button
-        id="course-sort-desc"
-        class="sort-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
-        data-sort="desc"
-        title={lang === 'pt' ? 'Ordenar por mais recentes' : 'Sort by most recent'}
-      >
-        {lang === 'pt' ? '↓ Mais recentes' : '↓ Most recent'}
-      </button>
-      <button
-        id="course-sort-asc"
-        class="sort-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50"
-        data-sort="asc"
-        title={lang === 'pt' ? 'Ordenar por mais antigos' : 'Sort by oldest first'}
-      >
-        {lang === 'pt' ? '↑ Mais antigos' : '↑ Oldest first'}
-      </button>
+  <!-- Filters Accordion Toggle -->
+  <button
+    id="filters-toggle"
+    class="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-hairline bg-surface-1 hover:bg-surface-2 text-ink font-medium transition-all"
+  >
+    <span>{lang === 'pt' ? 'Filtros' : 'Filters'}</span>
+    <svg class="w-5 h-5 transition-transform" id="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  </button>
+
+  <!-- Filters Section (Hidden by default) -->
+  <div class="space-y-6 hidden" id="filters-section" data-filters-section>
+    <!-- Search Input -->
+    <div class="space-y-3">
+      <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
+        {lang === 'pt' ? 'Buscar' : 'Search'}
+      </h3>
+      <input
+        type="text"
+        id="course-search"
+        placeholder={lang === 'pt' ? 'Buscar curso por nome...' : 'Search course by name...'}
+        class="w-full px-4 py-2.5 rounded-lg border border-hairline bg-surface-1 text-ink placeholder:text-ink-subtle focus:outline-none focus:border-primary/50 transition-colors"
+      />
     </div>
-  </div>
 
-  <!-- Filters Section -->
-  <div class="space-y-6">
     <!-- Filter by Technology -->
     <div class="space-y-3">
       <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
@@ -131,7 +140,38 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         })}
       </div>
     </div>
+
+    <!-- Filter by Year -->
+    <div class="space-y-3">
+      <h3 class="text-sm font-semibold text-ink uppercase tracking-wide">
+        {lang === 'pt' ? 'Filtrar por ano' : 'Filter by year'}
+      </h3>
+      <div class="flex flex-wrap gap-2" data-year-filters>
+        <button
+          data-filter-year=""
+          class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
+        >
+          {lang === 'pt' ? `Todos (${allYears.length})` : `All (${allYears.length})`}
+        </button>
+        {allYears.map((year) => {
+          const count = courses.filter((course) => {
+            const [, courseYear] = course.completedAt.split(' ');
+            return parseInt(courseYear) === year;
+          }).length;
+
+          return (
+            <button
+              data-filter-year={year}
+              class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-surface-1 text-ink-muted border border-hairline hover:border-primary/50"
+            >
+              {year} ({count})
+            </button>
+          );
+        })}
+      </div>
+    </div>
   </div>
+</div>
 
   <!-- Courses Grid -->
   <div>
@@ -139,9 +179,9 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       {lang === 'pt' ? `Total: ${courses.length} cursos` : `Total: ${courses.length} courses`}
     </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-grid>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-container>
       {courses.map((course) => (
-        <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform })} data-date={parseDate(course.completedAt)}>
+        <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])} data-tech-count={course.technologies.length}>
           <CourseCard course={course} lang={lang} />
         </div>
       ))}
@@ -158,24 +198,35 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       <!-- Buttons generated by script -->
     </div>
   </div>
-</div>
 
 <script define:vars={{courses, lang}}>
   const PAGE_SIZE = 48;
   const filterContainer = document.querySelector('[data-courses-filter]');
-  const coursesGrid = filterContainer?.querySelector('[data-courses-grid]');
-  const noResults = filterContainer?.querySelector('[data-no-results]');
-  const filterSummary = filterContainer?.querySelector('[data-filter-summary]');
+  const filtersSection = document.getElementById('filters-section');
+  const filtersToggle = document.getElementById('filters-toggle');
+  const toggleIcon = document.getElementById('toggle-icon');
+  const coursesContainer = document.querySelector('[data-courses-container]');
+  const noResults = document.querySelector('[data-no-results]');
+  const filterSummary = document.querySelector('[data-filter-summary]');
   const techButtons = filterContainer?.querySelectorAll('[data-filter-tech]');
   const instButtons = filterContainer?.querySelectorAll('[data-filter-inst]');
-  const sortButtons = filterContainer?.querySelectorAll('.sort-btn');
+  const yearButtons = filterContainer?.querySelectorAll('[data-filter-year]');
+  const sortButtons = document.querySelectorAll('[data-sort-buttons] .sort-btn');
   const searchInput = document.getElementById('course-search');
   const paginationContainer = document.getElementById('pagination');
+
+  // Filters toggle functionality
+  if (filtersToggle && filtersSection) {
+    filtersToggle.addEventListener('click', () => {
+      filtersSection.classList.toggle('hidden');
+      toggleIcon?.classList.toggle('rotate-180');
+    });
+  }
 
   // Parse courses from data attributes
   const allCourses = [];
   const courseCards = new Map();
-  coursesGrid?.querySelectorAll('[data-course]').forEach((card, index) => {
+  coursesContainer?.querySelectorAll('[data-course]').forEach((card, index) => {
     const data = JSON.parse(card.getAttribute('data-course') || '{}');
     allCourses.push(data);
     courseCards.set(index, card);
@@ -185,40 +236,64 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     let params = new URLSearchParams(window.location.search);
     let selectedTech = params.get('tech') || '';
     let selectedInst = params.get('inst') || '';
+    let selectedYear = params.get('year') || '';
     let searchQuery = '';
     let currentPage = parseInt(params.get('page') || '0');
     let sortOrder = params.get('sort') || 'desc';
 
-    // Get available technologies based on current institution filter
-    const getAvailableTechs = (inst = '') => {
+    // Get available technologies based on current institution and year filter
+    const getAvailableTechs = (inst = '', year = '') => {
       const techs = new Set();
       allCourses.forEach((course) => {
-        if (!inst || course.platform.toLowerCase() === inst.toLowerCase()) {
+        const instMatch = !inst || course.platform.toLowerCase() === inst.toLowerCase();
+        const yearMatch = !year || course.year === parseInt(year);
+        if (instMatch && yearMatch) {
           course.technologies?.forEach((t) => techs.add(t));
         }
       });
       return Array.from(techs).sort();
     };
 
-    // Get available institutions based on current tech filter
-    const getAvailableInsts = (tech = '') => {
+    // Get available institutions based on current tech and year filter
+    const getAvailableInsts = (tech = '', year = '') => {
       const insts = new Set();
       allCourses.forEach((course) => {
-        if (!tech || course.technologies?.some((t) => t.toLowerCase() === tech.toLowerCase())) {
+        const techMatch = !tech || course.technologies?.some((t) => t.toLowerCase() === tech.toLowerCase());
+        const yearMatch = !year || course.year === parseInt(year);
+        if (techMatch && yearMatch) {
           insts.add(course.platform);
         }
       });
       return Array.from(insts).sort();
     };
 
-    const sortCards = () => {
-      const cards = Array.from(coursesGrid?.querySelectorAll('[data-course]') || []);
-      cards.sort((a, b) => {
-        const dateA = parseInt(a.getAttribute('data-date') || '0');
-        const dateB = parseInt(b.getAttribute('data-date') || '0');
-        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+    // Get available years based on current tech and institution filter
+    const getAvailableYears = (tech = '', inst = '') => {
+      const years = new Set();
+      allCourses.forEach((course) => {
+        const techMatch = !tech || course.technologies?.some((t) => t.toLowerCase() === tech.toLowerCase());
+        const instMatch = !inst || course.platform.toLowerCase() === inst.toLowerCase();
+        if (techMatch && instMatch) {
+          years.add(course.year);
+        }
       });
-      cards.forEach(card => coursesGrid?.appendChild(card));
+      return Array.from(years).sort((a, b) => b - a);
+    };
+
+    const sortCards = () => {
+      const cards = Array.from(coursesContainer?.querySelectorAll('[data-course]') || []);
+      cards.sort((a, b) => {
+        if (sortOrder === 'tech') {
+          const techA = parseInt(a.getAttribute('data-tech-count') || '0');
+          const techB = parseInt(b.getAttribute('data-tech-count') || '0');
+          return techB - techA;
+        } else {
+          const dateA = parseInt(a.getAttribute('data-date') || '0');
+          const dateB = parseInt(b.getAttribute('data-date') || '0');
+          return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+        }
+      });
+      cards.forEach(card => coursesContainer?.appendChild(card));
     };
 
     const renderPagination = (visibleCards) => {
@@ -244,13 +319,14 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
               const newParams = new URLSearchParams();
               if (selectedTech) newParams.set('tech', selectedTech);
               if (selectedInst) newParams.set('inst', selectedInst);
+              if (selectedYear) newParams.set('year', selectedYear);
               if (searchQuery) newParams.set('search', searchQuery);
               if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
               if (currentPage > 0) newParams.set('page', currentPage);
               const query = newParams.toString();
               window.history.pushState({}, '', query ? `?${query}` : '');
               updateUI();
-              window.scrollTo({ top: coursesGrid?.offsetTop || 0, behavior: 'smooth' });
+              window.scrollTo({ top: coursesContainer?.offsetTop || 0, behavior: 'smooth' });
             });
 
             paginationContainer.appendChild(btn);
@@ -262,8 +338,9 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
     };
 
     const updateUI = () => {
-      const availableTechs = getAvailableTechs(selectedInst);
-      const availableInsts = getAvailableInsts(selectedTech);
+      const availableTechs = getAvailableTechs(selectedInst, selectedYear);
+      const availableInsts = getAvailableInsts(selectedTech, selectedYear);
+      const availableYears = getAvailableYears(selectedTech, selectedInst);
 
       // Update tech buttons
       techButtons?.forEach((btn) => {
@@ -307,14 +384,37 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         }
       });
 
+      // Update year buttons
+      yearButtons?.forEach((btn) => {
+        const year = btn.getAttribute('data-filter-year');
+        const isAvailable = !year || availableYears.includes(parseInt(year));
+        const isSelected = year === selectedYear;
+
+        if (isSelected) {
+          btn.classList.add('bg-primary', 'text-white');
+          btn.classList.remove('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline', 'opacity-50', 'cursor-not-allowed');
+          btn.disabled = false;
+        } else if (isAvailable) {
+          btn.classList.remove('bg-primary', 'text-white', 'opacity-50', 'cursor-not-allowed');
+          btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline');
+          btn.disabled = false;
+        } else {
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline', 'opacity-50', 'cursor-not-allowed');
+          btn.disabled = true;
+        }
+      });
+
       // Filter courses
       let visibleCount = 0;
       const visibleCards = [];
-      coursesGrid?.querySelectorAll('[data-course]').forEach((card, index) => {
+
+      coursesContainer?.querySelectorAll('[data-course]').forEach((card, index) => {
         const data = JSON.parse(card.getAttribute('data-course') || '{}');
         const technologies = data.technologies || [];
         const platform = data.platform || '';
         const courseName = data.name || '';
+        const year = data.year;
 
         const techMatch = !selectedTech ||
           technologies.some((t) => t.toLowerCase() === selectedTech.toLowerCase());
@@ -322,10 +422,13 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const instMatch = !selectedInst ||
           platform.toLowerCase() === selectedInst.toLowerCase();
 
+        const yearMatch = !selectedYear ||
+          year === parseInt(selectedYear);
+
         const searchMatch = !searchQuery ||
           courseName.includes(searchQuery.toLowerCase());
 
-        if (techMatch && instMatch && searchMatch) {
+        if (techMatch && instMatch && yearMatch && searchMatch) {
           visibleCards.push({ card, index });
           visibleCount++;
         }
@@ -337,7 +440,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       const paginatedVisibleCards = visibleCards.slice(startIdx, endIdx);
       const paginatedVisibleIndices = new Set(paginatedVisibleCards.map(v => v.index));
 
-      coursesGrid?.querySelectorAll('[data-course]').forEach((card, index) => {
+      coursesContainer?.querySelectorAll('[data-course]').forEach((card, index) => {
         if (paginatedVisibleIndices.has(index)) {
           card.classList.remove('hidden');
         } else {
@@ -352,6 +455,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
       const filters = [];
       if (selectedTech) filters.push(`"${selectedTech}"`);
       if (selectedInst) filters.push(`"${selectedInst}"`);
+      if (selectedYear) filters.push(`"${selectedYear}"`);
 
       if (filterSummary) {
         const isPt = lang === 'pt';
@@ -410,6 +514,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const newParams = new URLSearchParams();
         if (selectedTech) newParams.set('tech', selectedTech);
         if (selectedInst) newParams.set('inst', selectedInst);
+        if (selectedYear) newParams.set('year', selectedYear);
         if (searchQuery) newParams.set('search', searchQuery);
         if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
         const query = newParams.toString();
@@ -425,9 +530,11 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         if (btnSort === sortOrder) {
           btn.classList.add('bg-primary', 'text-white');
           btn.classList.remove('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline');
+          btn.disabled = false;
         } else {
           btn.classList.remove('bg-primary', 'text-white');
           btn.classList.add('bg-surface-1', 'text-ink-muted', 'border', 'border-hairline');
+          btn.disabled = false;
         }
       });
     };
@@ -440,6 +547,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
         const newParams = new URLSearchParams();
         if (selectedTech) newParams.set('tech', selectedTech);
         if (selectedInst) newParams.set('inst', selectedInst);
+        if (selectedYear) newParams.set('year', selectedYear);
         if (searchQuery) newParams.set('search', searchQuery);
         if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
         const query = newParams.toString();
@@ -459,6 +567,7 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           const newParams = new URLSearchParams();
           if (selectedTech) newParams.set('tech', selectedTech);
           if (selectedInst) newParams.set('inst', selectedInst);
+          if (selectedYear) newParams.set('year', selectedYear);
           if (searchQuery) newParams.set('search', searchQuery);
           if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
           const query = newParams.toString();
@@ -476,6 +585,26 @@ const buildFilterUrl = (tech?: string, inst?: string) => {
           const newParams = new URLSearchParams();
           if (selectedTech) newParams.set('tech', selectedTech);
           if (selectedInst) newParams.set('inst', selectedInst);
+          if (selectedYear) newParams.set('year', selectedYear);
+          if (searchQuery) newParams.set('search', searchQuery);
+          if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
+          const query = newParams.toString();
+          window.history.pushState({}, '', query ? `?${query}` : '');
+          updateUI();
+        }
+      });
+    });
+
+    // Add click handlers to year buttons
+    yearButtons?.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (!btn.disabled) {
+          selectedYear = btn.getAttribute('data-filter-year') || '';
+          currentPage = 0;
+          const newParams = new URLSearchParams();
+          if (selectedTech) newParams.set('tech', selectedTech);
+          if (selectedInst) newParams.set('inst', selectedInst);
+          if (selectedYear) newParams.set('year', selectedYear);
           if (searchQuery) newParams.set('search', searchQuery);
           if (sortOrder !== 'desc') newParams.set('sort', sortOrder);
           const query = newParams.toString();
