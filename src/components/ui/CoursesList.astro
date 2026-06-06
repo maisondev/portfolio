@@ -567,8 +567,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
         const query = newParams.toString();
         window.history.pushState({}, '', query ? `?${query}` : '');
 
-        // Show system loading cursor
-        document.documentElement.style.cursor = 'wait';
+        // Show loading overlay
+        window.showLoading(lang === 'pt' ? 'Reordenando cursos...' : 'Reordering courses...');
 
         // Sort and update UI with a small delay for visual feedback
         setTimeout(() => {
@@ -576,8 +576,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           updateSortButtons();
           updateUI();
 
-          // Hide system loading cursor
-          document.documentElement.style.cursor = 'auto';
+          // Hide loading overlay
+          window.hideLoading();
         }, 200);
       });
     });

@@ -1,0 +1,78 @@
+---
+// LoadingOverlay.astro - Loading global bonito e reutilizável
+---
+
+<div id="loading-overlay" class="fixed inset-0 z-[9999] hidden">
+  <!-- Overlay semi-transparente -->
+  <div class="absolute inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm"></div>
+
+  <!-- Conteúdo centralizado -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-4">
+      <!-- Spinner animado -->
+      <div class="relative w-12 h-12">
+        <svg
+          class="w-12 h-12 animate-spin text-accent-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10" stroke-linecap="round" class="opacity-25" />
+          <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round" class="opacity-75" />
+        </svg>
+      </div>
+
+      <!-- Texto opcional -->
+      <p id="loading-text" class="text-sm font-medium text-ink dark:text-white text-center">
+        Carregando...
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sistema global de loading com contador de tarefas
+  window.__loadingCounter = 0;
+
+  window.showLoading = (text = 'Carregando...') => {
+    const overlay = document.getElementById('loading-overlay');
+    const textElement = document.getElementById('loading-text');
+
+    window.__loadingCounter++;
+
+    if (overlay) {
+      overlay.classList.remove('hidden');
+      if (textElement) {
+        textElement.textContent = text;
+      }
+    }
+  };
+
+  window.hideLoading = () => {
+    window.__loadingCounter = Math.max(0, window.__loadingCounter - 1);
+
+    if (window.__loadingCounter === 0) {
+      const overlay = document.getElementById('loading-overlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+      }
+    }
+  };
+
+  // Alias em português
+  window.mostrarCarregando = window.showLoading;
+  window.esconderCarregando = window.hideLoading;
+</script>
+
+<style>
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+</style>
