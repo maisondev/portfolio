@@ -561,11 +561,26 @@ const getTypeBadge = (totalVacancies: number, classification: string) => {
 const uniqueYears = Array.from(new Set(contests.map(c => c.year))).sort((a, b) => parseInt(b) - parseInt(a));
 const uniqueBancas = Array.from(new Set(contests.map(c => c.banca)));
 const uniqueOrganizations = Array.from(new Set(contests.map(c => c.organization)));
+// Extrair categoria de cargo (considera especialidade se existir)
+const getPositionCategory = (position: string) => {
+  // Se tem "Especialidade" ou "Especialidad", usa o que vem depois
+  const especialidadeMatch = position.match(/Especialidad[ae]\s+([^,\n]+)/i);
+  if (especialidadeMatch) {
+    return especialidadeMatch[1].trim().split(/\s+/)[0]; // Primeira palavra após especialidade
+  }
+
+  // Senão, usa a primeira palavra
+  const words = position.split(/[\s,-]+/);
+  return words[0]; // Primeira palavra: "Analista", "Técnico", "Auditor", etc.
+};
+
+const uniquePositions = Array.from(new Set(contests.map(c => getPositionCategory(c.position)))).sort();
 
 // Funções para contar filtros
 const countByYear = (year: string) => contests.filter(c => c.year === year).length;
 const countByBanca = (banca: string) => contests.filter(c => c.banca === banca).length;
 const countByOrg = (org: string) => contests.filter(c => c.organization === org).length;
+const countByPosition = (positionCategory: string) => contests.filter(c => getPositionCategory(c.position) === positionCategory).length;
 const countByStatus = (status: string) => {
   if (status === 'vagas') return contestsVagas;
   if (status === 'reserva') return contestsReserva;
@@ -671,6 +686,29 @@ const contestsReserva = contests.filter(c => {
         </div>
       </div>
 
+      {/* Filter by Position */}
+      <div class="space-y-3">
+        <h3 class={labelField('position')}>
+          {lang === 'pt' ? 'Filtrar por cargo' : 'Filter by position'}
+        </h3>
+        <div class="flex flex-wrap gap-2.5" data-position-filters>
+          <button
+            data-filter-position=""
+            class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary dark:bg-primary text-white dark:text-white hover:bg-primary-hover dark:hover:bg-primary-hover"
+          >
+            {lang === 'pt' ? 'Todos' : 'All'} <span class="font-semibold">({totalContests})</span>
+          </button>
+          {uniquePositions.map((position) => (
+            <button
+              data-filter-position={position}
+              class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-surface-1 dark:bg-surface-2 text-ink-muted dark:text-ink-muted border border-hairline dark:border-hairline hover:border-primary/50 dark:hover:border-primary/50"
+            >
+              {position} <span class="font-semibold">({countByPosition(position)})</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Filter by Status (Vagas vs Reserva) */}
       <div class="space-y-3">
         <h3 class={labelField('status')}>
@@ -761,6 +799,7 @@ const contestsReserva = contests.filter(c => {
             data-year={contest.year}
             data-banca={contest.banca}
             data-org={contest.organization}
+            data-position={getPositionCategory(contest.position)}
             data-status={statusType}
             data-ranking={contest.classification || ''}
             data-salary={contest.salary || ''}
@@ -1040,6 +1079,7 @@ const contestsReserva = contests.filter(c => {
     year: '',
     banca: '',
     org: '',
+    position: '',
     status: ''
   };
 
@@ -1065,6 +1105,12 @@ const contestsReserva = contests.filter(c => {
         shouldShow = shouldShow && cardOrg === activeFilters.org;
       }
 
+      // Filtro por Cargo
+      if (activeFilters.position) {
+        const cardPosition = card.getAttribute('data-position');
+        shouldShow = shouldShow && cardPosition === activeFilters.position;
+      }
+
       // Filtro por Status (Vagas vs Reserva)
       if (activeFilters.status) {
         const cardStatus = card.getAttribute('data-status');
@@ -1084,6 +1130,7 @@ const contestsReserva = contests.filter(c => {
       const yearFilter = btn.getAttribute('data-filter-year');
       const bancaFilter = btn.getAttribute('data-filter-banca');
       const orgFilter = btn.getAttribute('data-filter-org');
+      const positionFilter = btn.getAttribute('data-filter-position');
       const statusFilter = btn.getAttribute('data-filter-status');
 
       // Atualizar filtro ativo
@@ -1110,6 +1157,16 @@ const contestsReserva = contests.filter(c => {
       if (orgFilter !== null) {
         activeFilters.org = orgFilter;
         document.querySelectorAll('[data-filter-org]').forEach(b => {
+          b.classList.remove('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+          b.classList.add('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
+        });
+        btn.classList.add('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
+        btn.classList.remove('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
+      }
+
+      if (positionFilter !== null) {
+        activeFilters.position = positionFilter;
+        document.querySelectorAll('[data-filter-position]').forEach(b => {
           b.classList.remove('bg-primary', 'dark:bg-primary', 'text-white', 'dark:text-white');
           b.classList.add('bg-surface-1', 'dark:bg-surface-2', 'text-ink-muted', 'dark:text-ink-muted', 'border', 'border-hairline', 'dark:border-hairline');
         });
