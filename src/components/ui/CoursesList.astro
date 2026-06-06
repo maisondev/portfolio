@@ -544,7 +544,9 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
 
       if (filterSummary) {
         const isPt = lang === 'pt';
-        const courseWord = (n) => isPt ? `curso(s)` : `course(s)`;
+        const isTechSort = sortOrder === 'tech';
+        const unitWord = isTechSort ? (isPt ? 'tecnologia(s)' : 'technolog(ies)') : (isPt ? 'curso(s)' : 'course(s)');
+        const courseWord = (n) => unitWord;
         if (filters.length === 0) {
           if (searchQuery) {
             filterSummary.textContent = isPt
@@ -552,8 +554,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
               : `Found ${visibleCount} ${courseWord()} matching "${searchQuery}"`;
           } else {
             filterSummary.textContent = isPt
-              ? `Total: ${visibleCount} cursos`
-              : `Total: ${visibleCount} courses`;
+              ? `Total: ${visibleCount} ${isTechSort ? 'tecnologias' : 'cursos'}`
+              : `Total: ${visibleCount} ${isTechSort ? 'technologies' : 'courses'}`;
           }
         } else if (filters.length === 1) {
           if (searchQuery) {
