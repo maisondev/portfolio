@@ -2,6 +2,15 @@
 import { type Language } from '@/i18n/utils';
 import EducationCard from '../ui/EducationCard.astro';
 
+interface Module {
+  name: string;
+  date: string;
+  hours: number;
+  skills: string[];
+  certificateUrl?: string;
+  certificatePages?: string[];
+}
+
 interface EducationItem {
   degree: string;
   institution: string;
@@ -11,6 +20,7 @@ interface EducationItem {
   certificateUrl?: string;
   certificatePages?: string[];
   status?: 'completed' | 'in-progress';
+  modules?: Module[];
 }
 
 interface Props {
@@ -51,6 +61,24 @@ const education = [
     description: 'Formação em Engenharia de Software com foco em arquitetura e desenvolvimento de sistemas de larga escala.',
     type: 'graduacao',
     status: 'in-progress',
+    modules: [
+      {
+        name: 'Hands-on Professional / Requirements Analyst',
+        date: 'maio 2025',
+        hours: 340,
+        skills: ['Engenharia de Software', 'Arquitetura', 'SO', 'Lógica'],
+        certificateUrl: '/certificates/modulo1-eng-software.pdf',
+        certificatePages: ['/certificates/modulo1-eng-software.pdf'],
+      },
+      {
+        name: 'Data Administrator / Project Manager',
+        date: 'abril 2026',
+        hours: 380,
+        skills: ['Banco de Dados', 'Ágil', 'Governança de TI', 'Projetos'],
+        certificateUrl: '/certificates/modulo2-eng-software.pdf',
+        certificatePages: ['/certificates/modulo2-eng-software.pdf'],
+      },
+    ],
   },
   {
     degree: 'Tecnologia em Análise e Desenvolvimento de Sistemas',
