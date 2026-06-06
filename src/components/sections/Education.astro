@@ -190,7 +190,7 @@ const icons: Record<string, string> = {
   const nextPageBtn = document.getElementById('nextPage');
   const certButtons = document.querySelectorAll('.cert-btn');
 
-  let currentPages: string[] = [];
+  let currentPages = [];
   let currentPageIndex = 0;
   let isPdf = false;
 
@@ -205,23 +205,23 @@ const icons: Record<string, string> = {
       certPdf.src = currentPages[0];
       certPdf.classList.remove('hidden');
       certImage.classList.add('hidden');
-      pageNav!.classList.add('hidden');
+      pageNav.classList.add('hidden');
     } else {
       // Exibe imagem
       certImage.src = currentPages[currentPageIndex];
       certImage.classList.remove('hidden');
       certPdf.classList.add('hidden');
-      pageIndicator!.textContent = `Página ${currentPageIndex + 1} de ${currentPages.length}`;
+      pageIndicator.textContent = `Página ${currentPageIndex + 1} de ${currentPages.length}`;
 
       if (currentPages.length > 1) {
-        pageNav!.classList.remove('hidden');
+        pageNav.classList.remove('hidden');
         prevPageBtn!.disabled = currentPageIndex === 0;
         nextPageBtn!.disabled = currentPageIndex === currentPages.length - 1;
 
         prevPageBtn!.style.opacity = currentPageIndex === 0 ? '0.5' : '1';
         nextPageBtn!.style.opacity = currentPageIndex === currentPages.length - 1 ? '0.5' : '1';
       } else {
-        pageNav!.classList.add('hidden');
+        pageNav.classList.add('hidden');
       }
     }
   }

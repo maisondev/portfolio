@@ -320,11 +320,11 @@ const contestsReserva = contests.filter(c => {
 </style>
 
 <script defer>
-  const docModal = document.getElementById('docModal') as HTMLDialogElement;
+  const docModal = document.getElementById('docModal');
   const closeBtnDoc = document.getElementById('closeDocModal');
-  const docFrame = document.getElementById('docFrame') as HTMLIFrameElement;
+  const docFrame = document.getElementById('docFrame');
   const docTitle = document.getElementById('docTitle');
-  const downloadDocLink = document.getElementById('downloadDocLink') as HTMLAnchorElement;
+  const downloadDocLink = document.getElementById('downloadDocLink');
   const docButtons = document.querySelectorAll('.doc-btn');
 
   docButtons.forEach((btn) => {
@@ -382,7 +382,7 @@ const contestsReserva = contests.filter(c => {
   sortButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const sortType = btn.getAttribute('data-sort');
-      const cards = Array.from(sortContestsGrid!.querySelectorAll('[data-year]')) as HTMLElement[];
+      const cards = Array.from(sortContestsGrid.querySelectorAll('[data-year]'));
 
       // Remove active class from all buttons
       sortButtons.forEach(b => {
