@@ -1,19 +1,19 @@
 ---
 const gaId = import.meta.env.PUBLIC_GA_ID;
-
-if (!gaId) {
-  throw new Error('PUBLIC_GA_ID environment variable is not set');
-}
 ---
 
-<!-- Google Analytics -->
-<script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}>
-</script>
-<script is:inline define:vars={{ gaId }}>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-  gtag('config', gaId);
-</script>
+{gaId && (
+  <>
+    <!-- Google Analytics -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}>
+    </script>
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+  </>
+)}
