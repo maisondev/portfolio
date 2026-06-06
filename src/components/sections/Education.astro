@@ -1,5 +1,6 @@
 ---
 import { type Language } from '@/i18n/utils';
+import EducationCard from '@/components/ui/EducationCard.astro';
 
 interface EducationItem {
   degree: string;
@@ -111,36 +112,8 @@ const icons: Record<string, string> = {
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 4xl:grid-cols-4 gap-4">
         {category.items.map((edu) => (
-            <div class="bg-surface-1 border border-hairline rounded-lg p-5 space-y-3 hover:bg-surface-2 transition-colors h-full flex flex-col">
-              <div class="flex gap-3 flex-col">
-                <div class="flex-1 min-w-0">
-                  <h4 class="text-sm font-semibold text-ink leading-tight line-clamp-2">{edu.degree}</h4>
-                </div>
-                <div class="flex items-center justify-between gap-2">
-                  <span class="text-caption text-ink-secondary">{edu.year}</span>
-                  {edu.status === 'in-progress' && (
-                    <span class="text-caption font-medium px-2 py-1 rounded-sm bg-primary/10 text-primary">Cursando</span>
-                  )}
-                </div>
-              </div>
-              <div class="flex-1 flex flex-col gap-2 min-w-0">
-                <p class="text-primary text-caption font-medium line-clamp-1">{edu.institution}</p>
-                <p class="text-caption text-ink-muted line-clamp-2 flex-1">{edu.description}</p>
-              </div>
-              <div class="flex gap-2 flex-wrap">
-                {edu.certificateUrl && (
-                  <button class="cert-btn inline-flex items-center gap-1.5 text-caption text-primary hover:text-primary-hover transition-colors" data-pdf={edu.certificateUrl} data-pages={edu.certificatePages ? JSON.stringify(edu.certificatePages) : undefined}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 flex-shrink-0">
-                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                      <polyline points="17 21 17 13 7 13 7 21"/>
-                      <polyline points="7 3 7 8 15 8"/>
-                    </svg>
-                    <span class="hidden sm:inline">Ver</span>
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
+          <EducationCard edu={edu} />
+        ))}
       </div>
     </div>
   ))}
