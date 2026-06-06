@@ -1,0 +1,44 @@
+---
+interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: customClass = '' } = Astro.props;
+---
+
+<div id={id} data-lazy class={customClass}>
+  <slot />
+</div>
+
+<script>
+  // Lazy load seções abaixo da fold usando IntersectionObserver
+  const lazySections = document.querySelectorAll('[data-lazy]');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Seção está visível, pode carregar recursos
+          entry.target.classList.add('lazy-loaded');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '50px' // Começar a carregar 50px antes de ficar visível
+    });
+
+    lazySections.forEach((section) => observer.observe(section));
+  }
+</script>
+
+<style>
+  [data-lazy] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+
+  [data-lazy].lazy-loaded {
+    opacity: 1;
+  }
+</style>
