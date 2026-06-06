@@ -311,65 +311,21 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     const sortCards = () => {
       let currentCards = getAllCards();
 
-      if (sortOrder === 'tech') {
-        // Agrupar por tecnologia
-        const grouped = {};
-        currentCards.forEach(card => {
-          const primaryTech = card.getAttribute('data-primary-tech') || 'Sem tecnologia';
-          if (!grouped[primaryTech]) {
-            grouped[primaryTech] = [];
-          }
-          grouped[primaryTech].push(card);
-        });
+      // Ordenação normal por data
+      currentCards.sort((a, b) => {
+        const dateA = parseInt(a.getAttribute('data-date') || '0');
+        const dateB = parseInt(b.getAttribute('data-date') || '0');
+        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+      });
 
-        // Ordenar grupos por frequência (maior para menor)
-        const sortedTechs = Object.keys(grouped).sort((a, b) => {
-          const freqA = grouped[a][0]?.getAttribute('data-max-tech-freq') || '0';
-          const freqB = grouped[b][0]?.getAttribute('data-max-tech-freq') || '0';
-          return parseInt(freqB) - parseInt(freqA);
-        });
+      const originalGrid = coursesContainer;
+      originalGrid.innerHTML = '';
 
-        // Encontrar o grid original
-        const originalGrid = coursesContainer;
+      currentCards.forEach(card => {
+        originalGrid.appendChild(card);
+      });
 
-        // Limpar o grid mas manter o atributo
-        originalGrid.innerHTML = '';
-
-        // Adicionar grupos com headers e cards
-        sortedTechs.forEach(tech => {
-          // Criar header de tecnologia
-          const header = document.createElement('div');
-          header.className = 'col-span-full text-lg font-semibold text-ink/90 dark:text-white/90 py-2';
-          header.innerHTML = `${tech} <span class="text-sm font-normal text-ink-muted">(${grouped[tech].length})</span>`;
-          header.setAttribute('data-tech-header', 'true');
-          originalGrid.appendChild(header);
-
-          // Adicionar cards do grupo
-          grouped[tech].forEach(card => {
-            card.classList.remove('hidden');
-            originalGrid.appendChild(card);
-          });
-        });
-
-        console.log('[DEBUG sortCards] Total cards agora:', originalGrid.querySelectorAll('[data-course]').length);
-        coursesContainer = originalGrid;
-      } else {
-        // Ordenação normal por data
-        currentCards.sort((a, b) => {
-          const dateA = parseInt(a.getAttribute('data-date') || '0');
-          const dateB = parseInt(b.getAttribute('data-date') || '0');
-          return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-        });
-
-        const originalGrid = coursesContainer;
-        originalGrid.innerHTML = '';
-
-        currentCards.forEach(card => {
-          originalGrid.appendChild(card);
-        });
-
-        coursesContainer = originalGrid;
-      }
+      coursesContainer = originalGrid;
     };
 
     const renderPagination = (visibleCards) => {
@@ -516,8 +472,6 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       const endIdx = startIdx + PAGE_SIZE;
       const paginatedVisibleCards = visibleCards.slice(startIdx, endIdx);
       const paginatedVisibleIndices = new Set(paginatedVisibleCards.map(v => v.index));
-
-      console.log('[DEBUG updateUI] visibleCount:', visibleCount, 'paginatedVisibleCards:', paginatedVisibleCards.length, 'paginatedVisibleIndices:', Array.from(paginatedVisibleIndices));
 
       getAllCards().forEach((card) => {
         const cardIndex = parseInt(card.getAttribute('data-card-index') || '0');
