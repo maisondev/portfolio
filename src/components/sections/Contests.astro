@@ -278,24 +278,12 @@ const contestsReserva = contests.filter(c => {
     {/* Contests Grid */}
     <div class="space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" data-contests-grid>
-        {sortedContests.map((contest) => {
-          const badgeType = getTypeBadge(contest.totalVacancies || 0, contest.classification || '');
-          const isFirstPlace = contest.classification?.includes('1º') || contest.classification?.includes('1st');
-          const classNum = contest.classification ? parseInt(contest.classification.split('º')[0].split('th')[0]) : 0;
-          const isReserva = classNum > (contest.totalVacancies || 0);
-          const statusType = isReserva ? 'reserva' : 'vagas';
-
-          return (
-            <ContestCard
-              contest={contest}
-              lang={lang}
-              badgeType={badgeType}
-              isFirstPlace={isFirstPlace}
-              statusType={statusType}
-              getPositionCategory={getPositionCategory}
-            />
-          );
-        })}
+        {sortedContests.map((contest) => (
+          <ContestCard
+            contest={contest}
+            lang={lang}
+          />
+        ))}
       </div>
     </div>
   </div>

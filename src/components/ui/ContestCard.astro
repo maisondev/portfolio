@@ -7,20 +7,27 @@ import { type Language } from '@/i18n/utils';
 interface Props {
   contest: Contest;
   lang?: Language;
-  badgeType: 'edital' | 'cadastro_reserva' | null;
-  isFirstPlace: boolean;
-  statusType: 'vagas' | 'reserva';
-  getPositionCategory: (position: string) => string;
 }
 
-const {
-  contest,
-  lang = 'pt',
-  badgeType,
-  isFirstPlace,
-  statusType,
-  getPositionCategory,
-} = Astro.props;
+const { contest, lang = 'pt' } = Astro.props;
+
+// Calcular valores localmente em vez de receber como props
+const getPositionCategory = (position: string) => {
+  if (/desenvolvimento|desenvolvedor/i.test(position)) {
+    return 'Desenvolvedor';
+  }
+  const especialidadeMatch = position.match(/Especialidad[ae]\s+([^,\n]+)/i);
+  if (especialidadeMatch) {
+    return especialidadeMatch[1].trim().split(/\s+/)[0];
+  }
+  const words = position.split(/[\s,-]+/);
+  return words[0];
+};
+
+const classNum = contest.classification ? parseInt(contest.classification.split('º')[0]) : 0;
+const isFirstPlace = classNum <= (contest.totalVacancies || 0);
+const badgeType = isFirstPlace ? 'edital' : 'cadastro_reserva';
+const statusType = classNum > (contest.totalVacancies || 0) ? 'reserva' : 'vagas';
 
 const hasDocuments = contest.documents && contest.documents.length > 0;
 
