@@ -8,9 +8,10 @@ import { getLanguageFromUrl, type Language } from '@/i18n/utils';
 interface Props {
   title: string;
   description: string;
+  schema?: Record<string, unknown>;
 }
 
-const { title, description } = Astro.props;
+const { title, description, schema } = Astro.props;
 const lang = getLanguageFromUrl(Astro.url) as Language;
 const langAttr = lang === 'pt' ? 'pt-BR' : 'en';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -31,7 +32,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap.xml" />
     <title>{title}</title>
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
     <script is:inline>
       // Apply theme without flash
       const savedTheme = localStorage.getItem('theme');

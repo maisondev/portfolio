@@ -8,11 +8,20 @@ import TechStack from '@/components/sections/TechStack.astro';
 import Button from '@/components/ui/Button.astro';
 import { getLanguageFromUrl, getTranslation, isValidLanguage, type Language } from '@/i18n/utils';
 import { getStaticPaths } from '@/i18n/routes';
+import { personSchema, organizationSchema } from '@/utils/schema';
 
 export { getStaticPaths };
 
 const lang = getLanguageFromUrl(Astro.url) as Language;
 const t = (key: string) => getTranslation(lang, key);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personSchema(lang),
+    organizationSchema(lang),
+  ],
+};
 
 const getLocalizedPath = (path: string) => {
   return lang === 'pt' ? `/pt${path}` : `/en${path}`;
@@ -22,6 +31,7 @@ const getLocalizedPath = (path: string) => {
 <BaseLayout
   title={`Maison Galvão - ${t('hero.title')}`}
   description={t('pages.experience.description')}
+  schema={schema}
 >
   <HeroWithProfile
     name="Maison Galvão"
