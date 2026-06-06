@@ -44,6 +44,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     {schema && (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     )}
+    <GoogleAnalytics />
     <script is:inline>
       // Apply theme without flash
       const savedTheme = localStorage.getItem('theme');
