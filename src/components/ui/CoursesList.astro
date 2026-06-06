@@ -327,9 +327,14 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           return parseInt(freqB) - parseInt(freqA);
         });
 
-        // Limpar wrapper e reconstruir com grupos separados
-        const wrapper = coursesContainer.parentElement;
-        wrapper.innerHTML = '';
+        // Encontrar o container original e limpar apenas os cards
+        const originalGrid = coursesContainer;
+        const wrapper = originalGrid.parentElement;
+
+        // Criar container temporário para os grupos
+        const tempContainer = document.createElement('div');
+        tempContainer.className = 'space-y-6';
+        tempContainer.id = 'tech-sorted-container';
 
         sortedTechs.forEach(tech => {
           // Criar container para o grupo
@@ -344,18 +349,29 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           // Criar grid para este grupo
           const grid = document.createElement('div');
           grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4';
+          grid.setAttribute('data-courses-container', '');
 
-          // Adicionar cards do grupo
+          // Adicionar clones dos cards do grupo
           grouped[tech].forEach(card => {
-            grid.appendChild(card);
+            grid.appendChild(card.cloneNode(true));
           });
 
           groupContainer.appendChild(grid);
-          wrapper.appendChild(groupContainer);
+          tempContainer.appendChild(groupContainer);
         });
 
-        // Atualizar referência do coursesContainer para próximas operações
-        coursesContainer = wrapper;
+        // Remover container anterior se existir
+        const existingTechContainer = wrapper.querySelector('#tech-sorted-container');
+        if (existingTechContainer) {
+          existingTechContainer.remove();
+        }
+
+        // Esconder grid original e adicionar novo container
+        originalGrid.classList.add('hidden');
+        wrapper.appendChild(tempContainer);
+
+        // Atualizar referência - coursesContainer agora procura em todo o wrapper
+        coursesContainer = tempContainer;
       } else {
         // Ordenação normal por data
         currentCards.sort((a, b) => {
@@ -364,18 +380,29 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
         });
 
-        const wrapper = coursesContainer.parentElement || document.querySelector('[id="courses-grid-wrapper"]');
-        wrapper.innerHTML = '';
+        const wrapper = coursesWrapper || coursesContainer?.parentElement;
 
-        const newGrid = document.createElement('div');
-        newGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4';
-        newGrid.setAttribute('data-courses-container', '');
+        // Remover container de tecnologia se existir
+        const techContainer = wrapper?.querySelector('#tech-sorted-container');
+        if (techContainer) {
+          techContainer.remove();
+        }
 
-        currentCards.forEach(card => newGrid.appendChild(card));
-        wrapper.appendChild(newGrid);
+        // Mostrar grid original
+        const originalGrid = wrapper?.querySelector('[data-courses-container]');
+        if (originalGrid && originalGrid.classList.contains('hidden')) {
+          originalGrid.classList.remove('hidden');
+        }
 
-        // Atualizar referência do coursesContainer
-        coursesContainer = newGrid;
+        // Limpar e reorganizar cards no grid original
+        if (originalGrid) {
+          originalGrid.innerHTML = '';
+          currentCards.forEach(card => {
+            const clone = card.cloneNode(true);
+            originalGrid.appendChild(clone);
+          });
+          coursesContainer = originalGrid;
+        }
       }
     };
 
