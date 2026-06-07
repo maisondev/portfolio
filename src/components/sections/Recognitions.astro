@@ -19,10 +19,9 @@ const recognitions = getRecognitions(lang);
       <RecognitionCard recognition={recognition} lang={lang} />
     ))}
   </div>
-</section>
 
-<!-- Modal para visualizar certificado -->
-<dialog id="recognition-cert-modal" class="backdrop:bg-black/80 rounded-xl border border-hairline-strong bg-surface-1 dark:bg-surface-2 p-6 w-full max-w-5xl max-h-[90vh] overflow-auto">
+  <!-- Modal para visualizar certificado -->
+  <dialog id="recognition-cert-modal" class="backdrop:bg-black/80 rounded-xl border border-hairline-strong bg-surface-1 dark:bg-surface-2 p-6 w-full max-w-5xl max-h-[90vh] overflow-auto">
   <div class="flex justify-between items-center mb-4 sticky top-0 bg-surface-1 dark:bg-surface-2 z-50 pb-4 border-b border-hairline">
     <h3 class="text-lg font-semibold text-ink dark:text-white" id="recognition-cert-title">Certificado</h3>
     <div class="flex items-center gap-2">
@@ -43,13 +42,14 @@ const recognitions = getRecognitions(lang);
   <div class="flex flex-col items-center justify-center gap-4 w-full">
     <iframe id="recognition-cert-pdf" src="" title="Certificado PDF" class="w-full h-[70vh] border border-hairline dark:border-hairline rounded-lg"></iframe>
   </div>
-</dialog>
+  </dialog>
 
-<style>
-  dialog#recognition-cert-modal::backdrop {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-</style>
+  <style>
+    dialog#recognition-cert-modal::backdrop {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</section>
 
 <script>
   const modal = document.getElementById('recognition-cert-modal') as HTMLDialogElement;
