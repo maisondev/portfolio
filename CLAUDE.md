@@ -132,6 +132,80 @@ Sempre teste hovers em **AMBOS os modos** para garantir contraste adequado:
 - [ ] Links: sempre `hover:text-*` com cor diferente
 - [ ] Botões: sempre testar primário, secundário, terciário em ambos modos
 
+### 📱 Mobile-First Design (OBRIGATÓRIO)
+
+**Sempre que adicionar novo componente ou CSS, comece pelo mobile e escale para cima:**
+
+**1. Estrutura Tailwind: mobile → tablet → desktop**
+
+```astro
+<!-- ❌ ERRADO: Desktop-first -->
+<div class="text-3xl md:text-xl p-8 md:p-4">
+
+<!-- ✅ CORRETO: Mobile-first (classes base = mobile) -->
+<div class="text-lg sm:text-xl md:text-2xl lg:text-3xl p-4 sm:p-6 md:p-8">
+```
+
+Ordem dos breakpoints Tailwind (mobile-first):
+- Nenhum prefixo = mobile (< 640px)
+- `sm:` = small (≥ 640px)
+- `md:` = medium (≥ 768px)
+- `lg:` = large (≥ 1024px)
+- `xl:` = extra large (≥ 1280px)
+- `2xl:` = 2x extra large (≥ 1536px)
+
+**2. Tipografias & Tamanhos**
+
+```astro
+<!-- Títulos: começar pequeno, crescer em telas maiores -->
+<h1 class="text-2xl sm:text-3xl md:text-4xl">
+<h2 class="text-xl sm:text-2xl md:text-3xl">
+<h3 class="text-lg sm:text-xl md:text-2xl">
+<p class="text-sm sm:text-base md:text-lg">
+
+<!-- Ícones: dimensionar com a tela -->
+<svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
+```
+
+**3. Espaçamento (Padding & Margin)**
+
+```astro
+<!-- Começar apertado no mobile, afrouxar em desktop -->
+<div class="p-4 sm:p-6 md:p-8">      <!-- padding -->
+<div class="gap-2 sm:gap-3 md:gap-4">  <!-- gaps em grids -->
+```
+
+**4. Layout & Grid**
+
+```astro
+<!-- Grid: 1 coluna mobile → múltiplas em desktop -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+<!-- Flexbox: direção, altura, largura -->
+<div class="flex flex-col sm:flex-row gap-2 sm:gap-4">
+<button class="w-full sm:w-auto">  <!-- full-width mobile, auto em cima -->
+```
+
+**5. Teste de Responsividade**
+
+Antes de commitar, teste estes breakpoints no navegador:
+- [ ] Mobile: 375px (iPhone)
+- [ ] Tablet: 640px - 768px (iPad)
+- [ ] Desktop: 1024px+
+- [ ] 4K: 2560px+
+
+Dica: No DevTools, use `Ctrl+Shift+M` para toggle device emulation.
+
+**6. Checklist Mobile-First**
+
+- [ ] Nenhuma classe base usa prefixo (`md:`, `lg:`, etc.)
+- [ ] Todas as dimensões começam pequenas e crescem
+- [ ] Textos legíveis em 375px (não truncados, tamanho mínimo 16px)
+- [ ] Botões clicáveis (min 48×48px) em mobile
+- [ ] Gaps/padding não deixam elementos encostando em bordas
+- [ ] Testou em landscape (750px width em iPhone)
+- [ ] Dark + Light modes funcionam em TODOS breakpoints
+
 ## 📋 Adicionando Conteúdo
 
 ### ⚠️ NUNCA invente dados — SEMPRE pergunte
