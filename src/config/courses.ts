@@ -259,10 +259,25 @@ export const courses: Course[] = [
     description: 'Certificado em Inteligência Artificial para desenvolvedores',
   },
   {
+    name: 'Introduction to AI for Work',
+    platform: 'DataCamp',
+    technologies: ['AI', 'LLM', 'ChatGPT', 'Generative AI', 'Prompt Engineering'],
+    completedAt: 'fev 2026',
+    certificate: {
+      url: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/86126258bd9c8de26dacb6db83c1021f09bbce35',
+      credentialCode: '86126258bd9c8de26dacb6db83c1021f09bbce35',
+    },
+    description: 'Competências: IA generativa, LLMs, prompt engineering, análise de dados com IA',
+  },
+  {
     name: 'Introduction to Python',
     platform: 'DataCamp',
     technologies: ['Python', 'Programming', 'Data Science'],
-    completedAt: 'jun 2025',
+    completedAt: 'jul 2025',
+    certificate: {
+      url: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/357addd3a748339711679b4214cb261a4376c1f0',
+      credentialCode: '357addd3a748339711679b4214cb261a4376c1f0',
+    },
     description: 'Competências: Python e NumPy',
   },
   {
@@ -270,6 +285,10 @@ export const courses: Course[] = [
     platform: 'DataCamp',
     technologies: ['Machine Learning', 'Data Science', 'Deep Learning'],
     completedAt: 'jun 2025',
+    certificate: {
+      url: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/08b5a74f74227e1af148ee61586c3eec1d28d603',
+      credentialCode: '08b5a74f74227e1af148ee61586c3eec1d28d603',
+    },
     description: 'Competências: Machine Learning e Deep Learning',
   },
   {
@@ -277,6 +296,10 @@ export const courses: Course[] = [
     platform: 'DataCamp',
     technologies: ['ChatGPT', 'AI', 'NLP', 'Generative AI'],
     completedAt: 'jun 2025',
+    certificate: {
+      url: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/dfbe7f60889d649a3529dead3f17e400b8093cca',
+      credentialCode: 'dfbe7f60889d649a3529dead3f17e400b8093cca',
+    },
     description: 'Competências: ChatGPT e IA generativa',
   },
   {
@@ -284,6 +307,10 @@ export const courses: Course[] = [
     platform: 'DataCamp',
     technologies: ['AI', 'Machine Learning', 'Data Science'],
     completedAt: 'jun 2025',
+    certificate: {
+      url: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/26c4e824bb3195b0ff2f924f13eed09e0fd38081',
+      credentialCode: '26c4e824bb3195b0ff2f924f13eed09e0fd38081',
+    },
     description: 'Competências: Inteligência artificial e Aprendizado de máquina',
   },
   {
