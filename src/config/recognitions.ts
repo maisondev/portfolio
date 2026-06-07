@@ -15,6 +15,7 @@ export interface Recognition {
   description: string;
   certificateUrl: string;
   searchUrl?: string;
+  liveUrl?: string;
 }
 
 const recognitionsPT: Recognition[] = [
@@ -36,6 +37,7 @@ const recognitionsPT: Recognition[] = [
       'Sistema desenvolvido pela equipe da Prodam-AM e registrado oficialmente como propriedade intelectual junto ao Instituto Nacional da Propriedade Industrial. Reconhecimento legal de autoria de software com vigência de 50 anos.',
     certificateUrl: '/documents/certificates/inpi-sigeam-2.0.pdf',
     searchUrl: 'https://busca.inpi.gov.br/pePI/jsp/programa/PesquisaProgramaComputador.jsp',
+    liveUrl: 'https://sistema.sigeam.am.gov.br/home',
   },
 ];
 
@@ -58,6 +60,7 @@ const recognitionsEN: Recognition[] = [
       'System developed by the Prodam-AM team and officially registered as intellectual property with the Brazilian National Institute of Industrial Property. Legal recognition of software authorship valid for 50 years.',
     certificateUrl: '/documents/certificates/inpi-sigeam-2.0.pdf',
     searchUrl: 'https://busca.inpi.gov.br/pePI/jsp/programa/PesquisaProgramaComputador.jsp',
+    liveUrl: 'https://sistema.sigeam.am.gov.br/home',
   },
 ];
 
