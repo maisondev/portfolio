@@ -5,6 +5,8 @@
     "strict": true,
     "moduleResolution": "bundler",
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
       "@/*": ["src/*"]
     }
