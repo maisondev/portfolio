@@ -654,3 +654,67 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     updateUI();
   }
 </script>
+
+{/* Global Certificate Modal */}
+<dialog id="global-cert-modal" class="backdrop:bg-black/80 rounded-xl border border-hairline bg-surface-1 dark:bg-surface-2 p-6 w-full max-w-4xl max-h-[90vh] overflow-auto">
+  <div class="flex justify-between items-center mb-4 sticky top-0 bg-surface-1 dark:bg-surface-2 z-50 pb-4 border-b border-hairline">
+    <h3 class="text-lg font-semibold text-ink dark:text-white" id="global-cert-title">Certificado</h3>
+    <button id="close-global-cert-modal" class="text-ink-muted dark:text-ink-muted hover:text-ink dark:hover:text-white transition-colors p-2">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center justify-center gap-4 w-full h-full">
+    <iframe id="global-cert-pdf" src="" title="Certificado PDF" class="w-full h-[70vh] border border-hairline dark:border-hairline rounded-lg"></iframe>
+  </div>
+</dialog>
+
+<style>
+  dialog#global-cert-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+</style>
+
+<script>
+  // Global certificate modal handler
+  const globalCertModal = document.getElementById('global-cert-modal') as HTMLDialogElement;
+  const closeCertBtn = document.getElementById('close-global-cert-modal');
+  const certPDF = document.getElementById('global-cert-pdf') as HTMLIFrameElement;
+  const certTitle = document.getElementById('global-cert-title');
+
+  // Delegação de eventos: capturar cliques em qualquer .cert-btn
+  document.addEventListener('click', (e) => {
+    const certBtn = (e.target as HTMLElement).closest('.cert-btn');
+    if (certBtn) {
+      e.preventDefault();
+      const url = certBtn.getAttribute('data-cert-url');
+      const name = certBtn.getAttribute('data-cert-name');
+
+      if (url) {
+        certTitle!.textContent = `${name}`;
+        certPDF.src = url;
+        globalCertModal?.showModal();
+      }
+    }
+  });
+
+  closeCertBtn?.addEventListener('click', () => {
+    globalCertModal?.close();
+    certPDF.src = '';
+  });
+
+  globalCertModal?.addEventListener('click', (e) => {
+    if (e.target === globalCertModal) {
+      globalCertModal.close();
+      certPDF.src = '';
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (globalCertModal?.open && e.key === 'Escape') {
+      globalCertModal.close();
+      certPDF.src = '';
+    }
+  });
+</script>
