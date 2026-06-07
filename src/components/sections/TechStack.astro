@@ -4,7 +4,7 @@ import { getTechLogo, hasValidLogo } from '@/utils/techLogos';
 
 interface Tech {
   name: string;
-  category: 'frontend' | 'backend' | 'devops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null;
+  category: 'frontend' | 'backend' | 'devops' | 'mobile' | 'design-ux' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null;
 }
 
 interface Props {
@@ -21,16 +21,21 @@ courses.forEach((course) => {
 });
 
 // Categorizar tecnologias com mais precisão
-const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null => {
-  const frontendKeywords = ['react', 'vue', 'astro', 'next', 'typescript', 'html', 'css', 'javascript', 'tailwind', 'bootstrap'];
-  const backendKeywords = ['node', 'python', 'php', 'postgresql', 'api', 'graphql', 'database', 'mysql', 'mongodb', 'express', 'fastapi', 'rest', 'laravel'];
-  const devopsKeywords = ['docker', 'kubernetes', 'devops', 'ci/cd', 'jenkins', 'github actions', 'aws', 'google cloud', 'azure', 'terraform', 'ansible', 'security', 'devsecops', 'cybersecurity', 'owasp', 'penetration testing', 'siem'];
+const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'mobile' | 'design-ux' | 'data-analyst' | 'ai-engineer' | 'data-engineer' | null => {
+  const frontendKeywords = ['react', 'vue', 'astro', 'next', 'typescript', 'html', 'css', 'javascript', 'tailwind', 'bootstrap', 'sass', 'jquery', 'flexbox', 'responsive design'];
+  const backendKeywords = ['node', 'python', 'php', 'postgresql', 'api', 'graphql', 'database', 'mysql', 'mongodb', 'express', 'fastapi', 'rest', 'laravel', 'java', 'go', 'sql', 'http', 'bash', 'shell', 'servlet', 'jdbc', 'spring'];
+  const devopsKeywords = ['docker', 'kubernetes', 'devops', 'ci/cd', 'jenkins', 'github actions', 'aws', 'google cloud', 'azure', 'terraform', 'ansible', 'security', 'devsecops', 'cybersecurity', 'owasp', 'linux', 'vim', 'git', 'version control', 'command line', 'terminal'];
+  const mobileKeywords = ['android', 'mobile development', 'ios', 'react native', 'flutter', 'kotlin', 'swift'];
+  const designUxKeywords = ['figma', 'adobe xd', 'ux design', 'ui/ux', 'user experience', 'photoshop', 'wireframe', 'prototype', 'gestalt', 'accessibility', 'design'];
   const dataAnalystKeywords = ['data analyst', 'business intelligence', 'bi', 'analytics', 'tableau', 'power bi', 'excel', 'sql analytics'];
-  const aiEngineerKeywords = ['ai', 'artificial intelligence', 'claude', 'machine learning', 'deep learning', 'nlp', 'anthropic', 'chatgpt', 'generative', 'langchain', 'pytorch', 'tensorflow', 'ai engineer'];
+  const aiEngineerKeywords = ['ai', 'artificial intelligence', 'claude', 'machine learning', 'deep learning', 'nlp', 'anthropic', 'chatgpt', 'generative', 'langchain', 'pytorch', 'tensorflow', 'ai engineer', 'prompt engineering', 'llm'];
   const dataEngineerKeywords = ['data engineer', 'data science', 'pandas', 'spark', 'etl', 'data pipeline', 'airflow', 'snowflake'];
 
   const lowerTech = tech.toLowerCase();
 
+  // Ordem importa: mobile antes de backend (Android/Java seria backend senão)
+  if (mobileKeywords.some((k) => lowerTech.includes(k))) return 'mobile';
+  if (designUxKeywords.some((k) => lowerTech.includes(k))) return 'design-ux';
   if (frontendKeywords.some((k) => lowerTech.includes(k))) return 'frontend';
   if (backendKeywords.some((k) => lowerTech.includes(k))) return 'backend';
   if (devopsKeywords.some((k) => lowerTech.includes(k))) return 'devops';
@@ -56,27 +61,35 @@ const techOrder: Record<string, number> = {
   // Backend: linguagens → frameworks → bancos → APIs
   'Python': 1,
   'PHP': 2,
-  'Node.js': 3, 'Node': 3,
-  'Express': 4,
-  'FastAPI': 5,
-  'Laravel': 6,
-  'REST': 7,
-  'GraphQL': 8,
-  'MySQL': 9,
-  'PostgreSQL': 10,
-  'MongoDB': 11,
-  // DevOps: controle → CI/CD → containers → cloud → segurança
+  'Java': 3,
+  'Go': 4,
+  'Node.js': 5, 'Node': 5,
+  'Express': 6,
+  'FastAPI': 7,
+  'Laravel': 8,
+  'Bash': 9,
+  'SQL': 10,
+  'MySQL': 11,
+  'PostgreSQL': 12,
+  'MongoDB': 13,
+  'REST': 14,
+  'GraphQL': 15,
+  'HTTP': 16,
+  // DevOps: controle → terminal → containers → cloud → segurança
   'Git': 1,
   'GitHub Actions': 2,
-  'Docker': 3,
-  'Kubernetes': 4,
-  'Terraform': 5,
-  'Ansible': 6,
-  'AWS': 7,
-  'Google Cloud': 8,
-  'Azure': 9,
-  'Security': 10, 'Cybersecurity': 10,
-  'OWASP': 11,
+  'Linux': 3,
+  'Bash': 4,
+  'Vim': 5,
+  'Docker': 6,
+  'Kubernetes': 7,
+  'Terraform': 8,
+  'Ansible': 9,
+  'AWS': 10,
+  'Google Cloud': 11,
+  'Azure': 12,
+  'Security': 13, 'Cybersecurity': 13,
+  'OWASP': 14,
   // AI Engineer: fundamentos → modelos → frameworks → ferramentas
   'Machine Learning': 1,
   'Deep Learning': 2,
@@ -95,6 +108,18 @@ const techOrder: Record<string, number> = {
   'ETL': 4,
   'Airflow': 5,
   'Snowflake': 6,
+  // Mobile: linguagem base → plataforma → frameworks
+  'Java': 1,
+  'Android': 2,
+  'Kotlin': 3,
+  'Swift': 4,
+  'React Native': 5,
+  'Flutter': 6,
+  // Design & UX: pesquisa → wireframe → prototipagem → ferramentas
+  'UX Design': 1,
+  'Figma': 2,
+  'Adobe XD': 3,
+  'Photoshop': 4,
   // Data Analyst: base → ferramentas → visualização
   'Excel': 1,
   'SQL Analytics': 2,
@@ -127,8 +152,10 @@ const techsByCategory = {
   frontend: techs.filter((t) => t.category === 'frontend'),
   backend: techs.filter((t) => t.category === 'backend'),
   devops: techs.filter((t) => t.category === 'devops'),
-  'data-analyst': techs.filter((t) => t.category === 'data-analyst'),
+  mobile: techs.filter((t) => t.category === 'mobile'),
+  'design-ux': techs.filter((t) => t.category === 'design-ux'),
   'ai-engineer': techs.filter((t) => t.category === 'ai-engineer'),
+  'data-analyst': techs.filter((t) => t.category === 'data-analyst'),
   'data-engineer': techs.filter((t) => t.category === 'data-engineer'),
 };
 
@@ -148,8 +175,10 @@ const duplicatedTechs = {
   frontend: duplicateTechsForScroll(techsByCategory.frontend),
   backend: duplicateTechsForScroll(techsByCategory.backend),
   devops: duplicateTechsForScroll(techsByCategory.devops),
-  'data-analyst': duplicateTechsForScroll(techsByCategory['data-analyst']),
+  mobile: duplicateTechsForScroll(techsByCategory.mobile),
+  'design-ux': duplicateTechsForScroll(techsByCategory['design-ux']),
   'ai-engineer': duplicateTechsForScroll(techsByCategory['ai-engineer']),
+  'data-analyst': duplicateTechsForScroll(techsByCategory['data-analyst']),
   'data-engineer': duplicateTechsForScroll(techsByCategory['data-engineer']),
 };
 ---
@@ -173,8 +202,10 @@ const duplicatedTechs = {
             {category === 'frontend' && 'Frontend'}
             {category === 'backend' && 'Backend'}
             {category === 'devops' && 'DevOps'}
-            {category === 'data-analyst' && 'Data Analyst'}
+            {category === 'mobile' && 'Mobile'}
+            {category === 'design-ux' && 'Design & UX'}
             {category === 'ai-engineer' && 'AI Engineer'}
+            {category === 'data-analyst' && 'Data Analyst'}
             {category === 'data-engineer' && 'Data Engineer'}
           </h3>
         </div>

@@ -10,6 +10,71 @@ export interface TechLogo {
 const DEVICON_CDN = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons';
 
 export const techLogosMap: Record<string, TechLogo> = {
+  'Java': {
+    name: 'Java',
+    logo: `${DEVICON_CDN}/java/java-original.svg`,
+    color: '#007396',
+  },
+  'Go': {
+    name: 'Go',
+    logo: `${DEVICON_CDN}/go/go-original-wordmark.svg`,
+    color: '#00add8',
+  },
+  'Sass': {
+    name: 'Sass',
+    logo: `${DEVICON_CDN}/sass/sass-original.svg`,
+    color: '#cc6699',
+  },
+  'jQuery': {
+    name: 'jQuery',
+    logo: `${DEVICON_CDN}/jquery/jquery-original.svg`,
+    color: '#0769ad',
+  },
+  'Linux': {
+    name: 'Linux',
+    logo: `${DEVICON_CDN}/linux/linux-original.svg`,
+    color: '#fcc624',
+  },
+  'Bash': {
+    name: 'Bash',
+    logo: `${DEVICON_CDN}/bash/bash-original.svg`,
+    color: '#4eaa25',
+  },
+  'MySQL': {
+    name: 'MySQL',
+    logo: `${DEVICON_CDN}/mysql/mysql-original.svg`,
+    color: '#4479a1',
+  },
+  'Android': {
+    name: 'Android',
+    logo: `${DEVICON_CDN}/android/android-original.svg`,
+    color: '#3ddc84',
+  },
+  'Figma': {
+    name: 'Figma',
+    logo: `${DEVICON_CDN}/figma/figma-original.svg`,
+    color: '#0acf83',
+  },
+  'Adobe XD': {
+    name: 'Adobe XD',
+    logo: `${DEVICON_CDN}/xd/xd-original.svg`,
+    color: '#ff26be',
+  },
+  'Scrum': {
+    name: 'Scrum',
+    logo: `${DEVICON_CDN}/jira/jira-original.svg`,
+    color: '#0052cc',
+  },
+  'Prompt Engineering': {
+    name: 'Prompt Engineering',
+    logo: `${DEVICON_CDN}/github/github-original.svg`,
+    color: '#84cc16',
+  },
+  'LLM': {
+    name: 'LLM',
+    logo: `${DEVICON_CDN}/github/github-original.svg`,
+    color: '#10a37f',
+  },
   'HTML5': {
     name: 'HTML5',
     logo: `${DEVICON_CDN}/html5/html5-original.svg`,
