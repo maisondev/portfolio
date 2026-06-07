@@ -1,0 +1,164 @@
+---
+import Button from './Button.astro';
+import type { Recognition } from '@/config/recognitions';
+
+interface Props {
+  recognition: Recognition;
+  lang?: 'pt' | 'en';
+}
+
+const { recognition: rec, lang = 'pt' } = Astro.props;
+
+const labels = {
+  pt: {
+    processNumber: 'Nº do Processo',
+    issuer: 'Órgão Emissor',
+    holder: 'Titular',
+    createdAt: 'Data de Criação',
+    issuedAt: 'Expedido em',
+    validity: 'Validade',
+    languages: 'Linguagens',
+    role: 'Função',
+    coAuthors: 'coautores',
+    viewCertificate: 'Ver Certificado Oficial',
+    searchInpi: 'Consultar no INPI',
+    badge: 'Propriedade Intelectual Registrada',
+  },
+  en: {
+    processNumber: 'Process Number',
+    issuer: 'Issuing Authority',
+    holder: 'Holder',
+    createdAt: 'Creation Date',
+    issuedAt: 'Issued On',
+    validity: 'Validity',
+    languages: 'Languages',
+    role: 'Role',
+    coAuthors: 'co-authors',
+    viewCertificate: 'View Official Certificate',
+    searchInpi: 'Search on INPI',
+    badge: 'Registered Intellectual Property',
+  },
+};
+
+const t = labels[lang];
+---
+
+<article class="bg-surface-1 dark:bg-surface-2 border border-hairline dark:border-hairline rounded-2xl p-8 md:p-12 space-y-8 hover:border-accent-500/40 transition-colors">
+  <!-- Header -->
+  <div class="space-y-4">
+    <div class="flex flex-wrap items-center gap-3">
+      <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent-500/10 border border-accent-500/30 rounded-full text-xs font-semibold text-accent-500 uppercase tracking-wider">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        INPI
+      </span>
+      <span class="text-xs font-semibold text-ink-muted uppercase tracking-wider">
+        {t.badge}
+      </span>
+    </div>
+
+    <h2 class="text-3xl md:text-4xl font-bold text-ink tracking-tight">
+      {rec.title}
+    </h2>
+    <p class="text-lg text-ink-muted">
+      {rec.subtitle}
+    </p>
+  </div>
+
+  <!-- Description -->
+  <p class="text-base text-ink-subtle leading-relaxed max-w-3xl">
+    {rec.description}
+  </p>
+
+  <!-- Details Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 pt-6 border-t border-hairline dark:border-hairline">
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.processNumber}</dt>
+      <dd class="text-base text-ink font-mono">{rec.processNumber}</dd>
+    </div>
+
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.role}</dt>
+      <dd class="text-base text-ink">{rec.role} ({rec.authorsCount} {t.coAuthors})</dd>
+    </div>
+
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.issuer}</dt>
+      <dd class="text-base text-ink">
+        {rec.issuerUrl ? (
+          <a href={rec.issuerUrl} target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-hover transition-colors underline-offset-4 hover:underline">
+            {rec.issuer}
+          </a>
+        ) : rec.issuer}
+      </dd>
+    </div>
+
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.holder}</dt>
+      <dd class="text-base text-ink">{rec.holder}</dd>
+    </div>
+
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.createdAt}</dt>
+      <dd class="text-base text-ink">{rec.createdAt}</dd>
+    </div>
+
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.issuedAt}</dt>
+      <dd class="text-base text-ink">{rec.issuedAt}</dd>
+    </div>
+
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.validity}</dt>
+      <dd class="text-base text-ink">{rec.validity}</dd>
+    </div>
+
+    <div class="space-y-1">
+      <dt class="text-xs font-semibold text-ink-muted uppercase tracking-wider">{t.languages}</dt>
+      <dd class="flex flex-wrap gap-2">
+        {rec.languages.map((lng) => (
+          <span class="px-2.5 py-1 bg-surface-2 dark:bg-surface-3 border border-hairline rounded-md text-xs font-medium text-ink">
+            {lng}
+          </span>
+        ))}
+      </dd>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex flex-col sm:flex-row gap-3 pt-6">
+    <Button
+      href={rec.certificateUrl}
+      variant="primary"
+      target="_blank"
+      rel="noopener noreferrer"
+      title={t.viewCertificate}
+      class="flex items-center justify-center gap-2"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="9" y1="15" x2="15" y2="15"/>
+      </svg>
+      {t.viewCertificate}
+    </Button>
+
+    {rec.searchUrl && (
+      <Button
+        href={rec.searchUrl}
+        variant="secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+        title={t.searchInpi}
+        class="flex items-center justify-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        {t.searchInpi}
+      </Button>
+    )}
+  </div>
+</article>
