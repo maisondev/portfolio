@@ -50,11 +50,6 @@ export const techLogosMap: Record<string, TechLogo> = {
     logo: `${DEVICON_CDN}/android/android-original.svg`,
     color: '#3ddc84',
   },
-  'Figma': {
-    name: 'Figma',
-    logo: `${DEVICON_CDN}/figma/figma-original.svg`,
-    color: '#0acf83',
-  },
   'Adobe XD': {
     name: 'Adobe XD',
     logo: `${DEVICON_CDN}/xd/xd-original.svg`,
