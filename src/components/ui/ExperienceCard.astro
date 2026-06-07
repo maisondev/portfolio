@@ -1,6 +1,7 @@
 ---
 import Card from './Card.astro';
 import Badge from './Badge.astro';
+import type { ExperienceAchievement } from '@/config/experience';
 
 interface Props {
   role: string;
@@ -10,10 +11,11 @@ interface Props {
   description: string;
   highlights: string[];
   technologies: string[];
+  achievements?: ExperienceAchievement[];
   lang?: 'pt' | 'en';
 }
 
-const { role, company, companyUrl, period, description, highlights, technologies, lang = 'pt' } = Astro.props;
+const { role, company, companyUrl, period, description, highlights, technologies, achievements = [], lang = 'pt' } = Astro.props;
 const highlightsLabel = lang === 'pt' ? 'Destaques' : 'Highlights';
 ---
 
@@ -59,6 +61,43 @@ const highlightsLabel = lang === 'pt' ? 'Destaques' : 'Highlights';
           </li>
         ))}
       </ul>
+    </div>
+  )}
+
+  {achievements.length > 0 && (
+    <div class="space-y-3">
+      {achievements.map((achievement) => (
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-accent-500/10 border border-accent-500/30 rounded-lg">
+          <span class="inline-flex items-center justify-center w-12 h-12 bg-accent-500 rounded-full flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-6 h-6 text-black">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </span>
+          <div class="flex-1 space-y-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-block px-2 py-0.5 bg-accent-500 text-black text-xs font-bold rounded uppercase tracking-wider">
+                {achievement.badge}
+              </span>
+              <span class="text-body-sm font-semibold text-ink">{achievement.title}</span>
+            </div>
+            {achievement.subtitle && (
+              <p class="text-caption text-ink-muted">{achievement.subtitle}</p>
+            )}
+          </div>
+          {achievement.link && (
+            <a
+              href={achievement.link.href}
+              class="text-button font-semibold text-accent-500 hover:text-accent-500/80 transition-colors whitespace-nowrap flex items-center gap-1.5"
+            >
+              {achievement.link.label}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          )}
+        </div>
+      ))}
     </div>
   )}
 

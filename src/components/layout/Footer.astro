@@ -10,12 +10,13 @@ const getLocalizedPath = (path: string) => {
 };
 
 const links = [
-  { label: 'Home', href: getLocalizedPath('/') },
-  { label: 'Cursos', href: getLocalizedPath('/courses') },
-  { label: 'Projetos', href: getLocalizedPath('/projects') },
-  { label: 'Experiência', href: getLocalizedPath('/experience') },
-  { label: 'Educação', href: getLocalizedPath('/education') },
-  { label: 'Concursos', href: getLocalizedPath('/contests') },
+  { label: lang === 'pt' ? 'Início' : 'Home', href: getLocalizedPath('/') },
+  { label: lang === 'pt' ? 'Concursos' : 'Contests', href: getLocalizedPath('/contests') },
+  { label: lang === 'pt' ? 'Cursos' : 'Courses', href: getLocalizedPath('/courses') },
+  { label: lang === 'pt' ? 'Formação' : 'Education', href: getLocalizedPath('/education') },
+  { label: lang === 'pt' ? 'Experiência' : 'Experience', href: getLocalizedPath('/experience') },
+  { label: lang === 'pt' ? 'Projetos' : 'Projects', href: getLocalizedPath('/projects') },
+  { label: lang === 'pt' ? 'Reconhecimentos' : 'Recognitions', href: getLocalizedPath('/recognitions') },
 ];
 
 const contactLinks = [

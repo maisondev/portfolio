@@ -8,6 +8,7 @@
     "education": "Education",
     "contests": "Public Contests",
     "courses": "Courses",
+    "recognitions": "Recognitions",
     "services": "Social",
     "blog": "Blog",
     "language": "Language"
@@ -22,7 +23,8 @@
     "experience": "Professional Experience",
     "education": "Education",
     "contests": "Public Contests",
-    "courses": "Courses & Certificates"
+    "courses": "Courses & Certificates",
+    "recognitions": "Recognitions"
   },
   "contact": {
     "title": "Contact",
@@ -51,6 +53,10 @@
     "contests": {
       "title": "Public Contests",
       "description": "Track record of 13 public contest approvals from 2010-2025 (2 direct vacancies and 11 reserve list positions). Experience with major exam boards: FGV, IBFC, CEBRASPE, FCC, Consulplan, FUNCAB and others. Approvals at municipal, state, and federal levels."
+    },
+    "recognitions": {
+      "title": "Recognitions & Intellectual Property",
+      "description": "Official intellectual property registrations and formal recognition of software authorship. Includes Software Registration Certificate issued by INPI (Brazilian National Institute of Industrial Property)."
     },
     "blog": {
       "title": "Blog",

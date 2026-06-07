@@ -235,7 +235,7 @@ export const courses: Course[] = [
     technologies: ['Claude', 'AI', 'Code', 'Development'],
     completedAt: 'abr 2026',
     certificate: {
-      url: 'https://learn.anthropic.com/verify-certificate?credential=6zx59q2tz4hu',
+      url: 'https://verify.skilljar.com/c/6zx59q2tz4hu',
       credentialCode: '6zx59q2tz4hu',
     },
     description: 'Certificate of completion: Claude code 101. Competências: Claude da Anthropic, Subagentes de Código Claude',
@@ -246,7 +246,7 @@ export const courses: Course[] = [
     technologies: ['Claude', 'AI', 'Machine Learning'],
     completedAt: 'abr 2026',
     certificate: {
-      url: 'https://learn.anthropic.com/verify-certificate?credential=zxxizh6yd85j',
+      url: 'https://verify.skilljar.com/c/zxxizh6yd85j',
       credentialCode: 'zxxizh6yd85j',
     },
     description: 'Certificate of completion: Claude 101. Competências: Inteligência artificial, Claude da Anthropic',
@@ -254,9 +254,13 @@ export const courses: Course[] = [
   {
     name: 'IA para DEVs',
     platform: 'CESAR School',
-    technologies: ['AI', 'Development', 'Python', 'Machine Learning'],
+    technologies: ['AI', 'Development', 'Machine Learning', 'Software Development'],
     completedAt: 'ago 2025',
-    description: 'Certificado em Inteligência Artificial para desenvolvedores',
+    certificate: {
+      url: '/documents/certificates/cesar-school-ia-devs.pdf',
+      credentialCode: 'CESAR-2025-IA-DEVS',
+    },
+    description: 'Competências: Fundamentos de IA, ferramentas de IA em desenvolvimento, qualidade e segurança em desenvolvimento com IA. Carga horária: 54 horas (jun-ago 2025)',
   },
   {
     name: 'Introduction to AI for Work',
@@ -322,6 +326,17 @@ export const courses: Course[] = [
       url: 'Introdução a Cibersegurança - CISCO',
     },
     description: 'Competências: Cibersegurança, CyberSecurity',
+  },
+  {
+    name: 'Introdução ao Android',
+    platform: 'UEA & Samsung Ocean',
+    technologies: ['Android', 'Java', 'Mobile Development'],
+    completedAt: 'set 2014',
+    certificate: {
+      url: '/documents/certificates/course-certificate-2.pdf',
+      credentialCode: 'UEA-1213-OCEAN-02',
+    },
+    description: 'Certificado de participação em curso de desenvolvimento Android. Carga horária: 4 horas. Universidade do Estado do Amazonas em parceria com Samsung Ocean Center.',
   },
   {
     name: 'Introduction to HTML5',

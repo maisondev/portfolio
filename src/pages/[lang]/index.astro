@@ -52,18 +52,21 @@ const getLocalizedPath = (path: string) => {
         <p class="text-body-lg text-ink-muted">{t('cta.exploreDesc')}</p>
       </div>
 
-      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
-        <Button href={getLocalizedPath('/experience')} variant="secondary">
-          {t('cta.experience')}
-        </Button>
-        <Button href={getLocalizedPath('/education')} variant="secondary">
-          {t('cta.education')}
-        </Button>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
         <Button href={getLocalizedPath('/contests')} variant="secondary">
           {t('cta.contests')}
         </Button>
         <Button href={getLocalizedPath('/courses')} variant="secondary">
           {t('cta.courses')}
+        </Button>
+        <Button href={getLocalizedPath('/education')} variant="secondary">
+          {t('cta.education')}
+        </Button>
+        <Button href={getLocalizedPath('/experience')} variant="secondary">
+          {t('cta.experience')}
+        </Button>
+        <Button href={getLocalizedPath('/recognitions')} variant="secondary">
+          {t('cta.recognitions')}
         </Button>
       </div>
     </div>

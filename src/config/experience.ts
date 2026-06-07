@@ -1,3 +1,13 @@
+export interface ExperienceAchievement {
+  badge: string;
+  title: string;
+  subtitle?: string;
+  link?: {
+    label: string;
+    href: string;
+  };
+}
+
 export interface Experience {
   role: string;
   company: string;
@@ -6,6 +16,7 @@ export interface Experience {
   description: string;
   highlights: string[];
   technologies: string[];
+  achievements?: ExperienceAchievement[];
 }
 
 const experiencePT: Experience[] = [
@@ -21,6 +32,17 @@ const experiencePT: Experience[] = [
       'Integração com APIs externas e sistemas legados',
     ],
     technologies: ['TypeScript', 'Node.js', 'Vue.js', 'React', 'PostgreSQL', 'Docker', 'Cloud'],
+    achievements: [
+      {
+        badge: 'INPI',
+        title: 'Coautor do SIGEAM 2.0 — Registro de Programa de Computador',
+        subtitle: 'Processo BR512025004389-9 · Vigência de 50 anos · Lei 9.609/1998',
+        link: {
+          label: 'Ver certificado',
+          href: '/pt/recognitions',
+        },
+      },
+    ],
   },
   {
     role: 'Gerente de Informática',
@@ -63,6 +85,17 @@ const experienceEN: Experience[] = [
       'Integration with external APIs and legacy systems',
     ],
     technologies: ['TypeScript', 'Node.js', 'Vue.js', 'React', 'PostgreSQL', 'Docker', 'Cloud'],
+    achievements: [
+      {
+        badge: 'INPI',
+        title: 'SIGEAM 2.0 Co-author — Software Registration Certificate',
+        subtitle: 'Process BR512025004389-9 · 50-year validity · Brazilian Law 9.609/1998',
+        link: {
+          label: 'View certificate',
+          href: '/en/recognitions',
+        },
+      },
+    ],
   },
   {
     role: 'IT Manager',

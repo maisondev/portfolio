@@ -8,6 +8,7 @@
     "education": "Formação",
     "contests": "Concursos",
     "courses": "Cursos",
+    "recognitions": "Reconhecimentos",
     "services": "Social",
     "blog": "Blog",
     "language": "Idioma"
@@ -22,7 +23,8 @@
     "experience": "Experiência Profissional",
     "education": "Formação",
     "contests": "Concursos Públicos",
-    "courses": "Cursos & Certificados"
+    "courses": "Cursos & Certificados",
+    "recognitions": "Reconhecimentos"
   },
   "contact": {
     "title": "Contato",
@@ -51,6 +53,10 @@
     "contests": {
       "title": "Concursos Públicos",
       "description": "Histórico de 13 aprovações em concursos públicos entre 2010-2025 (2 em vagas diretas e 11 em cadastro de reserva). Experiência com diferentes bancas: FGV, IBFC, CEBRASPE, FCC, Consulplan, FUNCAB e outras. Aprovações em nível municipal, estadual e federal."
+    },
+    "recognitions": {
+      "title": "Reconhecimentos & Propriedade Intelectual",
+      "description": "Registros oficiais de propriedade intelectual e reconhecimentos formais de autoria. Inclui certificado de Registro de Programa de Computador emitido pelo INPI (Instituto Nacional da Propriedade Industrial)."
     },
     "blog": {
       "title": "Blog",
