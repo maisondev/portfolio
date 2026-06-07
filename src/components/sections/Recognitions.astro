@@ -13,8 +13,8 @@ const { id, lang = 'pt' } = Astro.props;
 const recognitions = getRecognitions(lang);
 ---
 
-<section id={id} class="bg-canvas py-16 md:py-24">
-  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-8">
+<section id={id} class="bg-canvas py-20 md:py-24">
+  <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 space-y-6">
     {recognitions.map((recognition) => (
       <RecognitionCard recognition={recognition} lang={lang} />
     ))}
