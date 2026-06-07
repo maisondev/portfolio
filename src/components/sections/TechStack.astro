@@ -41,6 +41,74 @@ const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'data
   return null;
 };
 
+const techOrder: Record<string, number> = {
+  // Frontend: base → linguagens → frameworks → ferramentas
+  'HTML5': 1, 'HTML': 1,
+  'CSS': 2, 'CSS3': 2,
+  'JavaScript': 3,
+  'TypeScript': 4,
+  'Bootstrap': 5,
+  'Tailwind CSS': 6,
+  'Vue.js': 7, 'Vue': 7,
+  'React': 8,
+  'Next.js': 9,
+  'Astro': 10,
+  // Backend: linguagens → frameworks → bancos → APIs
+  'Python': 1,
+  'PHP': 2,
+  'Node.js': 3, 'Node': 3,
+  'Express': 4,
+  'FastAPI': 5,
+  'Laravel': 6,
+  'REST': 7,
+  'GraphQL': 8,
+  'MySQL': 9,
+  'PostgreSQL': 10,
+  'MongoDB': 11,
+  // DevOps: controle → CI/CD → containers → cloud → segurança
+  'Git': 1,
+  'GitHub Actions': 2,
+  'Docker': 3,
+  'Kubernetes': 4,
+  'Terraform': 5,
+  'Ansible': 6,
+  'AWS': 7,
+  'Google Cloud': 8,
+  'Azure': 9,
+  'Security': 10, 'Cybersecurity': 10,
+  'OWASP': 11,
+  // AI Engineer: fundamentos → modelos → frameworks → ferramentas
+  'Machine Learning': 1,
+  'Deep Learning': 2,
+  'NLP': 3,
+  'PyTorch': 4,
+  'TensorFlow': 5,
+  'Anthropic': 6,
+  'Claude': 7,
+  'ChatGPT': 8,
+  'LangChain': 9,
+  // Data Engineer: base → ferramentas → plataformas
+  'SQL': 1,
+  'Python': 1,
+  'Pandas': 2,
+  'Spark': 3,
+  'ETL': 4,
+  'Airflow': 5,
+  'Snowflake': 6,
+  // Data Analyst: base → ferramentas → visualização
+  'Excel': 1,
+  'SQL Analytics': 2,
+  'Power BI': 3,
+  'Tableau': 4,
+};
+
+const getTechOrder = (name: string): number => {
+  const exact = techOrder[name];
+  if (exact !== undefined) return exact;
+  // fallback: ordem pelo nome original (mantém techs sem mapeamento no final)
+  return 999;
+};
+
 const techs: Tech[] = Array.from(courseTechs)
   .filter((name) => hasValidLogo(name))
   .map((name) => ({
@@ -48,7 +116,12 @@ const techs: Tech[] = Array.from(courseTechs)
     category: categorizeTech(name),
   }))
   .filter((tech) => tech.category !== null)
-  .sort((a, b) => a.name.localeCompare(b.name));
+  .sort((a, b) => {
+    const orderA = getTechOrder(a.name);
+    const orderB = getTechOrder(b.name);
+    if (orderA !== orderB) return orderA - orderB;
+    return a.name.localeCompare(b.name);
+  });
 
 const techsByCategory = {
   frontend: techs.filter((t) => t.category === 'frontend'),
