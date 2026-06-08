@@ -4,13 +4,15 @@ interface Props {
   hoverable?: boolean;
   fullHeight?: boolean;
   class?: string;
+  [key: string]: any;
 }
 
 const {
   variant = 'primary',
   hoverable = true,
   fullHeight = true,
-  class: customClass = ''
+  class: customClass = '',
+  ...rest
 } = Astro.props;
 
 // Base styles applied to all cards
@@ -29,6 +31,6 @@ const heightClass = fullHeight ? 'flex flex-col h-full' : '';
 const finalClass = `${baseStyles} ${variantStyles[variant]} ${heightClass} ${customClass}`;
 ---
 
-<div class={finalClass}>
+<div class={finalClass} {...rest}>
   <slot />
 </div>
