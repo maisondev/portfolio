@@ -77,6 +77,20 @@ export const contestsPT: Contest[] = [
     ],
   },
   {
+    position: 'Analista de TI - Analista de Desenvolvimento de Sistemas',
+    organization: 'PRODAM-AM (Empresa de Processamento de Dados do Amazonas)',
+    year: '2022',
+    banca: 'QUADRIX',
+    sphere: 'Estadual',
+    classification: '63º lugar',
+    totalVacancies: 25,
+    salary: 'R$ 7.273,43',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-sistemas-prodam-2022.pdf' },
+      { title: 'Resultado Final', url: '/documents/contests/resultado-analista-sistemas-prodam-2022.pdf' },
+    ],
+  },
+  {
     position: 'Desenvolvedor de Software',
     organization: 'PRODAM-AM (Empresa de Processamento de Dados do Amazonas)',
     year: '2018',
@@ -270,6 +284,20 @@ export const contestsEN: Contest[] = [
       { title: 'Edital', url: '/documents/contests/edital-analista-sistemas-2022.pdf' },
       { title: 'Homologation', url: '/documents/contests/homologacao-analista-sistemas-2022.pdf' },
       { title: 'Result', url: '/documents/contests/resultado-analista-sistemas-2022.pdf' },
+    ],
+  },
+  {
+    position: 'IT Analyst - Systems Development Analyst',
+    organization: 'PRODAM-AM (Amazonas Data Processing Company)',
+    year: '2022',
+    banca: 'QUADRIX',
+    sphere: 'Estadual',
+    classification: '63rd place',
+    totalVacancies: 25,
+    salary: 'R$ 7.273,43',
+    documents: [
+      { title: 'Edital', url: '/documents/contests/edital-analista-sistemas-prodam-2022.pdf' },
+      { title: 'Final Result', url: '/documents/contests/resultado-analista-sistemas-prodam-2022.pdf' },
     ],
   },
   {
