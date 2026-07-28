@@ -39,6 +39,25 @@ const recognitionsPT: Recognition[] = [
     searchUrl: 'https://busca.inpi.gov.br/pePI/jsp/programa/PesquisaProgramaComputador.jsp',
     liveUrl: 'https://sistema.sigeam.am.gov.br/home',
   },
+  {
+    type: 'inpi',
+    title: 'Diário Digital AM',
+    subtitle: 'Registro de Programa de Computador no INPI',
+    processNumber: 'BR512026005121-5',
+    issuer: 'INPI — Instituto Nacional da Propriedade Industrial',
+    issuerUrl: 'https://www.gov.br/inpi/pt-br',
+    holder: 'PROCESSAMENTO DE DADOS AMAZONAS S.A (Prodam)',
+    createdAt: '17/05/2013',
+    issuedAt: '07/07/2026',
+    validity: '50 anos (Lei 9.609/1998)',
+    languages: ['PHP'],
+    role: 'Coautor',
+    authorsCount: 18,
+    description:
+      'Sistema desenvolvido pela equipe da Prodam-AM e registrado oficialmente como propriedade intelectual junto ao Instituto Nacional da Propriedade Industrial. Reconhecimento legal de autoria de software com vigência de 50 anos.',
+    certificateUrl: '/documents/certificates/inpi-diario-digital-am.pdf',
+    searchUrl: 'https://busca.inpi.gov.br/pePI/jsp/programa/PesquisaProgramaComputador.jsp',
+  },
 ];
 
 const recognitionsEN: Recognition[] = [
@@ -61,6 +80,25 @@ const recognitionsEN: Recognition[] = [
     certificateUrl: '/documents/certificates/inpi-sigeam-2.0.pdf',
     searchUrl: 'https://busca.inpi.gov.br/pePI/jsp/programa/PesquisaProgramaComputador.jsp',
     liveUrl: 'https://sistema.sigeam.am.gov.br/home',
+  },
+  {
+    type: 'inpi',
+    title: 'Diário Digital AM',
+    subtitle: 'Software Registration at INPI (Brazilian Patent Office)',
+    processNumber: 'BR512026005121-5',
+    issuer: 'INPI — National Institute of Industrial Property (Brazil)',
+    issuerUrl: 'https://www.gov.br/inpi/pt-br',
+    holder: 'PROCESSAMENTO DE DADOS AMAZONAS S.A (Prodam)',
+    createdAt: '05/17/2013',
+    issuedAt: '07/07/2026',
+    validity: '50 years (Brazilian Law 9.609/1998)',
+    languages: ['PHP'],
+    role: 'Co-author',
+    authorsCount: 18,
+    description:
+      'System developed by the Prodam-AM team and officially registered as intellectual property with the Brazilian National Institute of Industrial Property. Legal recognition of software authorship valid for 50 years.',
+    certificateUrl: '/documents/certificates/inpi-diario-digital-am.pdf',
+    searchUrl: 'https://busca.inpi.gov.br/pePI/jsp/programa/PesquisaProgramaComputador.jsp',
   },
 ];
 

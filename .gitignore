@@ -25,3 +25,4 @@ Thumbs.db
 
 # Astro
 .astro/
+test-results/
