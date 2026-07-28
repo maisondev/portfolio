@@ -10,6 +10,13 @@ interface Props {
 
 const { recognition: rec, lang = 'pt' } = Astro.props;
 
+const slug = rec.title
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[̀-ͯ]/g, '')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
 const labels = {
   pt: {
     processNumber: 'Nº do Processo',
@@ -25,6 +32,8 @@ const labels = {
     searchInpi: 'Consultar no INPI',
     viewLive: 'Acessar Sistema',
     badge: 'Propriedade Intelectual Registrada',
+    copyLink: 'Copiar link',
+    linkCopied: 'Link copiado!',
   },
   en: {
     processNumber: 'Process Number',
@@ -40,12 +49,15 @@ const labels = {
     searchInpi: 'Search on INPI',
     viewLive: 'Access System',
     badge: 'Registered Intellectual Property',
+    copyLink: 'Copy link',
+    linkCopied: 'Link copied!',
   },
 };
 
 const t = labels[lang];
 ---
 
+<div id={slug} class="recognition-anchor scroll-mt-24 rounded-xl transition-shadow duration-500">
 <Card variant="secondary" class="w-full p-6 sm:p-8 space-y-6">
   <!-- Header -->
   <div class="space-y-3">
@@ -59,6 +71,19 @@ const t = labels[lang];
       <span class="text-eyebrow font-semibold text-ink-muted uppercase line-clamp-1">
         {t.badge}
       </span>
+      <button
+        class="recognition-copy-link ml-auto inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-hairline text-eyebrow font-medium text-ink-muted hover:text-ink dark:hover:text-white hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors"
+        title={t.copyLink}
+        data-anchor={slug}
+        data-label={t.copyLink}
+        data-label-copied={t.linkCopied}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 flex-shrink-0">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        <span class="copy-link-label">{t.copyLink}</span>
+      </button>
     </div>
 
     <h2 class="text-card-title font-semibold text-ink break-words">
@@ -181,3 +206,4 @@ const t = labels[lang];
     )}
   </div>
 </Card>
+</div>
