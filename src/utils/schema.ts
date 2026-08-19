@@ -52,8 +52,8 @@ export const personSchema = (lang: string = 'pt'): PersonSchema => ({
     ? 'Desenvolvedor Full Stack especializado em arquitetura de sistemas de larga escala, cloud computing e inteligência artificial.'
     : 'Full Stack Developer specializing in large-scale system architecture, cloud computing, and artificial intelligence.',
   jobTitle: 'Full Stack Developer',
-  url: 'https://maisondev.com',
-  image: 'https://maisondev.com/og-image.png',
+  url: 'https://maisongalvao.dev',
+  image: 'https://maisongalvao.dev/profile.jpg',
   email: 'maisongalvao@outlook.com',
   sameAs: [
     'https://github.com/maisondev',
@@ -86,8 +86,8 @@ export const organizationSchema = (lang: string = 'pt') => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Maison Galvão',
-  url: 'https://maisondev.com',
-  logo: 'https://maisondev.com/logo.png',
+  url: 'https://maisongalvao.dev',
+  logo: 'https://maisongalvao.dev/profile.jpg',
   description: lang === 'pt'
     ? 'Portfolio profissional de desenvolvedor Full Stack'
     : 'Professional portfolio of Full Stack Developer',
