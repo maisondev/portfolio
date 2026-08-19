@@ -718,4 +718,32 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
       certPDF.src = '';
     }
   });
+
+  // Copiar link da página de detalhe direto pelo card
+  document.addEventListener('click', (e) => {
+    const copyBtn = (e.target as HTMLElement).closest('.course-copy-link') as HTMLElement | null;
+    if (!copyBtn) return;
+    e.preventDefault();
+
+    const path = copyBtn.getAttribute('data-copy-path');
+    if (!path) return;
+    const url = `${window.location.origin}${path}`;
+
+    const applyCopiedState = () => {
+      const label = copyBtn.getAttribute('data-label-copied') || 'Link copiado!';
+      copyBtn.setAttribute('title', label);
+      copyBtn.setAttribute('aria-label', label);
+      copyBtn.classList.add('text-accent-500');
+      setTimeout(() => {
+        const original = copyBtn.getAttribute('data-label') || 'Copiar link';
+        copyBtn.setAttribute('title', original);
+        copyBtn.setAttribute('aria-label', original);
+        copyBtn.classList.remove('text-accent-500');
+      }, 2000);
+    };
+
+    navigator.clipboard.writeText(url).then(applyCopiedState).catch(() => {
+      window.prompt('Copie o link:', url);
+    });
+  });
 </script>

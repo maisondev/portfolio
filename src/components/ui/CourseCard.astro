@@ -13,6 +13,8 @@ const completedLabel = lang === 'pt' ? 'Concluído em' : 'Completed in';
 const verifyLabel = lang === 'pt' ? 'Verificar' : 'Verify';
 const certTitle = lang === 'pt' ? 'Ver certificado' : 'View certificate';
 const hasCertTitle = lang === 'pt' ? 'Com certificado' : 'Has certificate';
+const copyLinkLabel = lang === 'pt' ? 'Copiar link' : 'Copy link';
+const linkCopiedLabel = lang === 'pt' ? 'Link copiado!' : 'Link copied!';
 
 const getLocalizedPath = (path: string) => {
   return lang === 'pt' ? `/pt${path}` : `/en${path}`;
@@ -24,10 +26,23 @@ const isLocalCert = course.certificate?.url?.startsWith('/');
 
 <Card class="group relative overflow-hidden h-[380px]">
   <!-- Header with platform -->
-  <div class="px-6 py-4 border-b border-hairline bg-canvas">
+  <div class="px-6 py-4 border-b border-hairline bg-canvas flex items-center justify-between gap-2">
     <p class="text-xs font-semibold uppercase tracking-wider text-primary">
       {course.platform}
     </p>
+    <button
+      class="course-copy-link flex-shrink-0 p-1.5 rounded-md text-ink-subtle hover:text-ink dark:hover:text-white hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors"
+      title={copyLinkLabel}
+      aria-label={copyLinkLabel}
+      data-copy-path={getLocalizedPath(`/courses/${slug}`)}
+      data-label={copyLinkLabel}
+      data-label-copied={linkCopiedLabel}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 flex-shrink-0">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+      </svg>
+    </button>
   </div>
 
   <!-- Content -->
