@@ -1,5 +1,6 @@
 ---
 import { courses } from '@/config/courses';
+import { getContests } from '@/config/contests';
 
 interface Props {
   lang?: 'pt' | 'en';
@@ -8,17 +9,18 @@ interface Props {
 const { lang = 'pt' } = Astro.props;
 
 const certifiedCoursesCount = courses.filter((course) => course.certificate).length;
+const contestsCount = getContests(lang).length;
 
 const stats = lang === 'pt'
   ? [
       { value: 16, label: 'Anos de Experiência', suffix: '' },
       { value: certifiedCoursesCount, label: 'Cursos com Certificados', suffix: '' },
-      { value: 13, label: 'Aprovações em Concursos', suffix: '' }
+      { value: contestsCount, label: 'Aprovações em Concursos', suffix: '' }
     ]
   : [
       { value: 16, label: 'Years of Experience', suffix: '' },
       { value: certifiedCoursesCount, label: 'Certified Courses', suffix: '' },
-      { value: 13, label: 'Contest Approvals', suffix: '' }
+      { value: contestsCount, label: 'Contest Approvals', suffix: '' }
     ];
 ---
 
