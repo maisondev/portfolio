@@ -1,7 +1,8 @@
 import { courses } from '@/config/courses';
+import { coursesWithSlugs } from '@/utils/courseSlugs';
 import { getContests } from '@/config/contests';
 
-const BASE_URL = 'https://maisondev.com';
+const BASE_URL = 'https://maisongalvao.dev';
 
 interface SitemapUrl {
   url: string;
@@ -35,6 +36,22 @@ export const GET = () => {
     { url: '/en/contests', lastmod: today, changefreq: 'weekly', priority: 0.7 },
     { url: '/en/case-studies', lastmod: today, changefreq: 'monthly', priority: 0.8 },
   ];
+
+  // Adicionar páginas de detalhe de cada curso
+  coursesWithSlugs.forEach((course) => {
+    urls.push({
+      url: `/pt/courses/${course.slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.6,
+    });
+    urls.push({
+      url: `/en/courses/${course.slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.6,
+    });
+  });
 
   // Adicionar cursos com filtros
   const uniqueTechs = Array.from(new Set(courses.flatMap(c => c.technologies)));

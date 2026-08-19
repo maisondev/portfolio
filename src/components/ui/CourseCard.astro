@@ -4,14 +4,19 @@ import type { Course } from '@/config/courses';
 
 interface Props {
   course: Course;
+  slug: string;
   lang?: 'pt' | 'en';
 }
 
-const { course, lang = 'pt' } = Astro.props;
+const { course, slug, lang = 'pt' } = Astro.props;
 const completedLabel = lang === 'pt' ? 'Concluído em' : 'Completed in';
 const verifyLabel = lang === 'pt' ? 'Verificar' : 'Verify';
 const certTitle = lang === 'pt' ? 'Ver certificado' : 'View certificate';
 const hasCertTitle = lang === 'pt' ? 'Com certificado' : 'Has certificate';
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
 
 // Detectar se é URL local ou externa
 const isLocalCert = course.certificate?.url?.startsWith('/');
@@ -29,9 +34,11 @@ const isLocalCert = course.certificate?.url?.startsWith('/');
   <div class="px-6 py-4 flex flex-col flex-grow space-y-4">
     <!-- Title -->
     <div>
-      <h4 class="text-lg font-bold text-ink group-hover:text-primary transition-colors line-clamp-2">
-        {course.name}
-      </h4>
+      <a href={getLocalizedPath(`/courses/${slug}`)}>
+        <h4 class="text-lg font-bold text-ink group-hover:text-primary transition-colors line-clamp-2">
+          {course.name}
+        </h4>
+      </a>
     </div>
 
     <!-- Description -->

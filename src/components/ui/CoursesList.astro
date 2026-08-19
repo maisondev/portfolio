@@ -1,5 +1,6 @@
 ---
 import { courses, getAllTechnologies } from '@/config/courses';
+import { coursesWithSlugs } from '@/utils/courseSlugs';
 import CourseCard from './CourseCard.astro';
 import CoursesSort from './CoursesSort.astro';
 
@@ -127,7 +128,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           data-filter-inst=""
           class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
         >
-          {lang === 'pt' ? `Todas (${allInstitutions.length})` : `All (${allInstitutions.length})`}
+          {lang === 'pt' ? `Todas (${courses.length})` : `All (${courses.length})`}
         </button>
         {allInstitutions.map((institution) => {
           const count = courses.filter((course) =>
@@ -156,7 +157,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
           data-filter-year=""
           class="filter-btn px-3 py-1.5 rounded-full text-sm font-medium transition-all bg-primary text-white"
         >
-          {lang === 'pt' ? `Todos (${allYears.length})` : `All (${allYears.length})`}
+          {lang === 'pt' ? `Todos (${courses.length})` : `All (${courses.length})`}
         </button>
         {allYears.map((year) => {
           const count = courses.filter((course) => {
@@ -186,9 +187,9 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
 
     <div id="courses-grid-wrapper" class="space-y-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4" data-courses-container>
-        {courses.map((course) => (
+        {coursesWithSlugs.map((course) => (
           <div data-course={JSON.stringify({ name: course.name.toLowerCase(), technologies: course.technologies, platform: course.platform, year: parseInt(course.completedAt.split(' ')[1]) })} data-date={parseDate(course.completedAt)} data-year={parseInt(course.completedAt.split(' ')[1])}>
-            <CourseCard course={course} lang={lang} />
+            <CourseCard course={course} slug={course.slug} lang={lang} />
           </div>
         ))}
       </div>

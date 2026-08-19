@@ -1,0 +1,167 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Card from '@/components/ui/Card.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Button from '@/components/ui/Button.astro';
+import { languages, getLanguageFromUrl, type Language } from '@/i18n/utils';
+import { coursesWithSlugs, type CourseWithSlug } from '@/utils/courseSlugs';
+import { courseListSchema, breadcrumbSchema } from '@/utils/schema';
+
+export function getStaticPaths() {
+  return Object.keys(languages).flatMap((lang) =>
+    coursesWithSlugs.map((course) => ({
+      params: { lang, slug: course.slug },
+      props: { course },
+    })),
+  );
+}
+
+interface Props {
+  course: CourseWithSlug;
+}
+
+const { course } = Astro.props;
+const lang = getLanguageFromUrl(Astro.url) as Language;
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
+
+const labels = {
+  pt: {
+    back: 'Voltar aos cursos',
+    home: 'Início',
+    courses: 'Cursos',
+    completedAt: 'Concluído em',
+    viewCertificate: 'Ver certificado original',
+    copyLink: 'Copiar link',
+    linkCopied: 'Link copiado!',
+    defaultDescription: `Certificado do curso "${course.name}" (${course.platform}) — portfólio de Maison Galvão.`,
+  },
+  en: {
+    back: 'Back to courses',
+    home: 'Home',
+    courses: 'Courses',
+    completedAt: 'Completed in',
+    viewCertificate: 'View original certificate',
+    copyLink: 'Copy link',
+    linkCopied: 'Link copied!',
+    defaultDescription: `Certificate for the course "${course.name}" (${course.platform}) — Maison Galvão's portfolio.`,
+  },
+}[lang];
+
+const pageTitle = `${course.name} · Maison Galvão`;
+const pageDescription = course.description ?? labels.defaultDescription;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      ...courseListSchema([course])[0],
+      description: course.description ?? course.technologies.join(', '),
+      url: pageUrl,
+    },
+    breadcrumbSchema([
+      { name: labels.home, url: new URL(getLocalizedPath('/'), Astro.site).href },
+      { name: labels.courses, url: new URL(getLocalizedPath('/courses'), Astro.site).href },
+      { name: course.name, url: pageUrl },
+    ]),
+  ],
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} schema={schema}>
+  <section class="bg-canvas pt-8 md:pt-10 pb-20 md:pb-24">
+    <div class="max-w-3xl mx-auto px-6 md:px-8 space-y-6">
+      <a
+        href={getLocalizedPath('/courses')}
+        class="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 flex-shrink-0">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        {labels.back}
+      </a>
+
+      <Card class="p-6 sm:p-8 space-y-6">
+        <div class="space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <p class="text-xs font-semibold uppercase tracking-wider text-primary">
+              {course.platform}
+            </p>
+            <button
+              id="course-copy-link"
+              class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-hairline text-eyebrow font-medium text-ink-muted hover:text-ink dark:hover:text-white hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors"
+              title={labels.copyLink}
+              data-label={labels.copyLink}
+              data-label-copied={labels.linkCopied}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 flex-shrink-0">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+              <span class="copy-link-label">{labels.copyLink}</span>
+            </button>
+          </div>
+
+          <h1 class="text-display-md font-semibold text-ink">{course.name}</h1>
+
+          <p class="text-sm text-ink-muted">
+            {labels.completedAt} <span class="font-semibold text-ink">{course.completedAt}</span>
+          </p>
+        </div>
+
+        {course.technologies.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {course.technologies.map((tech) => (
+              <Badge text={tech} variant="primary" />
+            ))}
+          </div>
+        )}
+
+        {course.description && (
+          <p class="text-body text-ink-subtle border-t border-hairline pt-6">
+            {course.description}
+          </p>
+        )}
+
+        {course.certificate?.url && (
+          <div class="pt-2">
+            <Button
+              href={course.certificate.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+            >
+              {labels.viewCertificate}
+            </Button>
+          </div>
+        )}
+      </Card>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const copyLinkBtn = document.getElementById('course-copy-link');
+
+  copyLinkBtn?.addEventListener('click', async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      const label = copyLinkBtn.querySelector('.copy-link-label');
+      if (label) {
+        label.textContent = copyLinkBtn.dataset.labelCopied || 'Link copiado!';
+        copyLinkBtn.classList.add('text-accent-500');
+        setTimeout(() => {
+          label.textContent = copyLinkBtn.dataset.label || 'Copiar link';
+          copyLinkBtn.classList.remove('text-accent-500');
+        }, 2000);
+      }
+    } catch {
+      window.prompt('Copie o link:', url);
+    }
+  });
+</script>
