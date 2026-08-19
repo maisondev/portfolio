@@ -1,6 +1,9 @@
 import { courses } from '@/config/courses';
 import { coursesWithSlugs } from '@/utils/courseSlugs';
 import { getContests } from '@/config/contests';
+import { getProjects } from '@/config/projects';
+import { getRecognitions } from '@/config/recognitions';
+import { slugify } from '@/utils/slugify';
 
 const BASE_URL = 'https://maisongalvao.dev';
 
@@ -27,6 +30,7 @@ export const GET = () => {
     { url: '/pt/education', lastmod: today, changefreq: 'monthly', priority: 0.8 },
     { url: '/pt/contests', lastmod: today, changefreq: 'weekly', priority: 0.7 },
     { url: '/pt/case-studies', lastmod: today, changefreq: 'monthly', priority: 0.8 },
+    { url: '/pt/recognitions', lastmod: today, changefreq: 'monthly', priority: 0.7 },
 
     // Main pages EN
     { url: '/en/courses', lastmod: today, changefreq: 'weekly', priority: 0.9 },
@@ -35,6 +39,7 @@ export const GET = () => {
     { url: '/en/education', lastmod: today, changefreq: 'monthly', priority: 0.8 },
     { url: '/en/contests', lastmod: today, changefreq: 'weekly', priority: 0.7 },
     { url: '/en/case-studies', lastmod: today, changefreq: 'monthly', priority: 0.8 },
+    { url: '/en/recognitions', lastmod: today, changefreq: 'monthly', priority: 0.7 },
   ];
 
   // Adicionar páginas de detalhe de cada curso
@@ -47,6 +52,39 @@ export const GET = () => {
     });
     urls.push({
       url: `/en/courses/${course.slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.6,
+    });
+  });
+
+  // Adicionar páginas de detalhe de cada projeto
+  getProjects('pt').forEach((project) => {
+    urls.push({
+      url: `/pt/projects/${project.slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.6,
+    });
+    urls.push({
+      url: `/en/projects/${project.slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.6,
+    });
+  });
+
+  // Adicionar páginas de detalhe de cada reconhecimento
+  getRecognitions('pt').forEach((recognition) => {
+    const slug = slugify(recognition.title);
+    urls.push({
+      url: `/pt/recognitions/${slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: 0.6,
+    });
+    urls.push({
+      url: `/en/recognitions/${slug}`,
       lastmod: today,
       changefreq: 'monthly',
       priority: 0.6,

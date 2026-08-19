@@ -1,6 +1,7 @@
 ---
 import ProjectCard from '../ui/ProjectCard.astro';
 import { type Language } from '@/i18n/utils';
+import { getProjects } from '@/config/projects';
 
 interface Props {
   id?: string;
@@ -9,49 +10,14 @@ interface Props {
 
 const { id, lang = 'pt' } = Astro.props;
 
-const projects = lang === 'pt'
-  ? [
-      {
-        title: 'Sinapses - Gerador de Roadmaps com IA',
-        description: 'Plataforma que gera roadmaps de aprendizado personalizados usando IA (Google Gemini). Os usuários descrevem seu objetivo e a IA cria um plano estruturado passo a passo.',
-        tags: ['Vue.js', 'Node.js', 'PostgreSQL', 'Google Gemini API', 'Cloud'],
-        github: 'https://github.com/maisongalvao',
-        demo: 'https://www.sinapses.site/',
-        image: '/projects/sinapses-preview.png',
-      },
-      {
-        title: 'Portfolio Profissional',
-        description: 'Meu portfólio construído com Astro, TypeScript e Tailwind CSS. Showcase de projetos, experiência e artigos técnicos.',
-        tags: ['Astro', 'TypeScript', 'Tailwind CSS'],
-        github: 'https://github.com/maisongalvao/portfolio',
-        demo: 'https://maisongalvao.dev',
-        image: '/projects/portfolio-preview.png',
-      },
-    ]
-  : [
-      {
-        title: 'Sinapses - AI-Powered Roadmap Generator',
-        description: 'Platform that generates personalized learning roadmaps using AI (Google Gemini). Users describe their goal and the AI creates a structured step-by-step plan.',
-        tags: ['Vue.js', 'Node.js', 'PostgreSQL', 'Google Gemini API', 'Cloud'],
-        github: 'https://github.com/maisongalvao',
-        demo: 'https://www.sinapses.site/',
-        image: '/projects/sinapses-preview.png',
-      },
-      {
-        title: 'Professional Portfolio',
-        description: 'My portfolio built with Astro, TypeScript, and Tailwind CSS. Showcase of projects, experience, and technical articles.',
-        tags: ['Astro', 'TypeScript', 'Tailwind CSS'],
-        github: 'https://github.com/maisongalvao/portfolio',
-        demo: 'https://maisongalvao.dev',
-        image: '/projects/portfolio-preview.png',
-      },
-    ];
+const projects = getProjects(lang);
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24">
   <div class="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl 4xl:max-w-8xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 4xl:grid-cols-4 gap-6">
     {projects.map((project) => (
       <ProjectCard
+        slug={project.slug}
         title={project.title}
         description={project.description}
         tags={project.tags}

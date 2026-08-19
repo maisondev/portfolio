@@ -5,6 +5,7 @@ import Button from './Button.astro';
 import { truncateChars } from '@/utils/truncate';
 
 interface Props {
+  slug: string;
   title: string;
   description: string;
   tags: string[];
@@ -14,9 +15,13 @@ interface Props {
   lang?: 'pt' | 'en';
 }
 
-const { title, description, tags, github, demo, image, lang = 'pt' } = Astro.props;
+const { slug, title, description, tags, github, demo, image, lang = 'pt' } = Astro.props;
 const visitLabel = lang === 'pt' ? 'Visitar' : 'Visit';
 const codeLabel = lang === 'pt' ? 'Código' : 'Code';
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
 
 // Truncar descrição a 150 caracteres
 const displayDescription = truncateChars(description, 150);
@@ -36,7 +41,11 @@ const displayDescription = truncateChars(description, 150);
   )}
 
   <div class="space-y-3 mb-4">
-    <h3 class="text-card-title font-semibold text-ink">{title}</h3>
+    <h3 class="text-card-title font-semibold text-ink">
+      <a href={getLocalizedPath(`/projects/${slug}`)} class="hover:text-primary transition-colors">
+        {title}
+      </a>
+    </h3>
     <p class="text-body text-ink-muted">{displayDescription}</p>
   </div>
 

@@ -2,6 +2,7 @@
 import Button from './Button.astro';
 import Card from './Card.astro';
 import type { Recognition } from '@/config/recognitions';
+import { slugify } from '@/utils/slugify';
 
 interface Props {
   recognition: Recognition;
@@ -10,12 +11,11 @@ interface Props {
 
 const { recognition: rec, lang = 'pt' } = Astro.props;
 
-const slug = rec.title
-  .toLowerCase()
-  .normalize('NFD')
-  .replace(/[̀-ͯ]/g, '')
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-+|-+$/g, '');
+const slug = slugify(rec.title);
+
+const getLocalizedPath = (path: string) => {
+  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
+};
 
 const labels = {
   pt: {
@@ -87,7 +87,9 @@ const t = labels[lang];
     </div>
 
     <h2 class="text-card-title font-semibold text-ink break-words">
-      {rec.title}
+      <a href={getLocalizedPath(`/recognitions/${slug}`)} class="hover:text-primary transition-colors">
+        {rec.title}
+      </a>
     </h2>
     <p class="text-body text-ink-muted">
       {rec.subtitle}
