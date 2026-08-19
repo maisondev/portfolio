@@ -8,9 +8,22 @@ export interface Course {
     credentialCode?: string;
   };
   description?: string;
+  slug?: string;
 }
 
 export const courses: Course[] = [
+  {
+    name: 'Mastering TypeScript - 2026 Edition',
+    platform: 'Udemy',
+    technologies: ['TypeScript', 'JavaScript', 'Programming'],
+    completedAt: 'ago 2026',
+    certificate: {
+      url: 'https://www.udemy.com/certificate/UC-1a631606-8547-45c4-80d4-862f7023bd91/',
+      credentialCode: 'UC-1a631606-8547-45c4-80d4-862f7023bd91',
+    },
+    description: 'Curso completo sobre TypeScript ministrado por Colt Steele. Carga horária: 11 horas.',
+    slug: 'mastering-typescript',
+  },
   {
     name: 'Web Development v3',
     platform: 'Frontend Masters',
