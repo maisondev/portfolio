@@ -19,12 +19,27 @@ export interface Experience {
   achievements?: ExperienceAchievement[];
 }
 
+// Calcula "X anos Y meses" (contagem inclusiva, mesmo critério usado nos períodos
+// já fechados abaixo, ex.: Fev 2013 - Jul 2018 = 5 anos 6 meses) a partir do mês/ano
+// de início até a data atual, para o cargo em andamento não ficar desatualizado.
+const formatOngoingDuration = (startYear: number, startMonth: number, lang: 'pt' | 'en'): string => {
+  const now = new Date();
+  const totalMonths = (now.getFullYear() - startYear) * 12 + (now.getMonth() + 1 - startMonth) + 1;
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+
+  const yearsLabel = lang === 'pt' ? (years === 1 ? 'ano' : 'anos') : years === 1 ? 'year' : 'years';
+  const monthsLabel = lang === 'pt' ? (months === 1 ? 'mês' : 'meses') : months === 1 ? 'month' : 'months';
+
+  return `${years} ${yearsLabel} ${months} ${monthsLabel}`;
+};
+
 const experiencePT: Experience[] = [
   {
     role: 'Desenvolvedor de Software',
     company: 'PRODAM-AM (Empresa de Processamento de Dados do Amazonas)',
     companyUrl: 'https://prodam.am.gov.br/',
-    period: 'Ago 2018 - Atual (7 anos 10 meses)',
+    period: `Ago 2018 - Atual (${formatOngoingDuration(2018, 8, 'pt')})`,
     description: 'Desenvolvimento e manutenção de sistemas de informação para a administração pública estadual do Amazonas. Responsável por arquitetura, implementação e manutenção de soluções web escaláveis.',
     highlights: [
       'Desenvolvimento de múltiplas aplicações web em produção atendendo milhares de usuários',
@@ -77,7 +92,7 @@ const experienceEN: Experience[] = [
     role: 'Software Developer',
     company: 'PRODAM-AM (Amazonas Data Processing Company)',
     companyUrl: 'https://prodam.am.gov.br/',
-    period: 'Aug 2018 - Present (7 years 10 months)',
+    period: `Aug 2018 - Present (${formatOngoingDuration(2018, 8, 'en')})`,
     description: 'Development and maintenance of information systems for the state public administration of Amazonas. Responsible for architecture, implementation, and maintenance of scalable web solutions.',
     highlights: [
       'Development of multiple production web applications serving thousands of users',
