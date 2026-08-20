@@ -28,8 +28,8 @@ const getLocalizedPath = (path: string) => {
 };
 
 const labels = {
-  pt: { back: 'Voltar aos projetos', home: 'Início', projects: 'Projetos', visit: 'Visitar', code: 'Código', copyLink: 'Copiar link', linkCopied: 'Link copiado!' },
-  en: { back: 'Back to projects', home: 'Home', projects: 'Projects', visit: 'Visit', code: 'Code', copyLink: 'Copy link', linkCopied: 'Link copied!' },
+  pt: { back: 'Voltar aos projetos', home: 'Início', projects: 'Projetos', visit: 'Visitar', code: 'Código', share: 'Compartilhar', linkCopied: 'Link copiado!' },
+  en: { back: 'Back to projects', home: 'Home', projects: 'Projects', visit: 'Visit', code: 'Code', share: 'Share', linkCopied: 'Link copied!' },
 }[lang];
 
 const pageTitle = `${project.title} · Maison Galvão`;
@@ -87,20 +87,46 @@ const schema = {
         )}
 
         <div class="flex flex-wrap items-start justify-between gap-2">
-          <h1 class="text-display-md font-semibold text-ink">{project.title}</h1>
+          <div class="space-y-2">
+            <h1 class="text-display-md font-semibold text-ink">{project.title}</h1>
+            {(project.stars !== undefined || project.forks !== undefined) && (
+              <div class="flex items-center gap-4 text-caption text-ink-muted">
+                {project.stars !== undefined && (
+                  <span class="inline-flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 flex-shrink-0">
+                      <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+                    </svg>
+                    {project.stars}
+                  </span>
+                )}
+                {project.forks !== undefined && (
+                  <span class="inline-flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 flex-shrink-0">
+                      <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"/>
+                    </svg>
+                    {project.forks}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
           <button
-            id="project-copy-link"
+            id="project-share"
             class="flex-shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-hairline text-eyebrow font-medium text-ink-muted hover:text-ink dark:hover:text-white hover:bg-surface-2 dark:hover:bg-surface-3 transition-colors"
-            title={labels.copyLink}
-            aria-label={labels.copyLink}
-            data-label={labels.copyLink}
+            title={labels.share}
+            aria-label={labels.share}
+            data-share-title={project.title}
+            data-label={labels.share}
             data-label-copied={labels.linkCopied}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3.5 h-3.5 flex-shrink-0">
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              <circle cx="18" cy="5" r="3"/>
+              <circle cx="6" cy="12" r="3"/>
+              <circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
             </svg>
-            <span class="copy-link-label">{labels.copyLink}</span>
+            <span class="share-label">{labels.share}</span>
           </button>
         </div>
 
@@ -136,19 +162,30 @@ const schema = {
 </BaseLayout>
 
 <script>
-  const copyLinkBtn = document.getElementById('project-copy-link');
+  const shareBtn = document.getElementById('project-share');
 
-  copyLinkBtn?.addEventListener('click', async () => {
+  shareBtn?.addEventListener('click', async () => {
     const url = window.location.href;
+    const title = shareBtn.dataset.shareTitle || document.title;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, url });
+      } catch {
+        // Usuário cancelou o compartilhamento
+      }
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(url);
-      const label = copyLinkBtn.querySelector('.copy-link-label');
+      const label = shareBtn.querySelector('.share-label');
       if (label) {
-        label.textContent = copyLinkBtn.dataset.labelCopied || 'Link copiado!';
-        copyLinkBtn.classList.add('text-accent-500');
+        label.textContent = shareBtn.dataset.labelCopied || 'Link copiado!';
+        shareBtn.classList.add('text-accent-500');
         setTimeout(() => {
-          label.textContent = copyLinkBtn.dataset.label || 'Copiar link';
-          copyLinkBtn.classList.remove('text-accent-500');
+          label.textContent = shareBtn.dataset.label || 'Compartilhar';
+          shareBtn.classList.remove('text-accent-500');
         }, 2000);
       }
     } catch {
