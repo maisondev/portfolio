@@ -352,6 +352,16 @@ export const courses: Course[] = [
     description: 'Certificado de participação em curso de desenvolvimento Android. Carga horária: 4 horas. Universidade do Estado do Amazonas em parceria com Samsung Ocean Center.',
   },
   {
+    name: 'Introdução aos Óculos VR',
+    platform: 'UEA & Samsung Ocean',
+    technologies: ['VR', 'Virtual Reality', 'Mobile Development'],
+    completedAt: 'nov 2015',
+    certificate: {
+      url: '/documents/certificates/uea-samsung-ocean-vr-2015.pdf',
+    },
+    description: 'Certificado de participação em curso de desenvolvimento com realidade virtual (VR). Carga horária: 4 horas. Universidade do Estado do Amazonas em parceria com Samsung Ocean Center.',
+  },
+  {
     name: 'Introduction to HTML5',
     platform: 'Coursera',
     technologies: ['HTML5', 'Web Development', 'Frontend'],

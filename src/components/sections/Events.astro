@@ -20,7 +20,7 @@ const sectionTitle = lang === 'pt' ? 'Eventos' : 'Events';
 
     <div class="grid gap-6">
       {events.map((event) => (
-        <EventCard event={event} />
+        <EventCard event={event} lang={lang} />
       ))}
     </div>
   </div>
