@@ -8,6 +8,7 @@
     "education": "Education",
     "contests": "Public Contests",
     "courses": "Courses",
+    "events": "Events",
     "recognitions": "Recognitions",
     "services": "Social",
     "blog": "Blog",
@@ -53,6 +54,10 @@
     "contests": {
       "title": "Public Contests",
       "description": "Track record of 13 public contest approvals from 2010-2025 (2 direct vacancies and 11 reserve list positions). Experience with major exam boards: FGV, IBFC, CEBRASPE, FCC, Consulplan, FUNCAB and others. Approvals at municipal, state, and federal levels."
+    },
+    "events": {
+      "title": "Events",
+      "description": "Certificates of participation in technology events, conferences and developer communities."
     },
     "recognitions": {
       "title": "Recognitions & Intellectual Property",

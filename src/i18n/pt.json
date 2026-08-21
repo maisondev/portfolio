@@ -8,6 +8,7 @@
     "education": "Formação",
     "contests": "Concursos",
     "courses": "Cursos",
+    "events": "Eventos",
     "recognitions": "Reconhecimentos",
     "services": "Social",
     "blog": "Blog",
@@ -53,6 +54,10 @@
     "contests": {
       "title": "Concursos Públicos",
       "description": "Histórico de 13 aprovações em concursos públicos entre 2010-2025 (2 em vagas diretas e 11 em cadastro de reserva). Experiência com diferentes bancas: FGV, IBFC, CEBRASPE, FCC, Consulplan, FUNCAB e outras. Aprovações em nível municipal, estadual e federal."
+    },
+    "events": {
+      "title": "Eventos",
+      "description": "Certificados de participação em eventos de tecnologia, conferências e comunidades de desenvolvimento."
     },
     "recognitions": {
       "title": "Reconhecimentos & Propriedade Intelectual",
