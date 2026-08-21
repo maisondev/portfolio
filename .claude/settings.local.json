@@ -139,7 +139,9 @@
       "Bash(npx *)",
       "WebFetch(domain:www.datacamp.com)",
       "Bash(cp \"G:/Meu Drive/Acadêmico/Cursos/Cesar School/Certificados/CERTIFICADO com CPF.pdf\" \"C:/Users/maiso/WebstormProjects/portfolio/public/documents/certificates/cesar-school-ia-devs.pdf\")",
-      "Bash(cp \"G:/Meu Drive/Acadêmico/Cursos/Certificados/Maison Marcel Madri Galvão dos Santos Souza.pdf\" \"C:/Users/maiso/WebstormProjects/portfolio/public/documents/certificates/course-certificate-2.pdf\")"
+      "Bash(cp \"G:/Meu Drive/Acadêmico/Cursos/Certificados/Maison Marcel Madri Galvão dos Santos Souza.pdf\" \"C:/Users/maiso/WebstormProjects/portfolio/public/documents/certificates/course-certificate-2.pdf\")",
+      "Bash(curl -s http://localhost:4323/pt/contests)",
+      "Bash(python3 *)"
     ]
   }
 }
