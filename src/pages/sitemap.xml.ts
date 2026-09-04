@@ -83,6 +83,9 @@ export const GET = () => {
       changefreq: 'monthly',
       priority: 0.6,
     });
+  });
+  getRecognitions('en').forEach((recognition) => {
+    const slug = slugify(recognition.title);
     urls.push({
       url: `/en/recognitions/${slug}`,
       lastmod: today,
