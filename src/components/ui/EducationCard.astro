@@ -24,9 +24,15 @@ interface EducationItem {
 
 interface Props {
   edu: EducationItem;
+  lang?: 'pt' | 'en';
 }
 
-const { edu } = Astro.props;
+const { edu, lang = 'pt' } = Astro.props;
+
+const labels = {
+  pt: { inProgress: 'Cursando', view: 'Ver', intermediateCerts: 'Certificações Intermediárias:', viewCertificate: 'Ver certificado' },
+  en: { inProgress: 'In Progress', view: 'View', intermediateCerts: 'Intermediate Certifications:', viewCertificate: 'View certificate' },
+}[lang];
 ---
 
 <Card variant="secondary" class="p-5 space-y-3">
@@ -37,7 +43,7 @@ const { edu } = Astro.props;
     <div class="flex items-center justify-between gap-2">
       <span class="text-caption text-ink-secondary">{edu.year}</span>
       {edu.status === 'in-progress' && (
-        <span class="text-caption font-medium px-2 py-1 rounded-sm bg-primary/10 text-primary">Cursando</span>
+        <span class="text-caption font-medium px-2 py-1 rounded-sm bg-primary/10 text-primary">{labels.inProgress}</span>
       )}
     </div>
   </div>
@@ -66,14 +72,14 @@ const { edu } = Astro.props;
           <polyline points="17 21 17 13 7 13 7 21" />
           <polyline points="7 3 7 8 15 8" />
         </svg>
-        <span class="hidden sm:inline">Ver</span>
+        <span class="hidden sm:inline">{labels.view}</span>
       </button>
     )}
   </div>
 
   {edu.modules && edu.modules.length > 0 && (
     <div class="pt-3 border-t border-hairline-muted space-y-3">
-      <p class="text-caption font-medium text-ink-secondary">Certificações Intermediárias:</p>
+      <p class="text-caption font-medium text-ink-secondary">{labels.intermediateCerts}</p>
       <div class="space-y-2">
         {edu.modules.map((module) => (
           <div class="flex items-start justify-between gap-2 p-2 rounded-md bg-surface-1 dark:bg-surface-2">
@@ -93,7 +99,7 @@ const { edu } = Astro.props;
                 class="cert-btn flex-shrink-0 text-primary hover:text-primary-hover transition-colors"
                 data-pdf={module.certificateUrl}
                 data-pages={module.certificatePages ? JSON.stringify(module.certificatePages) : undefined}
-                title="Ver certificado"
+                title={labels.viewCertificate}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

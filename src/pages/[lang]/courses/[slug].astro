@@ -48,8 +48,12 @@ const labels = {
   },
 }[lang];
 
+// A descrição do curso em config/courses.ts não é traduzida por idioma;
+// para não vazar texto em português nas páginas EN, só é exibida em pt.
+const localizedDescription = lang === 'pt' ? course.description : undefined;
+
 const pageTitle = `${course.name} · Maison Galvão`;
-const pageDescription = course.description ?? labels.defaultDescription;
+const pageDescription = localizedDescription ?? labels.defaultDescription;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
 
 const schema = {
@@ -57,7 +61,7 @@ const schema = {
   '@graph': [
     {
       ...courseListSchema([course])[0],
-      description: course.description ?? course.technologies.join(', '),
+      description: localizedDescription ?? course.technologies.join(', '),
       url: pageUrl,
     },
     breadcrumbSchema([
@@ -119,9 +123,9 @@ const schema = {
           </div>
         )}
 
-        {course.description && (
+        {localizedDescription && (
           <p class="text-body text-ink-subtle border-t border-hairline pt-6">
-            {course.description}
+            {localizedDescription}
           </p>
         )}
 

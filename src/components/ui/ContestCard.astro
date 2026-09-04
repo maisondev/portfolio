@@ -24,10 +24,11 @@ const getPositionCategory = (position: string) => {
   return words[0];
 };
 
-const classNum = contest.classification ? parseInt(contest.classification.split('º')[0]) : 0;
-const isFirstPlace = classNum <= (contest.totalVacancies || 0);
-const badgeType = isFirstPlace ? 'edital' : 'cadastro_reserva';
-const statusType = classNum > (contest.totalVacancies || 0) ? 'reserva' : 'vagas';
+const classNum = contest.classification ? parseInt(contest.classification.split('º')[0]) : null;
+const hasResult = classNum !== null && !!contest.totalVacancies;
+const isFirstPlace = hasResult && classNum! <= contest.totalVacancies!;
+const badgeType = hasResult ? (isFirstPlace ? 'edital' : 'cadastro_reserva') : null;
+const statusType = hasResult && !isFirstPlace ? 'reserva' : 'vagas';
 
 const hasDocuments = contest.documents && contest.documents.length > 0;
 

@@ -1,5 +1,5 @@
 ---
-import { getRecognitions } from '@/config/recognitions';
+import { getRecognitionsWithSlugs } from '@/utils/recognitionSlugs';
 import { type Language } from '@/i18n/utils';
 import RecognitionCard from '../ui/RecognitionCard.astro';
 import RecognitionCertModal from '../ui/RecognitionCertModal.astro';
@@ -11,7 +11,7 @@ interface Props {
 
 const { id, lang = 'pt' } = Astro.props;
 
-const recognitions = getRecognitions(lang);
+const recognitions = getRecognitionsWithSlugs(lang);
 ---
 
 <section id={id} class="bg-canvas py-20 md:py-24">

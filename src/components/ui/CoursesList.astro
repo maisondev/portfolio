@@ -248,7 +248,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     let selectedInst = params.get('inst') || '';
     let selectedYear = params.get('year') || '';
     let searchQuery = '';
-    let currentPage = parseInt(params.get('page') || '0');
+    let currentPage = parseInt(params.get('page') || '0') || 0;
     let sortOrder = params.get('sort') || 'desc';
 
     // Get available technologies based on current institution and year filter

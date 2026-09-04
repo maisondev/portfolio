@@ -25,48 +25,17 @@ const linksJson = JSON.stringify(links);
   // Criar overlay diretamente no body
   const overlay = document.createElement('div');
   overlay.id = 'mobile-nav-overlay';
-  overlay.setAttribute('style', [
-    'position: fixed',
-    'top: 56px',
-    'left: 0',
-    'right: 0',
-    'bottom: 0',
-    'background: #010102',
-    'border-top: 1px solid #23252a',
-    'z-index: 9999',
-    'display: none',
-    'overflow-y: auto',
-  ].join('; '));
+  overlay.className = 'fixed left-0 right-0 bottom-0 bg-canvas border-t border-hairline z-[9999] overflow-y-auto hidden';
+  overlay.style.top = '56px';
 
   const nav = document.createElement('nav');
-  nav.setAttribute('style', 'padding: 24px 16px;');
+  nav.className = 'p-4';
 
   links.forEach(link => {
     const a = document.createElement('a');
     a.href = link.href;
     a.textContent = link.label;
-    a.setAttribute('style', [
-      'display: block',
-      'padding: 12px 16px',
-      'color: #8a8f98',
-      'font-size: 1rem',
-      'font-weight: 400',
-      'border-radius: 8px',
-      'margin-bottom: 4px',
-      'border-left: 2px solid transparent',
-      'text-decoration: none',
-    ].join('; '));
-
-    a.addEventListener('mouseenter', () => {
-      a.style.color = '#5e6ad2';
-      a.style.backgroundColor = '#1a1b22';
-      a.style.borderLeftColor = '#5e6ad2';
-    });
-    a.addEventListener('mouseleave', () => {
-      a.style.color = '#8a8f98';
-      a.style.backgroundColor = 'transparent';
-      a.style.borderLeftColor = 'transparent';
-    });
+    a.className = 'block px-4 py-3 rounded-md mb-1 border-l-2 border-transparent text-ink-subtle hover:text-primary hover:bg-surface-2 hover:border-primary transition-colors';
     a.addEventListener('click', closeMenu);
     nav.appendChild(a);
   });
@@ -83,7 +52,7 @@ const linksJson = JSON.stringify(links);
 
   function openMenu() {
     isOpen = true;
-    overlay.style.display = 'block';
+    overlay.classList.remove('hidden');
     line1.style.transform = 'rotate(45deg) translateY(6px)';
     line2.style.opacity = '0';
     line3.style.transform = 'rotate(-45deg) translateY(-6px)';
@@ -91,7 +60,7 @@ const linksJson = JSON.stringify(links);
 
   function closeMenu() {
     isOpen = false;
-    overlay.style.display = 'none';
+    overlay.classList.add('hidden');
     line1.style.transform = '';
     line2.style.opacity = '1';
     line3.style.transform = '';

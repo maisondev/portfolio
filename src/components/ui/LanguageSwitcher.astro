@@ -8,8 +8,12 @@ const enUrl = changeLanguageUrl(Astro.url, 'en');
 ---
 
 <div class="flex items-center gap-2">
-  <div class="relative group">
+  <div class="relative group" data-lang-switcher>
     <button
+      type="button"
+      id="lang-switcher-toggle"
+      aria-haspopup="true"
+      aria-expanded="false"
       class="px-3 py-2 text-body-sm text-ink-muted hover:text-primary hover:bg-surface-2 rounded-md transition-all duration-300 flex items-center gap-2"
       title={`Switch to ${languages[otherLang]}`}
     >
@@ -33,7 +37,8 @@ const enUrl = changeLanguageUrl(Astro.url, 'en');
 
     <!-- Dropdown Menu -->
     <div
-      class="absolute right-0 mt-2 w-40 bg-surface-1 border border-hairline rounded-lg shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+      id="lang-switcher-menu"
+      class="absolute right-0 mt-2 w-40 bg-surface-1 border border-hairline rounded-lg shadow-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible data-[open=true]:opacity-100 data-[open=true]:visible transition-all duration-300 z-50"
     >
       <a
         href={ptUrl}
@@ -58,3 +63,35 @@ const enUrl = changeLanguageUrl(Astro.url, 'en');
     </div>
   </div>
 </div>
+
+<script>
+  const wrapper = document.querySelector<HTMLElement>('[data-lang-switcher]');
+  const toggle = document.getElementById('lang-switcher-toggle');
+  const menu = document.getElementById('lang-switcher-menu');
+
+  const closeMenu = () => {
+    toggle?.setAttribute('aria-expanded', 'false');
+    menu?.removeAttribute('data-open');
+  };
+
+  toggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeMenu();
+    } else {
+      toggle.setAttribute('aria-expanded', 'true');
+      menu?.setAttribute('data-open', 'true');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (wrapper && !wrapper.contains(e.target as Node)) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>

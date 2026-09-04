@@ -3,21 +3,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import RecognitionCard from '@/components/ui/RecognitionCard.astro';
 import RecognitionCertModal from '@/components/ui/RecognitionCertModal.astro';
 import { languages, getLanguageFromUrl, getLocalizedPath as getLocalizedPathFor, type Language } from '@/i18n/utils';
-import type { Recognition } from '@/config/recognitions';
-import { getRecognitionsWithSlugs } from '@/utils/recognitionSlugs';
+import { getRecognitionsWithSlugs, type RecognitionWithSlug } from '@/utils/recognitionSlugs';
 import { breadcrumbSchema } from '@/utils/schema';
 
 export function getStaticPaths() {
   return Object.keys(languages).flatMap((lang) =>
-    getRecognitionsWithSlugs(lang as Language).map(({ slug, ...recognition }) => ({
-      params: { lang, slug },
+    getRecognitionsWithSlugs(lang as Language).map((recognition) => ({
+      params: { lang, slug: recognition.slug },
       props: { recognition },
     })),
   );
 }
 
 interface Props {
-  recognition: Recognition;
+  recognition: RecognitionWithSlug;
 }
 
 const { recognition } = Astro.props;
