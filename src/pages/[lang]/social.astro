@@ -27,8 +27,8 @@ const descriptionMap = {
   <div class="space-y-12">
     <!-- Header -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-white mb-4">{titleMap[lang]}</h1>
-      <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+      <h1 class="text-4xl font-bold text-ink mb-4">{titleMap[lang]}</h1>
+      <p class="text-lg text-ink-muted max-w-2xl mx-auto">
         {descriptionMap[lang]}
       </p>
     </div>
@@ -39,7 +39,7 @@ const descriptionMap = {
     </div>
 
     <!-- Footer Info -->
-    <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+    <div class="border-t border-hairline pt-8 text-center text-ink-muted">
       <p class="text-sm">
         {lang === 'pt' ? 'Última atualização:' : 'Last update:'} {new Date().toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-US')}
       </p>

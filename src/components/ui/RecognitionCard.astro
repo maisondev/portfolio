@@ -3,6 +3,7 @@ import Button from './Button.astro';
 import Card from './Card.astro';
 import type { Recognition } from '@/config/recognitions';
 import { slugify } from '@/utils/slugify';
+import { getLocalizedPath as getLocalizedPathFor } from '@/i18n/utils';
 
 interface Props {
   recognition: Recognition;
@@ -13,9 +14,7 @@ const { recognition: rec, lang = 'pt' } = Astro.props;
 
 const slug = slugify(rec.title);
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 
 const labels = {
   pt: {

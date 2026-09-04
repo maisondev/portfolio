@@ -1,13 +1,14 @@
 ---
 import { courses, getAllTechnologies } from '@/config/courses';
 import { coursesWithSlugs } from '@/utils/courseSlugs';
+import { getLocalizedPath as getLocalizedPathFor } from '@/i18n/utils';
 import CourseCard from './CourseCard.astro';
 import CoursesSort from './CoursesSort.astro';
 
 const allTechnologies = getAllTechnologies();
 
 interface Props {
-  lang?: string;
+  lang?: 'pt' | 'en';
 }
 
 const { lang = 'pt' } = Astro.props;
@@ -22,9 +23,7 @@ const parseDate = (completedAt: string): number => {
   return new Date(parseInt(year), monthMap[month] ?? 0).getTime();
 };
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 
 // Extract unique institutions
 const allInstitutions = Array.from(

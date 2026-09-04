@@ -2,14 +2,12 @@
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher.astro';
 import ThemeSwitcher from '@/components/ui/ThemeSwitcher.astro';
 import MobileMenu from '@/components/ui/MobileMenu.astro';
-import { getLanguageFromUrl, getTranslation, type Language } from '@/i18n/utils';
+import { getLanguageFromUrl, getTranslation, getLocalizedPath as getLocalizedPathFor, type Language } from '@/i18n/utils';
 
 const lang = getLanguageFromUrl(Astro.url) as Language;
 const t = (key: string) => getTranslation(lang, key);
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 
 const links = [
   { href: getLocalizedPath('/'), label: t('nav.home') },
@@ -59,7 +57,7 @@ const isActive = (href: string) => {
         href="mailto:maisongalvao@outlook.com"
         class="hidden sm:block px-4 py-2 bg-primary text-white rounded-md text-button font-medium hover:bg-primary-hover hover:text-white transition-colors"
       >
-        {t('nav.language') === 'Idioma' ? 'Contato' : 'Contact'}
+        {lang === 'pt' ? 'Contato' : 'Contact'}
       </a>
       <MobileMenu links={links} />
     </div>

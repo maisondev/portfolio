@@ -41,6 +41,18 @@ export default {
         'semantic-success': 'rgb(var(--color-semantic-success) / <alpha-value>)',
         'brand-secure': 'rgb(var(--color-brand-secure) / <alpha-value>)',
         'semantic-overlay': 'rgb(var(--color-semantic-overlay) / <alpha-value>)',
+        accent: {
+          50: '#f7fee7',
+          100: '#ecfccf',
+          200: '#d9f99d',
+          300: '#bfef45',
+          400: '#a3e635',
+          500: '#84cc16',
+          600: '#65a30d',
+          700: '#4d7c0f',
+          800: '#3f6212',
+          900: '#365314',
+        },
       },
       fontSize: {
         'display-xl': ['80px', { lineHeight: '1.05', letterSpacing: '-3.0px' }],

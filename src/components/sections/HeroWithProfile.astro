@@ -1,7 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
 import ProfileImage from '../ui/ProfileImage.astro';
-import { type Language } from '@/i18n/utils';
+import { getLocalizedPath as getLocalizedPathFor, type Language } from '@/i18n/utils';
 import { MessageCircle } from '@lucide/astro';
 
 interface Props {
@@ -14,9 +14,7 @@ interface Props {
 
 const { name, title, description, specializations = [], lang = 'pt' } = Astro.props;
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 ---
 
 <section class="bg-canvas overflow-hidden py-20 md:py-24">

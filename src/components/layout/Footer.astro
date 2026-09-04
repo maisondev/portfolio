@@ -1,13 +1,11 @@
 ---
 import SocialLinks from '@/components/ui/SocialLinks.astro';
-import { getLanguageFromUrl, type Language } from '@/i18n/utils';
+import { getLanguageFromUrl, getLocalizedPath as getLocalizedPathFor, type Language } from '@/i18n/utils';
 
 const lang = getLanguageFromUrl(Astro.url) as Language;
 const year = new Date().getFullYear();
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 
 const links = [
   { label: lang === 'pt' ? 'Início' : 'Home', href: getLocalizedPath('/') },

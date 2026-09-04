@@ -2,8 +2,7 @@ import { courses } from '@/config/courses';
 import { coursesWithSlugs } from '@/utils/courseSlugs';
 import { getContests } from '@/config/contests';
 import { getProjects } from '@/config/projects';
-import { getRecognitions } from '@/config/recognitions';
-import { slugify } from '@/utils/slugify';
+import { getRecognitionsWithSlugs } from '@/utils/recognitionSlugs';
 
 const BASE_URL = 'https://maisongalvao.dev';
 
@@ -31,6 +30,8 @@ export const GET = () => {
     { url: '/pt/contests', lastmod: today, changefreq: 'weekly', priority: 0.7 },
     { url: '/pt/case-studies', lastmod: today, changefreq: 'monthly', priority: 0.8 },
     { url: '/pt/recognitions', lastmod: today, changefreq: 'monthly', priority: 0.7 },
+    { url: '/pt/events', lastmod: today, changefreq: 'monthly', priority: 0.7 },
+    { url: '/pt/social', lastmod: today, changefreq: 'monthly', priority: 0.6 },
 
     // Main pages EN
     { url: '/en/courses', lastmod: today, changefreq: 'weekly', priority: 0.9 },
@@ -40,6 +41,8 @@ export const GET = () => {
     { url: '/en/contests', lastmod: today, changefreq: 'weekly', priority: 0.7 },
     { url: '/en/case-studies', lastmod: today, changefreq: 'monthly', priority: 0.8 },
     { url: '/en/recognitions', lastmod: today, changefreq: 'monthly', priority: 0.7 },
+    { url: '/en/events', lastmod: today, changefreq: 'monthly', priority: 0.7 },
+    { url: '/en/social', lastmod: today, changefreq: 'monthly', priority: 0.6 },
   ];
 
   // Adicionar páginas de detalhe de cada curso
@@ -75,8 +78,7 @@ export const GET = () => {
   });
 
   // Adicionar páginas de detalhe de cada reconhecimento
-  getRecognitions('pt').forEach((recognition) => {
-    const slug = slugify(recognition.title);
+  getRecognitionsWithSlugs('pt').forEach(({ slug }) => {
     urls.push({
       url: `/pt/recognitions/${slug}`,
       lastmod: today,
@@ -84,8 +86,7 @@ export const GET = () => {
       priority: 0.6,
     });
   });
-  getRecognitions('en').forEach((recognition) => {
-    const slug = slugify(recognition.title);
+  getRecognitionsWithSlugs('en').forEach(({ slug }) => {
     urls.push({
       url: `/en/recognitions/${slug}`,
       lastmod: today,

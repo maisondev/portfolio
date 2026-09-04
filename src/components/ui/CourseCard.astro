@@ -1,6 +1,7 @@
 ---
 import Card from './Card.astro';
 import type { Course } from '@/config/courses';
+import { getLocalizedPath as getLocalizedPathFor } from '@/i18n/utils';
 
 interface Props {
   course: Course;
@@ -16,9 +17,7 @@ const hasCertTitle = lang === 'pt' ? 'Com certificado' : 'Has certificate';
 const copyLinkLabel = lang === 'pt' ? 'Copiar link' : 'Copy link';
 const linkCopiedLabel = lang === 'pt' ? 'Link copiado!' : 'Link copied!';
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 
 // Detectar se é URL local ou externa
 const isLocalCert = course.certificate?.url?.startsWith('/');
@@ -67,7 +66,7 @@ const isLocalCert = course.certificate?.url?.startsWith('/');
     <div class="flex flex-wrap gap-2">
       {course.technologies.map((tech) => (
         <a
-          href={`/courses?tech=${encodeURIComponent(tech)}`}
+          href={`${getLocalizedPath('/courses')}?tech=${encodeURIComponent(tech)}`}
           class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-canvas text-ink-muted border border-hairline hover:border-primary/50 hover:text-primary transition-colors"
         >
           {tech}

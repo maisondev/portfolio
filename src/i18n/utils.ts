@@ -55,6 +55,11 @@ export function changeLanguageUrl(url: URL, lang: Language): string {
     return pathname.replace(`/${currentLang}`, `/${lang}`);
   }
 
-  // Caso contrário, adicione o novo idioma
-  return `/${lang}${pathname === '/' ? '' : pathname}`;
+  // Caso contrário, remova qualquer segmento de idioma existente e adicione o novo
+  const strippedPath = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '');
+  return `/${lang}${strippedPath === '/' ? '' : strippedPath}`;
 }
+
+export const getLocalizedPath = (lang: Language, path: string): string => {
+  return `/${lang}${path}`;
+};

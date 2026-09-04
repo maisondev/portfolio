@@ -3,6 +3,7 @@ import Card from './Card.astro';
 import Badge from './Badge.astro';
 import Button from './Button.astro';
 import { truncateChars } from '@/utils/truncate';
+import { getLocalizedPath as getLocalizedPathFor } from '@/i18n/utils';
 
 interface Props {
   slug: string;
@@ -22,9 +23,7 @@ const visitLabel = lang === 'pt' ? 'Visitar' : 'Visit';
 const codeLabel = lang === 'pt' ? 'Código' : 'Code';
 const shareLabel = lang === 'pt' ? 'Compartilhar' : 'Share';
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 
 const shareUrl = getLocalizedPath(`/projects/${slug}`);
 

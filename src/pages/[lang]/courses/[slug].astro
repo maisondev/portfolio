@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Card from '@/components/ui/Card.astro';
 import Badge from '@/components/ui/Badge.astro';
 import Button from '@/components/ui/Button.astro';
-import { languages, getLanguageFromUrl, type Language } from '@/i18n/utils';
+import { languages, getLanguageFromUrl, getLocalizedPath as getLocalizedPathFor, type Language } from '@/i18n/utils';
 import { coursesWithSlugs, type CourseWithSlug } from '@/utils/courseSlugs';
 import { courseListSchema, breadcrumbSchema } from '@/utils/schema';
 
@@ -23,9 +23,7 @@ interface Props {
 const { course } = Astro.props;
 const lang = getLanguageFromUrl(Astro.url) as Language;
 
-const getLocalizedPath = (path: string) => {
-  return lang === 'pt' ? `/pt${path}` : `/en${path}`;
-};
+const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 
 const labels = {
   pt: {
