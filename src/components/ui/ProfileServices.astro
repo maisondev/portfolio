@@ -1,13 +1,18 @@
 ---
-import { services, categories } from '@/config/services';
+import { getServices, getCategories } from '@/config/services';
 import ServiceCard from './ServiceCard.astro';
+import type { Language } from '@/i18n/utils';
 
 interface Props {
+  lang: Language;
   showCategories?: boolean;
   columns?: 'auto' | '2' | '3' | '4';
 }
 
-const { showCategories = true, columns = 'auto' } = Astro.props;
+const { lang, showCategories = true, columns = 'auto' } = Astro.props;
+
+const services = getServices(lang);
+const categories = getCategories(lang);
 
 const groupedServices = showCategories
   ? services.reduce(

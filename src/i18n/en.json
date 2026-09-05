@@ -39,6 +39,10 @@
     "made": "Made with ❤️ and lots of code"
   },
   "pages": {
+    "home": {
+      "title": "Home",
+      "description": "Software Developer with 16 years of experience in Information Technology, working at PRODAM-AM. Explore projects, professional experience, education and certifications."
+    },
     "experience": {
       "title": "Professional Experience",
       "description": "16 years in Information Technology: Technical Specialist (2010-2013), IT Manager at Prefeitura de Manaus (2013-2018), Software Developer at PRODAM-AM (2018-present)."

@@ -590,12 +590,14 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
         // Use requestAnimationFrame para garantir que o loading apareça antes do processamento
         requestAnimationFrame(() => {
           setTimeout(() => {
-            sortCards();
-            updateSortButtons();
-            updateUI();
-
-            // Hide loading overlay imediatamente após processamento
-            window.hideLoading();
+            try {
+              sortCards();
+              updateSortButtons();
+              updateUI();
+            } finally {
+              // Hide loading overlay imediatamente após processamento
+              window.hideLoading();
+            }
           }, 0);
         });
       });
