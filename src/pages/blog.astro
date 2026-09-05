@@ -1,13 +1,3 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Blog from '@/components/sections/Blog.astro';
-import Contact from '@/components/sections/Contact.astro';
+return Astro.redirect('/pt/blog', 302);
 ---
-
-<BaseLayout
-  title="Blog - Artigos Técnicos - Maison Galvão"
-  description="Artigos e posts técnicos sobre desenvolvimento, arquitetura de sistemas, cloud computing e boas práticas de engenharia."
->
-  <Blog id="blog" lang="pt" />
-  <Contact id="contact" lang="pt" />
-</BaseLayout>

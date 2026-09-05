@@ -249,7 +249,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
     let selectedYear = params.get('year') || '';
     let searchQuery = '';
     let currentPage = parseInt(params.get('page') || '0') || 0;
-    let sortOrder = params.get('sort') || 'desc';
+    const rawSort = params.get('sort');
+    let sortOrder = rawSort === 'asc' ? 'asc' : 'desc';
 
     // Get available technologies based on current institution and year filter
     const getAvailableTechs = (inst = '', year = '') => {
@@ -488,9 +489,7 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
 
       if (filterSummary) {
         const isPt = lang === 'pt';
-        const isTechSort = sortOrder === 'tech';
-        const unitWord = isTechSort ? (isPt ? 'tecnologia(s)' : 'technolog(ies)') : (isPt ? 'curso(s)' : 'course(s)');
-        const courseWord = (n) => unitWord;
+        const courseWord = () => (isPt ? 'curso(s)' : 'course(s)');
         if (filters.length === 0) {
           if (searchQuery) {
             filterSummary.textContent = isPt
@@ -498,8 +497,8 @@ const buildFilterUrl = (tech?: string, inst?: string, year?: string) => {
               : `Found ${visibleCount} ${courseWord()} matching "${searchQuery}"`;
           } else {
             filterSummary.textContent = isPt
-              ? `Total: ${visibleCount} ${isTechSort ? 'tecnologias' : 'cursos'}`
-              : `Total: ${visibleCount} ${isTechSort ? 'technologies' : 'courses'}`;
+              ? `Total: ${visibleCount} cursos`
+              : `Total: ${visibleCount} courses`;
           }
         } else if (filters.length === 1) {
           if (searchQuery) {

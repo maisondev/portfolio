@@ -33,102 +33,125 @@ const categorizeTech = (tech: string): 'frontend' | 'backend' | 'devops' | 'mobi
 
   const lowerTech = tech.toLowerCase();
 
-  // Ordem importa: mobile antes de backend (Android/Java seria backend senão)
-  if (mobileKeywords.some((k) => lowerTech.includes(k))) return 'mobile';
-  if (designUxKeywords.some((k) => lowerTech.includes(k))) return 'design-ux';
-  if (frontendKeywords.some((k) => lowerTech.includes(k))) return 'frontend';
-  if (backendKeywords.some((k) => lowerTech.includes(k))) return 'backend';
-  if (devopsKeywords.some((k) => lowerTech.includes(k))) return 'devops';
-  if (dataAnalystKeywords.some((k) => lowerTech.includes(k))) return 'data-analyst';
-  if (aiEngineerKeywords.some((k) => lowerTech.includes(k))) return 'ai-engineer';
-  if (dataEngineerKeywords.some((k) => lowerTech.includes(k))) return 'data-engineer';
+  // Match por palavra inteira (evita 'go' casando dentro de 'google cloud')
+  const matchesKeyword = (keyword: string) =>
+    keyword.includes(' ')
+      ? lowerTech.includes(keyword)
+      : new RegExp(`(^|[^a-z0-9])${keyword}([^a-z0-9]|$)`).test(lowerTech);
+
+  // Ordem importa: categorias mais específicas antes das mais genéricas
+  // (ex.: 'sql analytics' precisa ser reconhecida como data-analyst antes de 'sql' cair em backend)
+  if (mobileKeywords.some(matchesKeyword)) return 'mobile';
+  if (designUxKeywords.some(matchesKeyword)) return 'design-ux';
+  if (dataAnalystKeywords.some(matchesKeyword)) return 'data-analyst';
+  if (aiEngineerKeywords.some(matchesKeyword)) return 'ai-engineer';
+  if (dataEngineerKeywords.some(matchesKeyword)) return 'data-engineer';
+  if (frontendKeywords.some(matchesKeyword)) return 'frontend';
+  if (backendKeywords.some(matchesKeyword)) return 'backend';
+  if (devopsKeywords.some(matchesKeyword)) return 'devops';
 
   return null;
 };
 
-const techOrder: Record<string, number> = {
-  // Frontend: base → linguagens → frameworks → ferramentas
-  'HTML5': 1, 'HTML': 1,
-  'CSS': 2, 'CSS3': 2,
-  'JavaScript': 3,
-  'TypeScript': 4,
-  'Bootstrap': 5,
-  'Tailwind CSS': 6,
-  'Vue.js': 7, 'Vue': 7,
-  'React': 8,
-  'Next.js': 9,
-  'Astro': 10,
-  // Backend: linguagens → frameworks → bancos → APIs
-  'Python': 1,
-  'PHP': 2,
-  'Java': 3,
-  'Go': 4,
-  'Node.js': 5, 'Node': 5,
-  'Express': 6,
-  'FastAPI': 7,
-  'Laravel': 8,
-  'Bash': 9,
-  'SQL': 10,
-  'MySQL': 11,
-  'PostgreSQL': 12,
-  'MongoDB': 13,
-  'REST': 14,
-  'GraphQL': 15,
-  'HTTP': 16,
-  // DevOps: controle → terminal → containers → cloud → segurança
-  'Git': 1,
-  'GitHub Actions': 2,
-  'Linux': 3,
-  'Bash': 4,
-  'Vim': 5,
-  'Docker': 6,
-  'Kubernetes': 7,
-  'Terraform': 8,
-  'Ansible': 9,
-  'AWS': 10,
-  'Google Cloud': 11,
-  'Azure': 12,
-  'Security': 13, 'Cybersecurity': 13,
-  'OWASP': 14,
-  // AI Engineer: fundamentos → modelos → frameworks → ferramentas
-  'Machine Learning': 1,
-  'Deep Learning': 2,
-  'NLP': 3,
-  'PyTorch': 4,
-  'TensorFlow': 5,
-  'Anthropic': 6,
-  'Claude': 7,
-  'ChatGPT': 8,
-  'LangChain': 9,
-  // Data Engineer: base → ferramentas → plataformas
-  'SQL': 1,
-  'Python': 1,
-  'Pandas': 2,
-  'Spark': 3,
-  'ETL': 4,
-  'Airflow': 5,
-  'Snowflake': 6,
-  // Mobile: linguagem base → plataforma → frameworks
-  'Java': 1,
-  'Android': 2,
-  'Kotlin': 3,
-  'Swift': 4,
-  'React Native': 5,
-  'Flutter': 6,
-  // Design & UX: pesquisa → wireframe → prototipagem → ferramentas
-  'UX Design': 1,
-  'Figma': 2,
-  'Adobe XD': 3,
-  'Photoshop': 4,
-  // Data Analyst: base → ferramentas → visualização
-  'Excel': 1,
-  'SQL Analytics': 2,
-  'Power BI': 3,
-  'Tableau': 4,
+const techOrderByCategory: Record<string, Record<string, number>> = {
+  frontend: {
+    // base → linguagens → frameworks → ferramentas
+    'HTML5': 1, 'HTML': 1,
+    'CSS': 2, 'CSS3': 2,
+    'JavaScript': 3,
+    'TypeScript': 4,
+    'Bootstrap': 5,
+    'Tailwind CSS': 6,
+    'Vue.js': 7, 'Vue': 7,
+    'React': 8,
+    'Next.js': 9,
+    'Astro': 10,
+  },
+  backend: {
+    // linguagens → frameworks → bancos → APIs
+    'Python': 1,
+    'PHP': 2,
+    'Java': 3,
+    'Go': 4,
+    'Node.js': 5, 'Node': 5,
+    'Express': 6,
+    'FastAPI': 7,
+    'Laravel': 8,
+    'Bash': 9,
+    'SQL': 10,
+    'MySQL': 11,
+    'PostgreSQL': 12,
+    'MongoDB': 13,
+    'REST': 14,
+    'GraphQL': 15,
+    'HTTP': 16,
+  },
+  devops: {
+    // controle → terminal → containers → cloud → segurança
+    'Git': 1,
+    'GitHub Actions': 2,
+    'Linux': 3,
+    'Bash': 4,
+    'Vim': 5,
+    'Docker': 6,
+    'Kubernetes': 7,
+    'Terraform': 8,
+    'Ansible': 9,
+    'AWS': 10,
+    'Google Cloud': 11,
+    'Azure': 12,
+    'Security': 13, 'Cybersecurity': 13,
+    'OWASP': 14,
+  },
+  'ai-engineer': {
+    // fundamentos → modelos → frameworks → ferramentas
+    'Machine Learning': 1,
+    'Deep Learning': 2,
+    'NLP': 3,
+    'PyTorch': 4,
+    'TensorFlow': 5,
+    'Anthropic': 6,
+    'Claude': 7,
+    'ChatGPT': 8,
+    'LangChain': 9,
+  },
+  'data-engineer': {
+    // base → ferramentas → plataformas
+    'SQL': 1,
+    'Python': 1,
+    'Pandas': 2,
+    'Spark': 3,
+    'ETL': 4,
+    'Airflow': 5,
+    'Snowflake': 6,
+  },
+  mobile: {
+    // linguagem base → plataforma → frameworks
+    'Java': 1,
+    'Android': 2,
+    'Kotlin': 3,
+    'Swift': 4,
+    'React Native': 5,
+    'Flutter': 6,
+  },
+  'design-ux': {
+    // pesquisa → wireframe → prototipagem → ferramentas
+    'UX Design': 1,
+    'Figma': 2,
+    'Adobe XD': 3,
+    'Photoshop': 4,
+  },
+  'data-analyst': {
+    // base → ferramentas → visualização
+    'Excel': 1,
+    'SQL Analytics': 2,
+    'Power BI': 3,
+    'Tableau': 4,
+  },
 };
 
-const getTechOrder = (name: string): number => {
-  const exact = techOrder[name];
+const getTechOrder = (name: string, category: string): number => {
+  const exact = techOrderByCategory[category]?.[name];
   if (exact !== undefined) return exact;
   // fallback: ordem pelo nome original (mantém techs sem mapeamento no final)
   return 999;
@@ -142,8 +165,8 @@ const techs: Tech[] = Array.from(courseTechs)
   }))
   .filter((tech) => tech.category !== null)
   .sort((a, b) => {
-    const orderA = getTechOrder(a.name);
-    const orderB = getTechOrder(b.name);
+    const orderA = getTechOrder(a.name, a.category as string);
+    const orderB = getTechOrder(b.name, b.category as string);
     if (orderA !== orderB) return orderA - orderB;
     return a.name.localeCompare(b.name);
   });
@@ -230,6 +253,7 @@ const duplicatedTechs = {
                     class="w-4 h-4 flex-shrink-0 object-contain opacity-100 group-hover:opacity-100 transition-opacity"
                     style="filter: drop-shadow(0 0 0.5px rgba(0,0,0,0.2))"
                     loading="lazy"
+                    crossorigin="anonymous"
                   />
                   <span class="text-caption text-ink-subtle font-medium group-hover:text-ink-muted transition-colors whitespace-nowrap">
                     {tech.name}

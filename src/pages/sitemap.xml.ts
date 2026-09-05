@@ -1,6 +1,4 @@
-import { courses } from '@/config/courses';
 import { coursesWithSlugs } from '@/utils/courseSlugs';
-import { getContests } from '@/config/contests';
 import { getProjects } from '@/config/projects';
 import { getRecognitionsWithSlugs } from '@/utils/recognitionSlugs';
 
@@ -32,6 +30,7 @@ export const GET = () => {
     { url: '/pt/recognitions', lastmod: today, changefreq: 'monthly', priority: 0.7 },
     { url: '/pt/events', lastmod: today, changefreq: 'monthly', priority: 0.7 },
     { url: '/pt/social', lastmod: today, changefreq: 'monthly', priority: 0.6 },
+    { url: '/pt/blog', lastmod: today, changefreq: 'weekly', priority: 0.7 },
 
     // Main pages EN
     { url: '/en/courses', lastmod: today, changefreq: 'weekly', priority: 0.9 },
@@ -43,6 +42,7 @@ export const GET = () => {
     { url: '/en/recognitions', lastmod: today, changefreq: 'monthly', priority: 0.7 },
     { url: '/en/events', lastmod: today, changefreq: 'monthly', priority: 0.7 },
     { url: '/en/social', lastmod: today, changefreq: 'monthly', priority: 0.6 },
+    { url: '/en/blog', lastmod: today, changefreq: 'weekly', priority: 0.7 },
   ];
 
   // Adicionar páginas de detalhe de cada curso
@@ -95,40 +95,10 @@ export const GET = () => {
     });
   });
 
-  // Adicionar cursos com filtros
-  const uniqueTechs = Array.from(new Set(courses.flatMap(c => c.technologies)));
-  uniqueTechs.forEach((tech) => {
-    urls.push({
-      url: `/pt/courses?tech=${encodeURIComponent(tech)}`,
-      lastmod: today,
-      changefreq: 'weekly',
-      priority: 0.6,
-    });
-    urls.push({
-      url: `/en/courses?tech=${encodeURIComponent(tech)}`,
-      lastmod: today,
-      changefreq: 'weekly',
-      priority: 0.6,
-    });
-  });
-
-  // Adicionar concursos com filtros de esfera
-  const allContests = getContests('pt');
-  const uniqueSpheres = Array.from(new Set(allContests.flatMap(c => c.sphere || [])));
-  uniqueSpheres.forEach((sphere) => {
-    urls.push({
-      url: `/pt/contests?sphere=${encodeURIComponent(sphere)}`,
-      lastmod: today,
-      changefreq: 'weekly',
-      priority: 0.6,
-    });
-    urls.push({
-      url: `/en/contests?sphere=${encodeURIComponent(sphere)}`,
-      lastmod: today,
-      changefreq: 'weekly',
-      priority: 0.6,
-    });
-  });
+  // Nota: páginas filtradas por query string (ex.: /courses?tech=X, /contests?sphere=Y)
+  // não entram no sitemap propositalmente — sua própria tag canonical aponta para a
+  // página base sem query string, então listá-las aqui geraria sinal de conteúdo
+  // duplicado para os buscadores.
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

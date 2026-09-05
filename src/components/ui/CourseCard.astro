@@ -23,7 +23,7 @@ const getLocalizedPath = (path: string) => getLocalizedPathFor(lang, path);
 const isLocalCert = course.certificate?.url?.startsWith('/');
 ---
 
-<Card class="group relative overflow-hidden h-[380px]">
+<Card class="group relative overflow-hidden h-[380px]" fullHeight={false}>
   <!-- Header with platform -->
   <div class="px-6 py-4 border-b border-hairline bg-canvas flex items-center justify-between gap-2">
     <p class="text-xs font-semibold uppercase tracking-wider text-primary">

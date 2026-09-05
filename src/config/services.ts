@@ -127,38 +127,38 @@ export function getServices(lang: 'pt' | 'en'): Service[] {
 const categoriesPT = {
   dev: {
     title: 'Desenvolvimento',
-    icon: null,
+    icon: '💻',
   },
   social: {
     title: 'Redes Sociais',
-    icon: null,
+    icon: '📱',
   },
   music: {
     title: 'Música',
-    icon: null,
+    icon: '🎵',
   },
   other: {
     title: 'Outros',
-    icon: null,
+    icon: '🔗',
   },
 };
 
 const categoriesEN = {
   dev: {
     title: 'Development',
-    icon: null,
+    icon: '💻',
   },
   social: {
     title: 'Social Networks',
-    icon: null,
+    icon: '📱',
   },
   music: {
     title: 'Music',
-    icon: null,
+    icon: '🎵',
   },
   other: {
     title: 'Other',
-    icon: null,
+    icon: '🔗',
   },
 };
 

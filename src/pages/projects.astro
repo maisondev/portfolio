@@ -1,11 +1,3 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Projects from '@/components/sections/Projects.astro';
+return Astro.redirect('/pt/projects', 302);
 ---
-
-<BaseLayout
-  title="Projetos - Maison Galvão"
-  description="Meus projetos principais: Sinapses, Portfolio e outros projetos de desenvolvimento com Vue.js, React, Node.js e tecnologias modernas."
->
-  <Projects id="projects" lang="pt" />
-</BaseLayout>

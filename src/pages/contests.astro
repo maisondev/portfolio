@@ -1,13 +1,3 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Contests from '@/components/sections/Contests.astro';
-import Contact from '@/components/sections/Contact.astro';
+return Astro.redirect('/pt/contests', 302);
 ---
-
-<BaseLayout
-  title="Concursos Públicos - Maison Galvão"
-  description="Aprovações em concursos públicos: Desenvolvedor de Software (PRODAM-AM 2018), Gerente de Informática (Prefeitura 2013). Publicações em diários oficiais."
->
-  <Contests id="contests" />
-  <Contact id="contact" lang="pt" />
-</BaseLayout>
