@@ -13,6 +13,18 @@ export interface Course {
 
 export const courses: Course[] = [
   {
+    name: 'AWS Certified Cloud Practitioner (CLF-C02)',
+    platform: 'AWS',
+    technologies: ['AWS', 'Cloud', 'Cloud Computing', 'Amazon AWS'],
+    completedAt: 'set 2026',
+    certificate: {
+      url: '/documents/certificates/aws-cloud-practitioner-official-practice.pdf',
+      credentialCode: 'CLF-C02',
+    },
+    description: 'Certificação profissional AWS. Competências: AWS Cloud fundamentals, arquitetura na nuvem, segurança, suporte e conformidade',
+    slug: 'aws-cloud-practitioner',
+  },
+  {
     name: 'Mastering TypeScript - 2026 Edition',
     platform: 'Udemy',
     technologies: ['TypeScript', 'JavaScript', 'Programming'],
